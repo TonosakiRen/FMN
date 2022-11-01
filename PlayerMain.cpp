@@ -11,10 +11,10 @@ void PlayerMain::Move()
 
 	Speed.x = 0;
 
-	if (keys[DIK_D] != 0 && keys[DIK_A] == 0) {
+	if (keys[DIK_D] != 0) {
 		Speed.x = 8;
 	}
-	if (keys[DIK_A] != 0 && keys[DIK_D] == 0) {
+	if (keys[DIK_A] != 0) {
 		Speed.x = -8;
 	}
 
@@ -28,7 +28,7 @@ void PlayerMain::Move()
 	}
 
 	if (JumpFlag == true) {
-		Speed.y -= 3.5;
+		Speed.y -= 3;
 	}
 
 	if (Speed.y <= -8) {
@@ -37,7 +37,7 @@ void PlayerMain::Move()
 
 	Speed.y += 0.5;
 
-	Speed.y = Clamp::clamp(Speed.y, -8,100);
+	Speed.y = Clamp::clamp(Speed.y, -6,100);
 
 	Pos.x += Speed.x ;
 	Pos.y += Speed.y * G;

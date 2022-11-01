@@ -1,9 +1,9 @@
 #pragma once
 #include "Vec2.h"
 
-
 class PlayerMain
 {
+
 	char keys[256] = { 0 };
 	char preKeys[256] = { 0 };
 
