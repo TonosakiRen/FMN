@@ -102,6 +102,7 @@
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Feed.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerMain.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Randam.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Feed.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="PlayerMain.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Randam.h" />
     <ClInclude Include="Screen.h" />
