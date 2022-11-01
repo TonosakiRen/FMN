@@ -17,26 +17,29 @@ void PlayerMain::Move()
 		Speed.x = -8;
 	}
 
-	if (Controller::IsTriggerButton(0,Controller::bA)) {
-		if (CanJump == true) {
+	if (Controller::IsPressedButton(0,Controller::bA) == 1) {
+		if (CanJump == true && PreJumpKey == 1) {
 			JumpFlag = true;
 		}
 	}
-	else {
+
+	if(Controller::IsReleaseButton(0, Controller::bA) == 1) {
 		JumpFlag = false;
 	}
 
 	if (JumpFlag == true) {
-		Speed.y -= 3;
+		Speed.y -= 0.4;
 	}
 
-	if (Speed.y <= -6) {
+	if (Speed.y <= -2.8) {
 		JumpFlag = false;
 	}
 
-	Speed.y += 0.5;
+	if (JumpFlag == false) {
+		Speed.y += 0.2;
+	}
 
-	Speed.y = Clamp::clamp(Speed.y, -6,100);
+	//Speed.y = Clamp::clamp(Speed.y, -6,100);
 
 	Pos.x += Speed.x ;
 	Pos.y += Speed.y * G;
@@ -45,12 +48,15 @@ void PlayerMain::Move()
 
 	if (Pos.y >= FLOOR - HitBoxWide.y / 2) {
 		Speed.y = 0;
+		OtherSpeed.y = 0;
 		CanJump = true;
 	}
 	else {
 		CanJump = false;
 	}
 	
+	PreJumpKey = Controller::IsPressedButton(0, Controller::bA);
+
 }
 
 void PlayerMain::Draw(int texture)
@@ -64,5 +70,7 @@ void PlayerMain::Draw(int texture)
 
 	Novice::DrawLine(0,FLOOR,1280,FLOOR,RED);
 
-	//Novice::ScreenPrintf(0, 0, "%d", preKeys[DIK_W]);
+	Novice::ScreenPrintf(0, 0, "%f", Speed.y);
+	Novice::ScreenPrintf(0, 20, "%d", Controller::IsReleaseButton(0, Controller::bA));
+	
 }
