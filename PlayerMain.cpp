@@ -31,18 +31,18 @@ void PlayerMain::Move()
 		JumpTime++;
 	}
 
-	//Speed.y = -0.7 * JumpTime;
+	Speed.y = -0.7 * JumpTime;
 
-	switch (JumpTime)
+	/*switch (JumpTime)
 	{
 	case 0:
 		Speed.y = 0;
 		break;
 	case 1:
-		Speed.y = -2;
+		Speed.y = -1.4;
 		break;
 	case 2:
-		Speed.y = -2;
+		Speed.y = -1.6;
 		break;
 	case 3:
 		Speed.y = -2;
@@ -56,9 +56,9 @@ void PlayerMain::Move()
 	default:
 		Speed.y = -3.2;
 		break;
-	}
+	}*/
 
-	//Speed.y = Clamp::clamp(Speed.y, -2.8, 0);
+	Speed.y = Clamp::clamp(Speed.y, -4.2, 0);
 	
 	OtherSpeed.y += 0.2;
 
