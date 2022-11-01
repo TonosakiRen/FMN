@@ -9,7 +9,8 @@ Quad::Quad(Vec2 LeftTop, int width, int height) {
 	this->LeftTop = LeftTop;
 	this->LeftBottom = { LeftTop.x,LeftTop.y + height };
 	this->RightBottom = { LeftTop.x + width, LeftTop.y + height };
-
+	this->Width = width;
+	this->Height = height;
 }
 
 Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
@@ -17,7 +18,8 @@ Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
 	this->RightTop = RightTop;
 	this->LeftBottom = LeftBottom;
 	this->RightBottom = RightBottom;
-
+	this->Width = RightTop.x - LeftTop.x;
+	this->Height = LeftTop.y - LeftBottom.y;
 }
 
 Quad Quad::Scaling(Quad quad, float scale) {

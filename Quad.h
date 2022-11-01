@@ -9,6 +9,8 @@ public:
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
+	float Width;
+	float Height;
 public:
 	Quad();
 	Quad(Vec2 LeftTop,int width, int height);
