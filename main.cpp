@@ -21,6 +21,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// キー入力を受け取る
 		Key::Input();
+		Controller::SetState();
 
 		///
 		/// ↓更新処理ここから

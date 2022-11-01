@@ -4,9 +4,6 @@
 class PlayerMain
 {
 
-	char keys[256] = { 0 };
-	char preKeys[256] = { 0 };
-
 	Vec2 Pos = {100,100};
 	Vec2 Speed = { 0,0 };
 	Vec2 HitBoxWide = { 32,48 };

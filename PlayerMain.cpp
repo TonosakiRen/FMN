@@ -1,25 +1,24 @@
 #include "PlayerMain.h"
 #include <Novice.h>
 #include "Clamp.h"
+#include "ControllerInput.h"
+//#include "Key.h"
 
 void PlayerMain::Move()
 {
 	
 
-	memcpy(preKeys, keys, 256);
-	Novice::GetHitKeyStateAll(keys);
-
 	Speed.x = 0;
 
-	if (keys[DIK_D] != 0) {
+	if (Controller::IsStickDirection(0,Controller::lsdRIGHT)) {
 		Speed.x = 8;
 	}
-	if (keys[DIK_A] != 0) {
+	if (Controller::IsStickDirection(0, Controller::lsdLEFT)) {
 		Speed.x = -8;
 	}
 
-	if (keys[DIK_W] != 0) {
-		if (CanJump == true && preKeys[DIK_W] == 0) {
+	if (Controller::IsTriggerButton(0,Controller::bA)) {
+		if (CanJump == true) {
 			JumpFlag = true;
 		}
 	}
@@ -31,7 +30,7 @@ void PlayerMain::Move()
 		Speed.y -= 3;
 	}
 
-	if (Speed.y <= -8) {
+	if (Speed.y <= -6) {
 		JumpFlag = false;
 	}
 
@@ -65,5 +64,5 @@ void PlayerMain::Draw(int texture)
 
 	Novice::DrawLine(0,FLOOR,1280,FLOOR,RED);
 
-	Novice::ScreenPrintf(0, 0, "%d", preKeys[DIK_W]);
+	//Novice::ScreenPrintf(0, 0, "%d", preKeys[DIK_W]);
 }
