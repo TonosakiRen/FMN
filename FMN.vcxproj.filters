@@ -59,6 +59,12 @@
     <ClCompile Include="PlayerMain.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -149,5 +155,7 @@
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PlayerMain.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Key.h" />
   </ItemGroup>
 </Project>

@@ -5,5 +5,6 @@
 #include "Quad.h"
 #include "Screen.h"
 #include "Vec2.h"
+#include "Key.h"
 
 Screen screen;
