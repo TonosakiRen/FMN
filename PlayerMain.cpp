@@ -28,27 +28,43 @@ void PlayerMain::Move()
 	}
 
 	if (JumpFlag == true) {
-		Speed.y -= 0.4;
+		JumpTime++;
 	}
 
-	if (Speed.y <= -2.8) {
-		JumpFlag = false;
+	//Speed.y = -0.7 * JumpTime;
+
+	switch (JumpTime)
+	{
+	case 0:
+		Speed.y = 0;
+		break;
+	case 1:
+		Speed.y = -2;
+		break;
+	case 2:
+		Speed.y = -2;
+		break;
+	case 3:
+		Speed.y = -2;
+		break;
+	default:
+		Speed.y = -3.2;
+		break;
 	}
 
-	if (JumpFlag == false) {
-		Speed.y += 0.2;
-	}
-
-	//Speed.y = Clamp::clamp(Speed.y, -6,100);
+	//Speed.y = Clamp::clamp(Speed.y, -2.8, 0);
+	
+	OtherSpeed.y += 0.2;
 
 	Pos.x += Speed.x ;
-	Pos.y += Speed.y * G;
+	Pos.y += (Speed.y + OtherSpeed.y )* G;
 
 	Pos.y = Clamp::clamp(Pos.y, 0,FLOOR - HitBoxWide.y / 2);
 
 	if (Pos.y >= FLOOR - HitBoxWide.y / 2) {
 		Speed.y = 0;
 		OtherSpeed.y = 0;
+		JumpTime = 0;
 		CanJump = true;
 	}
 	else {
@@ -70,7 +86,7 @@ void PlayerMain::Draw(int texture)
 
 	Novice::DrawLine(0,FLOOR,1280,FLOOR,RED);
 
-	Novice::ScreenPrintf(0, 0, "%f", Speed.y);
+	Novice::ScreenPrintf(0, 0, "%d", JumpFlag);
 	Novice::ScreenPrintf(0, 20, "%d", Controller::IsReleaseButton(0, Controller::bA));
 	
 }

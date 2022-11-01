@@ -9,6 +9,7 @@ class PlayerMain
 	Vec2 OtherSpeed = {0,0};
 	Vec2 HitBoxWide = { 32,48 };
 	const float G = 9.8;
+	int JumpTime = 0;
 	bool JumpFlag = false;
 	bool PreJumpKey = false;
 	bool CanJump = false;
