@@ -47,6 +47,12 @@ void PlayerMain::Move()
 	case 3:
 		Speed.y = -2;
 		break;
+	case 4:
+		Speed.y = -2.4;
+		break;
+	case 5:
+		Speed.y = -2.8;
+		break;
 	default:
 		Speed.y = -3.2;
 		break;
