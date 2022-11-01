@@ -1,4 +1,6 @@
 ﻿#include "main.h"
+#include "PlayerMain.h"
+
 const char kWindowTitle[] = "FMN";
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -7,6 +9,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, 1280, 720);
 
+
+	PlayerMain playermain;
+
+	int tex = Novice::LoadTexture("white1x1.png");
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -20,7 +26,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-
+		playermain.Move();
 
 		///
 		/// ↑更新処理ここまで
@@ -30,7 +36,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-
+		playermain.Draw(tex);
 
 		///
 		/// ↑描画処理ここまで

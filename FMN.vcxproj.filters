@@ -56,6 +56,9 @@
     <ClCompile Include="ControllerInput.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMain.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
@@ -151,6 +154,7 @@
     <ClInclude Include="Feed.h" />
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="PlayerMain.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Key.h" />
   </ItemGroup>
