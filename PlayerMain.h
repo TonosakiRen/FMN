@@ -5,6 +5,8 @@
 #include "ControllerInput.h"
 #include "Key.h"
 #include "Screen.h"
+#include "Quad.h"
+
 class PlayerMain
 {
 	//Pos 位置
@@ -12,6 +14,11 @@ class PlayerMain
 
 	//HitBoxWide 当たり判定の大きさ
 	Vec2 PlayerHitBoxSize = { 32,48 };
+
+	Quad PlayerQuad = {Pos,PlayerHitBoxSize.x,PlayerHitBoxSize.y};
+
+	int AnimeFlame = 9;
+	int SrcX;
 
 	//Speed プレイヤーが動かすときに使う
 	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
@@ -33,6 +40,9 @@ class PlayerMain
 	bool JumpFlag = false;
 	bool PreJumpKey = false;
 	bool CanJump = false;
+
+	//Vec2  = {};
+	Vec2 AttackHitBox = {};
 
 
 
