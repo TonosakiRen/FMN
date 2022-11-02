@@ -90,3 +90,8 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JumpPower);
 	
 }
+
+Vec2 PlayerMain::Translation()
+{
+	return Vec2(Pos);
+}

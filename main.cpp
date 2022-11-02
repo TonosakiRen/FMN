@@ -39,6 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
+		boss.AttackFunction01(screen);
 
 		///
 		/// ↑描画処理ここまで
