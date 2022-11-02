@@ -99,6 +99,8 @@ void Boss::RandamMoveSelect()
 		if (MovePattern[MoveArray] == array.AttackFunction05) {
 			//5%‚ÌUŒ‚
 		}
+
+		//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚Åg‚Á‚½•Ï”‚Ì‰Šú‰»‚ğ‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
 	}
 }
 
