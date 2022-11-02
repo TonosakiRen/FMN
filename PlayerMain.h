@@ -14,6 +14,7 @@ class PlayerMain
 	Vec2 HitBoxWide = { 32,48 };
 	const float G = 9.8;
 	int JumpTime = 0;
+	float JumpPower = 2;
 	bool JumpFlag = false;
 	bool PreJumpKey = false;
 	bool CanJump = false;
