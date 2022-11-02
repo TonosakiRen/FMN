@@ -1,6 +1,9 @@
 #pragma once
 #include "Vec2.h"
-
+#include <Novice.h>
+#include "Clamp.h"
+#include "ControllerInput.h"
+#include "Key.h"
 class PlayerMain
 {
 

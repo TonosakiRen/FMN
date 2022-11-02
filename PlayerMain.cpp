@@ -1,8 +1,5 @@
 #include "PlayerMain.h"
-#include <Novice.h>
-#include "Clamp.h"
-#include "ControllerInput.h"
-//#include "Key.h"
+
 
 void PlayerMain::Move()
 {
@@ -10,20 +7,20 @@ void PlayerMain::Move()
 
 	Speed.x = 0;
 
-	if (Controller::IsStickDirection(0,Controller::lsdRIGHT)) {
+	if (Controller::IsStickDirection(0,Controller::lsdRIGHT)||Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
 	}
-	if (Controller::IsStickDirection(0, Controller::lsdLEFT)) {
+	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
 		Speed.x = -8;
 	}
 
-	if (Controller::IsPressedButton(0,Controller::bA) == 1) {
+	if (Controller::IsPressedButton(0,Controller::bA) == 1||Key::IsPressed(DIK_SPACE)) {
 		if (CanJump == true && PreJumpKey == 1) {
 			JumpFlag = true;
 		}
 	}
 
-	if(Controller::IsReleaseButton(0, Controller::bA) == 1) {
+	if(Controller::IsReleaseButton(0, Controller::bA) == 1 || Key::IsRelease(DIK_SPACE)) {
 		JumpFlag = false;
 	}
 
@@ -77,7 +74,7 @@ void PlayerMain::Move()
 		CanJump = false;
 	}
 	
-	PreJumpKey = Controller::IsPressedButton(0, Controller::bA);
+	PreJumpKey = Controller::IsPressedButton(0, Controller::bA)||Key::IsPressed(DIK_SPACE);
 
 }
 
