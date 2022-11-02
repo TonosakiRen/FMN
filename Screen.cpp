@@ -3,8 +3,8 @@
 Screen::Screen(){
 	Width = SCREEN_WIDTH;
 	Height = SCREEN_HEIGHT;
-	Worldcenter.x = SCREEN_WIDTH / 2;
-	Worldcenter.y = SCREEN_HEIGHT / 2;
+	Worldcenter.x = 0/*SCREEN_WIDTH / 2*/;
+	Worldcenter.y = SCREEN_HEIGHT-Floor/* / 2*/;
 	Scroll.setZero();
 	ScreenShake.setZero();
 	Scroll_Fixed_Value_X = 250;

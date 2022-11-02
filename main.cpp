@@ -1,5 +1,5 @@
 ﻿#include "main.h"
-#include "PlayerMain.h"
+
 
 const char kWindowTitle[] = "FMN";
 
@@ -7,10 +7,10 @@ const char kWindowTitle[] = "FMN";
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-	PlayerMain playermain;
+
 
 	int tex = Novice::LoadTexture("white1x1.png");
 
@@ -37,7 +37,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-		playermain.Draw(tex);
+		playermain.Draw(screen,tex);
+		boss.Draw(screen);
 
 		///
 		/// ↑描画処理ここまで

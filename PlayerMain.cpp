@@ -78,16 +78,24 @@ void PlayerMain::Move()
 
 }
 
-void PlayerMain::Draw(int texture)
+void PlayerMain::Draw(Screen& screen,int texture)
 {
-	Novice::DrawQuad(
+	/*Novice::DrawQuad(
 		Pos.x - HitBoxWide.x / 2, Pos.y - HitBoxWide.y / 2,
+		Pos.x + HitBoxWide.x / 2, Pos.y - HitBoxWide.y / 2,
+		Pos.x - HitBoxWide.x / 2, Pos.y + HitBoxWide.y / 2,
+		Pos.x + HitBoxWide.x / 2, Pos.y + HitBoxWide.y / 2,
+		0, 0, 1, 1, texture, WHITE);*/
+
+	//Novice::DrawLine(0,FLOOR,1280,FLOOR,RED);
+
+	screen.DrawQuad(Pos.x - HitBoxWide.x / 2, Pos.y - HitBoxWide.y / 2,
 		Pos.x + HitBoxWide.x / 2, Pos.y - HitBoxWide.y / 2,
 		Pos.x - HitBoxWide.x / 2, Pos.y + HitBoxWide.y / 2,
 		Pos.x + HitBoxWide.x / 2, Pos.y + HitBoxWide.y / 2,
 		0, 0, 1, 1, texture, WHITE);
 
-	Novice::DrawLine(0,FLOOR,1280,FLOOR,RED);
+	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
 
 	Novice::ScreenPrintf(0, 0, "%d", JumpFlag);
 	Novice::ScreenPrintf(0, 20, "%d", Controller::IsReleaseButton(0, Controller::bA));

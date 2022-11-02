@@ -4,10 +4,11 @@
 #include "Clamp.h"
 #include "ControllerInput.h"
 #include "Key.h"
+#include "Screen.h"
 class PlayerMain
 {
 
-	Vec2 Pos = {100,100};
+	Vec2 Pos = {100,500};
 	Vec2 Speed = { 0,0 };
 	Vec2 OtherSpeed = {0,0};
 	Vec2 HitBoxWide = { 32,48 };
@@ -17,11 +18,11 @@ class PlayerMain
 	bool PreJumpKey = false;
 	bool CanJump = false;
 
-	const int FLOOR = 620;
+	const int FLOOR = 0;
 
 public:
 	void Move();
 
-	void Draw(int texture);
+	void Draw(Screen& screen,int texture);
 };
 
