@@ -33,7 +33,7 @@ class PlayerMain
 	GeneralStruct Player = {
 		{100,500},
 		{ 32,48 },
-		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y - Player.HitBoxSize.y / 2},
+		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
 		0,
@@ -59,6 +59,11 @@ class PlayerMain
 	bool PreJumpKey = false;
 	//CanJump ƒWƒƒƒ“ƒv‚ª‰Â”\‚©‚Ç‚¤‚©
 	bool CanJump = false;
+
+	bool DashFlag = false;
+	int DashTime = 0;
+	int DashCoolTime = 20;
+	bool DashFaseRight = true;
 	
 	GeneralStruct Sword = {
 		{9999,9999},
@@ -76,7 +81,7 @@ public:
 
 	void NormalAttack();
 
-	void Hit(Quad Target);
+	void SwordHit(Quad Target);
 
 	void Draw(Screen& screen,int texture);
 };

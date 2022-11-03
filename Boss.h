@@ -18,16 +18,12 @@ class Boss {
 	int AnimeFlame=9;
 	int SrcX;
 
-	float testnum = 9.0f;
 
 public:
 	Boss();
 	void Set();
 	void Draw(Screen& screen);
-
-	void testfunc();
 	
 	Quad Get();
 
-	float testget();
 };

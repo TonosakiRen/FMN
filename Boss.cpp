@@ -23,17 +23,7 @@ void Boss::Draw(Screen& screen)
 	
 }
 
-void Boss::testfunc()
-{
-	testnum++;
-}
-
 Quad Boss::Get()
 {
 	return Quad(Quad_Pos);
-}
-
-float Boss::testget()
-{
-	return testnum;
 }
