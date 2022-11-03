@@ -43,6 +43,7 @@ void PlayerMain::Move()
 	else {
 		FaceDown = false;
 	}
+	//‚¤‚ñ‚¿
 
 	if (Controller::IsPressedButton(0,Controller::bA) == 1||Key::IsPressed(DIK_SPACE)) {
 		if (CanJump == true && PreJumpKey == 1) {
