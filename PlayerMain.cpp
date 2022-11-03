@@ -13,6 +13,10 @@ void PlayerMain::Move()
 	}
 
 
+	Sword.Pos =
+	{ 9999,9999 };
+	Sword.Quad = { {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
+	int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
 
 	Speed.x = 0;
 
@@ -82,10 +86,11 @@ void PlayerMain::Move()
 	
 	PreJumpKey = Controller::IsPressedButton(0, Controller::bA)||Key::IsPressed(DIK_SPACE);
 
-	if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsPressed(DIK_K)) {
+	if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
 		NormalAttack();
 	}
 
+	
 	
 }
 
@@ -93,36 +98,40 @@ void PlayerMain::NormalAttack()
 {
 	
 	if (FaceUp == true) {
+		Sword.HitBoxSize = { 128, 196 };
 		Sword.Pos =
 		{ Player.Pos.x,
 		 Player.Pos.y + Player.HitBoxSize.y / 2 + Sword.HitBoxSize.y / 2 };
 		Sword.Quad = { {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
 		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
-		Sword.HitBoxSize = { 48, 256 };
+		
 	}
 	else if (FaceDown == true) {
+		Sword.HitBoxSize = { 128, 196 };
 		Sword.Pos =
 		{ Player.Pos.x,
 		 Player.Pos.y - Player.HitBoxSize.y / 2 - Sword.HitBoxSize.y / 2 };
 		Sword.Quad = { {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
 		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
-		Sword.HitBoxSize = { 48, 256 };
+		
 	}
 	else if (FaceRight == true) {
+		Sword.HitBoxSize = { 196, 128 };
 		Sword.Pos =
 		{ Player.Pos.x + Player.HitBoxSize.x / 2 + Sword.HitBoxSize.x / 2,
 		 Player.Pos.y };
 		Sword.Quad = { {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
 		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
-		Sword.HitBoxSize = { 256, 48 };
+		
 	}
 	else if (FaceRight == false) {
+		Sword.HitBoxSize = { 196, 128 };
 		Sword.Pos =
 		{ Player.Pos.x - Player.HitBoxSize.x / 2 - Sword.HitBoxSize.x / 2,
 		 Player.Pos.y };
 		Sword.Quad = { {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
 		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
-		Sword.HitBoxSize = { 256, 48 };
+		
 	}
 
 
