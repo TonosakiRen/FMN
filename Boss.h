@@ -129,4 +129,9 @@ public:
 	void NomalRotedSwordAttack(PlayerMain& player);
 
 	
+
+	
+	
+	Quad Get();
+
 };

@@ -319,3 +319,8 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		Attack = false;
 	}
 }
+
+Quad Boss::Get()
+{
+	return Quad(Quad_Pos);
+}

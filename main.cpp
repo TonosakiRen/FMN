@@ -29,9 +29,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		playermain.Move();
-		//boss.NomalSwordAttack();
+		playermain.Hit(boss.Get());
+
+		
 		boss.UpDate();
-		/*boss.KeepUP(playermain);*/
 		boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN-1),playermain);
 		
 		///
