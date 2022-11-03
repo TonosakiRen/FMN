@@ -185,5 +185,5 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 Vec2 PlayerMain::Translation()
 {
-	return Vec2(Pos);
+	return Vec2(Player.Pos);
 }

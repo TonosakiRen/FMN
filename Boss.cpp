@@ -133,7 +133,7 @@ void Boss::NomalSwordAttack()
 	blade.t =Clamp::clamp(blade.t,0,1.0f);*/
 
 	/*blade.theta = easing(Easing::easeInQuart(blade.t), 0, 6);*/
-	blade.theta = Easing::easing(blade.t, 0, 90, 0.01f, Easing::easeInBack);
+	blade.theta = Easing::easing(blade.t, 0, 3, 0.001f, Easing::easeInOutElastic);
 
 
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
