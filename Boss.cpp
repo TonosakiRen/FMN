@@ -29,7 +29,7 @@ void Boss::Set()
 void Boss::Draw(Screen& screen)
 {
 	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, RED, Direction);
-	
+	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, BLACK);
 	
 }
 
@@ -125,4 +125,41 @@ void Boss::AttackFunction01(Screen&screen)
 
 		screen.DrawQuad2(ArkSword.quad[i], 0, 0, 0, 0, 0, GREEN);
 	}
+}
+
+void Boss::NomalSwordAttack()
+{
+	/*blade.t += 0.00125f;
+	blade.t =Clamp::clamp(blade.t,0,1.0f);*/
+
+	/*blade.theta = easing(Easing::easeInQuart(blade.t), 0, 6);*/
+	blade.theta = Easing::easing(blade.t, 0, 90, 0.01f, Easing::easeInBack);
+
+
+	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
+	//åïÇÃç¿ïWç≈èâÇÃ
+	Vec2 LeftTop = { -Size.x/3,Size.y };
+	Vec2 RightTop = { Size.x/3 ,Size.y };
+	Vec2 LeftBottom = { -Size.x/3,0 };
+	Vec2 RightBottom = { Size.x/3,0 };
+	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+
+	blade.LeftTop = Multiply(LeftTop, mat);
+	blade.RightTop = Multiply(RightTop, mat);
+	blade.LeftBottom = Multiply(LeftBottom, mat);
+	blade.RightBottom= Multiply(RightBottom, mat);
+
+	blade.LeftTop += Pos;
+	blade.RightTop += Pos;
+	blade.LeftBottom += Pos;
+	blade.RightBottom += Pos;
+
+	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+	if (blade.t == 1) {
+		blade.Init();
+		Action = false;
+	}
+
 }
