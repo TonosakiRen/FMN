@@ -229,3 +229,8 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	//Novice::ScreenPrintf(0, 20, "%f", boss.testget());
 
 }
+
+Vec2 PlayerMain::Translation()
+{
+	return Vec2(Player.Pos);
+}
