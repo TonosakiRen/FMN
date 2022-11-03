@@ -15,7 +15,10 @@ class Boss {
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
-
+	struct Blade {
+		Vec2 Pos;
+		
+	};
 	enum Pattarn
 	{
 		NEAR_1,

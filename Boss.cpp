@@ -54,15 +54,26 @@ void Boss::State(PlayerMain& player)
 void Boss::RandamMoveSelect()
 {
 	for (int i = 0; i < MAX_PATTERN; i++) {
-		MovePattern[0 || 1 || 2 || 3 || 4] = array.AttackFunction01;
-		MovePattern[5 || 6 || 7 || 8 || 9] = array.AttackFunction02;
-		MovePattern[10 || 11 || 12 || 13 || 14] = array.AttackFunction03;
-		MovePattern[15 || 16 || 17 || 18 || 19] = array.AttackFunction04;
-		MovePattern[20 || 21 || 22 || 23|| 24] = array.AttackFunction05;
+		if (0 <= i && i <= 4) {
+		MovePattern[i] = array.AttackFunction01;
 
+		}else
+		if (5 <= i && i <= 9) {
+			MovePattern[i] = array.AttackFunction02;
 
+		}else
+		if (10 <= i && i <= 14) {
+			MovePattern[i] = array.AttackFunction03;
 
+		}else
+		if (15 <= i && i <= 19) {
+			MovePattern[i] = array.AttackFunction04;
 
+		}else
+		if (20 <= i && i <= 24) {
+			MovePattern[i] = array.AttackFunction05;
+
+		}else
 		if (MovePattern[i] == 0) {
 			MovePattern[i] = array.NormalAttack;
 
