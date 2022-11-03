@@ -6,7 +6,7 @@ class Easing
 {
 public:
 
-	float easing(float& t, float start, float end , float speed , float (*mode)(float));
+	static float easing(float& t, float start, float end , float speed , float (*mode)(float));
 
 	static float easeInSine(float x);
 	static float easeOutSine(float x);

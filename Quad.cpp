@@ -18,8 +18,8 @@ Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
 	this->RightTop = RightTop;
 	this->LeftBottom = LeftBottom;
 	this->RightBottom = RightBottom;
-	this->Width = RightTop.x - LeftTop.x;
-	this->Height = LeftTop.y - LeftBottom.y;
+	this->Width = RightTop.DistanceFrom(LeftTop);
+	this->Height = RightTop.DistanceFrom(LeftBottom);
 }
 
 Quad Quad::Scaling(Quad quad, float scale) {

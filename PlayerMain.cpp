@@ -144,18 +144,9 @@ void PlayerMain::NormalAttack()
 
 void PlayerMain::Hit(Quad Target)
 {
-	if (((Player.Quad.LeftTop.x <= Target.RightTop.x || 
-			Player.Quad.LeftBottom.x <= Target.RightBottom.x )&&
-		(Player.Quad.RightTop.x >= Target.LeftTop.x ||
-			Player.Quad.RightBottom.x >= Target.LeftBottom.x)) &&
-		((Player.Quad.LeftTop.y >= Target.LeftBottom.y ||
-			Player.Quad.RightTop.y >= Target.RightBottom.y) &&
-		(Player.Quad.LeftBottom.y <= Target.LeftTop.y ||
-			Player.Quad.RightBottom.y <= Target.RightTop.y)))
+	if (Collision::QuadToQuad(Player.Quad , Target))
 	{
 		Novice::ScreenPrintf(0, 20, "a");
-
-	
 
 	}
 }

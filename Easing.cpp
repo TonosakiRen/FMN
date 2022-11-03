@@ -11,9 +11,9 @@ Easing::~Easing()
 float Easing::easing(float& t, float start, float end , float speed , float (*mode)(float)) {
 	
 	t += speed;
-	t = Clamp::clamp(t, 1.0f, 0.0f);
+	t = Clamp::clamp(t, 0.0f, 1.0f);
 
-	return((1.0f - mode(t)) * start + t * end);
+	return((1.0f - mode(t)) * start + mode(t) * end);
 }
 
 float Easing::easeInSine(float x) {
