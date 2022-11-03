@@ -50,7 +50,7 @@ void PlayerMain::Move()
 		}
 
 		if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
-			if (CanJump == true && PreJumpKey == 1) {
+			if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
 				JumpFlag = true;
 			}
 		}
