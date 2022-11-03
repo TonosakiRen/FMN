@@ -6,18 +6,12 @@
 #include"Screen.h"
 #include"PlayerMain.h"
 #include "Easing.h"
+#include "Randam.h"
 
 const int MAX_PATTERN = 100;
 class Boss {
 
-	float easing(float t, float start, float end) {
 
-		return((1.0f - t) * start + t * end);
-	};
-	int  easing(float t, int start, int end) {
-
-		return((1.0f - t) * start + t * end);
-	};
 	static struct Matrix2x2
 	{
 		float m[2][2];
@@ -48,6 +42,7 @@ class Boss {
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
+	float HP = 5000;
 	struct Blade
 	{
 		Quad Quad_Pos;
@@ -65,7 +60,14 @@ class Boss {
 			RightBottom = { 0,0 };
 			theta = 0;
 			t = 0;
+			Vec_RotedPos={};
+			Roted_t = 0;
+			Roted_tback = 0;
 		}
+		Vec2 Vec_RotedPos;
+		float Roted_t = 0;
+		float Roted_tback = 0;
+
 
 	};
 	enum Pattarn
@@ -96,7 +98,7 @@ class Boss {
 	AttackFunction01 ArkSword;
 	Blade blade;
 	
-	bool Direction;
+	int Direction;
 	int AnimeFlame=9;
 	int SrcX;
 
@@ -105,7 +107,7 @@ class Boss {
 	int CoolTime;
 	bool NormalAttack;
 	bool Action;
-
+	bool Attack;
 	struct NomalAttak {
 		Quad quad;
 	};
@@ -116,9 +118,15 @@ public:
 	Boss();
 	void Set();
 	void Draw(Screen& screen);
+	void UpDate();
 	void State(PlayerMain& player);
-	void RandamMoveSelect();
+	void KeepUP(PlayerMain& player);
+	void DirectionGet(PlayerMain& player);
+	void RandamMoveSelect(int rand,PlayerMain& player);
+	void RandMoveSet();
 	void AttackFunction01(Screen& screen);
-	void NomalSwordAttack();
+	void NomalSwordAttack(PlayerMain& player);
+	void NomalRotedSwordAttack(PlayerMain& player);
+
 	
 };

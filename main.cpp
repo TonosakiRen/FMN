@@ -1,5 +1,5 @@
 ﻿#include "main.h"
-
+#include "Randam.h"
 
 const char kWindowTitle[] = "FMN";
 
@@ -13,6 +13,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Controller::SetLeftStickDeadZone(0, 20000);
 
 	int tex = Novice::LoadTexture("white1x1.png");
+	Randam::SRAND();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -28,7 +29,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		playermain.Move();
-		boss.NomalSwordAttack();
+		//boss.NomalSwordAttack();
+		boss.UpDate();
+		/*boss.KeepUP(playermain);*/
+		boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN-1),playermain);
+		
 		///
 		/// ↑更新処理ここまで
 		///
