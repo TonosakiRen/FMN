@@ -9,16 +9,32 @@
 
 class PlayerMain
 {
-	//Pos 位置
-	Vec2 Pos = {100,500};
+	//Pos 位置(中央だぜ)
+	//HitBoxSize 当たり判定の大きさ
+	struct GeneralStruct {
+		Vec2 Pos;
+		Vec2 HitBoxSize;
+		Quad Quad;
+		int AnimeFlame;
+		int SrcX;
+	};
+	
+	//FaceRight プレイヤーがどっち向いてるか判別 false 左 : 右 true
+	bool FaceRight = true;
 
-	//HitBoxWide 当たり判定の大きさ
-	Vec2 PlayerHitBoxSize = { 32,48 };
+	//FaceDown プレイヤーが下キーを入れてたらtrue 離したらfalse 左右とは挙動が違うよ
+	//FaceUp プレイヤーが上キーを入れてたらtrue 離したらfalse 左右とは挙動が違うよ
+	bool FaceDown = false;
+	bool FaceUp = false;
 
-	Quad PlayerQuad = {Pos,PlayerHitBoxSize.x,PlayerHitBoxSize.y};
-
-	int AnimeFlame = 9;
-	int SrcX;
+	GeneralStruct Player = {
+		{100,500},
+		{ 32,48 },
+		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y - Player.HitBoxSize.y / 2},
+		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
+		9,
+		0,
+	};
 
 	//Speed プレイヤーが動かすときに使う
 	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
@@ -40,11 +56,15 @@ class PlayerMain
 	bool JumpFlag = false;
 	bool PreJumpKey = false;
 	bool CanJump = false;
-
-	//Vec2  = {};
-	Vec2 AttackHitBox = {};
-
-
+	
+	GeneralStruct Sword = {
+		{9999,9999},
+		{48,256},
+		{ {Sword.Pos.x - Sword.HitBoxSize.x / 2, Sword.Pos.y - Sword.HitBoxSize.y / 2},
+		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) },
+		9,
+		0,
+	};
 
 	const int FLOOR = 0;
 

@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-
+	Controller::SetLeftStickDeadZone(0, 20000);
 
 	int tex = Novice::LoadTexture("white1x1.png");
 

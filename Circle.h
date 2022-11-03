@@ -5,5 +5,7 @@ public:
 
 	Vec2 pos;
 	float radius;
-
+public:
+	Circle();
+	Circle(Vec2 a,float b);
 };

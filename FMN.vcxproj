@@ -100,6 +100,7 @@
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Clamp.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Feed.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Clamp.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Feed.h" />
