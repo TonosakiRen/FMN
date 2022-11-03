@@ -27,7 +27,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		boss.testfunc();
 		playermain.Move();
+		playermain.Hit(boss.Get());
 
 		///
 		/// ↑更新処理ここまで
@@ -39,7 +41,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
-
+		Novice::ScreenPrintf(0, 40, "%f", boss.testget());
 		///
 		/// ↑描画処理ここまで
 		///

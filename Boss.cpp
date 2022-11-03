@@ -10,6 +10,8 @@ Boss::Boss()
 	RightTop= Vec2(Pos + (Size/2));
 	RightBottom = { Pos.x + (Size.x / 2),Pos.y - (Size.y / 2) };
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom};
+
+	
 }
 
 void Boss::Draw(Screen& screen)
@@ -19,4 +21,19 @@ void Boss::Draw(Screen& screen)
 	/*screen.DrawBox(Pos.x, Pos.y, Size.x, Size.y, 0, RED, kFillModeSolid);
 	screen.DrawEllipse(Pos.x, Pos.y, Size.x, Size.y, 0, RED, kFillModeSolid);*/
 	
+}
+
+void Boss::testfunc()
+{
+	testnum++;
+}
+
+Quad Boss::Get()
+{
+	return Quad(Quad_Pos);
+}
+
+float Boss::testget()
+{
+	return testnum;
 }

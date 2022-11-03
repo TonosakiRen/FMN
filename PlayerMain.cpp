@@ -19,7 +19,7 @@ void PlayerMain::Move()
 	int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) };
 
 	Speed.x = 0;
-
+	Speed.y = 0;
 	if (Controller::IsStickDirection(0,Controller::lsdRIGHT)||Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
 		FaceRight = true;
@@ -31,6 +31,7 @@ void PlayerMain::Move()
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdUP) || Key::IsPressed(DIK_W)) {
+		Speed.y = 8;
 		FaceUp = true;
 	}
 	else {
@@ -38,12 +39,12 @@ void PlayerMain::Move()
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdDOWN) || Key::IsPressed(DIK_S)) {
+		Speed.y = -8;
 		FaceDown = true;
 	}
 	else {
 		FaceDown = false;
 	}
-	//‚¤‚ñ‚¿
 
 	if (Controller::IsPressedButton(0,Controller::bA) == 1||Key::IsPressed(DIK_SPACE)) {
 		if (CanJump == true && PreJumpKey == 1) {
@@ -68,11 +69,11 @@ void PlayerMain::Move()
 	}
 
 	Player.Pos.x += Speed.x ;
-	Player.Pos.y += (Speed.y + OtherSpeed.y )* G;
+	Player.Pos.y += Speed.y ;
 
-	Player.Pos.y = Clamp::clamp(Player.Pos.y, FLOOR + Player.HitBoxSize.y / 2,9999);
+	//Player.Pos.y = Clamp::clamp(Player.Pos.y, FLOOR + Player.HitBoxSize.y / 2,9999);
 
-	if (Player.Pos.y <= FLOOR + Player.HitBoxSize.y / 2) {
+	/*if (Player.Pos.y <= FLOOR + Player.HitBoxSize.y / 2) {
 		Speed.y = 0;
 		OtherSpeed.y = 0;
 		JumpTime = 0;
@@ -80,7 +81,7 @@ void PlayerMain::Move()
 	}
 	else {
 		CanJump = false;
-	}
+	}*/
 
 	Player.Quad = {{ Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y - Player.HitBoxSize.y / 2 },
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)};
@@ -141,8 +142,27 @@ void PlayerMain::NormalAttack()
 
 }
 
+void PlayerMain::Hit(Quad Target)
+{
+	if (((Player.Quad.LeftTop.x <= Target.RightTop.x || 
+			Player.Quad.LeftBottom.x <= Target.RightBottom.x )&&
+		(Player.Quad.RightTop.x >= Target.LeftTop.x ||
+			Player.Quad.RightBottom.x >= Target.LeftBottom.x)) &&
+		((Player.Quad.LeftTop.y >= Target.LeftBottom.y ||
+			Player.Quad.RightTop.y >= Target.RightBottom.y) &&
+		(Player.Quad.LeftBottom.y <= Target.LeftTop.y ||
+			Player.Quad.RightBottom.y <= Target.RightTop.y)))
+	{
+		Novice::ScreenPrintf(0, 20, "a");
+
+	
+
+	}
+}
+
 void PlayerMain::Draw(Screen& screen,int texture)
 {
+
 	/*Novice::DrawQuad(
 		PlayerPos.x - HitBoxWide.x / 2, PlayerPos.y - HitBoxWide.y / 2,
 		PlayerPos.x + HitBoxWide.x / 2, PlayerPos.y - HitBoxWide.y / 2,
@@ -181,4 +201,6 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
 
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
+	//Novice::ScreenPrintf(0, 20, "%f", boss.testget());
+
 }

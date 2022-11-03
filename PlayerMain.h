@@ -7,8 +7,10 @@
 #include "Screen.h"
 #include "Quad.h"
 
+
 class PlayerMain
 {
+	private:
 	//Pos 位置(中央だぜ)
 	//HitBoxSize 当たり判定の大きさ
 	struct GeneralStruct {
@@ -23,8 +25,8 @@ class PlayerMain
 	bool FaceRight = true;
 
 	//FaceDown プレイヤーが下キーを入れてたらtrue 離したらfalse 左右とは挙動が違うよ
-	//FaceUp プレイヤーが上キーを入れてたらtrue 離したらfalse 左右とは挙動が違うよ
 	bool FaceDown = false;
+	//FaceUp プレイヤーが上キーを入れてたらtrue 離したらfalse 左右とは挙動が違うよ
 	bool FaceUp = false;
 
 	GeneralStruct Player = {
@@ -37,8 +39,8 @@ class PlayerMain
 	};
 
 	//Speed プレイヤーが動かすときに使う
-	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
 	Vec2 Speed = { 0,0 };
+	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
 	Vec2 OtherSpeed = {0,0};
 
 	//G 重力じゃ
@@ -51,10 +53,10 @@ class PlayerMain
 	float JUMPPOWER = 2;
 
 	//JumpFlag ジャンプさせるフラグ Trueの間はSpeedにジャンプ力が入る
-	//PreJumpKey 1F前のジャンプキー
-	//CanJump ジャンプが可能かどうか
 	bool JumpFlag = false;
+	//PreJumpKey 1F前のジャンプキー
 	bool PreJumpKey = false;
+	//CanJump ジャンプが可能かどうか
 	bool CanJump = false;
 	
 	GeneralStruct Sword = {
@@ -72,6 +74,8 @@ public:
 	void Move();
 
 	void NormalAttack();
+
+	void Hit(Quad Target);
 
 	void Draw(Screen& screen,int texture);
 };

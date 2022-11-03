@@ -28,10 +28,13 @@
 	bool Collision::CircleToCirlce(Circle a,Circle b) {
 		float distance = a.pos.DistanceFrom(b.pos);
 		if (a.radius + b.radius >= distance) {
-			
+			return true;
 		}
+		return false;
 	}
 
 	bool Collision::CircleToQuad(Circle a, Quad b) {
-		
+		return false;
 	}
+
+	
