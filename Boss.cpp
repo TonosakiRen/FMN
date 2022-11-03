@@ -57,7 +57,7 @@ void Boss::State(PlayerMain& player)
 void Boss::KeepUP(PlayerMain& player) {
 	//プレイヤーについていく関数使わないかもしれない
 	Vec2 vel = (player.Translation() - Pos).Normalized();
-	Pos.x += vel.x*10;
+	Pos.x += vel.x*20;
 
 }
 void Boss::DirectionGet(PlayerMain& player) {
@@ -184,7 +184,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	}
 
 	if (Action == true) {
-		CoolTime = 200;
+		CoolTime = 80;
 
 		if (MovePattern[MoveArray] == array.NormalAttack) {
 			//通常攻撃のコードはここ
@@ -248,7 +248,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 	//DirectionGet(player);
 
 	if (Attack == true) {
-		blade.theta = Easing::easing(blade.t, 0, 4, 0.01f, Easing::easeInBack)*-Direction;
+		blade.theta = Easing::easing(blade.t, 0, 4, 0.025f, Easing::easeInBack)*-Direction;
 
 
 		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
@@ -282,13 +282,13 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
 
-	blade.theta +=0.1;
+	blade.theta +=0.25;
 	
 	if (blade.Roted_t != 1) {
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.01f, Easing::easeInCubic), 0 };
+		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.025f, Easing::easeInCubic), 0 };
 	}
 	else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.01f, Easing::easeInCubic), 0 };
+		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.025f, Easing::easeInCubic), 0 };
 
 	}
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
