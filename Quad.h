@@ -13,7 +13,7 @@ public:
 	float Height;
 public:
 	Quad();
-	Quad(Vec2 LeftTop,int width, int height);
+	Quad(Vec2 LeftTop, int width, int height);
 	Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom);
 	Quad Scaling(Quad quad, float scale);
 	Quad XScaling(Quad quad, float scale);
