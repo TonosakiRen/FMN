@@ -202,6 +202,19 @@ void PlayerMain::SwordHit(Quad Target)
 	}
 }
 
+void PlayerMain::PlayerHit(Quad Target)
+{
+	if ((Player.Quad.LeftTop.x <= Target.RightTop.x || Player.Quad.LeftBottom.x <= Target.RightBottom.x) &&
+		(Player.Quad.RightTop.x >= Target.LeftTop.x || Player.Quad.RightBottom.x >= Target.LeftBottom.x)&&
+		(Player.Quad.LeftTop.y >= Target.LeftBottom.y || Player.Quad.RightTop.y >= Target.RightBottom.y)&&
+		(Player.Quad.LeftBottom.y <= Target.LeftTop.y || Player.Quad.RightBottom.y <= Target.RightTop.y)) {
+
+		Novice::DrawEllipse(100, 100, 30, 30, 0, BLUE, kFillModeSolid);
+	}
+}
+
+
+
 void PlayerMain::Draw(Screen& screen,int texture)
 {
 

@@ -86,6 +86,8 @@ public:
 
 	void SwordHit(Quad Target);
 
+	void PlayerHit(Quad Target);
+
 	void Draw(Screen& screen,int texture);
 	Vec2 Translation();
 };

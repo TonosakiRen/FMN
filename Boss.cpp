@@ -361,7 +361,12 @@ void Boss::JumpAttack(PlayerMain& player)
 
 
 
-Quad Boss::Get()
+Quad Boss::GetBossQuad()
 {
 	return Quad(Quad_Pos);
+}
+
+Quad Boss::GetBossAttackQuad()
+{
+	return Quad(blade.Quad_Pos);
 }

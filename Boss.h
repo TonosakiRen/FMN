@@ -151,6 +151,8 @@ public:
 
 	
 	
-	Quad Get();
+	Quad GetBossQuad();
+
+	Quad GetBossAttackQuad();
 
 };

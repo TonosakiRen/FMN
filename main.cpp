@@ -30,9 +30,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 		playermain.Move();
-		playermain.SwordHit(boss.Get());
+		playermain.SwordHit(boss.GetBossQuad());
+		playermain.PlayerHit(boss.GetBossQuad());
+		playermain.PlayerHit(boss.GetBossAttackQuad());
 
-		
+
 		boss.UpDate();
 		boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN-1),playermain);
 		
