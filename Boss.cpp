@@ -204,7 +204,6 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 			//5%‚ÌUŒ‚
 			//NomalRotedSwordAttack(player);
 			JumpAttack(player);
-
 			/*Action = false;*/
 
 		}
