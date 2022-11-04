@@ -44,6 +44,8 @@ class PlayerMain
 	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
 	Vec2 OtherSpeed = {0,0};
 
+	Vec2 HitBack = { 0,0 };
+
 	//G 重力じゃ
 	const float G = 9.8;
 	
@@ -83,6 +85,8 @@ public:
 	void NormalAttack();
 
 	void SwordHit(Quad Target);
+
+	void PlayerHit(Quad Target);
 
 	void Draw(Screen& screen,int texture);
 	Vec2 Translation();

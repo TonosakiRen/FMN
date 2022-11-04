@@ -99,10 +99,20 @@ void PlayerMain::Move()
 			}
 		}
 
-		Player.Pos.x += Speed.x;
-		Player.Pos.y += (Speed.y + OtherSpeed.y) * G;
+		Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x;
+		Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y) * G;
 
 		Player.Pos.y = Clamp::clamp(Player.Pos.y, FLOOR + Player.HitBoxSize.y / 2, 9999);
+
+		if (HitBack.x > 1) {
+			HitBack.x -= 1;
+		}
+		else if (HitBack.x < -1) {
+			HitBack.x += 1;
+		}
+		else {
+			HitBack.x = 0;
+		}
 
 		if (Player.Pos.y <= FLOOR + Player.HitBoxSize.y / 2) {
 			Speed.y = 0;
@@ -113,6 +123,8 @@ void PlayerMain::Move()
 		else {
 			CanJump = false;
 		}
+
+		
 
 		Player.Quad = { { Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2 },
 			int(Player.HitBoxSize.x),int(Player.HitBoxSize.y) };
@@ -181,9 +193,27 @@ void PlayerMain::SwordHit(Quad Target)
 {
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
-		Novice::ScreenPrintf(0, 20, "a");
+		if (FaceRight == true) {
+			HitBack.x = -5;
+		}
+		else {
+			HitBack.x = 5;
+		}
 	}
 }
+
+void PlayerMain::PlayerHit(Quad Target)
+{
+	if ((Player.Quad.LeftTop.x <= Target.RightTop.x || Player.Quad.LeftBottom.x <= Target.RightBottom.x) &&
+		(Player.Quad.RightTop.x >= Target.LeftTop.x || Player.Quad.RightBottom.x >= Target.LeftBottom.x)&&
+		(Player.Quad.LeftTop.y >= Target.LeftBottom.y || Player.Quad.RightTop.y >= Target.RightBottom.y)&&
+		(Player.Quad.LeftBottom.y <= Target.LeftTop.y || Player.Quad.RightBottom.y <= Target.RightTop.y)) {
+
+		Novice::DrawEllipse(100, 100, 30, 30, 0, BLUE, kFillModeSolid);
+	}
+}
+
+
 
 void PlayerMain::Draw(Screen& screen,int texture)
 {
@@ -226,7 +256,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
 
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
-	//Novice::ScreenPrintf(0, 20, "%f", boss.testget());
+	Novice::ScreenPrintf(0, 20, "%f", HitBack.x);
 
 }
 
