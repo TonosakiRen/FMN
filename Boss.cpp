@@ -19,6 +19,8 @@ void Boss::UpDate() {
 	RightTop = Vec2(Pos + (Size / 2));
 	RightBottom = { Pos.x + (Size.x / 2),Pos.y - (Size.y / 2) };
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
+
+	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 }
 void Boss::Set()
 {
@@ -188,7 +190,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 
 		if (MovePattern[MoveArray] == array.NormalAttack) {
 			//通常攻撃のコードはここ
-			NomalSwordAttack(player);
+			//NomalSwordAttack(player);
+			JumpAttack(player);
+			CoolTime = 50;
+
 		}
 		if (MovePattern[MoveArray] == array.AttackFunction01) {
 			//5%の攻撃
@@ -226,6 +231,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	}
 }
 
+
+///スキル関数
 void Boss::AttackFunction01(Screen&screen)
 {
 	for (int i = 0; i < 6; i++) {
@@ -319,6 +326,40 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		Attack = false;
 	}
 }
+void Boss::JumpAttack(PlayerMain& player) 
+{
+	
+	if (Attack == false) {
+		jumpattack.F_Pos = {Pos};
+		jumpattack.PlayerPosF = player.Translation();
+		Attack = true;
+	}else
+	if (Attack == true) {
+		if (jumpattack.Matched == false) {
+			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
+			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
+
+			if (jumpattack.EaseT==1) {
+			
+				jumpattack.Matched = true;
+
+			}
+		}
+		else
+		if (jumpattack.Matched == true) {
+			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.02f, Easing::easeOutQuart);
+		}
+		if (jumpattack.EaseDownT == 1.0f) {
+			blade.Init();
+			jumpattack.Init();
+			Attack = false;
+			Action = false;
+
+		}
+	}
+}
+
+
 
 Quad Boss::Get()
 {

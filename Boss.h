@@ -112,7 +112,23 @@ class Boss {
 		Quad quad;
 	};
 	NomalAttak nomalattack;
-
+	struct JumpAttack {
+		float EaseT = 0;
+		float EaseT2=0;
+		float EaseDownT=0;
+		Vec2 PlayerPosF;
+		Vec2 F_Pos;
+		bool Matched=false;
+		void Init() {
+			EaseT = 0;
+			EaseDownT = 0; 
+			EaseT2 = 0;
+			Matched = false;
+			PlayerPosF={};
+			F_Pos={};
+		}
+	};
+	JumpAttack jumpattack;
 
 public:
 	Boss();
@@ -124,9 +140,12 @@ public:
 	void DirectionGet(PlayerMain& player);
 	void RandamMoveSelect(int rand,PlayerMain& player);
 	void RandMoveSet();
+
+
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);
+	void JumpAttack(PlayerMain& player);
 
 	
 
