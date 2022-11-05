@@ -25,6 +25,63 @@ bool Collision::QuadToQuad(Quad pos, Quad pos2) {
 	return false;
 }
 
+bool Collision::DiagonalQuadToQuad(Quad pos, Quad diagonalPos) {
+	Vec2 StartLeftBottom = diagonalPos.LeftBottom - diagonalPos.LeftTop;
+	Vec2 StartLeftTop = diagonalPos.LeftTop - diagonalPos.RightTop;
+	Vec2 StartRightTop = diagonalPos.RightTop - diagonalPos.RightBottom;
+	Vec2 StartRightBottom = diagonalPos.RightBottom - diagonalPos.LeftBottom;
+
+	Vec2 LeftTopToPoint = diagonalPos.LeftTop - pos.LeftTop;
+	Vec2 RightTopToPoint = diagonalPos.RightTop - pos.LeftTop;
+	Vec2 LeftBottomToPoint = diagonalPos.LeftBottom - pos.LeftTop;
+	Vec2 RightBottomToPoint = diagonalPos.RightBottom - pos.LeftTop;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - pos.RightTop;
+	RightTopToPoint = diagonalPos.RightTop - pos.RightTop;
+	LeftBottomToPoint = diagonalPos.LeftBottom - pos.RightTop;
+	RightBottomToPoint = diagonalPos.RightBottom - pos.RightTop;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - pos.LeftBottom;
+	RightTopToPoint = diagonalPos.RightTop - pos.LeftBottom;
+	LeftBottomToPoint = diagonalPos.LeftBottom - pos.LeftBottom;
+	RightBottomToPoint = diagonalPos.RightBottom - pos.LeftBottom;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - pos.RightBottom;
+	RightTopToPoint = diagonalPos.RightTop - pos.RightBottom;
+	LeftBottomToPoint = diagonalPos.LeftBottom - pos.RightBottom;
+	RightBottomToPoint = diagonalPos.RightBottom - pos.RightBottom;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	return false;
+}
+
 bool Collision::CircleToCirlce(Circle a, Circle b) {
 	float distance = a.pos.DistanceFrom(b.pos);
 	if (a.radius + b.radius >= distance) {
