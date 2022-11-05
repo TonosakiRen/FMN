@@ -141,7 +141,7 @@ public:
 	void RandamMoveSelect(int rand,PlayerMain& player);
 	void RandMoveSet();
 
-
+	//ÉXÉLÉã
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);

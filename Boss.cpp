@@ -190,8 +190,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 
 		if (MovePattern[MoveArray] == array.NormalAttack) {
 			//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-			//NomalSwordAttack(player);
-			JumpAttack(player);
+			NomalSwordAttack(player);
 			CoolTime = 50;
 
 		}
@@ -203,7 +202,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 		}
 		if (MovePattern[MoveArray] == array.AttackFunction02) {
 			//5%ÇÃçUåÇ
-			NomalRotedSwordAttack(player);
+			//NomalRotedSwordAttack(player);
+			JumpAttack(player);
 			/*Action = false;*/
 
 		}
@@ -215,13 +215,15 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 		}
 		if (MovePattern[MoveArray] == array.AttackFunction04) {
 			//5%ÇÃçUåÇ
-			NomalRotedSwordAttack(player);
+			JumpAttack(player);
+
 			/*Action = false;*/
 
 		}
 		if (MovePattern[MoveArray] == array.AttackFunction05) {
 			//5%ÇÃçUåÇ
-			NomalRotedSwordAttack(player);
+			JumpAttack(player);
+
 			/*Action = false;*/
 
 		}
@@ -292,10 +294,10 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	blade.theta +=0.25;
 	
 	if (blade.Roted_t != 1) {
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.025f, Easing::easeInCubic), 0 };
+		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeInCubic), 0 };
 	}
 	else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.025f, Easing::easeInCubic), 0 };
+		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), 0 };
 
 	}
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
