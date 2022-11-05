@@ -30,14 +30,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 		playermain.Move();
-		playermain.SwordHit(boss.GetBossQuad());
-		playermain.PlayerHit(boss.GetBossQuad());
-		playermain.PlayerHit(boss.GetBossAttackQuad());
-
-
-		boss.UpDate();
-		boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN-1),playermain);
+		if (Key::IsPressed(DIK_E)) {
+			boss.UpDate();
+		}
 		
+		//playermain.PlayerHit(boss.GetBossQuad());
+		if (Key::IsPressed(DIK_E)) {
+			boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain);
+		}
+		//playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
+		playermain.SwordHit(boss.GetBossQuad());
 		///
 		/// ↑更新処理ここまで
 		///
@@ -49,6 +51,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
+		playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
 		///
 		/// ↑描画処理ここまで
 		///

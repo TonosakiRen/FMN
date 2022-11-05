@@ -20,6 +20,7 @@ class PlayerMain
 		Quad Quad;
 		int AnimeFlame;
 		int SrcX;
+		unsigned int Color;
 	};
 	
 	//FaceRight プレイヤーがどっち向いてるか判別 false 左 : 右 true
@@ -37,6 +38,7 @@ class PlayerMain
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
 		0,
+		WHITE,
 	};
 
 	//Speed プレイヤーが動かすときに使う
@@ -86,7 +88,7 @@ public:
 
 	void SwordHit(Quad Target);
 
-	void PlayerHit(Quad Target);
+	void PlayerHit(Quad Target, Screen& screen);
 
 	void Draw(Screen& screen,int texture);
 	Vec2 Translation();
