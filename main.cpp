@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss.UpDate();
 		}
 		
-		//playermain.PlayerHit(boss.GetBossQuad());
+		//
 		if (Key::IsPressed(DIK_E)) {
 			boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain);
 		}
@@ -52,6 +52,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
 		playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
+		playermain.PlayerHit(boss.GetBossQuad() , screen);
 		///
 		/// ↑描画処理ここまで
 		///
