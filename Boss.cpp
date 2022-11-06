@@ -257,8 +257,9 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 	//DirectionGet(player);
 
 	if (Attack == true) {
-		blade.theta = Easing::easing(blade.t, 0, 4, 0.025f, Easing::easeInBack)*-Direction;
+		blade.angle = Easing::easing(blade.t, 0, 180, 0.025f, Easing::easeInBack)*-Direction;
 
+		blade.theta = blade.angle / 180.0f * M_PI;
 
 		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 		//åïÇÃç¿ïWç≈èâÇÃ
@@ -291,7 +292,9 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
 
-	blade.theta +=0.25;
+	blade.angle += 10;
+
+	blade.theta = blade.angle / 180.0f * M_PI;
 	
 	if (blade.Roted_t != 1) {
 		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeInCubic), 0 };

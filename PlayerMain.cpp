@@ -204,6 +204,7 @@ void PlayerMain::SwordHit(Quad Target)
 
 void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 {
+
 //	//Vec2 TargetPos = Target.LeftTop
 //	
 //	Vec2 TargetWide = { Target.RightTop.x - Target.LeftTop.x , Target.LeftTop.y - Target.LeftBottom.y};
@@ -351,7 +352,6 @@ void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 //	screen.DrawLine(MostRight.x, MostRight.y, MostTop.x, MostTop.y, RED);
 //
 //	screen.DrawLine(MostRight.x, MostRight.y, MostBottom.x, MostBottom.y, RED);
-
 
 
 	if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {

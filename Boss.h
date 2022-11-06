@@ -51,6 +51,7 @@ class Boss {
 		Vec2 LeftBottom = { 0,0 };
 		Vec2 RightBottom = { 0,0 };
 		float theta = 0;
+		float angle = 0;
 		float t = 0;
 		void Init() {
 			Quad_Pos = {};
@@ -58,6 +59,7 @@ class Boss {
 			RightTop = { 0,0 };
 			LeftBottom = { 0,0 };
 			RightBottom = { 0,0 };
+			angle = 0; //angleÇ≈äpìxÇ0 ~ 360 Ç≈ï\Ç∑ÅBÇªÇÍÇThetaÇ…íºÇ∑ÇÒÇæÇÊ
 			theta = 0;
 			t = 0;
 			Vec_RotedPos={};
