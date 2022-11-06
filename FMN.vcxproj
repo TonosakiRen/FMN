@@ -144,6 +144,7 @@
     <ClInclude Include="Clamp.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ControllerInput.h" />
+    <ClInclude Include="Degree.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Feed.h" />
     <ClInclude Include="Key.h" />

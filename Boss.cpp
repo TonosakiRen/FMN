@@ -352,7 +352,7 @@ void Boss::JumpAttack(PlayerMain& player)
 		}
 		else
 		if (jumpattack.Matched == true) {
-			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.02f, Easing::easeOutQuart);
+			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.02f, Easing::easeOutBounce);
 		}
 		if (jumpattack.EaseDownT == 1.0f) {
 			blade.Init();
