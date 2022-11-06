@@ -80,6 +80,8 @@ class PlayerMain
 
 	const int FLOOR = 0;
 
+	Vec2 HitRatio = {0,0};
+
 public:
 	void Move();
 	

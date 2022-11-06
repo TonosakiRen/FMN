@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Novice::Initialize(kWindowTitle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 
-	Controller::SetLeftStickDeadZone(0, 20000);
+	Controller::SetLeftStickDeadZone(0, 14000);
 
 	int tex = Novice::LoadTexture("white1x1.png");
 	Randam::SRAND();
@@ -38,7 +38,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (Key::IsPressed(DIK_E)) {
 			boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain);
 		}
-		//playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
+		playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
+		playermain.PlayerHit(boss.GetBossQuad(), screen);
 		playermain.SwordHit(boss.GetBossQuad());
 		///
 		/// ↑更新処理ここまで
@@ -48,11 +49,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		
-
+		;
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
-		playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
-		playermain.PlayerHit(boss.GetBossQuad() , screen);
+		
 		///
 		/// ↑描画処理ここまで
 		///
