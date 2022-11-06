@@ -354,6 +354,9 @@ void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 
 
 
+	if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
+		Novice::ScreenPrintf(0, 300, "chinchin");
+	}
 }
 
 

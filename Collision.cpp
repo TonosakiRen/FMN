@@ -26,11 +26,18 @@ bool Collision::QuadToQuad(Quad pos, Quad pos2) {
 }
 
 bool Collision::DiagonalQuadToQuad(Quad pos, Quad diagonalPos) {
+
+	//矩形の辺に沿るベクトル
 	Vec2 StartLeftBottom = diagonalPos.LeftBottom - diagonalPos.LeftTop;
 	Vec2 StartLeftTop = diagonalPos.LeftTop - diagonalPos.RightTop;
 	Vec2 StartRightTop = diagonalPos.RightTop - diagonalPos.RightBottom;
 	Vec2 StartRightBottom = diagonalPos.RightBottom - diagonalPos.LeftBottom;
-
+	//細かく当たり判定を取るための間の点のベクトル
+	Vec2 MiddleTop = { pos.LeftTop.x + pos.Width / 2, pos.LeftTop.y };
+	Vec2 MiddleRight = { pos.RightTop.x , pos.LeftTop.y - pos.Height / 2 };
+	Vec2 MiddleBottom = { pos.LeftTop.x + pos.Width / 2, pos.LeftBottom.y };
+	Vec2 MiddleLeft = { pos.LeftTop.x , pos.LeftTop.y - pos.Height / 2 };
+	//角からとりたい当たり判定の点までのベクトル
 	Vec2 LeftTopToPoint = diagonalPos.LeftTop - pos.LeftTop;
 	Vec2 RightTopToPoint = diagonalPos.RightTop - pos.LeftTop;
 	Vec2 LeftBottomToPoint = diagonalPos.LeftBottom - pos.LeftTop;
@@ -78,6 +85,55 @@ bool Collision::DiagonalQuadToQuad(Quad pos, Quad diagonalPos) {
 		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
 		return true;
 	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - MiddleTop;
+	RightTopToPoint = diagonalPos.RightTop - MiddleTop;
+	LeftBottomToPoint = diagonalPos.LeftBottom - MiddleTop;
+	RightBottomToPoint = diagonalPos.RightBottom - MiddleTop;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - MiddleRight;
+	RightTopToPoint = diagonalPos.RightTop - MiddleRight;
+	LeftBottomToPoint = diagonalPos.LeftBottom - MiddleRight;
+	RightBottomToPoint = diagonalPos.RightBottom - MiddleRight;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - MiddleBottom;
+	RightTopToPoint = diagonalPos.RightTop - MiddleBottom;
+	LeftBottomToPoint = diagonalPos.LeftBottom - MiddleBottom;
+	RightBottomToPoint = diagonalPos.RightBottom - MiddleBottom;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+
+	LeftTopToPoint = diagonalPos.LeftTop - MiddleLeft;
+	RightTopToPoint = diagonalPos.RightTop - MiddleLeft;
+	LeftBottomToPoint = diagonalPos.LeftBottom - MiddleLeft;
+	RightBottomToPoint = diagonalPos.RightBottom - MiddleLeft;
+
+	if (StartLeftTop.Cross(LeftTopToPoint) <= 0 &&
+		StartRightTop.Cross(RightTopToPoint) <= 0 &&
+		StartRightBottom.Cross(RightBottomToPoint) <= 0 &&
+		StartLeftBottom.Cross(LeftBottomToPoint) <= 0) {
+		return true;
+	}
+	
 
 	return false;
 }
