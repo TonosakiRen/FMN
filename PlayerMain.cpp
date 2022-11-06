@@ -202,14 +202,160 @@ void PlayerMain::SwordHit(Quad Target)
 	}
 }
 
-void PlayerMain::PlayerHit(Quad Target)
+void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 {
-	if ((Player.Quad.LeftTop.x <= Target.RightTop.x || Player.Quad.LeftBottom.x <= Target.RightBottom.x) &&
-		(Player.Quad.RightTop.x >= Target.LeftTop.x || Player.Quad.RightBottom.x >= Target.LeftBottom.x)&&
-		(Player.Quad.LeftTop.y >= Target.LeftBottom.y || Player.Quad.RightTop.y >= Target.RightBottom.y)&&
-		(Player.Quad.LeftBottom.y <= Target.LeftTop.y || Player.Quad.RightBottom.y <= Target.RightTop.y)) {
 
-		Novice::DrawEllipse(100, 100, 30, 30, 0, BLUE, kFillModeSolid);
+//	//Vec2 TargetPos = Target.LeftTop
+//	
+//	Vec2 TargetWide = { Target.RightTop.x - Target.LeftTop.x , Target.LeftTop.y - Target.LeftBottom.y};
+//	
+//	Vec2 TargetPos = { Target.LeftTop.x + (Target.RightBottom.x - Target.LeftTop.x) / 2,
+//						 Target.LeftTop.y + (Target.RightBottom.y - Target.LeftTop.y) / 2 };
+//
+//#pragma region a
+//
+//	Vec2 MostLeft = Target.LeftTop;
+//	Vec2 MostRight = Target.RightTop;
+//	Vec2 MostTop = Target.LeftBottom;
+//	Vec2 MostBottom = Target.RightBottom;
+//
+//	if(MostLeft.x > Target.RightTop.x){
+//		MostLeft = Target.RightTop;
+//	}
+//	if (MostLeft.x > Target.LeftBottom.x) {
+//		MostLeft = Target.LeftBottom;
+//	}
+//	if (MostLeft.x > Target.RightBottom.x) {
+//		MostLeft = Target.RightBottom;
+//	}
+//
+//	if (MostRight.x < Target.RightTop.x) {
+//		MostRight = Target.RightTop;
+//	}
+//	if (MostRight.x < Target.LeftBottom.x) {
+//		MostRight = Target.LeftBottom;
+//	}
+//	if (MostRight.x < Target.RightBottom.x) {
+//		MostRight = Target.RightBottom;
+//	}
+//
+//	if (MostTop.y < Target.RightTop.y) {
+//		MostTop = Target.RightTop;
+//	}
+//	if (MostTop.y < Target.LeftBottom.y) {
+//		MostTop = Target.LeftBottom;
+//	}
+//	if (MostTop.y < Target.RightBottom.y) {
+//		MostTop = Target.RightBottom;
+//	}
+//
+//	if (MostBottom.y > Target.RightTop.y) {
+//		MostBottom = Target.RightTop;
+//	}
+//	if (MostBottom.y > Target.LeftBottom.y) {
+//		MostBottom = Target.LeftBottom;
+//	}
+//	if (MostBottom.y > Target.RightBottom.y) {
+//		MostBottom = Target.RightBottom;
+//	}
+//
+//
+//#pragma endregion
+//
+//	float Dot1[4] = { 
+//		(Player.Quad.LeftTop.x - MostLeft.x) * (MostTop.y - MostLeft.y + FLOOR)
+//		- (Player.Quad.LeftTop.y - MostLeft.y + FLOOR) * (MostTop.x - MostLeft.x) ,
+//		(Player.Quad.RightTop.x - MostLeft.x)* (MostTop.y - MostLeft.y + FLOOR)
+//		- (Player.Quad.RightTop.y - MostLeft.y + FLOOR) * (MostTop.x - MostLeft.x) ,
+//		(Player.Quad.LeftBottom.x - MostLeft.x)* (MostTop.y - MostLeft.y + FLOOR)
+//		- (Player.Quad.LeftBottom.y - MostLeft.y + FLOOR) * (MostTop.x - MostLeft.x) ,
+//		(Player.Quad.RightBottom.x - MostLeft.x)* (MostTop.y - MostLeft.y + FLOOR)
+//		- (Player.Quad.RightBottom.y - MostLeft.y + FLOOR) * (MostTop.x - MostLeft.x) ,
+//	};
+//
+//	float Dot2[4] = {
+//		(Player.Quad.LeftTop.x - MostTop.x) * (MostRight.y - MostTop.y + FLOOR)
+//		- (Player.Quad.LeftTop.y - MostTop.y + FLOOR) * (MostRight.x - MostTop.x) ,
+//		(Player.Quad.RightTop.x - MostTop.x) * (MostRight.y - MostTop.y + FLOOR)
+//		- (Player.Quad.RightTop.y - MostTop.y + FLOOR) * (MostRight.x - MostTop.x) ,
+//		(Player.Quad.LeftBottom.x - MostTop.x) * (MostRight.y - MostTop.y + FLOOR)
+//		- (Player.Quad.LeftBottom.y - MostTop.y + FLOOR) * (MostRight.x - MostTop.x) ,
+//		(Player.Quad.RightBottom.x - MostTop.x) * (MostRight.y - MostTop.y + FLOOR)
+//		- (Player.Quad.RightBottom.y - MostTop.y + FLOOR) * (MostRight.x - MostTop.x) ,
+//	};
+//
+//	float Dot3[4] = {
+//		(Player.Quad.LeftTop.x - MostRight.x) * (MostBottom.y - MostRight.y + FLOOR)
+//		- (Player.Quad.LeftTop.y - MostRight.y + FLOOR) * (MostBottom.x - MostRight.x) ,
+//		(Player.Quad.RightTop.x - MostRight.x) * (MostBottom.y - MostRight.y + FLOOR)
+//		- (Player.Quad.RightTop.y - MostRight.y + FLOOR) * (MostBottom.x - MostRight.x) ,
+//		(Player.Quad.LeftBottom.x - MostRight.x) * (MostBottom.y - MostRight.y + FLOOR)
+//		- (Player.Quad.LeftBottom.y - MostRight.y + FLOOR) * (MostBottom.x - MostRight.x) ,
+//		(Player.Quad.RightBottom.x - MostRight.x) * (MostBottom.y - MostRight.y + FLOOR)
+//		- (Player.Quad.RightBottom.y - MostRight.y + FLOOR) * (MostBottom.x - MostRight.x) ,
+//	};
+//
+//	float Dot4[4] = {
+//		(Player.Quad.LeftTop.x - MostBottom.x) * (MostLeft.y - MostBottom.y + FLOOR)
+//		- (Player.Quad.LeftTop.y - MostBottom.y + FLOOR) * (MostLeft.x - MostBottom.x) ,
+//		(Player.Quad.RightTop.x - MostBottom.x) * (MostLeft.y - MostBottom.y + FLOOR)
+//		- (Player.Quad.RightTop.y - MostBottom.y + FLOOR) * (MostLeft.x - MostBottom.x) ,
+//		(Player.Quad.LeftBottom.x - MostBottom.x) * (MostLeft.y - MostBottom.y + FLOOR)
+//		- (Player.Quad.LeftBottom.y - MostBottom.y + FLOOR) * (MostLeft.x - MostBottom.x) ,
+//		(Player.Quad.RightBottom.x - MostBottom.x) * (MostLeft.y - MostBottom.y + FLOOR)
+//		- (Player.Quad.RightBottom.y - MostBottom.y + FLOOR) * (MostLeft.x - MostBottom.x) ,
+//	};
+//
+//	Player.Color = WHITE;
+//	for (int i = 0; i < 4; i++) {
+//		if (Dot1[i] > 0) {
+//			Novice::DrawEllipse(100, 100, 30, 30, 0, RED, kFillModeSolid);
+//		}
+//
+//		if (Dot2[i] > 0) {
+//			Novice::DrawEllipse(200, 100, 30, 30, 0, RED, kFillModeSolid);
+//		}
+//
+//		if (Dot3[i] > 0) {
+//			Novice::DrawEllipse(300, 100, 30, 30, 0, RED, kFillModeSolid);
+//		}
+//
+//		if (Dot4[i] > 0) {
+//			Novice::DrawEllipse(400, 100, 30, 30, 0, RED, kFillModeSolid);
+//		}
+//
+//		
+//
+//		if (Dot1[i] > 0 && Dot2[i] > 0 && Dot3[i] > 0 && Dot4[i] > 0 ) {
+//			//Player.Pos.y += 500;
+//			Player.Color = RED;
+//		}
+//	}
+//
+//
+//	Novice::ScreenPrintf(100, 40, "%f %f", TargetWide.x, TargetWide.y);
+//
+//	screen.DrawEllipse(Target.LeftTop.x, Target.LeftTop.y, 10, 10, 0, RED, kFillModeSolid);
+//
+//	screen.DrawEllipse(MostLeft.x, MostLeft.y, 10, 10, 0, BLUE, kFillModeSolid);
+//
+//	screen.DrawEllipse(MostRight.x, MostRight.y, 10, 10, 0, BLUE, kFillModeSolid);
+//	
+//	screen.DrawEllipse(MostTop.x, MostTop.y, 10, 10, 0, BLUE, kFillModeSolid);
+//
+//	screen.DrawEllipse(MostBottom.x, MostBottom.y, 10, 10, 0, BLUE, kFillModeSolid);
+//
+//	screen.DrawLine(MostLeft.x, MostLeft.y, MostTop.x, MostTop.y, RED);
+//
+//	screen.DrawLine(MostLeft.x, MostLeft.y, MostBottom.x, MostBottom.y, RED);
+//	
+//	screen.DrawLine(MostRight.x, MostRight.y, MostTop.x, MostTop.y, RED);
+//
+//	screen.DrawLine(MostRight.x, MostRight.y, MostBottom.x, MostBottom.y, RED);
+
+
+	if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
+		Novice::ScreenPrintf(0, 300, "chinchin");
 	}
 }
 
@@ -233,7 +379,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 		PlayerPos.x + PlayerHitBoxSize.x / 2, PlayerPos.y + PlayerHitBoxSize.y / 2,
 		0, 0, 1, 1, texture, WHITE);*/
 
-	screen.DrawQuad2Renban(Player.Quad, Player.SrcX,0,1, 1,0,60, Player.AnimeFlame,texture,WHITE,0);
+	screen.DrawQuad2Renban(Player.Quad, Player.SrcX,0,1, 1,0,60, Player.AnimeFlame,texture, Player.Color,0);
 
 	screen.DrawQuad2Renban(Sword.Quad, Sword.SrcX, 0, 1, 1, 0, 60, Sword.AnimeFlame, texture, 0x0000FF7F, 0);
 
