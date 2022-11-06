@@ -3,10 +3,11 @@
 
 void PlayerMain::Move()
 {
-	
-	
 	{
-
+		
+		if (Key::IsTrigger(DIK_Y)) {
+			HitStop = 30;
+		}
 
 		if (Key::IsPressed(DIK_O) != 0) {
 			JUMPPOWER += 0.01;

@@ -110,6 +110,7 @@
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Randam.cpp" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="Stopper.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Randam.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="Stopper.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
