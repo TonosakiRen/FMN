@@ -75,8 +75,8 @@ class Boss {
 	enum Pattarn
 	{
 		NEAR_1,
-		FAR_1,
 		MIDDLE,
+		FAR_1,
 	};
 
 	Pattarn pattarn = MIDDLE;
@@ -92,6 +92,8 @@ class Boss {
 		int AttackFunction03 = 23029;
 		int AttackFunction04 = 329;
 		int AttackFunction05 = 129;
+
+		
 	};
 	struct AttackFunction01 {
 		Quad quad[6];
@@ -110,8 +112,10 @@ class Boss {
 	bool NormalAttack;
 	bool Action;
 	bool Attack;
+	int AttackStartTime = 0;
 	struct NomalAttak {
 		Quad quad;
+		
 	};
 	NomalAttak nomalattack;
 	struct JumpAttack {
