@@ -8,7 +8,10 @@
 #include "Key.h"
 #include "PlayerMain.h"
 #include "Boss.h"
+#include "Stopper.h"
+
 
 Screen screen;
 PlayerMain playermain;
 Boss boss;
+Stopper stopper;

@@ -7,11 +7,14 @@
 #include "Key.h"
 #include "Screen.h"
 #include "Quad.h"
-
+#include "Stopper.h"
 
 class PlayerMain
 {
 	private:
+		
+		int HitStop = 0;
+
 	//Pos ˆÊ’u(’†‰›‚¾‚º)
 	//HitBoxSize “–‚½‚è”»’è‚Ì‘å‚«‚³
 	struct GeneralStruct {
@@ -80,9 +83,20 @@ class PlayerMain
 
 	const int FLOOR = 0;
 
+	Vec2 HitRatio = {0,0};
+
 public:
+
+	int HitStopOver() {
+		int a = 0;
+		if (HitStop > 0) {
+			a = HitStop;
+			HitStop = 0;
+		}
+		return a;
+	}
+
 	void Move();
-	
 
 	void NormalAttack();
 

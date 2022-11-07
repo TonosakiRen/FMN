@@ -3,10 +3,11 @@
 
 void PlayerMain::Move()
 {
-	
-	
 	{
-
+		
+		if (Key::IsTrigger(DIK_Y)) {
+			HitStop = 30;
+		}
 
 		if (Key::IsPressed(DIK_O) != 0) {
 			JUMPPOWER += 0.01;
@@ -114,9 +115,14 @@ void PlayerMain::Move()
 			HitBack.x = 0;
 		}
 
+		if (HitBack.y > 0) {
+			HitBack.y -= 1;
+		}
+
 		if (Player.Pos.y <= FLOOR + Player.HitBoxSize.y / 2) {
 			Speed.y = 0;
 			OtherSpeed.y = 0;
+			HitBack.y = 0;
 			JumpTime = 0;
 			CanJump = true;
 		}
@@ -191,15 +197,44 @@ void PlayerMain::NormalAttack()
 
 void PlayerMain::SwordHit(Quad Target)
 {
+	
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
-		if (FaceRight == true) {
-			HitBack.x = -5;
-		}
-		else {
-			HitBack.x = 5;
-		}
+		 HitRatio.x = 
+			 ((Target.LeftTop.x + Target.Width / 2)
+		    - (Player.Quad.LeftTop.x + Player.Quad.Width / 2))
+			/
+			 (Sword.HitBoxSize.x
+				 + Player.Quad.Width / 2
+				 + Target.Width / 2);
+
+		 HitRatio.y =
+			 (((Target.LeftTop.y * -1 + FLOOR) + Target.Height / 2)
+				 - ((Player.Quad.LeftTop.y * -1 + FLOOR) + Player.Quad.Height/ 2))
+			 /
+			 (Sword.HitBoxSize.y
+				 + Player.Quad.Height / 2
+				 + Target.Height / 2);
+
+		 if(FaceDown == true){
+			 HitBack.y = (1 - HitRatio.y) * 8;
+			 OtherSpeed.y = 0;
+		 }
+		 else if (FaceUp == true) {
+			 HitBack.y = (-1 + -HitRatio.y) * 8;
+		 }
+		 else {
+			 if (FaceRight == true) {
+				 HitBack.x = (-1 + HitRatio.x) * 30;
+			 }
+			 else {
+				 HitBack.x = (1 + HitRatio.x) * 30;
+			 }
+		 }
 	}
+
+	
+	
 }
 
 void PlayerMain::PlayerHit(Quad Target, Screen& screen)
@@ -378,6 +413,8 @@ void PlayerMain::Draw(Screen& screen,int texture)
 		PlayerPos.x - PlayerHitBoxSize.x / 2, PlayerPos.y + PlayerHitBoxSize.y / 2,
 		PlayerPos.x + PlayerHitBoxSize.x / 2, PlayerPos.y + PlayerHitBoxSize.y / 2,
 		0, 0, 1, 1, texture, WHITE);*/
+
+	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
 	screen.DrawQuad2Renban(Player.Quad, Player.SrcX,0,1, 1,0,60, Player.AnimeFlame,texture, Player.Color,0);
 
