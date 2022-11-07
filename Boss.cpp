@@ -344,7 +344,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 	if (Attack == false) {
 		if (Distance.Length() < 300) {
 			Attack = true;
-			AttackStartTime = 20;
+			AttackStartTime = 8;
 		}
 		else {
 			KeepUP(player);
@@ -354,7 +354,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 	if (Attack == true) {
 		if (AttackStartTime <= 0) {
-			blade.angle = Easing::easing(blade.t, 0, 200, 0.04f, Easing::easeInBack) * -Direction;
+			blade.angle = Easing::easing(blade.t, 0, 200, 0.035f, Easing::easeInBack) * -Direction;
 
 			blade.theta = blade.angle / 180.0f * M_PI;
 
@@ -442,7 +442,7 @@ void Boss::JumpAttack(PlayerMain& player)
 	if (Attack == true) {
 		if (jumpattack.Matched == false) {
 			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
-			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.04f, Easing::easeOutCirc);
+			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
 
 			if (jumpattack.EaseT==1) {
 			
@@ -452,7 +452,7 @@ void Boss::JumpAttack(PlayerMain& player)
 		}
 		else
 		if (jumpattack.Matched == true) {
-			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.6f, Easing::easeOutBounce);
+			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.5f, Easing::easeOutBounce);
 		}
 		if (jumpattack.EaseDownT == 1.0f) {
 			blade.Init();
