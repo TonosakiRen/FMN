@@ -26,14 +26,14 @@ public:
 	bool Ishit;
 
 	Vec2 Zoom;
-	
-	void Scroll_update(float playerX, int map_sheets_number);
-	
-	
-	void Shake(int mixX,int maxX,int mixY,int maxY, bool is);
 
-	
-    /// <summary>
+	void Scroll_update(float playerX, int map_sheets_number);
+
+
+	void Shake(int mixX, int maxX, int mixY, int maxY, bool is);
+
+
+	/// <summary>
 	/// 四角形を描画する
 	/// </summary>
 	/// <param name="x">描画する四角形の左上座標 X</param>
@@ -100,7 +100,7 @@ public:
 	/// <param name="scale">描画するスプライトの倍率 Y</param>
 	/// <param name="angle">描画するスプライトの回転角</param>
 	/// <param name="color">描画するスプライトの色</param>
-	void DrawSpriteRect(int destX, int destY, int srcX, int srcY, int srcW, int srcH, int textureHandle, int scaleX,int scaleY, int angle, unsigned int color);
+	void DrawSpriteRect(int destX, int destY, int srcX, int srcY, int srcW, int srcH, int textureHandle, int scaleX, int scaleY, int angle, unsigned int color);
 	/// <summary>
 	/// 四角形描画
 	/// </summary>
@@ -118,7 +118,7 @@ public:
 	/// <param name="srcH">画像上の描画したい範囲縦幅</param>
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
-	void DrawQuad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float srcX, float srcY, float srcW,float srcH, float textureHandle, unsigned int color);
+	void DrawQuad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float srcX, float srcY, float srcW, float srcH, float textureHandle, unsigned int color);
 	/// <summary>
 	/// 
 	/// </summary>
@@ -132,7 +132,7 @@ public:
 	/// <param name="srcH">画像上の描画したい範囲縦幅</param>
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
-	void DrawQuad2(Quad& quad, float srcX, float srcY, float srcW, float srcH, float textureHandle, unsigned int color);
+	void DrawQuad2(Quad quad, float srcX, float srcY, float srcW, float srcH, float textureHandle, unsigned int color);
 	/// <summary>
 	/// 
 	/// </summary>
@@ -160,7 +160,7 @@ public:
 	/// <param name="framehensuu">加算しているフレームの変数</param>
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
-	void DrawQuad2Renban(Quad &quad, int& srcX, int srcY, int srcW, int srcH,int sheets,int frame,int& framehensuu, int textureHandle, unsigned int color, bool isFlip);
+	void DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH, int sheets, int frame, int& framehensuu, int textureHandle, unsigned int color, bool isFlip);
 	/// <summary>
 	/// 
 	/// </summary>
@@ -175,8 +175,8 @@ public:
 	/// <param name="srcH">画像上の描画したい範囲縦幅</param>
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
-	void Background(int x1, int y1, int quadw, int quadh,float scrollkakeru, int srcX, int srcY, int srcW, int srcH, int textureHandle, unsigned int color);
-	
+	void Background(int x1, int y1, int quadw, int quadh, float scrollkakeru, int srcX, int srcY, int srcW, int srcH, int textureHandle, unsigned int color);
+
 	/// <summary>
 	/// 
 	/// </summary>
@@ -194,7 +194,7 @@ public:
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
 	/// <param name="hanten">反転をするか</param>
-	void DrawQuad2NormalRenban(int x1, int y1, int quadw, int quadh, int& srcX, int srcY, int srcW, int srcH,int sheets,int frame,int& framehensuu, int textureHandle, unsigned int color, bool hanten);
+	void DrawQuad2NormalRenban(int x1, int y1, int quadw, int quadh, int& srcX, int srcY, int srcW, int srcH, int sheets, int frame, int& framehensuu, int textureHandle, unsigned int color, bool hanten);
 
 
 };

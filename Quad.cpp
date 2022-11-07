@@ -11,6 +11,7 @@ Quad::Quad(Vec2 LeftTop, int width, int height) {
 	this->RightBottom = { LeftTop.x + width, LeftTop.y - height };
 	this->Width = width;
 	this->Height = height;
+	this->theta = 0;
 }
 
 Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
@@ -20,6 +21,7 @@ Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
 	this->RightBottom = RightBottom;
 	this->Width = RightTop.DistanceFrom(LeftTop);
 	this->Height = LeftTop.DistanceFrom(LeftBottom);
+	this->theta = 0;
 }
 
 Quad Quad::Scaling(Quad quad, float scale) {
@@ -60,8 +62,25 @@ Quad Quad::Translation(Quad quad, Vec2 position) {
 	};
 }
 
+Quad Quad::CenterRotate(Quad quad, float theta) {
+	this->theta = theta;
+	Vec2 center{ quad.LeftTop.x + Width / 2 , quad.LeftTop.y - Height / 2 };
+	Quad CenterQuad = quad - center;
+
+	CenterQuad = CenterQuad.Rotate(CenterQuad, theta);
+	return { CenterQuad + center };
+}
+
+Quad Quad::GetCenterRotatedQuad(Quad quad) {
+	return { quad.CenterRotate(quad,quad.theta) };
+}
+
 Quad Quad:: operator+(Vec2 s) const {
 	return{ this->LeftTop + s,this->RightTop + s ,this->LeftBottom + s ,this->RightBottom + s };
+}
+
+Quad Quad:: operator-(Vec2 s) const {
+	return{ this->LeftTop - s,this->RightTop - s ,this->LeftBottom - s ,this->RightBottom - s };
 }
 
 Quad Quad:: operator+(float s) const {

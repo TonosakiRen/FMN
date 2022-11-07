@@ -11,6 +11,7 @@ public:
 	Vec2 RightBottom;
 	float Width;
 	float Height;
+	float theta;
 public:
 
 	Quad();
@@ -20,10 +21,13 @@ public:
 	Quad XScaling(Quad quad, float scale);
 	Quad YScaling(Quad quad, float scale);
 	Quad Rotate(Quad quad, float theta);
+	Quad CenterRotate(Quad quad, float theta);
 	Quad Translation(Quad quad, Vec2 position);
 
-	Quad operator + (Vec2 s) const;
-	Quad operator + (float s)const;
+	Quad GetCenterRotatedQuad(Quad quad);
 
+	Quad operator + (Vec2 s) const;
+	Quad operator - (Vec2 s) const;
+	Quad operator + (float s)const;
 };
 
