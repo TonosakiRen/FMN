@@ -48,6 +48,7 @@ Vec2 Vec2::Rotation(float t) const {
     return{ x * cosf(t) - x * sinf(t) ,y * sinf(t) + y * cosf(t) };
 }
 
+
  Vec2 Vec2::operator +() const {
     return *this;
 }

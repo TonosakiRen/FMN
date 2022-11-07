@@ -16,6 +16,10 @@ float Easing::easing(float& t, float start, float end , float speed , float (*mo
 	return((1.0f - mode(t)) * start + mode(t) * end);
 }
 
+float Easing::easing(float t, float start, float end) {
+	return((1.0f - t) * start + t * end);
+}
+
 float Easing::easeInSine(float x) {
 	return 1.0f - cosf((x * M_PI) / 2.0f);
 }

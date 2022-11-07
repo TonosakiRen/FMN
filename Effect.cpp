@@ -1,5 +1,7 @@
 #include "Effect.h"
 #include "Randam.h"
+#include "Randam.h"
+#include "Easing.h"
 Effect::Effect(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta , float smallspeed) {
 	EffectNum = num;
 	effectCooltime = cooltime;
@@ -19,6 +21,14 @@ Effect::~Effect() {
 	delete[] particles;
 }
 
+void Effect::Update(bool isEmit, Quad pos , float theta) {
+	if (isEmit == true) {
+		Emit(pos , theta);
+	}
+	EffectUpdate();
+	Delete();
+}
+
 void Effect::Update(bool isEmit, Quad pos) {
 	if (isEmit == true) {
 		Emit(pos);
@@ -26,7 +36,8 @@ void Effect::Update(bool isEmit, Quad pos) {
 	EffectUpdate();
 	Delete();
 }
-void Effect::Emit(Quad pos) {
+
+void Effect::Emit(Quad pos , float theta) {
 	addEffectCooltime--;
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == false && addEffectCooltime <= 0) {
@@ -34,7 +45,33 @@ void Effect::Emit(Quad pos) {
 			particles[i].direction = { Randam::RAND(minDirection.x,maxDirection.x) , Randam::RAND(minDirection.y,maxDirection.y) };
 			particles[i].direction = particles[i].direction.Normalized();
 			//横幅、出現場所
-			int width = Randam::RAND(minWidth,maxWidth );
+			int width = Randam::RAND(minWidth, maxWidth);
+			Quad diagonalPos = pos.CenterRotate(pos, theta);
+	
+			Vec2 side = (diagonalPos.RightTop - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f,0.0f,diagonalPos.LeftTop.DistanceFrom(diagonalPos.RightTop));
+			Vec2 vertical = (diagonalPos.LeftBottom - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, diagonalPos.LeftTop.DistanceFrom(diagonalPos.LeftBottom));
+			Vec2 center = { diagonalPos.LeftTop + side + vertical };
+			particles[i].quad = { {center.x - width / 2,center.y + width / 2 }, width ,width };
+
+			/*particles[i].quad = { {Randam::RAND(pos.LeftTop.x - width / 2,pos.RightTop.x - width / 2),Randam::RAND(pos.LeftBottom.y + width / 2,pos.LeftTop.y + width / 2) }, width ,width };*/
+			//スピードランダム
+			particles[i].speed = { Randam::RAND(minSpeed,maxSpeed) };
+			//アクティブフラグ
+			particles[i].isActive = true;
+			addEffectCooltime = effectCooltime;
+			break;
+		}
+	}
+}
+void Effect::Emit(Quad pos ) {
+	addEffectCooltime--;
+	for (int i = 0; i < EffectNum; i++) {
+		if (particles[i].isActive == false && addEffectCooltime <= 0) {
+			//進む方向
+			particles[i].direction = { Randam::RAND(minDirection.x,maxDirection.x) , Randam::RAND(minDirection.y,maxDirection.y) };
+			particles[i].direction = particles[i].direction.Normalized();
+			//横幅、出現場所
+			int width = Randam::RAND(minWidth, maxWidth);
 			particles[i].quad = { {Randam::RAND(pos.LeftTop.x - width / 2,pos.RightTop.x - width / 2),Randam::RAND(pos.LeftBottom.y + width / 2,pos.LeftTop.y + width / 2) }, width ,width };
 			//スピードランダム
 			particles[i].speed = { Randam::RAND(minSpeed,maxSpeed) };
@@ -45,6 +82,7 @@ void Effect::Emit(Quad pos) {
 		}
 	}
 }
+
 void Effect::EffectUpdate() {
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
@@ -61,7 +99,7 @@ void Effect::EffectUpdate() {
 void Effect::Delete() {
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
-			if (particles[i].quad.GetWidth() <= 1.0f) {
+			if (particles[i].quad.GetWidth() < 1.0f) {
 				particles[i].isActive = false;
 			}
 		}

@@ -34,7 +34,9 @@ public:
 public:
 	Effect(int num,int cooltime,Vec2 mindirection,Vec2 maxdirection,int minwidth, int maxwidth , float minspeed,float maxspeed , float addtheta,float smallspeed);
 	~Effect();
-	void Update(bool isEmit , Quad pos);
+	void Update(bool isEmit , Quad pos , float theta);
+	void Update(bool isEmit, Quad pos);
+		void Emit(Quad pos , float theta);
 		void Emit(Quad pos);
 		void EffectUpdate();
 		void Delete();

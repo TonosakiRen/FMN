@@ -82,6 +82,7 @@ struct Vec2
 	/// <returns>Vec2Œ^</returns>
 	Vec2 Rotation(float t) const;
 
+
 	/// <summary>
 	/// ’P€ + 
 	/// </summary>
