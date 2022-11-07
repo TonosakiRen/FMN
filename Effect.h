@@ -32,6 +32,19 @@ public:
 
 	effect* particles;
 public:
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="num">パーティクルの数</param>
+	/// <param name="cooltime">何フレームで一つ発生させるか</param>
+	/// <param name="middirection">-1～1のベクトルを正規化</param>
+	/// <param name="maxdirection">-1～1のベクトルを正規化</param>
+	/// <param name="minwidth">エフェクトの横幅と縦幅の最低値</param>
+	/// <param name="maxwidth">エフェクトの横幅と縦幅の最高値</param>
+	/// <param name="minspeed">エフェクトのスピードの最低値</param>
+	/// <param name="maxspeed">エフェクトのスピードの最高値</param>
+	/// <param name="addtheta">加算する角度</param>
+	/// <param name="smallspeed">どのくらいの速さで遅くなるか</param>
 	Effect(int num,int cooltime,Vec2 mindirection,Vec2 maxdirection,int minwidth, int maxwidth , float minspeed,float maxspeed , float addtheta,float smallspeed);
 	~Effect();
 	void Update(bool isEmit , Quad pos , float theta);
