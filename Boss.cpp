@@ -186,12 +186,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	}
 
 	if (Action == true) {
-		CoolTime = 80;
+		CoolTime = 60;
 
 		if (MovePattern[MoveArray] == array.NormalAttack) {
 			//通常攻撃のコードはここ
 			NomalSwordAttack(player);
-			CoolTime = 50;
+			CoolTime = 30;
 
 		}
 		if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -249,11 +249,30 @@ void Boss::AttackFunction01(Screen&screen)
 
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
+	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
+	//剣の座標最初の
+	Vec2 LeftTop = { -Size.x / 3,Size.y };
+	Vec2 RightTop = { Size.x / 3 ,Size.y };
+	Vec2 LeftBottom = { -Size.x / 3,0 };
+	Vec2 RightBottom = { Size.x / 3,0 };
+	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
 	Vec2 Distance = Pos - player.Translation();
-	if (Distance.Length() < 300||Attack==true) {
+	if (Distance.Length() < 300 || Attack == true) {
 		Attack = true;
 	}
-	else KeepUP(player);
+	else {
+		KeepUP(player);
+		blade.LeftTop = Multiply(LeftTop, mat);
+		blade.RightTop = Multiply(RightTop, mat);
+		blade.LeftBottom = Multiply(LeftBottom, mat);
+		blade.RightBottom = Multiply(RightBottom, mat);
+
+		blade.LeftTop += Pos;
+		blade.RightTop += Pos;
+		blade.LeftBottom += Pos;
+		blade.RightBottom += Pos;
+	};
 	//DirectionGet(player);
 
 	if (Attack == true) {
@@ -261,14 +280,13 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 		blade.theta = blade.angle / 180.0f * M_PI;
 
-		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
-		//剣の座標最初の
-		Vec2 LeftTop = { -Size.x / 3,Size.y };
-		Vec2 RightTop = { Size.x / 3 ,Size.y };
-		Vec2 LeftBottom = { -Size.x / 3,0 };
-		Vec2 RightBottom = { Size.x / 3,0 };
-		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+		mat = MakeRotateMatrix(blade.theta);
 
+		LeftTop = { -Size.x / 3,Size.y };
+		RightTop = { Size.x / 3 ,Size.y };
+		LeftBottom = { -Size.x / 3,0 };
+		RightBottom = { Size.x / 3,0 };
+		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 		blade.LeftTop = Multiply(LeftTop, mat);
 		blade.RightTop = Multiply(RightTop, mat);
@@ -341,8 +359,8 @@ void Boss::JumpAttack(PlayerMain& player)
 	}else
 	if (Attack == true) {
 		if (jumpattack.Matched == false) {
-			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
-			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
+			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
+			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.04f, Easing::easeOutCirc);
 
 			if (jumpattack.EaseT==1) {
 			
@@ -352,7 +370,7 @@ void Boss::JumpAttack(PlayerMain& player)
 		}
 		else
 		if (jumpattack.Matched == true) {
-			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.02f, Easing::easeOutBounce);
+			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.6f, Easing::easeOutBounce);
 		}
 		if (jumpattack.EaseDownT == 1.0f) {
 			blade.Init();

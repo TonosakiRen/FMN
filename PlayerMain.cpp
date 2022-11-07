@@ -243,7 +243,7 @@ void PlayerMain::SwordHit(Quad Target)
 			 }
 		 }
 
-		 HitStop = 2;
+		 HitStop = 1;
 	}
 
 	
