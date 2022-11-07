@@ -14,6 +14,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Controller::SetLeftStickDeadZone(0, 14000);
 
 	int tex = Novice::LoadTexture("white1x1.png");
+	int effect01Img = Novice::LoadTexture("./Resources/Images/Effect01.png");
 	Randam::SRAND();
 
 
@@ -40,6 +41,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
 				playermain.PlayerHit(boss.GetBossQuad(), screen);
 				playermain.SwordHit(boss.GetBossQuad());
+
+				effect01.Update(true, playermain.GetPlayerQuad());
 			}
 		}
 
@@ -55,7 +58,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		
-		;
+		effect01.Draw(screen, 128, effect01Img, WHITE, kBlendModeNormal);
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
 		

@@ -21,7 +21,7 @@ public:
 	Quad Rotate(Quad quad, float theta);
 	Quad CenterRotate(Quad quad, float theta);
 	Quad Translation(Quad quad, Vec2 position);
-	Quad WidthAdd(Quad quad, float add);
+	void WidthAdd(Quad& quad, float add);
 
 	float GetWidth() const { return RightTop.DistanceFrom(LeftTop); }
 	float GetHeight() const { return LeftTop.DistanceFrom(LeftBottom); }

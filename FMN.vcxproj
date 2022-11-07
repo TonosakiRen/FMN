@@ -103,6 +103,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Easing.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Feed.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="Degree.h" />
     <ClInclude Include="Easing.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Feed.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="main.h" />

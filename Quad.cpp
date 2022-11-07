@@ -68,17 +68,16 @@ Quad Quad::CenterRotate(Quad quad, float theta) {
 }
 
 
-Quad Quad::WidthAdd(Quad quad, float add) {
-	Quad tmp = { quad };
-	tmp.LeftTop.x = tmp.LeftTop.x - add / 2.0f;
-	tmp.LeftTop.y = tmp.LeftTop.y + add / 2.0f;
-	tmp.RightTop.x = tmp.RightTop.x + add / 2.0f;
-	tmp.RightTop.y = tmp.RightTop.y + add / 2.0f;
-	tmp.LeftBottom.x = tmp.LeftBottom.x - add / 2.0f;
-	tmp.LeftBottom.y = tmp.LeftBottom.y - add / 2.0f;
-	tmp.RightBottom.x = tmp.RightBottom.x + add / 2.0f;
-	tmp.RightBottom.y = tmp.RightBottom.y - add / 2.0f;
-	return { tmp };
+void Quad::WidthAdd(Quad& quad, float add) {
+
+	quad.LeftTop.x = quad.LeftTop.x - add / 2.0f;
+	quad.LeftTop.y = quad.LeftTop.y + add / 2.0f;
+	quad.RightTop.x = quad.RightTop.x + add / 2.0f;
+	quad.RightTop.y = quad.RightTop.y + add / 2.0f;
+	quad.LeftBottom.x = quad.LeftBottom.x - add / 2.0f;
+	quad.LeftBottom.y = quad.LeftBottom.y - add / 2.0f;
+	quad.RightBottom.x = quad.RightBottom.x + add / 2.0f;
+	quad.RightBottom.y = quad.RightBottom.y - add / 2.0f;
 }
 
 Quad Quad:: operator+(Vec2 s) const {

@@ -92,6 +92,11 @@ class PlayerMain
 
 public:
 
+	Quad GetPlayerQuad()
+	{
+		return Quad(Player.Quad);
+	}
+
 	int HitStopOver() {
 		int a = 0;
 		if (HitStop > 0) {
