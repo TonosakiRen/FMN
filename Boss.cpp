@@ -21,6 +21,7 @@ void Boss::UpDate() {
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
+	
 }
 void Boss::Set()
 {
@@ -45,16 +46,20 @@ void Boss::Draw(Screen& screen)
 void Boss::State(PlayerMain& player)
 {
 	Vec2 Distance = Pos - player.Translation();
-	if (Distance.Length() < (Vec2(nomalattack.quad.RightBottom - nomalattack.quad.LeftBottom)).Length()) {
-		pattarn = NEAR_1;
-	}else
-	if (Distance.Length() > (Vec2(nomalattack.quad.RightBottom - nomalattack.quad.LeftBottom)).Length()+650) {
-		pattarn = FAR_1;
+	if (Action == false) {
+		if (Distance.Length() < 400) {
+			pattarn = NEAR_1;
+		}
+		else
+			if (Distance.Length() < 800) {
+				pattarn = MIDDLE;
+			}
+			else {
+				pattarn = FAR_1;
+			}
 	}
-	else {
-		pattarn = MIDDLE;
-	}
-	
+	Novice::ScreenPrintf(500, 400, "boss:state:%d", pattarn);
+
 }
 void Boss::KeepUP(PlayerMain& player) {
 	//プレイヤーについていく関数使わないかもしれない
@@ -63,45 +68,15 @@ void Boss::KeepUP(PlayerMain& player) {
 
 }
 void Boss::DirectionGet(PlayerMain& player) {
-	
+	//プレイヤーの位置によってマイナスかプラスかわかる関羽数うすうす進巣
 	if (player.Translation().x <= Pos.x) {
 		Direction = -1;
 	}
 	else Direction = 1;
 }
 void Boss::RandMoveSet() {
-	for (int i = 0; i < MAX_PATTERN; i++) {
-		if (0 <= i && i <= 4) {
-			MovePattern[i] = array.AttackFunction01;
-
-		}
-		else
-			if (5 <= i && i <= 9) {
-				MovePattern[i] = array.AttackFunction02;
-
-			}
-			else
-				if (10 <= i && i <= 14) {
-					MovePattern[i] = array.AttackFunction03;
-
-				}
-				else
-					if (15 <= i && i <= 19) {
-						MovePattern[i] = array.AttackFunction04;
-
-					}
-					else
-						if (20 <= i && i <= 24) {
-							MovePattern[i] = array.AttackFunction05;
-
-						}
-						else
-							if (MovePattern[i] == 0) {
-								MovePattern[i] = array.NormalAttack;
-
-							}
-	}
-	/*switch (pattarn) {
+	
+	switch (pattarn) {
 		case NEAR_1:
 
 
@@ -122,12 +97,12 @@ void Boss::RandMoveSet() {
 					}
 					else
 						if (15 <= i && i <= 19) {
-							MovePattern[i] = array.AttackFunction04;
+							MovePattern[i] = array.AttackFunction02;
 
 						}
 						else
 							if (20 <= i && i <= 24) {
-								MovePattern[i] = array.AttackFunction05;
+								MovePattern[i] = array.AttackFunction02;
 
 							}
 							else
@@ -159,12 +134,38 @@ void Boss::RandMoveSet() {
 				}
 			}
 			break;
-	}*/
+		case FAR_1:
+			for (int i = 0; i < MAX_PATTERN; i++) {
+				if (0 <= i && i <= 4) {
+					MovePattern[i] = array.AttackFunction05;
+				}
+				else
+					if (5 <= i && i <= 9) {
+						MovePattern[i] = array.AttackFunction05;
+					}
+					else
+						if (10 <= i && i <= 14) {
+							MovePattern[i] = array.AttackFunction05;
+						}
+						else
+							if (15 <= i && i <= 19) {
+								MovePattern[i] = array.AttackFunction05;
+							}
+							else
+								if (20 <= i && i <= 24) {
+									MovePattern[i] = array.AttackFunction05;
+								}
+								else
+									if (MovePattern[i] == 0) {
+										MovePattern[i] = array.AttackFunction05;
+									}
+			}
+			break;
+	}
 }
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 {
-	RandMoveSet();
 	
 
 	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
@@ -183,7 +184,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	}
 	else if (CoolTime != 0&&Action==false) {
 		CoolTime--;
+		State(player);
+
 	}
+		RandMoveSet();
 
 	if (Action == true) {
 		CoolTime = 80;
@@ -203,7 +207,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 		if (MovePattern[MoveArray] == array.AttackFunction02) {
 			//5%の攻撃
 			//NomalRotedSwordAttack(player);
-			JumpAttack(player);
+			NomalRotedSwordAttack(player);
+
 			/*Action = false;*/
 
 		}
@@ -227,7 +232,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 			/*Action = false;*/
 
 		}
-
+		if (MovePattern[MoveArray] == 0) {
+			Action = false;
+		}
 		//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
 		//関数ないとこにはAction=falseを入れること。
 	}

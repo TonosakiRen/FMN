@@ -75,8 +75,8 @@ class Boss {
 	enum Pattarn
 	{
 		NEAR_1,
-		FAR_1,
 		MIDDLE,
+		FAR_1,
 	};
 
 	Pattarn pattarn = MIDDLE;
