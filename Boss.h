@@ -92,6 +92,8 @@ class Boss {
 		int AttackFunction03 = 23029;
 		int AttackFunction04 = 329;
 		int AttackFunction05 = 129;
+
+		
 	};
 	struct AttackFunction01 {
 		Quad quad[6];

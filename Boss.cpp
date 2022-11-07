@@ -58,7 +58,6 @@ void Boss::State(PlayerMain& player)
 				pattarn = FAR_1;
 			}
 	}
-	Novice::ScreenPrintf(500, 400, "boss:state:%d", pattarn);
 
 }
 void Boss::KeepUP(PlayerMain& player) {
@@ -76,33 +75,30 @@ void Boss::DirectionGet(PlayerMain& player) {
 }
 void Boss::RandMoveSet() {
 	
-	switch (pattarn) {
-		case NEAR_1:
-
-
+	
 		for (int i = 0; i < MAX_PATTERN; i++) {
-			if (0 <= i && i <= 4) {
+			if (0 <= i && i <= 9) {
 				MovePattern[i] = array.AttackFunction01;
 
 			}
 			else
-				if (5 <= i && i <= 9) {
+				if (9 <= i && i <=19) {
 					MovePattern[i] = array.AttackFunction02;
 
 				}
 				else
-					if (10 <= i && i <= 14) {
+					if (19 <= i && i <= 29) {
 						MovePattern[i] = array.AttackFunction03;
 
 					}
 					else
-						if (15 <= i && i <= 19) {
-							MovePattern[i] = array.AttackFunction02;
+						if (29 <= i && i <= 39) {
+							MovePattern[i] = array.AttackFunction04;
 
 						}
 						else
-							if (20 <= i && i <= 24) {
-								MovePattern[i] = array.AttackFunction02;
+							if (39 <= i && i <=49) {
+								MovePattern[i] = array.AttackFunction05;
 
 							}
 							else
@@ -111,57 +107,8 @@ void Boss::RandMoveSet() {
 
 								}
 		}
-		break;
-		case MIDDLE:
-			for (int i = 0; i < MAX_PATTERN; i++) {
-				if (0 <= i && i <= 4) {
-					MovePattern[i] = 0;
-				}else
-				if (5 <= i && i <= 9) {
-					MovePattern[i] = 0;
-				}else
-				if (10 <= i && i <= 14) {
-					MovePattern[i] = 0;
-				}else
-				if (15 <= i && i <= 19) {
-					MovePattern[i] =0;
-				}else
-				if (20 <= i && i <= 24) {
-					MovePattern[i] = 0;
-				}else
-				if (MovePattern[i] == 0) {
-					MovePattern[i] = 0;
-				}
-			}
-			break;
-		case FAR_1:
-			for (int i = 0; i < MAX_PATTERN; i++) {
-				if (0 <= i && i <= 4) {
-					MovePattern[i] = array.AttackFunction05;
-				}
-				else
-					if (5 <= i && i <= 9) {
-						MovePattern[i] = array.AttackFunction05;
-					}
-					else
-						if (10 <= i && i <= 14) {
-							MovePattern[i] = array.AttackFunction05;
-						}
-						else
-							if (15 <= i && i <= 19) {
-								MovePattern[i] = array.AttackFunction05;
-							}
-							else
-								if (20 <= i && i <= 24) {
-									MovePattern[i] = array.AttackFunction05;
-								}
-								else
-									if (MovePattern[i] == 0) {
-										MovePattern[i] = array.AttackFunction05;
-									}
-			}
-			break;
-	}
+	
+	
 }
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player)
@@ -172,6 +119,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
+	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
 
 
 	
@@ -189,55 +137,173 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 	}
 		RandMoveSet();
 
-	if (Action == true) {
-		CoolTime = 80;
+		if (Action == true) {
+			CoolTime = 80;
 
-		if (MovePattern[MoveArray] == array.NormalAttack) {
-			//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-			NomalSwordAttack(player);
-			CoolTime = 50;
+			switch (pattarn) {
+				case NEAR_1:
+				{
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
+						NomalSwordAttack(player);
+						CoolTime = 50;
 
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack(player);
+
+						/*Action = false;*/
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%‚ÌUŒ‚
+						//NomalSwordAttack(player);
+						NomalRotedSwordAttack(player);
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%‚ÌUŒ‚
+						//JumpAttack(player);
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%‚ÌUŒ‚
+						//JumpAttack(player);
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == 0) {
+						Action = false;
+					}
+					//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚ÅŽg‚Á‚½•Ï”‚Ì‰Šú‰»‚ð‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
+					//ŠÖ”‚È‚¢‚Æ‚±‚É‚ÍAction=false‚ð“ü‚ê‚é‚±‚ÆB
+					break;
+				}
+				case MIDDLE:
+				{
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
+						//NomalSwordAttack(player);
+						NomalRotedSwordAttack(player);
+						CoolTime = 50;
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%‚ÌUŒ‚
+						NomalRotedSwordAttack(player);
+
+						/*Action = false;*/
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%‚ÌUŒ‚
+						NomalRotedSwordAttack(player);
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%‚ÌUŒ‚
+						//JumpAttack(player);
+						NomalRotedSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%‚ÌUŒ‚
+						//JumpAttack(player);
+						NomalRotedSwordAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == 0) {
+						Action = false;
+					}
+					//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚ÅŽg‚Á‚½•Ï”‚Ì‰Šú‰»‚ð‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
+					//ŠÖ”‚È‚¢‚Æ‚±‚É‚ÍAction=false‚ð“ü‚ê‚é‚±‚ÆB
+					break;
+				}
+				case FAR_1:
+				{
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
+						//NomalSwordAttack(player);
+						JumpAttack(player);
+						CoolTime = 50;
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						JumpAttack(player);
+
+						/*Action = false;*/
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						//NomalRotedSwordAttack(player);
+
+						JumpAttack(player);
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%‚ÌUŒ‚
+						//NomalRotedSwordAttack(player);
+						JumpAttack(player);
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%‚ÌUŒ‚
+						JumpAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%‚ÌUŒ‚
+						JumpAttack(player);
+
+						/*Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == 0) {
+						Action = false;
+					}
+					//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚ÅŽg‚Á‚½•Ï”‚Ì‰Šú‰»‚ð‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
+					//ŠÖ”‚È‚¢‚Æ‚±‚É‚ÍAction=false‚ð“ü‚ê‚é‚±‚ÆB
+					break;
+				}
+			}
 		}
-		if (MovePattern[MoveArray] == array.AttackFunction01) {
-			//5%‚ÌUŒ‚
-			NomalRotedSwordAttack(player);
-
-			/*Action = false;*/
-		}
-		if (MovePattern[MoveArray] == array.AttackFunction02) {
-			//5%‚ÌUŒ‚
-			//NomalRotedSwordAttack(player);
-			NomalRotedSwordAttack(player);
-
-			/*Action = false;*/
-
-		}
-		if (MovePattern[MoveArray] == array.AttackFunction03) {
-			//5%‚ÌUŒ‚
-			NomalRotedSwordAttack(player);
-			/*Action = false;*/
-
-		}
-		if (MovePattern[MoveArray] == array.AttackFunction04) {
-			//5%‚ÌUŒ‚
-			JumpAttack(player);
-
-			/*Action = false;*/
-
-		}
-		if (MovePattern[MoveArray] == array.AttackFunction05) {
-			//5%‚ÌUŒ‚
-			JumpAttack(player);
-
-			/*Action = false;*/
-
-		}
-		if (MovePattern[MoveArray] == 0) {
-			Action = false;
-		}
-		//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚ÅŽg‚Á‚½•Ï”‚Ì‰Šú‰»‚ð‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
-		//ŠÖ”‚È‚¢‚Æ‚±‚É‚ÍAction=false‚ð“ü‚ê‚é‚±‚ÆB
-	}
 }
 
 
