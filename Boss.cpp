@@ -168,6 +168,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%ÇÃçUåÇ
 						//NomalSwordAttack(player);
+						
 						NomalRotedSwordAttack(player);
 						/*Action = false;*/
 
@@ -322,49 +323,33 @@ void Boss::AttackFunction01(Screen&screen)
 
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
-	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
-	//åïÇÃç¿ïWç≈èâÇÃ
-	Vec2 LeftTop = { -Size.x / 3,Size.y};
-	Vec2 RightTop = { Size.x / 3 ,Size.y};
-	Vec2 LeftBottom = { -Size.x / 3,0.0f};
-	Vec2 RightBottom = { Size.x / 3,0.0f};
-	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
-	blade.LeftTop = Multiply(LeftTop, mat);
-	blade.RightTop = Multiply(RightTop, mat);
-	blade.LeftBottom = Multiply(LeftBottom, mat);
-	blade.RightBottom = Multiply(RightBottom, mat);
-
-	blade.LeftTop += Pos;
-	blade.RightTop += Pos;
-	blade.LeftBottom += Pos;
-	blade.RightBottom += Pos;
-
 	Vec2 Distance = Pos - player.Translation();
-	if (Attack == false) {
-		if (Distance.Length() < 300) {
-			Attack = true;
-			AttackStartTime = 8;
+	if (Distance.Length() < 300 || Attack == true) {
+		if (Attack == false) {
+			AttackStartTime = 4;
 		}
-		else {
-			KeepUP(player);
-		}
+		Attack = true;
+	}
+	else { 
+		KeepUP(player); 
+		
 	}
 	//DirectionGet(player);
 
 	if (Attack == true) {
 		if (AttackStartTime <= 0) {
-			blade.angle = Easing::easing(blade.t, 0, 200, 0.035f, Easing::easeInBack) * -Direction;
+			blade.angle = Easing::easing(blade.t, 0, 180, 0.035f, Easing::easeInBack) * -Direction;
 
 			blade.theta = blade.angle / 180.0f * M_PI;
 
-			mat = MakeRotateMatrix(blade.theta);
-
-			LeftTop = { -Size.x / 3,Size.y };
-			RightTop = { Size.x / 3 ,Size.y };
-			LeftBottom = { -Size.x / 3,0 };
-			RightBottom = { Size.x / 3,0 };
+			Matrix2x2 mat = MakeRotateMatrix(blade.theta);
+			//åïÇÃç¿ïWç≈èâÇÃ
+			Vec2 LeftTop = { -Size.x / 3,Size.y };
+			Vec2 RightTop = { Size.x / 3 ,Size.y };
+			Vec2 LeftBottom = { -Size.x / 3,0 };
+			Vec2 RightBottom = { Size.x / 3,0 };
 			blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
 
 			blade.LeftTop = Multiply(LeftTop, mat);
 			blade.RightTop = Multiply(RightTop, mat);
@@ -391,9 +376,12 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 }
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
-
-	blade.angle += 10;
-
+	if (blade.Vec_RotedPos.x == 0) {
+		blade.angle = 30 * Direction;
+	}
+	
+	blade.angle -= 2.5 * Direction;
+	
 	blade.theta = blade.angle / 180.0f * M_PI;
 	
 	if (blade.Roted_t != 1) {
