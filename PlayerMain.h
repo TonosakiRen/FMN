@@ -36,7 +36,7 @@ class PlayerMain
 
 	GeneralStruct Player = {
 		{100,500},
-		{ 32,48 },
+		{ 64,96 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
@@ -46,10 +46,12 @@ class PlayerMain
 
 	//Speed プレイヤーが動かすときに使う
 	Vec2 Speed = { 0,0 };
-	//OtherSpeed  その他要因で動かされる時に使う 重力、ノックバックなど
+	//OtherSpeed  その他要因で動かされる時に使う ノックバックなど
 	Vec2 OtherSpeed = {0,0};
 
 	Vec2 HitBack = { 0,0 };
+
+	float Gravity = 0;
 
 	//G 重力じゃ
 	const float G = 9.8;
@@ -58,7 +60,7 @@ class PlayerMain
 	int JumpTime = 0;
 
 	//JUMPPOWER ジャンプ力ぅ...ですかねぇ...
-	float JUMPPOWER = 2;
+	float JUMPPOWER = 2.3;
 
 	//JumpFlag ジャンプさせるフラグ Trueの間はSpeedにジャンプ力が入る
 	bool JumpFlag = false;
@@ -69,6 +71,7 @@ class PlayerMain
 
 	bool DashFlag = false;
 	int DashTime = 0;
+	const int DASHSPEED = 34;
 	int DashCoolTime = 20;
 	bool DashFaseRight = true;
 	
@@ -84,6 +87,8 @@ class PlayerMain
 	const int FLOOR = 0;
 
 	Vec2 HitRatio = {0,0};
+
+	int HitCoolDown = 0;
 
 public:
 
