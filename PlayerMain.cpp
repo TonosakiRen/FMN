@@ -201,20 +201,20 @@ void PlayerMain::SwordHit(Quad Target)
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
 		 HitRatio.x = 
-			 ((Target.LeftTop.x + Target.Width / 2)
-		    - (Player.Quad.LeftTop.x + Player.Quad.Width / 2))
+			 ((Target.LeftTop.x + Target.GetWidth() / 2)
+		    - (Player.Quad.LeftTop.x + Player.Quad.GetWidth() / 2))
 			/
 			 (Sword.HitBoxSize.x
-				 + Player.Quad.Width / 2
-				 + Target.Width / 2);
+				 + Player.Quad.GetWidth() / 2
+				 + Target.GetWidth() / 2);
 
 		 HitRatio.y =
-			 (((Target.LeftTop.y * -1 + FLOOR) + Target.Height / 2)
-				 - ((Player.Quad.LeftTop.y * -1 + FLOOR) + Player.Quad.Height/ 2))
+			 (((Target.LeftTop.y * -1 + FLOOR) + Target.GetHeight() / 2)
+				 - ((Player.Quad.LeftTop.y * -1 + FLOOR) + Player.Quad.GetHeight() / 2))
 			 /
 			 (Sword.HitBoxSize.y
-				 + Player.Quad.Height / 2
-				 + Target.Height / 2);
+				 + Player.Quad.GetHeight() / 2
+				 + Target.GetHeight() / 2);
 
 		 if(FaceDown == true){
 			 HitBack.y = (1 - HitRatio.y) * 8;

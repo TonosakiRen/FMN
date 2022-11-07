@@ -33,10 +33,10 @@ bool Collision::DiagonalQuadToQuad(Quad pos, Quad diagonalPos) {
 	Vec2 StartRightTop = diagonalPos.RightTop - diagonalPos.RightBottom;
 	Vec2 StartRightBottom = diagonalPos.RightBottom - diagonalPos.LeftBottom;
 	//細かく当たり判定を取るための間の点のベクトル
-	Vec2 MiddleTop = { pos.LeftTop.x + pos.Width / 2, pos.LeftTop.y };
-	Vec2 MiddleRight = { pos.RightTop.x , pos.LeftTop.y - pos.Height / 2 };
-	Vec2 MiddleBottom = { pos.LeftTop.x + pos.Width / 2, pos.LeftBottom.y };
-	Vec2 MiddleLeft = { pos.LeftTop.x , pos.LeftTop.y - pos.Height / 2 };
+	Vec2 MiddleTop = { pos.LeftTop.x + pos.GetWidth() / 2, pos.LeftTop.y };
+	Vec2 MiddleRight = { pos.RightTop.x , pos.LeftTop.y - pos.GetHeight() / 2 };
+	Vec2 MiddleBottom = { pos.LeftTop.x + pos.GetWidth() / 2, pos.LeftBottom.y };
+	Vec2 MiddleLeft = { pos.LeftTop.x , pos.LeftTop.y - pos.GetHeight() / 2 };
 	//角からとりたい当たり判定の点までのベクトル
 	Vec2 LeftTopToPoint = diagonalPos.LeftTop - pos.LeftTop;
 	Vec2 RightTopToPoint = diagonalPos.RightTop - pos.LeftTop;
@@ -147,8 +147,8 @@ bool Collision::CircleToCirlce(Circle a, Circle b) {
 }
 
 bool Collision::CircleToQuad(Circle a, Quad b) {
-	if (Collision::QuadToQuad({ b.LeftTop.x ,b.LeftTop.y + a.radius }, b.Width, b.Height + a.radius * 2, a.pos, 1, 1) ||
-		Collision::QuadToQuad({ b.LeftTop.x - a.radius,b.LeftTop.y }, b.Width + a.radius * 2, b.Height, a.pos, 1, 1) ||
+	if (Collision::QuadToQuad({ b.LeftTop.x ,b.LeftTop.y + a.radius }, b.GetWidth(), b.GetHeight() + a.radius * 2, a.pos, 1, 1) ||
+		Collision::QuadToQuad({ b.LeftTop.x - a.radius,b.LeftTop.y }, b.GetWidth() + a.radius * 2, b.GetHeight(), a.pos, 1, 1) ||
 		Collision::CircleToCirlce({ a.pos,1 }, { b.LeftTop,a.radius }) ||
 		Collision::CircleToCirlce({ a.pos,1 }, { b.RightTop,a.radius }) ||
 		Collision::CircleToCirlce({ a.pos,1 }, { b.LeftBottom,a.radius }) ||

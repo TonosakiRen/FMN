@@ -9,9 +9,7 @@ public:
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
-	float Width;
-	float Height;
-	float theta;
+
 public:
 
 	Quad();
@@ -23,8 +21,10 @@ public:
 	Quad Rotate(Quad quad, float theta);
 	Quad CenterRotate(Quad quad, float theta);
 	Quad Translation(Quad quad, Vec2 position);
+	Quad WidthAdd(Quad quad, float add);
 
-	Quad GetCenterRotatedQuad(Quad quad);
+	float GetWidth() const { return RightTop.DistanceFrom(LeftTop); }
+	float GetHeight() const { return LeftTop.DistanceFrom(LeftBottom); }
 
 	Quad operator + (Vec2 s) const;
 	Quad operator - (Vec2 s) const;
