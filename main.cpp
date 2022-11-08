@@ -46,6 +46,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				playermain.SwordHit(boss.GetBossQuad());
 
 				effect01.Update(true, playermain.GetPlayerQuad());
+				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
 			}
 		}
 
@@ -63,7 +64,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		
 		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
-		effect01.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
+		effect01.Draw(screen, 128, effect02Img, WHITE, kBlendModeAdd);
+		effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
 		

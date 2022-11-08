@@ -16,4 +16,6 @@ namespace Collision {
 	bool CircleToCirlce(Circle a, Circle b);
 
 	bool CircleToQuad(Circle a, Quad b);
+
+	Quad GetCollisionQuad(Quad a, Quad b);
 }

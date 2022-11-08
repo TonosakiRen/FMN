@@ -22,6 +22,9 @@ public:
 
 	float smallSpeed;
 
+	int emitNum;
+	int addEmitNum;
+
 	struct effect{
 		Quad quad;
 		Vec2 direction;
@@ -45,7 +48,8 @@ public:
 	/// <param name="maxspeed">エフェクトのスピードの最高値</param>
 	/// <param name="addtheta">加算する角度</param>
 	/// <param name="smallspeed">どのくらいの速さで遅くなるか</param>
-	Effect(int num,int cooltime,Vec2 mindirection,Vec2 maxdirection,int minwidth, int maxwidth , float minspeed,float maxspeed , float addtheta,float smallspeed);
+	/// <param name="emitnum">どのくらいの速さで遅くなるか</param>
+	Effect(int num,int cooltime,Vec2 mindirection,Vec2 maxdirection,int minwidth, int maxwidth , float minspeed,float maxspeed , float addtheta,float smallspeed , int emitnum);
 	~Effect();
 	void Update(bool isEmit , Quad pos , float theta);
 	void Update(bool isEmit, Quad pos);

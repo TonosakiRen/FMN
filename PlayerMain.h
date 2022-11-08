@@ -90,6 +90,8 @@ class PlayerMain
 
 	int HitCoolDown = 0;
 
+	Quad hitAttackPos;
+
 public:
 
 	Quad GetPlayerQuad()
@@ -111,6 +113,8 @@ public:
 	void NormalAttack();
 
 	void SwordHit(Quad Target);
+
+	Quad GetHitAttackPos() { return hitAttackPos; }
 
 	void PlayerHit(Quad Target, Screen& screen);
 
