@@ -472,3 +472,14 @@ Quad Boss::GetBossBladeQuad()
 {
 	return Quad(blade.Quad_Pos);
 }
+
+bool Boss::GetAction()
+{
+	if (Action == true) {
+		return true;
+	}
+	else {
+
+	return false;
+	}
+}

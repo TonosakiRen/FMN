@@ -161,5 +161,6 @@ public:
 
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
+	bool GetAction();
 
 };
