@@ -21,7 +21,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
 	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
 	int bossImg = Novice::LoadTexture("./Resources/Images/Boss/Boss.png");
+	int bossheadImg = Novice::LoadTexture("./Resources/Images/Boss/Head.png");
 	int bossbodyImg = Novice::LoadTexture("./Resources/Images/Boss/Body.png");
+	int bosslegImg = Novice::LoadTexture("./Resources/Images/Boss/Leg.png");
+	int bossrightarmImg = Novice::LoadTexture("./Resources/Images/Boss/RightArm.png");
+	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
 	int ziki = Novice::LoadTexture("./Resources/Images/ziki.png");
 	int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
@@ -98,7 +102,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
 		playermain.Draw(screen,ziki);
-		boss.Draw(screen,bossImg, 0, bossbodyImg,0,0,0);
+		boss.Draw(screen,bossImg, bossheadImg, bossbodyImg,bosslegImg,bossleftarmImg,bossrightarmImg);
 		
 		///
 		/// ↑描画処理ここまで

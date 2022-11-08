@@ -25,25 +25,42 @@ void Boss::UpDate() {
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 
 	if (Key::IsPressed(DIK_H)) {
-		Body.PosMisal.y += 2;
+		LeftArm.PosMisal.y += 2;
 	}
 	if (Key::IsPressed(DIK_N)) {
-		Body.PosMisal.y -= 2;
+		LeftArm.PosMisal.y -= 2;
 	}
 	if (Key::IsPressed(DIK_M)) {
-		Body.PosMisal.x += 2;
+		LeftArm.PosMisal.x += 2;
 	}
 	if (Key::IsPressed(DIK_B)) {
-		Body.PosMisal.x -= 2;
+		LeftArm.PosMisal.x -= 2;
 	}
 
 	Base.ImagePos = Pos;
 	Base.ImageQuad = { {Base.ImagePos.x - Base.ImageSize.x / 2, Base.ImagePos.y + Base.ImageSize.y / 2},
 		int(Base.ImageSize.x),int(Base.ImageSize.y) };
 
-	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction,Pos.y + Body.PosMisal.y};
+	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x,Pos.y + Body.PosMisal.y + Body.PulsPos.y };
 	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) };
+
+	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x,Pos.y + Head.PosMisal.y + Head.PulsPos.y };
+	Head.ImageQuad = { {Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
+		int(Head.ImageSize.x),int(Head.ImageSize.y) };
+
+	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x,Pos.y + Leg.PosMisal.y + Leg.PulsPos.y };
+	Leg.ImageQuad = { {Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
+		int(Leg.ImageSize.x),int(Leg.ImageSize.y) };
+
+	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x * Direction + RightArm.PulsPos.x,Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y };
+	RightArm.ImageQuad = { {RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
+		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) };
+
+
+	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x * Direction + LeftArm.PulsPos.x,Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y };
+	LeftArm.ImageQuad = { {LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
+		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) };
 	
 }
 void Boss::Set()
@@ -59,7 +76,7 @@ void Boss::Set()
 
 }
 
-void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,int leftarm,int rightarm)
+void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
 {
 	
 	bool BossisFlip = false;
@@ -74,12 +91,16 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
 	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
-	screen.DrawQuad2Renban(Base.ImageQuad, SrcX, 0, Base.ImageSize.x, Base.ImageSize.y, 0, 60, AnimeFlame, texsture, 0xFFFFFFFF, BossisFlip);
-	//screen.DrawQuad2Renban(Body.ImageQuad, SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 0, 60, AnimeFlame, bodytex, WHITE, BossisFlip);
+	//screen.DrawQuad2Renban(Base.ImageQuad, SrcX, 0, Base.ImageSize.x, Base.ImageSize.y, 0, 60, AnimeFlame, texsture, 0xFFFFFF44, BossisFlip);
+	screen.DrawQuad2Renban(Leg.ImageQuad, SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 0, 60, AnimeFlame, legtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Body.ImageQuad, SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 0, 60, AnimeFlame, bodytex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Head.ImageQuad, SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 0, 60, AnimeFlame, headtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, 0xFF000011, BossisFlip);
 
 	Novice::ScreenPrintf(0, 30, "%d", Direction);
-	Novice::ScreenPrintf(0, 50, "%0.0f,%0.0f", Body.PosMisal.x, Body.PosMisal.y);
+	Novice::ScreenPrintf(0, 50, "%0.0f,%0.0f", LeftArm.PosMisal.x, LeftArm.PosMisal.y);
 	
 }
 

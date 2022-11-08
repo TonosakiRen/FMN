@@ -114,7 +114,7 @@ class Boss {
 	AttackFunction01 ArkSword;
 	Blade blade;
 	
-	int Direction;
+	int Direction = -1;
 	int AnimeFlame=9;
 	int SrcX;
 
@@ -150,10 +150,11 @@ class Boss {
 	JumpAttack jumpattack;
 
 	struct ImageStruct {
-		Vec2 ImagePos;
-		Vec2 ImageSize;
-		Vec2 PosMisal;
-		Quad ImageQuad;
+		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
+		Vec2 ImageSize; // パーツのサイズ
+		Vec2 PosMisal; //  !!!!値を変更しないで!!!! パーツの位置 この値をボスの中心座標に加算する
+		Quad ImageQuad; // クアッドホッパーピンクとか追加されないかなぁ。ポイントセンサーとグレートバリアがいいなぁ。ホントはサメ使いたいけど
+		Vec2 PulsPos; //パーツ位置のズレ、モーションとかで動かすときに使う
 	};
 
 	ImageStruct Base = {
@@ -161,21 +162,59 @@ class Boss {
 		{ 250,400 },
 		{0,0},
 		{ {Base.ImagePos.x - Base.ImageSize.x / 2, Base.ImagePos.y + Base.ImageSize.y / 2},
-		int(Base.ImageSize.x),int(Base.ImageSize.y) }
+		int(Base.ImageSize.x),int(Base.ImageSize.y) },
+		{0,0}
+	};
+
+	ImageStruct Head = {
+		{0,0},
+		{90,82},
+		{18,155},
+		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
+		int(Head.ImageSize.x),int(Head.ImageSize.y) },
+		{0,0}
 	};
 
 	ImageStruct Body = {
 		{0,0},
 		{146,164},
-		{-2,52},
+		{2,52},
 		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
-		int(Body.ImageSize.x),int(Body.ImageSize.y) }
+		int(Body.ImageSize.x),int(Body.ImageSize.y) },
+		{0,0}
+	};
+
+	ImageStruct Leg = {
+		{0,0},
+		{130,130},
+		{-4,-59},
+		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
+		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
+		{0,0}
+	};
+
+	ImageStruct RightArm = {
+		{0,0},
+		{52,116},
+		{-94,-4},
+		{ { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
+		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
+		{0,0}
+	};
+
+	ImageStruct LeftArm = {
+		{0,0},
+		{52,116},
+		{86,-4},
+		{ { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
+		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
+		{0,0}
 	};
 
 public:
 	Boss();
 	void Set();
-	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int leftarm, int rightarm);
+	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm);
 	void UpDate();
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
