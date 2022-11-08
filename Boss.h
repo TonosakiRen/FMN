@@ -3,6 +3,7 @@
 #include "Vec2.h"
 #include "Clamp.h"
 #include "Quad.h"
+#include "Key.h"
 #include"Screen.h"
 #include"PlayerMain.h"
 #include "Easing.h"
@@ -148,10 +149,33 @@ class Boss {
 	};
 	JumpAttack jumpattack;
 
+	struct ImageStruct {
+		Vec2 ImagePos;
+		Vec2 ImageSize;
+		Vec2 PosMisal;
+		Quad ImageQuad;
+	};
+
+	ImageStruct Base = {
+		{0,0},
+		{ 250,400 },
+		{0,0},
+		{ {Base.ImagePos.x - Base.ImageSize.x / 2, Base.ImagePos.y + Base.ImageSize.y / 2},
+		int(Base.ImageSize.x),int(Base.ImageSize.y) }
+	};
+
+	ImageStruct Body = {
+		{0,0},
+		{146,164},
+		{-2,52},
+		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
+		int(Body.ImageSize.x),int(Body.ImageSize.y) }
+	};
+
 public:
 	Boss();
 	void Set();
-	void Draw(Screen& screen);
+	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int leftarm, int rightarm);
 	void UpDate();
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);

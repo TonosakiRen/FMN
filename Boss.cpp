@@ -12,6 +12,8 @@ Boss::Boss()
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom};
 	CoolTime = 200;
 	Randam::SRAND();
+
+	
 }
 void Boss::UpDate() {
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
@@ -21,6 +23,27 @@ void Boss::UpDate() {
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
+
+	if (Key::IsPressed(DIK_H)) {
+		Body.PosMisal.y += 2;
+	}
+	if (Key::IsPressed(DIK_N)) {
+		Body.PosMisal.y -= 2;
+	}
+	if (Key::IsPressed(DIK_M)) {
+		Body.PosMisal.x += 2;
+	}
+	if (Key::IsPressed(DIK_B)) {
+		Body.PosMisal.x -= 2;
+	}
+
+	Base.ImagePos = Pos;
+	Base.ImageQuad = { {Base.ImagePos.x - Base.ImageSize.x / 2, Base.ImagePos.y + Base.ImageSize.y / 2},
+		int(Base.ImageSize.x),int(Base.ImageSize.y) };
+
+	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction,Pos.y + Body.PosMisal.y};
+	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
+		int(Body.ImageSize.x),int(Body.ImageSize.y) };
 	
 }
 void Boss::Set()
@@ -36,13 +59,27 @@ void Boss::Set()
 
 }
 
-void Boss::Draw(Screen& screen)
+void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,int leftarm,int rightarm)
 {
-	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, RED, Direction);
-	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, WHITE);
-	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, GREEN);
-	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, GREEN);
+	
+	bool BossisFlip = false;
 
+	if (Direction == 1) {
+		BossisFlip = true;
+	}
+	else {
+		BossisFlip = false;
+	}
+
+	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
+	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
+	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
+	screen.DrawQuad2Renban(Base.ImageQuad, SrcX, 0, Base.ImageSize.x, Base.ImageSize.y, 0, 60, AnimeFlame, texsture, 0xFFFFFFFF, BossisFlip);
+	//screen.DrawQuad2Renban(Body.ImageQuad, SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 0, 60, AnimeFlame, bodytex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, 0xFF000011, BossisFlip);
+
+	Novice::ScreenPrintf(0, 30, "%d", Direction);
+	Novice::ScreenPrintf(0, 50, "%0.0f,%0.0f", Body.PosMisal.x, Body.PosMisal.y);
 	
 }
 

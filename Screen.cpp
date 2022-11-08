@@ -153,7 +153,7 @@ void Screen::DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH,
 	if (isFlip == true) {
 		Novice::DrawQuad(x2, y2, x1, y1, x4, y4, x3, y3, srcX, srcY, srcW, srcH, textureHandle, color);
 	}
-	else {
+	else if (isFlip == false) {
 		Novice::DrawQuad(x1, y1, x2, y2, x3, y3, x4, y4, srcX, srcY, srcW, srcH, textureHandle, color);
 	}
 }
