@@ -23,6 +23,7 @@ class PlayerMain
 		Quad Quad;
 		int AnimeFlame;
 		int SrcX;
+		bool isFlip;
 		unsigned int Color;
 	};
 	
@@ -36,11 +37,12 @@ class PlayerMain
 
 	GeneralStruct Player = {
 		{100,500},
-		{ 64,96 },
+		{ 60,96 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
 		0,
+		false,
 		WHITE,
 	};
 

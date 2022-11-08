@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect03Img = Novice::LoadTexture("./Resources/Images/Effect03.png");
 	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
 	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
+	int ziki = Novice::LoadTexture("./Resources/Images/ziki.png");
 	int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
@@ -74,7 +75,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect01.Draw(screen, 128, effect04Img, WHITE, kBlendModeAdd);
 		effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-		playermain.Draw(screen,tex);
+		playermain.Draw(screen,ziki);
 		boss.Draw(screen);
 		
 		///
