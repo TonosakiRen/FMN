@@ -2,7 +2,7 @@
 #include "Randam.h"
 #include "Randam.h"
 #include "Easing.h"
-Effect::Effect(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta , float smallspeed) {
+Effect::Effect(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta , float smallspeed ,int emitnum = 1) {
 	EffectNum = num;
 	effectCooltime = cooltime;
 	addEffectCooltime = cooltime;
@@ -14,6 +14,8 @@ Effect::Effect(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int 
 	maxSpeed = maxspeed;
 	smallSpeed = smallspeed;
 	addTheta = addtheta;
+	emitNum = emitnum;
+	addEmitNum = emitnum;
 	particles = new effect[EffectNum];
 }
 
@@ -40,7 +42,9 @@ void Effect::Update(bool isEmit, Quad pos) {
 void Effect::Emit(Quad pos , float theta) {
 	addEffectCooltime--;
 	for (int i = 0; i < EffectNum; i++) {
+		
 		if (particles[i].isActive == false && addEffectCooltime <= 0) {
+			addEmitNum--;
 			//進む方向
 			particles[i].direction = { Randam::RAND(minDirection.x,maxDirection.x) , Randam::RAND(minDirection.y,maxDirection.y) };
 			particles[i].direction = particles[i].direction.Normalized();
@@ -58,6 +62,11 @@ void Effect::Emit(Quad pos , float theta) {
 			particles[i].speed = { Randam::RAND(minSpeed,maxSpeed) };
 			//アクティブフラグ
 			particles[i].isActive = true;
+			
+
+		}
+		if (addEmitNum <= 0) {
+			addEmitNum = emitNum;
 			addEffectCooltime = effectCooltime;
 			break;
 		}
@@ -66,7 +75,9 @@ void Effect::Emit(Quad pos , float theta) {
 void Effect::Emit(Quad pos ) {
 	addEffectCooltime--;
 	for (int i = 0; i < EffectNum; i++) {
+		
 		if (particles[i].isActive == false && addEffectCooltime <= 0) {
+			addEmitNum--;
 			//進む方向
 			particles[i].direction = { Randam::RAND(minDirection.x,maxDirection.x) , Randam::RAND(minDirection.y,maxDirection.y) };
 			particles[i].direction = particles[i].direction.Normalized();
@@ -80,6 +91,10 @@ void Effect::Emit(Quad pos ) {
 			particles[i].speed = { Randam::RAND(minSpeed,maxSpeed) };
 			//アクティブフラグ
 			particles[i].isActive = true;
+
+		}
+		if (addEmitNum <= 0) {
+			addEmitNum = emitNum;
 			addEffectCooltime = effectCooltime;
 			break;
 		}
@@ -102,7 +117,7 @@ void Effect::EffectUpdate() {
 void Effect::Delete() {
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
-			if (particles[i].quad.GetWidth() < 1.0f) {
+			if (particles[i].quad.GetWidth() < 1.0f || particles[i].quad.LeftTop.y >= SCREEN_HEIGHT - Floor + particles[i].quad.LeftTop.DistanceFrom(particles[i].quad.LeftBottom)) {
 				particles[i].isActive = false;
 			}
 		}

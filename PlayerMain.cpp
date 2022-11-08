@@ -229,20 +229,22 @@ void PlayerMain::SwordHit(Quad Target)
 				 + Target.GetHeight() / 2);
 
 		 if(FaceDown == true){
-			 HitBack.y = (1 - HitRatio.y) * 8;
+			 HitBack.y =8;
 			 Gravity = 0;
 		 }
 		 else if (FaceUp == true) {
-			 HitBack.y = (-1 + -HitRatio.y) * 8;
+			 HitBack.y = -8;
 		 }
 		 else {
 			 if (FaceRight == true) {
-				 HitBack.x = (-1 + HitRatio.x) * 30;
+				 HitBack.x = -30;
 			 }
 			 else {
-				 HitBack.x = (1 + HitRatio.x) * 30;
+				 HitBack.x =  30;
 			 }
 		 }
+
+		 hitAttackPos = Collision::GetCollisionQuad(Sword.Quad, Target);
 
 		 HitStop = 1;
 	}

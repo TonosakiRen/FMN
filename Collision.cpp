@@ -159,3 +159,44 @@ bool Collision::CircleToQuad(Circle a, Quad b) {
 	}
 	return false;
 }
+
+Quad Collision::GetCollisionQuad(Quad a, Quad b) {
+	Quad tmp;
+	if (a.LeftTop.x <= b.LeftTop.x) {
+		tmp.LeftTop.x = b.LeftTop.x;
+		tmp.LeftBottom.x = b.LeftBottom.x;
+	}
+	else {
+		tmp.LeftTop.x = a.LeftTop.x;
+		tmp.LeftBottom.x = a.LeftBottom.x;
+	}
+
+	if (a.RightTop.x >= b.RightTop.x) {
+		tmp.RightTop.x = b.RightTop.x;
+		tmp.RightBottom.x = b.RightBottom.x;
+	}
+	else {
+		tmp.RightTop.x = a.RightTop.x;
+		tmp.RightBottom.x = a.RightBottom.x;
+	}
+
+	if (a.LeftTop.y <= b.LeftTop.y) {
+		tmp.LeftTop.y = a.LeftTop.y;
+		tmp.RightTop.y = a.RightTop.y;
+	}
+	else {
+		tmp.LeftTop.y = b.LeftTop.y;
+		tmp.RightTop.y = b.RightTop.y;
+	}
+	 
+	if (a.LeftBottom.y >= b.LeftBottom.y) {
+		tmp.LeftBottom.y = a.LeftBottom.y;
+		tmp.RightBottom.y = a.RightBottom.y;
+	}
+	else {
+		tmp.LeftBottom.y = b.LeftBottom.y;
+		tmp.RightBottom.y = b.RightBottom.y;
+	}
+
+	return{ tmp };
+}
