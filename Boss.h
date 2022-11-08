@@ -9,6 +9,7 @@
 #include "Randam.h"
 
 const int MAX_PATTERN = 100;
+const int kMAX_CIR = 6;
 class Boss {
 
 
@@ -83,6 +84,24 @@ class Boss {
 
 
 	}Wave;
+	struct CircleOfDeath {
+		Vec2 Pos={};
+		float Rad = {};
+		float fRad = {};
+		bool Set = false;
+		bool Reserve = true;
+		float Reserve_t = 0;
+		
+		void Init() {
+			Rad = 0;
+			Set = false;
+			Reserve = true;
+			Reserve_t = 0;
+
+		}
+
+	}Circleofdeath[kMAX_CIR];
+	int Circleofdeath_flame;
 	enum Pattarn
 	{
 		NEAR_1,
@@ -165,6 +184,7 @@ public:
 	void NomalRotedSwordAttack(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
+	void CircleOfDeathAttack();
 	//派生スキル::行動が終わっても出続ける的なもの
 	void KeepWaveAttack();
 	
