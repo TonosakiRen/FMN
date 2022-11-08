@@ -72,6 +72,17 @@ class Boss {
 
 
 	};
+	struct ShockWave {
+		Quad QuadPos = {};
+		Quad Quad2Pos = {};
+		Vec2 Pos = {};
+		Vec2 Pos2 = {};
+		float LifeTime = {};
+		bool WaveKeep = false;
+		bool Reserve = true;
+
+
+	}Wave;
 	enum Pattarn
 	{
 		NEAR_1,
@@ -153,7 +164,9 @@ public:
 	void NomalSwordAttack(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
-
+	void ShockWaveAttack(PlayerMain& player, Screen& screen);
+	//派生スキル::行動が終わっても出続ける的なもの
+	void KeepWaveAttack();
 	
 
 	
