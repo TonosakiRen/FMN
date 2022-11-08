@@ -25,13 +25,11 @@ void PlayerMain::Move()
 
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
-		Player.isFlip = true;
 		FaceRight = true;
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
 		Speed.x = -8;
-		Player.isFlip = false;
 		FaceRight = false;
 	}
 
@@ -211,9 +209,10 @@ void PlayerMain::NormalAttack()
 
 void PlayerMain::SwordHit(Quad Target)
 {
-	
+	isSwordHit = false;
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
+		isSwordHit = true;
 		 HitRatio.x = 
 			 ((Target.LeftTop.x + Target.GetWidth() / 2)
 		    - (Player.Quad.LeftTop.x + Player.Quad.GetWidth() / 2))
@@ -450,7 +449,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color,Player.isFlip);
+		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color,FaceRight);
 	}
 
 	screen.DrawBox(Player.Quad.LeftTop.x, Player.Quad.LeftTop.y, 60,96,0,WHITE,kFillModeWireFrame);

@@ -23,7 +23,6 @@ class PlayerMain
 		Quad Quad;
 		int AnimeFlame;
 		int SrcX;
-		bool isFlip;
 		unsigned int Color;
 	};
 	
@@ -42,7 +41,6 @@ class PlayerMain
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
 		0,
-		false,
 		WHITE,
 	};
 
@@ -84,6 +82,7 @@ class PlayerMain
 		int(Sword.HitBoxSize.x),int(Sword.HitBoxSize.y) },
 		9,
 		0,
+		WHITE
 	};
 
 	const int FLOOR = 0;
@@ -92,7 +91,8 @@ class PlayerMain
 
 	int HitCoolDown = 0;
 
-	Quad hitAttackPos;
+	Quad hitAttackPos = { {0,0}, 0,0};
+	bool isSwordHit = false;
 
 public:
 
@@ -118,7 +118,13 @@ public:
 
 	Quad GetHitAttackPos() { return hitAttackPos; }
 
+	bool GetHitSword() { return isSwordHit; }
+
 	void PlayerHit(Quad Target, Screen& screen);
+
+	bool GetisFaceRigh() { return FaceRight; }
+	bool GetisFaceUp() { return FaceUp; }
+	bool GetisFaceDown() { return FaceDown; }
 
 	void Draw(Screen& screen,int texture);
 	Vec2 Translation();

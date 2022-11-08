@@ -52,6 +52,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				effect01.Update(true, playermain.GetPlayerQuad());
 				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
 				effect03.Update(true,{{0,-Floor},SCREEN_WIDTH,Floor});
+
+				if (playermain.GetHitSword() == true) {
+					if (playermain.GetisFaceUp()) {
+						effect04.minDirection = { -0.6f , 0.1f };
+						effect04.maxDirection = { 0.6f , 0.9f };
+					}else if (playermain.GetisFaceDown()) {
+						effect04.minDirection = { -0.6f , -0.1f };
+						effect04.maxDirection = { 0.6f , -0.9f };
+					}else if (playermain.GetisFaceRigh()) {
+						effect04.minDirection = { 0.1f,-0.6f };
+						effect04.maxDirection = { 0.9f,0.6f };
+					}
+					else {
+						effect04.minDirection = { -0.9f,-0.6f };
+						effect04.maxDirection = { -0.1f,0.6f };
+					}
+					
+				}
+				effect04.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
 			}
 		}
 
@@ -75,6 +94,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect01.Draw(screen, 128, effect04Img, WHITE, kBlendModeAdd);
 		effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
 		playermain.Draw(screen,ziki);
 		boss.Draw(screen);
 		
