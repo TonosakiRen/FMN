@@ -39,7 +39,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (stopper.HitStopUpdate() == false) {
 				playermain.Move();
 				boss.UpDate();
-				boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain);
+				boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 
 				playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
 				playermain.PlayerHit(boss.GetBossQuad(), screen);

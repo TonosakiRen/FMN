@@ -30,7 +30,7 @@ public:
 	void Scroll_update(float playerX, int map_sheets_number);
 
 
-	void Shake(int mixX, int maxX, int mixY, int maxY, bool is);
+	void Shake(int minX, int maxX, int minY, int maxY, bool is);
 
 
 	/// <summary>

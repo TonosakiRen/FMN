@@ -144,14 +144,14 @@ public:
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
 	void DirectionGet(PlayerMain& player);
-	void RandamMoveSelect(int rand,PlayerMain& player);
+	void RandamMoveSelect(int rand,PlayerMain& player, Screen& screen);
 	void RandMoveSet();
 
 	//ÉXÉLÉã
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);
-	void JumpAttack(PlayerMain& player);
+	void JumpAttack(PlayerMain& player,Screen& screen);
 
 	
 
@@ -160,5 +160,6 @@ public:
 	Quad GetBossQuad();
 
 	Quad GetBossAttackQuad();
+	Quad GetBossBladeQuad();
 
 };

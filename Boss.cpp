@@ -111,7 +111,7 @@ void Boss::RandMoveSet() {
 	
 }
 
-void Boss::RandamMoveSelect(int rand,PlayerMain& player)
+void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 {
 	
 
@@ -255,14 +255,14 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
 						//NomalSwordAttack(player);
-						JumpAttack(player);
+						JumpAttack(player,screen);
 						CoolTime = 50;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%ÇÃçUåÇ
 						//NomalRotedSwordAttack(player);
-						JumpAttack(player);
+						JumpAttack(player,screen);
 
 						/*Action = false;*/
 					}
@@ -271,27 +271,27 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player)
 						//NomalRotedSwordAttack(player);
 						//NomalRotedSwordAttack(player);
 
-						JumpAttack(player);
+						JumpAttack(player, screen);
 						/*Action = false;*/
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%ÇÃçUåÇ
 						//NomalRotedSwordAttack(player);
-						JumpAttack(player);
+						JumpAttack(player, screen);
 						/*Action = false;*/
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction04) {
 						//5%ÇÃçUåÇ
-						JumpAttack(player);
+						JumpAttack(player, screen);
 
 						/*Action = false;*/
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%ÇÃçUåÇ
-						JumpAttack(player);
+						JumpAttack(player, screen);
 
 						/*Action = false;*/
 
@@ -393,10 +393,10 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	}
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 	//åïÇÃç¿ïWç≈èâÇÃ
-	Vec2 LeftTop = { -Size.x / 3,Size.y };
-	Vec2 RightTop = { Size.x / 3 ,Size.y };
-	Vec2 LeftBottom = { -Size.x / 3,0 };
-	Vec2 RightBottom = { Size.x / 3,0 };
+	Vec2 LeftTop = { -Size.x / 3,Size.y/2 };
+	Vec2 RightTop = { Size.x / 3 ,Size.y/2 };
+	Vec2 LeftBottom = { -Size.x / 3,-Size.y / 2 };
+	Vec2 RightBottom = { Size.x / 3,-Size.y / 2 };
 	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 
@@ -419,7 +419,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		Attack = false;
 	}
 }
-void Boss::JumpAttack(PlayerMain& player) 
+void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
 {
 	
 	if (Attack == false) {
@@ -440,8 +440,12 @@ void Boss::JumpAttack(PlayerMain& player)
 		}
 		else
 		if (jumpattack.Matched == true) {
-			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.5f, Easing::easeOutBounce);
+			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.05f, Easing::easeOutBounce);
+		
 		}
+			
+			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT<=0.9f&& jumpattack.EaseDownT >= 0.8f);
+		
 		if (jumpattack.EaseDownT == 1.0f) {
 			blade.Init();
 			jumpattack.Init();
@@ -460,6 +464,11 @@ Quad Boss::GetBossQuad()
 }
 
 Quad Boss::GetBossAttackQuad()
+{
+	return Quad(blade.Quad_Pos);
+}
+
+Quad Boss::GetBossBladeQuad()
 {
 	return Quad(blade.Quad_Pos);
 }
