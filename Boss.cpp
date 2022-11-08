@@ -323,6 +323,7 @@ void Boss::AttackFunction01(Screen&screen)
 
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
+	SwordAttack = true;
 	Vec2 Distance = Pos - player.Translation();
 	if (Distance.Length() < 300 || Attack == true) {
 		if (Attack == false) {
@@ -367,6 +368,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 				blade.Init();
 				Action = false;
 				Attack = false;
+				SwordAttack = false;
 			}
 		}
 		else {
@@ -376,6 +378,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 }
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
+	SwordAttack = true;
 	if (blade.Vec_RotedPos.x == 0) {
 		blade.angle = 30 * Direction;
 	}
@@ -417,6 +420,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		blade.Init();
 		Action = false;
 		Attack = false;
+		SwordAttack = false;
 	}
 }
 void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
@@ -481,5 +485,16 @@ bool Boss::GetAction()
 	else {
 
 	return false;
+	}
+}
+
+bool Boss::GetSwordAttack()
+{
+	if (SwordAttack == true) {
+		return true;
+	}
+	else {
+		return false;
+
 	}
 }

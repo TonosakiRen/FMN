@@ -112,6 +112,7 @@ class Boss {
 	bool NormalAttack;
 	bool Action;
 	bool Attack;
+	bool SwordAttack;
 	int AttackStartTime = 0;
 	struct NomalAttak {
 		Quad quad;
@@ -162,5 +163,6 @@ public:
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
 	bool GetAction();
+	bool GetSwordAttack();
 
 };
