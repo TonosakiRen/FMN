@@ -18,6 +18,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect01Img = Novice::LoadTexture("./Resources/Images/Effect01.png");
 	int effect02Img = Novice::LoadTexture("./Resources/Images/Effect02.png");
 	int effect03Img = Novice::LoadTexture("./Resources/Images/Effect03.png");
+	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
+	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
+	int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
 
@@ -47,6 +50,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				effect01.Update(true, playermain.GetPlayerQuad());
 				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
+				effect03.Update(true,{{0,-Floor},SCREEN_WIDTH,Floor});
 			}
 		}
 
@@ -62,10 +66,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		
-		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 
-		effect01.Draw(screen, 128, effect02Img, WHITE, kBlendModeAdd);
+		Novice::SetBlendMode(kBlendModeAdd);
+		screen.DrawQuad2Normal(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background, WHITE);
+		Novice::SetBlendMode(kBlendModeNormal);
+		effect01.Draw(screen, 128, effect04Img, WHITE, kBlendModeAdd);
 		effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
+		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
 		

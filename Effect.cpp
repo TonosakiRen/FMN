@@ -117,7 +117,7 @@ void Effect::EffectUpdate() {
 void Effect::Delete() {
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
-			if (particles[i].quad.GetWidth() < 1.0f) {
+			if (particles[i].quad.GetWidth() < 1.0f || particles[i].quad.LeftTop.y >= SCREEN_HEIGHT - Floor + particles[i].quad.LeftTop.DistanceFrom(particles[i].quad.LeftBottom)) {
 				particles[i].isActive = false;
 			}
 		}
