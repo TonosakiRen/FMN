@@ -13,8 +13,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Controller::SetLeftStickDeadZone(0, 14000);
 
+
 	int tex = Novice::LoadTexture("white1x1.png");
 	int effect01Img = Novice::LoadTexture("./Resources/Images/Effect01.png");
+	int effect02Img = Novice::LoadTexture("./Resources/Images/Effect02.png");
+	int effect03Img = Novice::LoadTexture("./Resources/Images/Effect03.png");
 	Randam::SRAND();
 
 
@@ -58,7 +61,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		
-		effect01.Draw(screen, 128, effect01Img, WHITE, kBlendModeNormal);
+		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+
+		effect01.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
 		playermain.Draw(screen,tex);
 		boss.Draw(screen);
 		

@@ -72,7 +72,10 @@ void Effect::Emit(Quad pos ) {
 			particles[i].direction = particles[i].direction.Normalized();
 			//横幅、出現場所
 			int width = Randam::RAND(minWidth, maxWidth);
-			particles[i].quad = { {Randam::RAND(pos.LeftTop.x - width / 2,pos.RightTop.x - width / 2),Randam::RAND(pos.LeftBottom.y + width / 2,pos.LeftTop.y + width / 2) }, width ,width };
+			Vec2 side = (pos.RightTop - pos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, pos.LeftTop.DistanceFrom(pos.RightTop));
+			Vec2 vertical = (pos.LeftBottom - pos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, pos.LeftTop.DistanceFrom(pos.LeftBottom));
+			Vec2 center = { pos.LeftTop + side + vertical };
+			particles[i].quad = { {center.x - width / 2,center.y + width / 2 }, width ,width };
 			//スピードランダム
 			particles[i].speed = { Randam::RAND(minSpeed,maxSpeed) };
 			//アクティブフラグ

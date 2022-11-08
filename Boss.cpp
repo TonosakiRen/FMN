@@ -39,7 +39,7 @@ void Boss::Set()
 void Boss::Draw(Screen& screen)
 {
 	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, RED, Direction);
-	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, BLACK);
+	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, WHITE);
 	
 }
 
@@ -380,7 +380,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		blade.angle = 30 * Direction;
 	}
 	
-	blade.angle -= 2.5 * Direction;
+	blade.angle -= 12 * Direction;
 	
 	blade.theta = blade.angle / 180.0f * M_PI;
 	

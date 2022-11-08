@@ -87,7 +87,7 @@ void PlayerMain::Move()
 	if (JumpFlag == true) {
 		Speed.y = JUMPPOWER;
 		JumpTime++;
-		if (JumpTime >= 10) {
+		if (JumpTime >= 11) {
 			JumpFlag = false;
 			JumpTime = 0;
 		}

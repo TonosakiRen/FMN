@@ -18,4 +18,4 @@ Screen screen;
 PlayerMain playermain;
 Boss boss;
 Stopper stopper;
-Effect effect01(50, 3, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 60.0f, -0.4f);
+Effect effect01(100, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f);
