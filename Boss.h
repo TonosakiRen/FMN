@@ -45,20 +45,20 @@ class Boss {
 	int HP = 5000;
 	struct Blade
 	{
-		Quad Quad_Pos = { {0,0} , {1,0} , {0,1} , {1,1} };
-		Vec2 LeftTop = { 0,0 };
-		Vec2 RightTop = { 1,0 };
-		Vec2 LeftBottom = { 0,1 };
-		Vec2 RightBottom = { 1,1 };
+		Quad Quad_Pos = { { 9999,9999 },{ 10000,9999 },{ 9999,10000 },{ 10000,10000 } };
+		Vec2 LeftTop = { 9999,9999 };
+		Vec2 RightTop = { 10000,9999 };
+		Vec2 LeftBottom = { 9999,10000 };
+		Vec2 RightBottom = { 10000,10000 };
 		float theta = 0;
 		float angle = 0;
 		float t = 0;
 		void Init() {
-			Quad_Pos = { {0,0} , { 1,0 } , {0,1} , {1,1} };
-			LeftTop = { 0,0 };
-			RightTop = { 1,0 };
-			LeftBottom = { 0,1 };
-			RightBottom = { 1,1 };
+			Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+			LeftTop = { 9999,9999 };
+			RightTop = { 10000,9999 };
+			LeftBottom = { 9999,10000 };
+			RightBottom = { 10000,10000 };
 			angle = 0; //angleÇ≈äpìxÇ0 ~ 360 Ç≈ï\Ç∑ÅBÇªÇÍÇThetaÇ…íºÇ∑ÇÒÇæÇÊ
 			theta = 0;
 			t = 0;
