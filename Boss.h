@@ -1,4 +1,3 @@
-#pragma once
 #include<Novice.h>
 #include "Vec2.h"
 #include "Clamp.h"
@@ -43,7 +42,7 @@ class Boss {
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
-	float HP = 5000;
+	int HP = 5000;
 	struct Blade
 	{
 		Quad Quad_Pos = { {0,0} , {1,0} , {0,1} , {1,1} };
@@ -149,6 +148,9 @@ class Boss {
 	};
 	JumpAttack jumpattack;
 
+	bool isBossHit = false; //攻撃を当てられた
+
+#pragma region Parts
 	struct ImageStruct {
 		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
 		Vec2 ImageSize; // パーツのサイズ
@@ -234,6 +236,8 @@ class Boss {
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 	};
 
+#pragma endregion
+
 public:
 	Boss();
 	void Set();
@@ -269,5 +273,7 @@ public:
 	Quad GetBossBladeQuad();
 	bool GetAction();
 	bool GetSwordAttack();
+
+	void BossHit(bool Hit);
 
 };

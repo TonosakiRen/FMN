@@ -24,20 +24,6 @@ void Boss::UpDate() {
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 
-	if (Key::IsPressed(DIK_H)) {
-		LeftArm.PosMisal.y += 2;
-	}
-	if (Key::IsPressed(DIK_N)) {
-		LeftArm.PosMisal.y -= 2;
-	}
-	if (Key::IsPressed(DIK_M)) {
-		LeftArm.PosMisal.x += 2;
-	}
-	if (Key::IsPressed(DIK_B)) {
-		LeftArm.PosMisal.x -= 2;
-	}
-
-
 	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x,Pos.y + Body.PosMisal.y + Body.PulsPos.y };
 	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) };
@@ -68,6 +54,11 @@ void Boss::UpDate() {
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) };
 	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) };
+
+	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
+	if (isBossHit == true) {
+		HP++;
+	};
 
 }
 void Boss::Set()
@@ -103,14 +94,13 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2Renban(Head.ImageQuad, SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 0, 60, AnimeFlame, headtex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
-	screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
-	Novice::ScreenPrintf(0, 30, "%d", Direction);
-	Novice::ScreenPrintf(0, 50, "%0.0f,%0.0f", LeftArm.PosMisal.x, LeftArm.PosMisal.y);
+	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	
 }
 
@@ -653,5 +643,13 @@ bool Boss::GetSwordAttack()
 	else {
 		return false;
 
+	}
+}
+
+void Boss::BossHit(bool Hit)
+{
+	isBossHit = false;
+	if (Hit == true) {
+		isBossHit = true;
 	}
 }

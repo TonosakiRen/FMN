@@ -57,6 +57,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					playermain.SwordHit(boss.GetBossQuad(i));
 				}
 
+				boss.BossHit(playermain.GetHitSword());
+
 				effect01.Update(true, playermain.GetPlayerQuad());
 				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
 				effect03.Update(true,{{0,-Floor},SCREEN_WIDTH,Floor});

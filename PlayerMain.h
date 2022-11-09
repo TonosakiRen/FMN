@@ -87,9 +87,13 @@ class PlayerMain
 
 	const int FLOOR = 0;
 
-	Vec2 HitRatio = {0,0};
-
+	//HitCoolDown —v‚Í–³“GŽžŠÔ‚¶‚á
 	int HitCoolDown = 0;
+
+	int AttackCoolDown = 0;
+	int ATTACKCOOLDOWNMAX = 10;
+
+	int isAttack = 0;
 
 	Quad hitAttackPos = { {0,0}, 0,0};
 	bool isSwordHit = false;
