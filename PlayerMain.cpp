@@ -3,6 +3,8 @@
 
 void PlayerMain::Move()
 {
+	isSwordHit = false;‚„
+
 	if (Key::IsTrigger(DIK_Y)) {
 
 	}
@@ -209,7 +211,7 @@ void PlayerMain::NormalAttack()
 
 void PlayerMain::SwordHit(Quad Target)
 {
-	isSwordHit = false;
+	
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
 		isSwordHit = true;
