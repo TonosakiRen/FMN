@@ -12,6 +12,8 @@ Boss::Boss()
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom};
 	CoolTime = 200;
 	Randam::SRAND();
+
+	
 }
 void Boss::UpDate() {
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
@@ -21,7 +23,43 @@ void Boss::UpDate() {
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
-	
+
+	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x,Pos.y + Body.PosMisal.y + Body.PulsPos.y };
+	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
+		int(Body.ImageSize.x),int(Body.ImageSize.y) };
+	Body.ColQuad = { { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
+		int(Body.ColSize.x),int(Body.ColSize.y) };
+
+	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x,Pos.y + Head.PosMisal.y + Head.PulsPos.y };
+	Head.ImageQuad = { {Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
+		int(Head.ImageSize.x),int(Head.ImageSize.y) };
+	Head.ColQuad = { { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
+		int(Head.ColSize.x),int(Head.ColSize.y) };
+
+	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x,Pos.y + Leg.PosMisal.y + Leg.PulsPos.y };
+	Leg.ImageQuad = { {Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
+		int(Leg.ImageSize.x),int(Leg.ImageSize.y) };
+	Leg.ColQuad = { { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
+		int(Leg.ColSize.x),int(Leg.ColSize.y) };
+
+	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x * Direction + RightArm.PulsPos.x,Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y };
+	RightArm.ImageQuad = { {RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
+		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) };
+	RightArm.ColQuad = { { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
+		int(RightArm.ColSize.x),int(RightArm.ColSize.y) };
+
+
+	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x * Direction + LeftArm.PulsPos.x,Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y };
+	LeftArm.ImageQuad = { {LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
+		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) };
+	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
+		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) };
+
+	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
+	if (isBossHit == true) {
+		HP++;
+	};
+
 }
 void Boss::Set()
 {
@@ -36,18 +74,39 @@ void Boss::Set()
 
 }
 
-void Boss::Draw(Screen& screen)
+void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
 {
-	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 0, 0, 0, 60, AnimeFlame, 0, RED, Direction);
-	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, WHITE);
-	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, GREEN);
-	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, GREEN);
+	
+	bool BossisFlip = false;
+
+	if (Direction == 1) {
+		BossisFlip = true;
+	}
+	else {
+		BossisFlip = false;
+	}
+
+	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
+	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
+	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
+	screen.DrawQuad2Renban(Leg.ImageQuad, SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 0, 60, AnimeFlame, legtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Body.ImageQuad, SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 0, 60, AnimeFlame, bodytex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Head.ImageQuad, SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 0, 60, AnimeFlame, headtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
+	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+
 	for (int i = 0; i < kMAX_CIR; i++) {
 		screen.DrawEllipse(Circleofdeath[i].Pos.x, Circleofdeath[i].Pos.y, Circleofdeath[i].Rad, Circleofdeath[i].Rad, 0, WHITE, kFillModeSolid);
 		screen.DrawEllipse(Circleofdeath[i].Pos.x, Circleofdeath[i].Pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, WHITE, kFillModeWireFrame);
 
 	}
 
+	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	
 }
 
@@ -524,7 +583,7 @@ void Boss::CircleOfDeathAttack()
 {
 	Circleofdeath_flame++;
 	for (int i = 0; i < kMAX_CIR; i++) {
-		if (Circleofdeath_flame%10==0&&Circleofdeath[i].Set == false/*&& Circleofdeath[i].Reserve==true*/&& Circleofdeath[kMAX_CIR-1].Set==false) {
+		if (Circleofdeath_flame%13==0&&Circleofdeath[i].Set == false&& Circleofdeath[kMAX_CIR-1].Set==false) {
 			Circleofdeath[i].Pos = { Pos.x + Randam::RAND(-800,800),Pos.y + Randam::RAND(-100,300) };
 			Circleofdeath[i].fRad = 100;
 
@@ -532,17 +591,23 @@ void Boss::CircleOfDeathAttack()
 			break;
 		}
 		if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set==true) {
-			Circleofdeath[i].Reserve = false;
-			Circleofdeath[i].Rad = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeInBounce);
+			//Circleofdeath[i].Reserve = false;
+			Circleofdeath[i].Rad = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutElastic);
 			if (Circleofdeath[i].Reserve_t == 1.0f) {
-				Circleofdeath[i].Init();
-				Circleofdeath_flame = 0;
+				//Circleofdeath[i].Init();
 				
 			}
 		}
-			if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
-				Action = false;
-			}
+			
+	}
+	for (int i = 0; i < kMAX_CIR; i++) {
+
+		if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
+			Action = false;
+			Circleofdeath_flame = 0;
+			Circleofdeath[i].Init();
+
+		}
 	}
 }
 
@@ -571,9 +636,27 @@ void Boss::KeepWaveAttack()
 
 
 
-Quad Boss::GetBossQuad()
+Quad Boss::GetBossQuad(int BossParts)
 {
-	return Quad(Quad_Pos);
+	switch (BossParts)
+	{
+	case head:
+		return Quad(Head.ColQuad);
+		break;
+	case body:
+		return Quad(Body.ColQuad);
+		break;
+	case leg:
+		return Quad(Leg.ColQuad);
+		break;
+	case rightarm:
+		return Quad(RightArm.ColQuad);
+		break;
+	case leftarm:
+		return Quad(LeftArm.ColQuad);
+		break;
+	}
+	
 }
 
 Quad Boss::GetBossAttackQuad()
@@ -605,5 +688,13 @@ bool Boss::GetSwordAttack()
 	else {
 		return false;
 
+	}
+}
+
+void Boss::BossHit(bool Hit)
+{
+	isBossHit = false;
+	if (Hit == true) {
+		isBossHit = true;
 	}
 }

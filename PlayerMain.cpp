@@ -3,6 +3,8 @@
 
 void PlayerMain::Move()
 {
+	isSwordHit = false;
+
 	if (Key::IsTrigger(DIK_Y)) {
 
 	}
@@ -25,13 +27,11 @@ void PlayerMain::Move()
 
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
-		Player.isFlip = true;
 		FaceRight = true;
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
 		Speed.x = -8;
-		Player.isFlip = false;
 		FaceRight = false;
 	}
 
@@ -153,8 +153,21 @@ void PlayerMain::Move()
 
 	PreJumpKey = Controller::IsPressedButton(0, Controller::bA) || Key::IsPressed(DIK_SPACE);
 
-	if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
-		NormalAttack();
+
+
+	if (Controller::IsPressedButton(0, Controller::bX) == 1 || Key::IsPressed(DIK_K)) {
+		if (AttackCoolDown <= 0) {
+			NormalAttack();
+			AttackCoolDown = ATTACKCOOLDOWNMAX;
+		}
+	}
+
+	if (isAttack > 0) {
+		isAttack--;
+	}
+
+	if (AttackCoolDown > 0) {
+		AttackCoolDown--;
 	}
 
 	if (HitCoolDown > 0) {
@@ -214,7 +227,8 @@ void PlayerMain::SwordHit(Quad Target)
 	
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
-		 HitRatio.x = 
+		isSwordHit = true;
+		/* HitRatio.x = 
 			 ((Target.LeftTop.x + Target.GetWidth() / 2)
 		    - (Player.Quad.LeftTop.x + Player.Quad.GetWidth() / 2))
 			/
@@ -228,7 +242,7 @@ void PlayerMain::SwordHit(Quad Target)
 			 /
 			 (Sword.HitBoxSize.y
 				 + Player.Quad.GetHeight() / 2
-				 + Target.GetHeight() / 2);
+				 + Target.GetHeight() / 2);*/
 
 		 if(FaceDown == true){
 			 HitBack.y =4;
@@ -450,14 +464,14 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color,Player.isFlip);
+		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color,FaceRight);
 	}
 
-	screen.DrawBox(Player.Quad.LeftTop.x, Player.Quad.LeftTop.y, 60,96,0,WHITE,kFillModeWireFrame);
+	//screen.DrawBox(Player.Quad.LeftTop.x, Player.Quad.LeftTop.y, 60,96,0,WHITE,kFillModeWireFrame);
 
-	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, 224, 196, 0, WHITE, kFillModeWireFrame);
+	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
-	screen.DrawQuad2Renban(Sword.Quad, Sword.SrcX, 0, 1, 1, 0, 60, Sword.AnimeFlame, texture, WHITE, 0);
+	/*screen.DrawQuad2Renban(Sword.Quad, Sword.SrcX, 0, 1, 1, 0, 60, Sword.AnimeFlame, texture, WHITE, 0);
 
 	screen.DrawEllipse(Player.Pos.x, Player.Pos.y,10,10,0,BLUE,kFillModeSolid);
 
@@ -472,7 +486,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	}
 	else if (FaceRight == false) {
 		screen.DrawLine(Player.Pos.x , Player.Pos.y, Player.Pos.x - 100, Player.Pos.y , 0xFFFF00FF);
-	}
+	}*/
 	
 
 	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
