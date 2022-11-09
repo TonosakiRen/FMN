@@ -155,6 +155,9 @@ class Boss {
 		Vec2 PosMisal; //  !!!!値を変更しないで!!!! パーツの位置 この値をボスの中心座標に加算する
 		Quad ImageQuad; // クアッドホッパーピンクとか追加されないかなぁ。ポイントセンサーとグレートバリアがいいなぁ。ホントはサメ使いたいけど
 		Vec2 PulsPos; //パーツ位置のズレ、モーションとかで動かすときに使う
+		Vec2 ColSize; //当たり判定のサイズ
+		Vec2 ColMisal; //当たり判定の位置
+		Quad ColQuad; //当たり判定のクアッド
 	};
 
 	ImageStruct Base = {
@@ -172,7 +175,11 @@ class Boss {
 		{18,155},
 		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) },
-		{0,0}
+		{0,0},
+		{64,70},
+		{-2,-5},
+		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
+		int(Head.ColSize.x),int(Head.ColSize.y) },
 	};
 
 	ImageStruct Body = {
@@ -181,7 +188,11 @@ class Boss {
 		{2,52},
 		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) },
-		{0,0}
+		{0,0},
+		{132,144},
+		{-5,-4},
+		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
+		int(Body.ColSize.x),int(Body.ColSize.y) },
 	};
 
 	ImageStruct Leg = {
@@ -190,7 +201,11 @@ class Boss {
 		{-4,-59},
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
-		{0,0}
+		{0,0},
+		{96,106},
+		{-1,11},
+		{ { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
+		int(Leg.ColSize.x),int(Leg.ColSize.y) },
 	};
 
 	ImageStruct RightArm = {
@@ -199,7 +214,11 @@ class Boss {
 		{-94,-4},
 		{ { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
-		{0,0}
+		{0,0},
+		{38,74},
+		{-1,-11},
+		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
+		int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
 	};
 
 	ImageStruct LeftArm = {
@@ -208,7 +227,11 @@ class Boss {
 		{86,-4},
 		{ { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
-		{0,0}
+		{0,0},
+		{38,74},
+		{1,-11},
+		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
+		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 	};
 
 public:
@@ -232,9 +255,15 @@ public:
 	void KeepWaveAttack();
 	
 
+	enum {
+		head,
+		body,
+		leg,
+		rightarm,
+		leftarm
+	};
 	
-	
-	Quad GetBossQuad();
+	Quad GetBossQuad(int BossParts);
 
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();

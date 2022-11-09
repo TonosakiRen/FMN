@@ -52,8 +52,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 
 				playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
-				playermain.PlayerHit(boss.GetBossQuad(), screen);
-				playermain.SwordHit(boss.GetBossQuad());
+				for (int i = 0; i < 5; i++) {
+					playermain.PlayerHit(boss.GetBossQuad(i), screen);
+					playermain.SwordHit(boss.GetBossQuad(i));
+				}
 
 				effect01.Update(true, playermain.GetPlayerQuad());
 				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
@@ -102,7 +104,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
 		playermain.Draw(screen,ziki);
-		boss.Draw(screen,bossImg, bossheadImg, bossbodyImg,bosslegImg,bossleftarmImg,bossrightarmImg);
+		boss.Draw(screen,bossImg, bossheadImg, bossbodyImg,bosslegImg,bossleftarmImg,bossrightarmImg
+		);
 		
 		///
 		/// ↑描画処理ここまで
