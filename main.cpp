@@ -20,6 +20,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect03Img = Novice::LoadTexture("./Resources/Images/Effect03.png");
 	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
 	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
+	int mainaBladeImg = Novice::LoadTexture("./Resources/Images/mainblade.png");
+	int subBladeImg[7];
+	subBladeImg[0] = Novice::LoadTexture("./Resources/Images/sabblade01.png");
+	subBladeImg[1] = Novice::LoadTexture("./Resources/Images/sabblade02.png");
+	subBladeImg[2] = Novice::LoadTexture("./Resources/Images/sabblade03.png");
+	subBladeImg[3] = Novice::LoadTexture("./Resources/Images/sabblade04.png");
+	subBladeImg[4] = Novice::LoadTexture("./Resources/Images/sabblade05.png");
+	subBladeImg[5] = Novice::LoadTexture("./Resources/Images/sabblade06.png");
+	subBladeImg[6] = Novice::LoadTexture("./Resources/Images/sabblade07.png");
+
 	int bossImg = Novice::LoadTexture("./Resources/Images/Boss/Boss.png");
 	int bossheadImg = Novice::LoadTexture("./Resources/Images/Boss/Head.png");
 	int bossbodyImg = Novice::LoadTexture("./Resources/Images/Boss/Body.png");
@@ -113,6 +123,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		playermain.Draw(screen,ziki);
 		
 		
+		
 		bossBodyEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		bossBodyEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 		bossHeadEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
@@ -126,6 +137,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg
 		);
+
+		playermain.BladeDraw(screen, mainaBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 		///
 		/// ↑描画処理ここまで
 		///

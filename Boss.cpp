@@ -394,7 +394,7 @@ void Boss::AttackFunction01(Screen&screen)
 		ArkSword.quad[i].LeftBottom = { LeftTop.x,0  };
 		ArkSword.quad[i].RightBottom = { RightTop.x, 0 };
 
-		screen.DrawQuad2(ArkSword.quad[i], 0, 0, 0, 0, 0, GREEN);
+		screen.DrawQuad2(ArkSword.quad[i], 0, 0, 0, 0, 0, GREEN );
 	}
 }
 

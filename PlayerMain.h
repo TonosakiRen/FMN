@@ -97,6 +97,9 @@ class PlayerMain
 
 	Quad hitAttackPos = { {0,0}, 0,0};
 	bool isSwordHit = false;
+	int swordDrawFrame = 0;
+	int subSwordDrawNum[3];
+	int CurrentSubSwordDrawNum = 0;
 
 public:
 
@@ -131,6 +134,7 @@ public:
 	bool GetisFaceDown() { return FaceDown; }
 
 	void Draw(Screen& screen,int texture);
+	void BladeDraw(Screen& screen, int mainbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
 };
 
