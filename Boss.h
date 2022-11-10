@@ -196,7 +196,7 @@ class Boss {
 		{0,-2},
 		{0,0.25},
 		{64,70},
-		{-2,-5},
+		{2,-5},
 		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
 		int(Head.ColSize.x),int(Head.ColSize.y) },
 	};
@@ -210,7 +210,7 @@ class Boss {
 		{0,0},
 		{0,0.25},
 		{132,144},
-		{-5,-4},
+		{5,-4},
 		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
 		int(Body.ColSize.x),int(Body.ColSize.y) },
 	};
@@ -224,7 +224,7 @@ class Boss {
 		{0,0},
 		{0,0},
 		{96,106},
-		{-1,11},
+		{1,11},
 		{ { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
 		int(Leg.ColSize.x),int(Leg.ColSize.y) },
 	};
@@ -238,7 +238,7 @@ class Boss {
 		{0,-5},
 		{0,0.25},
 		{38,74},
-		{-1,-11},
+		{1,-11},
 		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
 	};
@@ -252,7 +252,7 @@ class Boss {
 		{0,-5},
 		{0,0.25},
 		{38,74},
-		{1,-11},
+		{-1,-11},
 		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 	};
