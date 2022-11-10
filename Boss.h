@@ -44,7 +44,7 @@ class Boss {
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
-	int HP = 5000;
+	int HP = 2000;
 	struct Blade
 	{
 		Quad Quad_Pos = { { 9999,9999 },{ 10000,9999 },{ 9999,10000 },{ 10000,10000 } };

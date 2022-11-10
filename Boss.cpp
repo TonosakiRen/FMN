@@ -57,7 +57,7 @@ void Boss::UpDate() {
 
 	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
 	if (isBossHit == true) {
-		HP++;
+		HP-=50;
 	};
 
 }
@@ -96,6 +96,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2Renban(Head.ImageQuad, SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 0, 60, AnimeFlame, headtex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
+
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
@@ -109,7 +110,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	}
 
 	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
-	
+	Novice::DrawBox(20, 20, HP, 80, 0, GREEN, kFillModeSolid);
+	Clamp::clamp(HP, 0, 10000);
 }
 
 void Boss::State(PlayerMain& player)
@@ -189,7 +191,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
 	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
-
+	Novice::ScreenPrintf(Pos.x, Pos.y - 200+SCREEN_HEIGHT, "HP:%d", HP);
 
 	
 
@@ -723,5 +725,6 @@ void Boss::BossHit(bool Hit)
 	isBossHit = false;
 	if (Hit == true) {
 		isBossHit = true;
+
 	}
 }
