@@ -84,18 +84,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				if (playermain.GetHitSword() == true) {
 					if (playermain.GetisFaceUp()) {
-						effect04.minDirection = { -0.6f , 0.1f };
-						effect04.maxDirection = { 0.6f , 0.9f };
+						effect04.minDirection = { -0.4f , 0.1f };
+						effect04.maxDirection = { 0.4f , 0.9f };
 					}else if (playermain.GetisFaceDown()) {
-						effect04.minDirection = { -0.6f , -0.1f };
-						effect04.maxDirection = { 0.6f , -0.9f };
+						effect04.minDirection = { -0.4f , -0.1f };
+						effect04.maxDirection = { 0.4f , -0.9f };
 					}else if (playermain.GetisFaceRigh()) {
-						effect04.minDirection = { 0.1f,-0.6f };
-						effect04.maxDirection = { 0.9f,0.6f };
+						effect04.minDirection = { 0.1f,-0.4f };
+						effect04.maxDirection = { 0.9f,0.4f };
 					}
 					else {
-						effect04.minDirection = { -0.9f,-0.6f };
-						effect04.maxDirection = { -0.1f,0.6f };
+						effect04.minDirection = { -0.9f,-0.4f };
+						effect04.maxDirection = { -0.1f,0.4f };
 					}
 					
 				}
@@ -139,10 +139,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		bossLegEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		bossLegEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 
-		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg
-		);
+		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
 
-		playermain.BladeDraw(screen, mainaBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
+		playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 		///
 		/// ↑描画処理ここまで
 		///

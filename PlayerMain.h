@@ -137,7 +137,7 @@ public:
 	bool GetisFaceDown() { return FaceDown; }
 
 	void Draw(Screen& screen,int texture);
-	void BladeDraw(Screen& screen, int mainbladeImg, int* subbladeImg, int color, BlendMode mode);
+	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
 };
 
