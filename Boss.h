@@ -9,7 +9,8 @@
 #include "Randam.h"
 
 const int MAX_PATTERN = 100;
-const int kMAX_CIR = 6;
+const int kMAX_CIR = 7;
+const int kMAX_WAVE = 3;
 class Boss {
 
 
@@ -74,11 +75,11 @@ class Boss {
 
 	};
 	struct ShockWave {
-		Quad QuadPos = {};
-		Quad Quad2Pos = {};
-		Vec2 Pos = {};
-		Vec2 Pos2 = {};
-		float LifeTime = {};
+		Quad QuadPos = { {0,0},{0,0},{0,0},{0,0} };
+		Quad Quad2Pos = { {0,0},{0,0},{0,0},{0,0} };
+		/*Vec2 Pos = {};
+		Vec2 Pos2 = {};*/
+		float LifeTime = 0;
 		bool WaveKeep = false;
 		bool Reserve = true;
 
