@@ -45,6 +45,7 @@ class Boss {
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
 	int HP = 2000;
+	int HalfHP = HP / 2;
 	struct Blade
 	{
 		Quad Quad_Pos = { { 9999,9999 },{ 10000,9999 },{ 9999,10000 },{ 10000,10000 } };
@@ -104,13 +105,17 @@ class Boss {
 
 	}Circleofdeath[kMAX_CIR];
 	int Circleofdeath_flame;
+	//スウィッチ
 	enum Pattarn
 	{
 		NEAR_1,
 		MIDDLE,
 		FAR_1,
 	};
-
+	enum HpPattarn {
+		NORMAL,
+		HALF,
+	} hppattarn=NORMAL;
 	Pattarn pattarn = MIDDLE;
 	//配列の変数
 	struct  Array {
@@ -178,19 +183,12 @@ class Boss {
 		Vec2 PosMisal; //  !!!!値を変更しないで!!!! パーツの位置 この値をボスの中心座標に加算する
 		Quad ImageQuad; // クアッドホッパーピンクとか追加されないかなぁ。ポイントセンサーとグレートバリアがいいなぁ。ホントはサメ使いたいけど
 		Vec2 PulsPos; //パーツ位置のズレ、モーションとかで動かすときに使う
+		Vec2 PulsPosSpeed;
 		Vec2 ColSize; //当たり判定のサイズ
 		Vec2 ColMisal; //当たり判定の位置
 		Quad ColQuad; //当たり判定のクアッド
 	};
 
-	ImageStruct Base = {
-		{0,0},
-		{ 250,400 },
-		{0,0},
-		{ {Base.ImagePos.x - Base.ImageSize.x / 2, Base.ImagePos.y + Base.ImageSize.y / 2},
-		int(Base.ImageSize.x),int(Base.ImageSize.y) },
-		{0,0}
-	};
 
 	ImageStruct Head = {
 		{0,0},
@@ -198,7 +196,8 @@ class Boss {
 		{18,155},
 		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) },
-		{0,0},
+		{0,-2},
+		{0,0.25},
 		{64,70},
 		{-2,-5},
 		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
@@ -212,6 +211,7 @@ class Boss {
 		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) },
 		{0,0},
+		{0,0.25},
 		{132,144},
 		{-5,-4},
 		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
@@ -225,6 +225,7 @@ class Boss {
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
 		{0,0},
+		{0,0},
 		{96,106},
 		{-1,11},
 		{ { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
@@ -237,7 +238,8 @@ class Boss {
 		{-94,-4},
 		{ { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
-		{0,0},
+		{0,-5},
+		{0,0.25},
 		{38,74},
 		{-1,-11},
 		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
@@ -250,12 +252,16 @@ class Boss {
 		{86,-4},
 		{ { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
-		{0,0},
+		{0,-5},
+		{0,0.25},
 		{38,74},
 		{1,-11},
 		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 	};
+
+	float ArmPosAngle = 2.25;
+	float ArmPosAngleSpeed = 2.25;
 
 #pragma endregion
 
