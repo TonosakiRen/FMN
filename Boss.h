@@ -1,12 +1,9 @@
 #include<Novice.h>
 #include "Vec2.h"
-#include "Clamp.h"
 #include "Quad.h"
-#include "Key.h"
 #include"Screen.h"
 #include"PlayerMain.h"
-#include "Easing.h"
-#include "Randam.h"
+
 
 const int MAX_PATTERN = 100;
 const int kMAX_CIR = 7;
