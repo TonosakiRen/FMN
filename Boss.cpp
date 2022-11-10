@@ -464,7 +464,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				break;
 
 			case HALF:
-				CoolTime = 40;
+				CoolTime = 30;
 				switch (pattarn) {
 				case NEAR_1:
 				{
