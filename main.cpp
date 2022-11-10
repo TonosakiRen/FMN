@@ -21,6 +21,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
 	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
 	int mainaBladeImg = Novice::LoadTexture("./Resources/Images/mainblade.png");
+	int upMainaBladeImg = Novice::LoadTexture("./Resources/Images/upmainblade.png");
+	int downMainaBladeImg = Novice::LoadTexture("./Resources/Images/downmainblade.png");
+	int upSubBladeImg = Novice::LoadTexture("./Resources/Images/upsubblade01.png");
+	int downSubBladeImg = Novice::LoadTexture("./Resources/Images/downsubblade01.png");
 	int subBladeImg[7];
 	subBladeImg[0] = Novice::LoadTexture("./Resources/Images/sabblade01.png");
 	subBladeImg[1] = Novice::LoadTexture("./Resources/Images/sabblade02.png");
@@ -80,18 +84,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				if (playermain.GetHitSword() == true) {
 					if (playermain.GetisFaceUp()) {
-						effect04.minDirection = { -0.6f , 0.1f };
-						effect04.maxDirection = { 0.6f , 0.9f };
+						effect04.minDirection = { -0.4f , 0.1f };
+						effect04.maxDirection = { 0.4f , 0.9f };
 					}else if (playermain.GetisFaceDown()) {
-						effect04.minDirection = { -0.6f , -0.1f };
-						effect04.maxDirection = { 0.6f , -0.9f };
+						effect04.minDirection = { -0.4f , -0.1f };
+						effect04.maxDirection = { 0.4f , -0.9f };
 					}else if (playermain.GetisFaceRigh()) {
-						effect04.minDirection = { 0.1f,-0.6f };
-						effect04.maxDirection = { 0.9f,0.6f };
+						effect04.minDirection = { 0.1f,-0.4f };
+						effect04.maxDirection = { 0.9f,0.4f };
 					}
 					else {
-						effect04.minDirection = { -0.9f,-0.6f };
-						effect04.maxDirection = { -0.1f,0.6f };
+						effect04.minDirection = { -0.9f,-0.4f };
+						effect04.maxDirection = { -0.1f,0.4f };
 					}
 					
 				}
@@ -135,10 +139,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		bossLegEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		bossLegEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 
-		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg
-		);
+		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
 
-		playermain.BladeDraw(screen, mainaBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
+		playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 		///
 		/// ↑描画処理ここまで
 		///
