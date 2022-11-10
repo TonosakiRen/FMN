@@ -354,8 +354,8 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int* subbladeImg , 
 				/*screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, true);*/
 			}
 			else if (isSwordHitFace == 1) {
-				/*screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, true);
-			}*/
+				/*screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, true);*/
+			}
 			else if (isSwordHitFace == 2) {
 				screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, true);
 			}
