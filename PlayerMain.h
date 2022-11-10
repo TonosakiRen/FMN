@@ -94,12 +94,15 @@ class PlayerMain
 	int ATTACKCOOLDOWNMAX = 10;
 
 	int isAttack = 0;
+	bool isSwordAppear = 0;
+	bool isSaveSwordHit = 0;
 
 	Quad hitAttackPos = { {0,0}, 0,0};
 	bool isSwordHit = false;
 	int swordDrawFrame = 0;
 	int subSwordDrawNum[3];
 	int CurrentSubSwordDrawNum = 0;
+	int isSwordHitFace = 0;
 
 public:
 
