@@ -3,6 +3,7 @@
 #include "Quad.h"
 #include"Screen.h"
 #include"PlayerMain.h"
+#include"Circle.h"
 
 
 const int MAX_PATTERN = 100;
@@ -84,15 +85,15 @@ class Boss {
 
 	}Wave;
 	struct CircleOfDeath {
-		Vec2 Pos={};
-		float Rad = {};
+		Circle circle = { {0,0},0 };
+		
 		float fRad = {};
 		bool Set = false;
 		bool Reserve = true;
 		float Reserve_t = 0;
 		
 		void Init() {
-			Rad = 0;
+			circle = { {0,0},0 };
 			Set = false;
 			Reserve = true;
 			Reserve_t = 0;
@@ -127,12 +128,21 @@ class Boss {
 		int AttackFunction04 = 329;
 		int AttackFunction05 = 129;
 
+		bool bNormalAttack = false;
+		bool bAttackFunction01 = false;
+		bool bAttackFunction02 = false;
+		bool bAttackFunction03 = false;
+		bool bAttackFunction04 = false;
+		bool bAttackFunction05 = false;
+		
+		
 		
 	};
 	struct AttackFunction01 {
 		Quad quad[6];
 	};
 	Array array;
+	
 	AttackFunction01 ArkSword;
 	Blade blade;
 	
@@ -280,6 +290,12 @@ public:
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
 	void CircleOfDeathAttack(PlayerMain& player);
+	//スキル出したかどうか：：次に出すやつを変えれる
+	bool bNomalSwordAttack = false;
+	bool bNomalRotedSwordAttack = false;
+	bool bJumpAttack = false;
+	bool bShockWaveAttack = false;
+	bool bCircleOfDeathAttack = false;
 	//派生スキル::行動が終わっても出続ける的なもの
 	void KeepWaveAttack();
 	

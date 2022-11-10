@@ -161,8 +161,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
-		screen.DrawEllipse(Circleofdeath[i].Pos.x, Circleofdeath[i].Pos.y, Circleofdeath[i].Rad, Circleofdeath[i].Rad, 0, WHITE, kFillModeSolid);
-		screen.DrawEllipse(Circleofdeath[i].Pos.x, Circleofdeath[i].Pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, WHITE, kFillModeWireFrame);
+		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, WHITE, kFillModeSolid);
+		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, WHITE, kFillModeWireFrame);
 
 	}
 
@@ -246,22 +246,18 @@ void Boss::RandMoveSet() {
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 {
-	
-
 	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
 	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
 	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
 	Novice::ScreenPrintf(Pos.x, Pos.y - 200+SCREEN_HEIGHT, "HP:%d", HP);
-
-	
+		
 
 	if (CoolTime == 0&&Action==false) {
 		MoveArray =rand;
 		Action =true;
 		DirectionGet(player);
-
 	}
 	else if (CoolTime != 0&&Action==false) {
 		CoolTime--;
@@ -273,12 +269,13 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 		KeepWaveAttack();
 
 		if (Action == true) {
-			CoolTime = 40;
+
 			switch (hppattarn)
 			{
 				
 			case NORMAL:
-				CoolTime = 60;
+				CoolTime = 40;
+
 				switch (pattarn) {
 				case NEAR_1:
 				{
@@ -288,53 +285,68 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
 						/*CoolTime = 50;*/
-
+						
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%‚ÌUŒ‚
-						//NomalRotedSwordAttack(player);
-						NomalSwordAttack(player);
-
-						/*Action = false;*/
+						NomalRotedSwordAttack(player);
+						/*NomalSwordAttack(player);
+						array.bAttackFunction01 = true;
+						array.InitNotThis(array.bAttackFunction01);*/
+						
+						
+						//Action = false;
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction02) {
+					if (MovePattern[MoveArray] == array.AttackFunction02 ) {
 						//5%‚ÌUŒ‚
 						//NomalRotedSwordAttack(player);
-						NomalSwordAttack(player);
+						/*NomalSwordAttack(player);
 
-						/*Action = false;*/
+						array.bAttackFunction02 = true;
+						array.InitNotThis(array.bAttackFunction02);*/
+						
 
+						Action = false;
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction03) {
+					if (MovePattern[MoveArray] == array.AttackFunction03 ) {
 						//5%‚ÌUŒ‚
 						//NomalSwordAttack(player);
 						ShockWaveAttack(player, screen);
 
 						//NomalRotedSwordAttack(player);
 						/*Action = false;*/
+											
 
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction04) {
+					if (MovePattern[MoveArray] == array.AttackFunction04 ) {
 						//5%‚ÌUŒ‚
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						/*ShockWaveAttack(player, screen);
 
-						/*Action = false;*/
+						array.bAttackFunction04 = true;
+						array.InitNotThis(array.bAttackFunction04);*/
+						
+
+						Action = false;
 
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction05) {
+					if (MovePattern[MoveArray] == array.AttackFunction05 ) {
 						//5%‚ÌUŒ‚
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						/*ShockWaveAttack(player, screen);
 
-						/*Action = false;*/
+						array.bAttackFunction05 = true;
+						array.InitNotThis(array.bAttackFunction05);*/
+						Action = false;
+						
 
 					}
 					if (MovePattern[MoveArray] == 0) {
+						
 						Action = false;
 					}
 					//ŠÖ”‚ÌI‚í‚è‚ÉAction=false‚ÆŠÖ”“à‚ÅŽg‚Á‚½•Ï”‚Ì‰Šú‰»‚ð‚µ‚ë‚¨‚¨‚¨‚¨‚¨‚¨‚¨
@@ -719,6 +731,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 				Action = false;
 				Attack = false;
 				SwordAttack = false;
+				bNomalSwordAttack = true;
 			}
 		}
 		else {
@@ -772,6 +785,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		Action = false;
 		Attack = false;
 		SwordAttack = false;
+		bNomalRotedSwordAttack = true;
 	}
 }
 void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
@@ -848,7 +862,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				jumpattack.Init();
 				Attack = false;
 				Action = false;
-
+				bShockWaveAttack = true;
 			}
 		}
 }
@@ -859,15 +873,15 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 	for (int i = 0; i < kMAX_CIR; i++) {
 		if (Circleofdeath_flame%13==0&&Circleofdeath[i].Set == false&& Circleofdeath[kMAX_CIR-1].Set==false) {
 			if(i==0) {
-				Circleofdeath[i].Pos = { player.GetPlayerQuad().LeftTop.x, player.GetPlayerQuad().LeftTop.y };
+				Circleofdeath[i].circle.pos = { player.GetPlayerQuad().LeftTop.x, player.GetPlayerQuad().LeftTop.y };
 
 			}else
 			if (i % 2 == 0) {
-				Circleofdeath[i].Pos = { Pos.x + (i*150),Pos.y + Randam::RAND(-100,100) };
+				Circleofdeath[i].circle.pos = { Pos.x + (i*150),Pos.y + Randam::RAND(-100,100) };
 
 			}
 			else if (i % 2 == 1) {
-				Circleofdeath[i].Pos = { Pos.x + ( - i * 150),Pos.y + Randam::RAND(-100,100)};
+				Circleofdeath[i].circle.pos = { Pos.x + ( - i * 150),Pos.y + Randam::RAND(-100,100)};
 
 			}
 			
@@ -878,7 +892,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 		}
 		if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set==true) {
 			//Circleofdeath[i].Reserve = false;
-			Circleofdeath[i].Rad = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutElastic);
+			Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutElastic);
 			if (Circleofdeath[i].Reserve_t == 1.0f) {
 				//Circleofdeath[i].Init();
 				
