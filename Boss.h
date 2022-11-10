@@ -54,6 +54,10 @@ class Boss {
 		float theta = 0;
 		float angle = 0;
 		float t = 0;
+		float t_back=0;
+		bool Back=0;
+		Vec2 FPosBoss = {};
+		float Boss_t = 0;
 		void Init() {
 			Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
 			LeftTop = { 9999,9999 };
@@ -66,11 +70,15 @@ class Boss {
 			Vec_RotedPos={};
 			Roted_t = 0;
 			Roted_tback = 0;
+			t_back = 0;
+			Back = 0;
+			FPosBoss = {};
+			Boss_t = 0;
 		}
 		Vec2 Vec_RotedPos;
 		float Roted_t = 0;
 		float Roted_tback = 0;
-
+		
 
 	};
 	struct ShockWave {
@@ -103,6 +111,11 @@ class Boss {
 
 	}Circleofdeath[kMAX_CIR];
 	int Circleofdeath_flame;
+
+	struct Keep {
+		int Time = 0;
+		int rand = 0;
+	}keep;
 	//スウィッチ
 	enum Pattarn
 	{
@@ -112,6 +125,7 @@ class Boss {
 	};
 	enum HpPattarn {
 		NORMAL,
+		THREEQUARTERS,
 		HALF,
 	} hppattarn=NORMAL;
 	Pattarn pattarn = MIDDLE;
@@ -152,12 +166,16 @@ class Boss {
 
 	int MovePattern[MAX_PATTERN];
 	int MoveArray;
+	int FMoveArray;
 	int CoolTime;
 	bool NormalAttack;
 	bool Action;
 	bool Attack;
 	bool SwordAttack;
 	int AttackStartTime = 0;
+
+	int reload = 0;
+
 	struct NomalAttak {
 		Quad quad;
 		
@@ -279,14 +297,17 @@ public:
 	void UpDate();
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
+	void KeepUpWaitBack(PlayerMain& player);
 	void DirectionGet(PlayerMain& player);
 	void RandamMoveSelect(int rand,PlayerMain& player, Screen& screen);
 	void RandMoveSet();
-
+	int ReloadMove(int Movearry);
 	//スキル
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
+	void NomalSwordAttack2(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);
+	void NomalRotedSwordAttack2(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
 	void CircleOfDeathAttack(PlayerMain& player);
