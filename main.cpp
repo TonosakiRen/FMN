@@ -21,6 +21,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int effect04Img = Novice::LoadTexture("./Resources/Images/Effect04.png");
 	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
 	int mainaBladeImg = Novice::LoadTexture("./Resources/Images/mainblade.png");
+	int upMainaBladeImg = Novice::LoadTexture("./Resources/Images/upmainblade.png");
+	int downMainaBladeImg = Novice::LoadTexture("./Resources/Images/downmainblade.png");
+	int upSubBladeImg = Novice::LoadTexture("./Resources/Images/upsubblade01.png");
+	int downSubBladeImg = Novice::LoadTexture("./Resources/Images/downsubblade01.png");
 	int subBladeImg[7];
 	subBladeImg[0] = Novice::LoadTexture("./Resources/Images/sabblade01.png");
 	subBladeImg[1] = Novice::LoadTexture("./Resources/Images/sabblade02.png");
