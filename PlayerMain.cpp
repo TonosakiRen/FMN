@@ -68,6 +68,7 @@ void PlayerMain::Move()
 	}
 
 	if (DashFlag == true) {
+		Player.Color = 0xFFFFFF00;
 		Gravity = 0;
 		Speed.y = 0;
 		if (DashFaseRight == true) {
@@ -82,7 +83,11 @@ void PlayerMain::Move()
 			DashTime = 0;
 			Gravity = 0.2;
 			DashCoolTime = 20;
+			Player.Color = 0xFFFFFFFF;
 		}
+	}
+	else {
+		Player.Color = 0xFFFFFFFF;
 	}
 
 	DashCoolTime--;
@@ -259,7 +264,7 @@ void PlayerMain::SwordHit(Quad Target)
 void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 {
 
-	if (HitCoolDown == 0) {
+	if (HitCoolDown == 0 && DashFlag == false) {
 		if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
 			Novice::ScreenPrintf(0, 300, "chinchin");
 
