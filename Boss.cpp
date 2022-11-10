@@ -483,7 +483,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeInCubic), -100 };
 	}
 	else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), 100 };
+		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), 150 };
 
 	}
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
@@ -686,6 +686,16 @@ Quad Boss::GetBossQuad(int BossParts)
 		break;
 	}
 	
+}
+
+Quad Boss::GetShockWave()
+{
+	return Quad(Wave.QuadPos);
+}
+
+Quad Boss::GetShockWave2()
+{
+	return Quad(Wave.Quad2Pos);
 }
 
 Quad Boss::GetBossAttackQuad()
