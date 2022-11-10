@@ -279,7 +279,7 @@ public:
 	void NomalRotedSwordAttack(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
-	void CircleOfDeathAttack();
+	void CircleOfDeathAttack(PlayerMain& player);
 	//派生スキル::行動が終わっても出続ける的なもの
 	void KeepWaveAttack();
 	
