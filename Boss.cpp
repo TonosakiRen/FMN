@@ -1,5 +1,10 @@
 #include "Boss.h"
 #include "Degree.h"
+#include "Clamp.h"
+#include "Key.h"
+#include "Easing.h"
+#include "Randam.h"
+
 Boss::Boss()
 {
 	Size = { 150,300 };
