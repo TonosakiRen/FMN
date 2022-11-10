@@ -1,5 +1,10 @@
 #include "Boss.h"
 #include "Degree.h"
+#include "Clamp.h"
+#include "Key.h"
+#include "Easing.h"
+#include "Randam.h"
+
 Boss::Boss()
 {
 	Size = { 150,300 };
@@ -684,8 +689,8 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 			Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 			//åïÇÃç¿ïWç≈èâÇÃ
-			Vec2 LeftTop = { -Size.x / 3,Size.y+100 };
-			Vec2 RightTop = { Size.x / 3 ,Size.y+100 };
+			Vec2 LeftTop = { -Size.x / 3,Size.y + 30 };
+			Vec2 RightTop = { Size.x / 3 ,Size.y+30 };
 			Vec2 LeftBottom = { -Size.x / 3,0 };
 			Vec2 RightBottom = { Size.x / 3,0 };
 			blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
