@@ -62,6 +62,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				effect01.Update(true, playermain.GetPlayerQuad());
 				effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
 				effect03.Update(true,{{0,-Floor},SCREEN_WIDTH,Floor});
+				bossBodyEffect.Update(true,boss.GetBossQuad(boss.body));
+				bossHeadEffect.Update(true, boss.GetBossQuad(boss.head));
+				bossRightArmEffect.Update(true, boss.GetBossQuad(boss.rightarm));
+				bossLeftArmEffect.Update(true, boss.GetBossQuad(boss.leftarm));
+				bossLegEffect.Update(true, boss.GetBossQuad(boss.leg));
 
 				if (playermain.GetHitSword() == true) {
 					if (playermain.GetisFaceUp()) {
@@ -106,9 +111,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
 		playermain.Draw(screen,ziki);
-		boss.Draw(screen,bossImg, bossheadImg, bossbodyImg,bosslegImg,bossleftarmImg,bossrightarmImg
-		);
 		
+		
+		bossBodyEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		bossBodyEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+		bossHeadEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		bossHeadEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+		bossRightArmEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		bossRightArmEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+		bossLeftArmEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		bossLeftArmEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+		bossLegEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+		bossLegEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+
+		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg
+		);
 		///
 		/// ↑描画処理ここまで
 		///
