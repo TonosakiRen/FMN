@@ -688,6 +688,16 @@ Quad Boss::GetBossQuad(int BossParts)
 	
 }
 
+Quad Boss::GetShockWave()
+{
+	return Quad(Wave.QuadPos);
+}
+
+Quad Boss::GetShockWave2()
+{
+	return Quad(Wave.Quad2Pos);
+}
+
 Quad Boss::GetBossAttackQuad()
 {
 	return Quad(blade.Quad_Pos);

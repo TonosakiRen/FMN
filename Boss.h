@@ -291,6 +291,10 @@ public:
 	
 	Quad GetBossQuad(int BossParts);
 
+	Quad GetShockWave();
+	Quad GetShockWave2();
+
+
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
 	bool GetAction();
