@@ -70,6 +70,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					playermain.PlayerHit(boss.GetBossQuad(i), screen);
 					playermain.SwordHit(boss.GetBossQuad(i));
 				}
+				playermain.PlayerHit(boss.GetShockWave(), screen);
+				playermain.PlayerHit(boss.GetShockWave2(), screen);
 
 				boss.BossHit(playermain.GetHitSword());
 
