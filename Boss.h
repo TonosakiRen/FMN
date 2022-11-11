@@ -8,9 +8,10 @@
 
 const int MAX_PATTERN = 100;
 const int kMAX_CIR = 7;
+const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 3;
 class Boss {
-
+	int Rainsword_gra = 0;
 
 	static struct Matrix2x2
 	{
@@ -44,6 +45,7 @@ class Boss {
 	Vec2 RightBottom;
 	int HP = 2000;
 	int HalfHP = HP / 2;
+	int load = 0;//画像読み来み
 	struct Blade
 	{
 		Quad Quad_Pos = { { 9999,9999 },{ 10000,9999 },{ 9999,10000 },{ 10000,10000 } };
@@ -111,6 +113,32 @@ class Boss {
 
 	}Circleofdeath[kMAX_CIR];
 	int Circleofdeath_flame;
+	struct RainOfSword {
+		Vec2 Pos={0,0};
+		Quad QuadPos= {};
+		bool Set = false;
+		bool Reserve = false;
+		int Width = 0;
+		int Height = 0;
+		float DownT = 0;
+		float AddT = 0;
+		float AddT2 = 0;
+
+		void Init() {
+			Pos = {9990,9990};
+			 AddT2 = 0;
+
+			Reserve = false;
+			QuadPos = {};
+			Set = false;
+			DownT = 0;
+			AddT = 0;
+			Width = 0;
+			Height = 0;
+		}
+
+	}Rainofsword[kMAX_RAINSWORD];
+	int Rainofsword_flame;
 
 	struct Keep {
 		int Time = 0;
@@ -311,6 +339,7 @@ public:
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
 	void CircleOfDeathAttack(PlayerMain& player);
+	void RainOfSwordAttack();
 	//スキル出したかどうか：：次に出すやつを変えれる
 	bool bNomalSwordAttack = false;
 	bool bNomalRotedSwordAttack = false;

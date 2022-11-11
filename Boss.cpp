@@ -133,7 +133,10 @@ void Boss::Set()
 
 void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
 {
-	
+	if (load == 0) {
+		load = 1;
+		Rainsword_gra = Novice::LoadTexture("./Resources/images/RainSword.png");
+	}
 	bool BossisFlip = false;
 
 	if (Direction == 1) {
@@ -165,9 +168,11 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, WHITE, kFillModeWireFrame);
 
 	}
-
-	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	Novice::DrawBox(20, 20, HP, 80, 0, GREEN, kFillModeSolid);
+	for (int i = 0; i < kMAX_RAINSWORD; i++) {
+		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
+	}
+	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	Clamp::clamp(HP, 0, 10000);
 }
 
@@ -360,7 +365,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-						NomalSwordAttack(player);
+						//NomalSwordAttack(player);
+						RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
 						
@@ -1333,6 +1339,42 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 	}
 }
 
+void Boss::RainOfSwordAttack() {
+
+	Rainofsword_flame++;
+	for (int i = 0; i < kMAX_RAINSWORD; i++) {
+		if (Rainofsword_flame % 4 == 0 && Rainofsword[i].Set == false) {
+			Rainofsword[i].Pos.x = Pos.x+Randam::RAND(-700, 700);
+			Rainofsword[i].Pos.y = 800;
+			Rainofsword[i].Set = true;
+			break;
+
+		}
+		if(Rainofsword[i].Set == true&& Rainofsword[i].Reserve == false){
+
+			Rainofsword[i].Width = Easing::easing(Rainofsword[i].AddT, 0, 50, 0.03, Easing::easeInQuint);
+			Rainofsword[i].Height = Easing::easing(Rainofsword[i].AddT2,0,100,0.03,Easing::easeInQuint);
+			
+			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
+			if (Rainofsword[i].AddT == 1) {
+				Rainofsword[i].Reserve = true;
+			}
+		}
+		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true) {
+			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0 + Rainofsword[i].Height, 0.03f, Easing::easeInOutCirc);
+			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
+
+		}
+
+	}
+	for (int i = 0; i < kMAX_RAINSWORD; i++) {
+		if (Rainofsword[kMAX_RAINSWORD - 1].DownT == 1) {
+			Rainofsword[i].Init();
+			Rainofsword_flame = 0;
+			Action = false;
+		}
+	}
+}
 void Boss::KeepWaveAttack()
 {
 	
