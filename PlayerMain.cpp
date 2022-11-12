@@ -65,21 +65,30 @@ void PlayerMain::Move()
 		DashFlag = true;
 		JumpFlag = false;
 		DashFaseRight = FaceRight;
+		if (FaceDown == true || FaceUp == true) {
+			DashAvoid = true;
+		}
 	}
 
 	if (DashFlag == true) {
 		Player.Color = 0xFFFFFF00;
 		Gravity = 0;
 		Speed.y = 0;
-		if (DashFaseRight == true) {
-			Speed.x = DASHSPEED;
+		if (DashAvoid == true) {
+			Gravity = 0;
 		}
 		else {
-			Speed.x = -DASHSPEED;
+			if (DashFaseRight == true) {
+				Speed.x = DASHSPEED;
+			}
+			else {
+				Speed.x = -DASHSPEED;
+			}
 		}
 		DashTime++;
 		if (DashTime > 7) {
 			DashFlag = false;
+			DashAvoid = false;
 			DashTime = 0;
 			Gravity = 0.2;
 			DashCoolTime = 20;

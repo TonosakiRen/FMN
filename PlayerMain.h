@@ -76,6 +76,7 @@ class PlayerMain
 	const int DASHSPEED = 34;
 	int DashCoolTime = 20;
 	bool DashFaseRight = true;
+	bool DashAvoid = false;
 	
 	GeneralStruct Sword = {
 		{9999,9999},
