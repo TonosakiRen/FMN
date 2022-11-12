@@ -151,8 +151,6 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		BossisFlip = false;
 	}
 	
-	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y, Blade_gra, WHITE);
-	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 	
 	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
 	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
@@ -168,6 +166,9 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+
+	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y, Blade_gra, WHITE);
+	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
 
 	for (int i = 0; i < kMAX_CIR; i++) {
