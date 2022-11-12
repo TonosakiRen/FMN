@@ -119,7 +119,7 @@ void PlayerMain::Move()
 	Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y + Gravity) * G;
 
 	Player.Pos.y = Clamp::clamp(Player.Pos.y, FLOOR + Player.HitBoxSize.y / 2, 9999);
-	Player.Pos.x = Clamp::clamp(Player.Pos.x, Player.HitBoxSize.x / 2, (1920*1.5) - Player.HitBoxSize.x / 2);
+	Player.Pos.x = Clamp::clamp(Player.Pos.x, Player.HitBoxSize.x / 2, (1920*1.25) - Player.HitBoxSize.x / 2);
 
 	if (HitBack.x > 1) {
 		HitBack.x -= 1;

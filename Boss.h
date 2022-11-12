@@ -224,10 +224,12 @@ class Boss {
 		Vec2 PlayerPosF;
 		Vec2 F_Pos;
 		bool Matched=false;
+		bool Matched2 = false;
 		void Init() {
 			EaseT = 0;
 			EaseDownT = 0; 
 			EaseT2 = 0;
+			Matched2 = false;
 			Matched = false;
 			PlayerPosF={};
 			F_Pos={};
@@ -348,6 +350,8 @@ public:
 	void NomalRotedSwordAttack2(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
+	void ShockWaveAttack2(PlayerMain& player, Screen& screen);
+
 	void CircleOfDeathAttack(PlayerMain& player);
 	void RainOfSwordAttack();
 	//スキル出したかどうか：：次に出すやつを変えれる
