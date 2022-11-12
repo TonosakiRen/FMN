@@ -136,6 +136,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	if (load == 0) {
 		load = 1;
 		Rainsword_gra = Novice::LoadTexture("./Resources/images/RainSword.png");
+		Mahoujin_gra = Novice::LoadTexture("./Resources/images/mahoujin.png");
 	}
 	bool BossisFlip = false;
 
@@ -164,9 +165,9 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
-		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, WHITE, kFillModeSolid);
-		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, WHITE, kFillModeWireFrame);
-
+		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFFFFFF66, kFillModeSolid);
+		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
+		screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
 	}
 	Novice::DrawBox(20, 20, HP, 80, 0, GREEN, kFillModeSolid);
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
@@ -365,8 +366,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-						//NomalSwordAttack(player);
-						RainOfSwordAttack();
+						NomalSwordAttack(player);
+						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
 						
@@ -403,7 +404,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalRotedSwordAttack(player);
 						/*Action = false;
 						CoolTime = 0;*/
-						//FMoveArray = array.AttackFunction03;
+						FMoveArray = array.AttackFunction03;
 
 
 					}
@@ -412,13 +413,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
-
-						
+						ShockWaveAttack(player, screen);						
 						FMoveArray = array.AttackFunction04;
-
 						/*CoolTime = 0;
-
 						Action = false;*/
 
 					}
@@ -516,8 +513,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%‚ÌUŒ‚
 						//NomalRotedSwordAttack(player);
 						//JumpAttack(player, screen);
+						NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
-						CircleOfDeathAttack(player);
+						//CircleOfDeathAttack(player);
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction01;
 					}
@@ -525,8 +523,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%‚ÌUŒ‚
 						//NomalRotedSwordAttack(player);
 						//NomalRotedSwordAttack(player);
-						CircleOfDeathAttack(player);
-
+						//CircleOfDeathAttack(player);
+						NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
 						//JumpAttack(player, screen);
 						/*Action = false;*/
@@ -536,28 +534,26 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%‚ÌUŒ‚
 						//NomalRotedSwordAttack(player);
 						//JumpAttack(player, screen);
-						/*Action = false;*/
 						//ShockWaveAttack(player, screen);
 						CircleOfDeathAttack(player);
 						FMoveArray = array.AttackFunction03;
+						/*Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction04) {
 						//5%‚ÌUŒ‚
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
 						CircleOfDeathAttack(player);
-
-						/*Action = false;*/
 						FMoveArray = array.AttackFunction04;
+						/*Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%‚ÌUŒ‚
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
 						CircleOfDeathAttack(player);
-
-						/*Action = false;*/
 						FMoveArray = array.AttackFunction05;
+						/*Action = false;*/
 					}
 					if (MovePattern[MoveArray] == 0) {
 						Action = false;
@@ -1314,6 +1310,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 			}
 			
 			Circleofdeath[i].fRad = 100;
+			Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2 , Circleofdeath[i].fRad * 2 , 0);
 
 			Circleofdeath[i].Set=true;
 			break;
@@ -1321,6 +1318,8 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 		if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set==true) {
 			//Circleofdeath[i].Reserve = false;
 			Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutElastic);
+			Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad *2+ Circleofdeath[i].circle.radius, Circleofdeath[i].fRad *2+ Circleofdeath[i].circle.radius, 0);
+
 			if (Circleofdeath[i].Reserve_t == 1.0f) {
 				//Circleofdeath[i].Init();
 				

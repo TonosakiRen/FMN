@@ -11,8 +11,9 @@ const int kMAX_CIR = 7;
 const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 3;
 class Boss {
+	//‰æ‘œ‚ÌéŒ¾
 	int Rainsword_gra = 0;
-
+	int Mahoujin_gra = 0;
 	static struct Matrix2x2
 	{
 		float m[2][2];
@@ -96,7 +97,7 @@ class Boss {
 	}Wave;
 	struct CircleOfDeath {
 		Circle circle = { {0,0},0 };
-		
+		Quad Quad_Pos = {};
 		float fRad = {};
 		bool Set = false;
 		bool Reserve = true;
@@ -104,6 +105,7 @@ class Boss {
 		
 		void Init() {
 			circle = { {0,0},0 };
+			Quad_Pos = {};
 			Set = false;
 			Reserve = true;
 			Reserve_t = 0;

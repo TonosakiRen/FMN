@@ -11,6 +11,13 @@ Quad::Quad(Vec2 LeftTop, int width, int height) {
 	this->RightBottom = { LeftTop.x + width, LeftTop.y - height };
 
 }
+Quad::Quad(Vec2 Pos, int width, int height,int center) {
+	this->LeftTop = {Pos.x-width/2,Pos.y+height/2};
+	this->RightTop = { LeftTop.x + width, LeftTop.y };
+	this->LeftBottom = { LeftTop.x,LeftTop.y - height };
+	this->RightBottom = { LeftTop.x + width, LeftTop.y - height };
+
+}
 
 Quad::Quad(Vec2 LeftTop, Vec2 RightTop, Vec2 LeftBottom, Vec2 RightBottom) {
 	this->LeftTop = LeftTop;
