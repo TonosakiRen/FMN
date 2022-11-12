@@ -112,6 +112,8 @@ void Boss::UpDate() {
 	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x * Direction - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) };
 
+	
+
 	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
 	if (isBossHit == true) {
 		HP-=50;
@@ -137,6 +139,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		load = 1;
 		Rainsword_gra = Novice::LoadTexture("./Resources/images/RainSword.png");
 		Mahoujin_gra = Novice::LoadTexture("./Resources/images/mahoujin.png");
+		Blade_gra = Novice::LoadTexture("./Resources/images/Boss/Blade.png");
+
 	}
 	bool BossisFlip = false;
 
@@ -146,7 +150,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	else {
 		BossisFlip = false;
 	}
-
+	
+	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y, Blade_gra, WHITE);
 	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 	
 	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
@@ -163,6 +168,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+
 
 	for (int i = 0; i < kMAX_CIR; i++) {
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFFFFFF66, kFillModeSolid);
@@ -1016,7 +1022,6 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 			Vec2 RightBottom = { Size.x / 3,0 };
 			blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
-
 			blade.LeftTop = Multiply(LeftTop, mat);
 			blade.RightTop = Multiply(RightTop, mat);
 			blade.LeftBottom = Multiply(LeftBottom, mat);
@@ -1028,7 +1033,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 			blade.RightBottom += Pos;
 
 			blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
+			
 			if (blade.t == 1) {
 				blade.Init();
 				Action = false;
@@ -1036,6 +1041,8 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 				SwordAttack = false;
 				bNomalSwordAttack = true;
 			}
+
+			BladeImageLink(mat);
 		}
 		else {
 			AttackStartTime--;
@@ -1100,6 +1107,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 
 			blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
+			
+
 			if (blade.t_back == 1) {
 				blade.Init();
 				Action = false;
@@ -1107,6 +1116,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 				SwordAttack = false;
 				bNomalSwordAttack = true;
 			}
+
+			BladeImageLink(mat);
 		}
 		else {
 			AttackStartTime--;
@@ -1161,6 +1172,8 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		SwordAttack = false;
 		bNomalRotedSwordAttack = true;
 	}
+
+	BladeImageLink(mat);
 }
 void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 {
@@ -1201,7 +1214,6 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 	blade.LeftBottom += Pos + blade.Vec_RotedPos;
 	blade.RightBottom += Pos + blade.Vec_RotedPos;
 
-
 	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 	if (blade.Roted_tback == 1) {
@@ -1211,6 +1223,8 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		SwordAttack = false;
 		bNomalRotedSwordAttack = true;
 	}
+
+	BladeImageLink(mat);
 }
 void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
 {
@@ -1373,6 +1387,72 @@ void Boss::RainOfSwordAttack() {
 			Action = false;
 		}
 	}
+}
+void Boss::BladeImageLink(Matrix2x2 mat)
+{
+	Vec2 MostLeftTop = blade.Quad_Pos.LeftTop;
+	Vec2 MostRightBottom = blade.Quad_Pos.RightBottom;
+
+	if (MostLeftTop.x > blade.Quad_Pos.RightTop.x) {
+		MostLeftTop.x = blade.Quad_Pos.RightTop.x;
+	}
+	if (MostLeftTop.x > blade.Quad_Pos.LeftBottom.x) {
+		MostLeftTop.x = blade.Quad_Pos.LeftBottom.x;
+	}
+	if (MostLeftTop.x > blade.Quad_Pos.RightBottom.x) {
+		MostLeftTop.x = blade.Quad_Pos.RightBottom.x;
+	}
+
+	if (MostLeftTop.y < blade.Quad_Pos.RightTop.y) {
+		MostLeftTop.y = blade.Quad_Pos.RightTop.y;
+	}
+	if (MostLeftTop.y < blade.Quad_Pos.LeftBottom.y) {
+		MostLeftTop.y = blade.Quad_Pos.LeftBottom.y;
+	}
+	if (MostLeftTop.y < blade.Quad_Pos.RightBottom.y) {
+		MostLeftTop.y = blade.Quad_Pos.RightBottom.y;
+	}
+
+	if (MostRightBottom.x < blade.Quad_Pos.RightTop.x) {
+		MostRightBottom.x = blade.Quad_Pos.RightTop.x;
+	}
+	if (MostRightBottom.x < blade.Quad_Pos.LeftBottom.x) {
+		MostRightBottom.x = blade.Quad_Pos.LeftBottom.x;
+	}
+	if (MostRightBottom.x < blade.Quad_Pos.LeftTop.x) {
+		MostRightBottom.x = blade.Quad_Pos.LeftTop.x;
+	}
+
+	if (MostRightBottom.y > blade.Quad_Pos.RightTop.y) {
+		MostRightBottom.y = blade.Quad_Pos.RightTop.y;
+	}
+	if (MostRightBottom.y > blade.Quad_Pos.LeftBottom.y) {
+		MostRightBottom.y = blade.Quad_Pos.LeftBottom.y;
+	}
+	if (MostRightBottom.y > blade.Quad_Pos.LeftTop.y) {
+		MostRightBottom.y = blade.Quad_Pos.LeftTop.y;
+	}
+
+	BladeCenterPos = { 
+		MostLeftTop.x + (MostRightBottom.x - MostLeftTop.x) / 2,
+		MostRightBottom.y + (MostLeftTop.y - MostRightBottom.y) / 2 };
+
+	Vec2 ImageLeftTop = { -BladeImageSize.x / 2,BladeImageSize.y / 2};
+	Vec2 ImageRightTop = { BladeImageSize.x / 2,BladeImageSize.y / 2};
+	Vec2 ImageLeftBottom = { -BladeImageSize.x / 2,-BladeImageSize.y / 2 };
+	Vec2 ImageRightBottom = { BladeImageSize.x / 2,-BladeImageSize.y / 2 };
+
+	BladeImageQuad.LeftTop = Multiply(ImageLeftTop, mat);
+	BladeImageQuad.RightTop = Multiply(ImageRightTop, mat);
+	BladeImageQuad.LeftBottom = Multiply(ImageLeftBottom, mat);
+	BladeImageQuad.RightBottom = Multiply(ImageRightBottom, mat);
+
+	BladeImageQuad.LeftTop += BladeCenterPos;
+	BladeImageQuad.RightTop += BladeCenterPos;
+	BladeImageQuad.LeftBottom += BladeCenterPos;
+	BladeImageQuad.RightBottom += BladeCenterPos;
+
+	BladeImageQuad = { BladeImageQuad.LeftTop,BladeImageQuad.RightTop,BladeImageQuad.LeftBottom,BladeImageQuad.RightBottom };
 }
 void Boss::KeepWaveAttack()
 {

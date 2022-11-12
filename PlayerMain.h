@@ -24,6 +24,7 @@ class PlayerMain
 		int AnimeFlame;
 		int SrcX;
 		unsigned int Color;
+		Vec2 ImageSize;
 	};
 	
 	//FaceRight プレイヤーがどっち向いてるか判別 false 左 : 右 true
@@ -36,12 +37,13 @@ class PlayerMain
 
 	GeneralStruct Player = {
 		{100,500},
-		{ 60,96 },
+		{ 40,70 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
 		9,
 		0,
 		WHITE,
+		{ 60,96 },
 	};
 
 	//Speed プレイヤーが動かすときに使う
@@ -91,7 +93,7 @@ class PlayerMain
 	int HitCoolDown = 0;
 
 	int AttackCoolDown = 0;
-	int ATTACKCOOLDOWNMAX = 10;
+	int ATTACKCOOLDOWNMAX = 8;
 
 	int isAttack = 0;
 	bool isSwordAppear = 0;

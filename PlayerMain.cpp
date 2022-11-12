@@ -157,19 +157,22 @@ void PlayerMain::Move()
 	Player.Quad = { { Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2 },
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y) };
 
+
+
 	PreJumpKey = Controller::IsPressedButton(0, Controller::bA) || Key::IsPressed(DIK_SPACE);
 
 
 
-	if (Controller::IsPressedButton(0, Controller::bX) == 1 || Key::IsPressed(DIK_K)) {
+	if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
+		isAttack = 4;
+	}
+
+	if (isAttack > 0) {
 		if (AttackCoolDown <= 0) {
 			NormalAttack();
 			AttackCoolDown = ATTACKCOOLDOWNMAX;
 			isSwordAppear = true;
 		}
-	}
-
-	if (isAttack > 0) {
 		isAttack--;
 	}
 
@@ -292,8 +295,12 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
+	Quad ImageQuad = { {Player.Pos.x - Player.ImageSize.x / 2, Player.Pos.y + Player.ImageSize.y / 2},
+		int(Player.ImageSize.x),int(Player.ImageSize.y) };
+
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color,FaceRight);
+		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
+		screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
 	}
 
 	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);

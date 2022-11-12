@@ -14,6 +14,8 @@ class Boss {
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
+	int Blade_gra = 0;
+
 	static struct Matrix2x2
 	{
 		float m[2][2];
@@ -44,6 +46,10 @@ class Boss {
 	Vec2 RightTop;
 	Vec2 LeftBottom;
 	Vec2 RightBottom;
+
+	Quad BladeImageQuad;
+	Vec2 BladeImageSize = {140,460};
+
 	int HP = 2000;
 	int HalfHP = HP / 2;
 	int load = 0;//画像読み来み
@@ -231,6 +237,8 @@ class Boss {
 
 	bool isBossHit = false; //攻撃を当てられた
 
+	Vec2 BladeCenterPos;
+
 #pragma region Parts
 	struct ImageStruct {
 		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
@@ -372,5 +380,7 @@ public:
 	bool GetSwordAttack();
 
 	void BossHit(bool Hit);
+
+	void BladeImageLink(Matrix2x2 mat);
 
 };
