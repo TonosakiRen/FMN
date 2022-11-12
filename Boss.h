@@ -5,10 +5,11 @@
 #include"PlayerMain.h"
 #include"Circle.h"
 
+#define kMAX_RAINSWORD 30
 
 const int MAX_PATTERN = 100;
 const int kMAX_CIR = 7;
-const int kMAX_RAINSWORD = 30;
+//const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 3;
 class Boss {
 	//âÊëúÇÃêÈåæ
@@ -123,26 +124,36 @@ class Boss {
 	int Circleofdeath_flame;
 	struct RainOfSword {
 		Vec2 Pos={0,0};
-		Quad QuadPos= {};
+		Quad QuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
+		Quad ColQuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
 		bool Set = false;
 		bool Reserve = false;
-		int Width = 0;
-		int Height = 0;
+		int Width = 1;
+		int Height = 1;
+		int ColWidth = 1;
+		int ColHeight = 1;
 		float DownT = 0;
 		float AddT = 0;
 		float AddT2 = 0;
+		float ColAddT = 0;
+		float ColAddT2 = 0;
 
 		void Init() {
 			Pos = {9990,9990};
 			 AddT2 = 0;
 
 			Reserve = false;
-			QuadPos = {};
+			QuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
 			Set = false;
 			DownT = 0;
 			AddT = 0;
-			Width = 0;
-			Height = 0;
+			Width = 1;
+			Height = 1;
+			ColWidth = 1;
+			ColHeight = 1;
+			ColAddT = 0;
+			ColAddT2 = 0;
+			ColQuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
 		}
 
 	}Rainofsword[kMAX_RAINSWORD];
@@ -381,6 +392,7 @@ public:
 
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
+	Quad GetRainOfSwordQuad(int i);
 	bool GetAction();
 	bool GetSwordAttack();
 

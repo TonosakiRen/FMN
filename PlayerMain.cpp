@@ -273,7 +273,7 @@ void PlayerMain::SwordHit(Quad Target)
 	
 }
 
-void PlayerMain::PlayerHit(Quad Target, Screen& screen)
+void PlayerMain::PlayerHit(Quad Target)
 {
 
 	if (HitCoolDown == 0 && DashFlag == false) {
@@ -284,12 +284,6 @@ void PlayerMain::PlayerHit(Quad Target, Screen& screen)
 			Vec2 TargetPos = { Target.LeftTop.x + (Target.RightBottom.x - Target.LeftTop.x) / 2,
 							Target.LeftTop.y + (Target.RightBottom.y - Target.LeftTop.y) / 2 };
 
-			/*if (TargetPos.x - Player.Pos.x > 0) {
-				OtherSpeed.x -= 20;
-			}
-			else {
-				OtherSpeed.x += 20;
-			}*/
 
 			HitStop = 5;
 			HitCoolDown = 60;
@@ -308,8 +302,8 @@ void PlayerMain::Draw(Screen& screen,int texture)
 		int(Player.ImageSize.x),int(Player.ImageSize.y) };
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-		screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
-		screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
+			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
+			screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
 	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);

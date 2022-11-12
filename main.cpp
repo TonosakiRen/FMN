@@ -65,13 +65,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss.UpDate();
 				boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 
-				playermain.PlayerHit(boss.GetBossAttackQuad(), screen);
+				playermain.PlayerHit(boss.GetBossAttackQuad());
 				for (int i = 0; i < 5; i++) {
-					playermain.PlayerHit(boss.GetBossQuad(i), screen);
+					playermain.PlayerHit(boss.GetBossQuad(i));
 					playermain.SwordHit(boss.GetBossQuad(i));
 				}
-				playermain.PlayerHit(boss.GetShockWave(), screen);
-				playermain.PlayerHit(boss.GetShockWave2(), screen);
+				playermain.PlayerHit(boss.GetShockWave());
+				playermain.PlayerHit(boss.GetShockWave2());
+
+				for (int i = 0; i < kMAX_RAINSWORD; i++) {
+					playermain.PlayerHit(boss.GetRainOfSwordQuad(i));
+				}
 
 				boss.BossHit(playermain.GetHitSword());
 

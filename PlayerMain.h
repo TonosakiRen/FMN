@@ -133,7 +133,7 @@ public:
 
 	bool GetHitSword() { return isSwordHit; }
 
-	void PlayerHit(Quad Target, Screen& screen);
+	void PlayerHit(Quad Target);
 
 	bool GetisFaceRigh() { return FaceRight; }
 	bool GetisFaceUp() { return FaceUp; }

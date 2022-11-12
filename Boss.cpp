@@ -116,7 +116,7 @@ void Boss::UpDate() {
 
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
 	if (isBossHit == true) {
-		HP-=25;
+		HP-=250;
 	};
 
 }
@@ -178,6 +178,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	Novice::DrawBox(20, 20, HP, 80, 0, GREEN, kFillModeSolid);
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
+		screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
 	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	Clamp::clamp(HP, 0, 10000);
@@ -1438,10 +1439,16 @@ void Boss::RainOfSwordAttack() {
 		}
 		if(Rainofsword[i].Set == true&& Rainofsword[i].Reserve == false){
 
-			Rainofsword[i].Width = Easing::easing(Rainofsword[i].AddT, 0, 50, 0.03, Easing::easeInQuint);
-			Rainofsword[i].Height = Easing::easing(Rainofsword[i].AddT2,0,100,0.03,Easing::easeInQuint);
-			
+			Rainofsword[i].Width = Easing::easing(Rainofsword[i].AddT, 1, 50, 0.03, Easing::easeInQuint);
+			Rainofsword[i].Height = Easing::easing(Rainofsword[i].AddT2,1,100,0.03,Easing::easeInQuint);
+			Rainofsword[i].ColWidth = Easing::easing(Rainofsword[i].ColAddT, 1, 10, 0.03, Easing::easeInQuint);
+			Rainofsword[i].ColHeight = Easing::easing(Rainofsword[i].ColAddT2, 1, 93, 0.03, Easing::easeInQuint);
+
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
+			Rainofsword[i].ColQuadPos = Quad::Quad(
+				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
+				Rainofsword[i].ColWidth, Rainofsword[i].ColHeight);
+
 			if (Rainofsword[i].AddT == 1) {
 				Rainofsword[i].Reserve = true;
 			}
@@ -1449,7 +1456,9 @@ void Boss::RainOfSwordAttack() {
 		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true) {
 			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0 + Rainofsword[i].Height, 0.03f, Easing::easeInOutCirc);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
-
+			Rainofsword[i].ColQuadPos = Quad::Quad(
+				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
+				Rainofsword[i].ColWidth, Rainofsword[i].ColHeight);
 		}
 
 	}
@@ -1530,6 +1539,11 @@ Quad Boss::GetBossAttackQuad()
 Quad Boss::GetBossBladeQuad()
 {
 	return Quad(blade.Quad_Pos);
+}
+
+Quad Boss::GetRainOfSwordQuad(int i)
+{
+	return Quad(Rainofsword[i].ColQuadPos);
 }
 
 bool Boss::GetAction()
