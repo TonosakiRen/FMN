@@ -7,12 +7,12 @@ Screen::Screen() {
 	Worldcenter.y = SCREEN_HEIGHT - Floor/* / 2*/;
 	Scroll.setZero();
 	ScreenShake.setZero();
-	Scroll_Fixed_Value_X = 250;
+	Scroll_Fixed_Value_X = SCREEN_WIDTH/2;
 	Zoom = { 1.0f, 1.0f };
 	Ishit = false;
 };
 
-void Screen::Scroll_update(float playerX, int map_sheets_number) {
+void Screen::Scroll_update(float playerX, float map_sheets_number) {
 
 	if (playerX >= Scroll_Fixed_Value_X && playerX <= Width * map_sheets_number - (Width - Scroll_Fixed_Value_X)) {
 

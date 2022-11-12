@@ -116,7 +116,7 @@ void Boss::UpDate() {
 
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
 	if (isBossHit == true) {
-		HP-=50;
+		HP-=25;
 	};
 
 }

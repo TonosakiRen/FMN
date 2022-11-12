@@ -58,7 +58,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-
+		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, 1.5);
 		if (stopper.Pause() == false) {
 			if (stopper.HitStopUpdate() == false) {
 				playermain.Move();
