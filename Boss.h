@@ -241,6 +241,7 @@ class Boss {
 
 	Vec2 BladeCenterPos;
 
+
 #pragma region Parts
 	struct ImageStruct {
 		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
