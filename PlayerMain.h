@@ -135,6 +135,8 @@ public:
 
 	void PlayerHit(Quad Target);
 
+	void PlayerHit(Circle Target);
+
 	bool GetisFaceRigh() { return FaceRight; }
 	bool GetisFaceUp() { return FaceUp; }
 	bool GetisFaceDown() { return FaceDown; }

@@ -171,7 +171,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 
 
 	for (int i = 0; i < kMAX_CIR; i++) {
-		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFFFFFF66, kFillModeSolid);
+		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFF000066, kFillModeSolid);
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
 		screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
 	}
@@ -1544,6 +1544,11 @@ Quad Boss::GetBossBladeQuad()
 Quad Boss::GetRainOfSwordQuad(int i)
 {
 	return Quad(Rainofsword[i].ColQuadPos);
+}
+
+Circle Boss::GetCircleOfDeathQuad(int i)
+{
+	return Circle(Circleofdeath[i].circle);
 }
 
 bool Boss::GetAction()

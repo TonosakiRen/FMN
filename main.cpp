@@ -77,6 +77,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					playermain.PlayerHit(boss.GetRainOfSwordQuad(i));
 				}
 
+				for (int i = 0; i < kMAX_CIR; i++) {
+					playermain.PlayerHit(boss.GetCircleOfDeathQuad(i));
+				}
+
 				boss.BossHit(playermain.GetHitSword());
 
 				effect01.Update(true, playermain.GetPlayerQuad());

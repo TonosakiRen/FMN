@@ -291,6 +291,22 @@ void PlayerMain::PlayerHit(Quad Target)
 	}
 }
 
+void PlayerMain::PlayerHit(Circle Target)
+{
+	if (Target.radius != 0) {
+		if (HitCoolDown == 0 && DashFlag == false) {
+			if (Collision::CircleToQuad(Target, Player.Quad)) {
+				Novice::ScreenPrintf(0, 300, "chinchin");
+
+
+
+				HitStop = 5;
+				HitCoolDown = 60;
+			}
+		}
+	}
+}
+
 
 
 void PlayerMain::Draw(Screen& screen,int texture)

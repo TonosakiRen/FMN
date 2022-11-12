@@ -6,9 +6,10 @@
 #include"Circle.h"
 
 #define kMAX_RAINSWORD 30
+#define kMAX_CIR 7
 
 const int MAX_PATTERN = 100;
-const int kMAX_CIR = 7;
+//const int kMAX_CIR = 7;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 3;
 class Boss {
@@ -393,6 +394,7 @@ public:
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
 	Quad GetRainOfSwordQuad(int i);
+	Circle GetCircleOfDeathQuad(int i);
 	bool GetAction();
 	bool GetSwordAttack();
 
