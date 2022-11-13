@@ -1197,10 +1197,10 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 				if (blade.t_back == 1) {
 					if (blade.t_back == 1 && blade.t_back2 == 0) {
 						DirectionGet(player);
-						blade.FPosBoss.x = player.Translation().x+(200*Direction);
+						blade.FPosBoss.x = player.Translation().x+(350*Direction);
 					}
 
-					blade.angle = Easing::easing(blade.t_back2, 0, 200, 0.015f, Easing::easeInOutBack) * -Direction;
+					blade.angle = Easing::easing(blade.t_back2, -20, 200, 0.015f, Easing::easeInOutBack) * -Direction;
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t2, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
 					if (blade.t_back2 < 0.2) {
