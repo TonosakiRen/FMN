@@ -98,7 +98,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						playermain.PlayerHit({ centerOfDarknessUnder.particles[i].quad.GetCenter(),centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
 						playermain.PlayerHit({ centerOfDarknessLeft.particles[i].quad.GetCenter(),centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
 						playermain.PlayerHit({ centerOfDarknessRight.particles[i].quad.GetCenter(),centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
-					}
+					}*/
 
 					boss.BossHit(playermain.GetHitSword());
 
@@ -111,7 +111,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					bossLeftArmEffect.Update(true, boss.GetBossQuad(boss.leftarm));
 					bossLegEffect.Update(true, boss.GetBossQuad(boss.leg));
 
-					centerOfDarknessUnder.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
+					/*centerOfDarknessUnder.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
 					centerOfDarknessLeft.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
 					centerOfDarknessRight.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
 
@@ -121,7 +121,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					centerOfDarknessUnder.Update(true, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
 					centerOfDarknessLeft.Update(true, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
-					centerOfDarknessRight.Update(true, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
+					centerOfDarknessRight.Update(true, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });*/
 
 					if (playermain.GetHitSword() == true) {
 						if (playermain.GetisFaceUp()) {
@@ -149,7 +149,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 
-			/*stopper.HitStopMake(playermain.HitStopOver());*/
+			 //stopper.HitStopMake(playermain.HitStopOver());
 
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
@@ -245,12 +245,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			bossLegEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 
 			//センター大部ダークネス
-			centerOfDarknessRight.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
+			/*centerOfDarknessRight.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 			centerOfDarknessRight.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 			centerOfDarknessLeft.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
 			centerOfDarknessLeft.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 			centerOfDarknessUnder.Draw(screen, 128, effect03Img, RED, kBlendModeNormal);
-			centerOfDarknessUnder.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+			centerOfDarknessUnder.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);*/
 
 			boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
 
