@@ -114,6 +114,11 @@ public:
 		return Quad(Player.Quad);
 	}
 
+	Quad GetSwordQuad()
+	{
+		return Quad(Sword.Quad);
+	}
+
 	int HitStopOver() {
 		int a = 0;
 		if (HitStop > 0) {

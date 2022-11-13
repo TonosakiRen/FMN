@@ -406,6 +406,15 @@ public:
 
 	void BossHit(bool Hit);
 
+	enum {
+		up,
+		down,
+		left,
+		right
+	};
+
+	void BossHitReaction(Quad PlayerQuad, bool up, bool down, bool right);
+
 	void BladeImageLink(Matrix2x2 mat);
 
 };

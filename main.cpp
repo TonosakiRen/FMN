@@ -110,6 +110,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					
 				}
 				effect04.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+				boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
 			}
 		}
 

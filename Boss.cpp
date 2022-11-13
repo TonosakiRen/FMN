@@ -36,6 +36,7 @@ void Boss::UpDate() {
 
 #pragma region Parts
 
+
 	if (Head.PulsPos.y >= 0) {
 		Head.PulsPosSpeed *= -1;
 	}
@@ -1588,6 +1589,110 @@ void Boss::BossHit(bool Hit)
 		isBossHit = true;
 
 	}
+}
+void Boss::BossHitReaction(Quad PlayerQuad, bool up, bool down, bool right)
+{
+	Vec2 ReactionPuls = { 0 , 0 };
+	int minus = 3;
+
+	if (up == true) {
+		ReactionPuls = { 0 , 30 };
+	}
+	else if (down == true) {
+		ReactionPuls = { 0 , -30 };
+	}
+	else {
+		if (right == true) {
+			ReactionPuls = { 30 , 0 };
+		}
+		else {
+			ReactionPuls = { -30 , 0 };
+		}
+	}
+
+	if (Collision::QuadToQuad(PlayerQuad, Head.ColQuad)) {
+		Head.HitReaction = ReactionPuls;
+	}
+	if (Collision::QuadToQuad(PlayerQuad, Body.ColQuad)) {
+		Body.HitReaction = ReactionPuls;
+	}
+	if (Collision::QuadToQuad(PlayerQuad, Leg.ColQuad)) {
+		Leg.HitReaction = ReactionPuls;
+	}
+	if (Collision::QuadToQuad(PlayerQuad, LeftArm.ColQuad)) {
+		LeftArm.HitReaction = ReactionPuls;
+	}
+	if (Collision::QuadToQuad(PlayerQuad, RightArm.ColQuad)) {
+		RightArm.HitReaction = ReactionPuls;
+	}
+
+	if (Head.HitReaction.x > 0) {
+		Head.HitReaction.x -= minus;
+	}
+	if (Head.HitReaction.x < 0) {
+		Head.HitReaction.x += minus;
+	}
+	if (Head.HitReaction.y > 0) {
+		Head.HitReaction.y -= minus;
+	}
+	if (Head.HitReaction.y < 0) {
+		Head.HitReaction.y += minus;
+	}
+
+	if (Body.HitReaction.x > 0) {
+		Body.HitReaction.x -= minus;
+	}
+	if (Body.HitReaction.x < 0) {
+		Body.HitReaction.x += minus;
+	}
+	if (Body.HitReaction.y > 0) {
+		Body.HitReaction.y -= minus;
+	}
+	if (Body.HitReaction.y < 0) {
+		Body.HitReaction.y += minus;
+	}
+
+	if (Leg.HitReaction.x > 0) {
+		Leg.HitReaction.x -= minus;
+	}
+	if (Leg.HitReaction.x < 0) {
+		Leg.HitReaction.x += minus;
+	}
+	if (Leg.HitReaction.y > 0) {
+		Leg.HitReaction.y -= minus;
+	}
+	if (Leg.HitReaction.y < 0) {
+		Leg.HitReaction.y += minus;
+	}
+
+	if (LeftArm.HitReaction.x > 0) {
+		LeftArm.HitReaction.x -= minus;
+	}
+	if (LeftArm.HitReaction.x < 0) {
+		LeftArm.HitReaction.x += minus;
+	}
+	if (LeftArm.HitReaction.y > 0) {
+		LeftArm.HitReaction.y -= minus;
+	}
+	if (LeftArm.HitReaction.y < 0) {
+		LeftArm.HitReaction.y += minus;
+	}
+
+	if (RightArm.HitReaction.x > 0) {
+		RightArm.HitReaction.x -= minus;
+	}
+	if (RightArm.HitReaction.x < 0) {
+		RightArm.HitReaction.x += minus;
+	}
+	if (RightArm.HitReaction.y > 0) {
+		RightArm.HitReaction.y -= minus;
+	}
+	if (RightArm.HitReaction.y < 0) {
+		RightArm.HitReaction.y += minus;
+	}
+
+
+
 }
 void Boss::BladeImageLink(Matrix2x2 mat)
 {
