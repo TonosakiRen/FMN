@@ -387,11 +387,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						//NomalSwordAttack(player);
+						NomalSwordAttack3(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
-						ShockWaveAttack2(player, screen);
+						//ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -1198,7 +1198,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 						DirectionGet(player);
 						blade.FPosBoss.x = player.Translation().x+(200*Direction);
 					}
-					blade.angle = Easing::easing(blade.t_back2, 0, 200, 0.020f, Easing::easeInOutQuint) * -Direction;
+
+					blade.angle = Easing::easing(blade.t_back2, 0, 200, 0.015f, Easing::easeInOutBack) * -Direction;
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t2, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
 					if (blade.t_back2 < 0.2) {

@@ -72,7 +72,7 @@ class Boss {
 		float t_back2=0;
 		bool Back=0;
 		Vec2 FPosBoss = {};
-		
+		int Delay = 0;
 		float Boss_t = 0;
 		float Boss_t2 = 0;
 		void Init() {
@@ -93,6 +93,7 @@ class Boss {
 			Boss_t = 0;
 			Boss_t2 = 0;
 			t_back2 = 0;
+			Delay = 0;
 		}
 		Vec2 Vec_RotedPos;
 		float Roted_t = 0;
