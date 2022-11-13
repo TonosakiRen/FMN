@@ -11,7 +11,7 @@
 const int MAX_PATTERN = 100;
 //const int kMAX_CIR = 7;
 //const int kMAX_RAINSWORD = 30;
-const int kMAX_WAVE = 3;
+const int kMAX_WAVE = 2;
 class Boss {
 	//‰æ‘œ‚ÌéŒ¾
 	int Rainsword_gra = 0;
@@ -111,7 +111,7 @@ class Boss {
 		bool Reserve = true;
 
 
-	}Wave;
+	}Wave[kMAX_WAVE];
 	struct CircleOfDeath {
 		Circle circle = { {0,0},0 };
 		Quad Quad_Pos = {};

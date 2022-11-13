@@ -162,10 +162,11 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y, Blade_gra, WHITE);
 	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
-	
-	screen.DrawQuad2(Wave.QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
-	screen.DrawQuad2(Wave.Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
-	
+	for (int i = 0; i < kMAX_WAVE; i++) {
+
+		screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
+		screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
+	}
 	screen.DrawQuad2Renban(Leg.ImageQuad, SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 0, 60, AnimeFlame, legtex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(Body.ImageQuad, SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 0, 60, AnimeFlame, bodytex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(Head.ImageQuad, SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 0, 60, AnimeFlame, headtex, WHITE, BossisFlip);
@@ -387,11 +388,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-						NomalSwordAttack3(player);
+						//NomalSwordAttack3(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
-						//ShockWaveAttack2(player, screen);
+						ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -1422,7 +1423,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 					Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
 					//‰º‚É—Ž‚¿‚é
 					if (Pos.y == Size.y/2) {
-						Wave.WaveKeep = true;
+						Wave[0].WaveKeep = true;
 						
 					}
 				}
@@ -1455,36 +1456,40 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 				if (jumpattack.EaseT == 1) {
 					jumpattack.Matched = true;
 					//jumpattack.PlayerPosF = player.Translation();
-
+					jumpattack.EaseT = 0;
+					jumpattack.EaseT2 = 0;
 					//ã‚Éã‚ª‚èØ‚Á‚½
 				}
 			}
 			else
 				if (jumpattack.Matched == true) {
-					if (jumpattack.EaseDownT < 0.5 && jumpattack.Matched2 == false) {
-						//Pos.x = jumpattack.PlayerPosF.x;
-						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, 300, 0.03f, Easing::easeInOutCirc);
+					
+						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeInOutCirc);
 						if(jumpattack.EaseDownT < 0.1)	jumpattack.PlayerPosF2.x = player.Translation().x;
-					}
-					else if(jumpattack.EaseDownT >= 0.5 && jumpattack.Matched2 == false) {
+					
+					if(jumpattack.EaseDownT ==1&& jumpattack.Matched2 == false) {
 						jumpattack.Matched2 = true;
-						//jumpattack.PlayerPosF = player.Translation();
+						//‰º‚É—Ž‚¿‚é
+						if (Pos.y == Size.y / 2) {
+							Wave[0].WaveKeep = true;
+
+						}
 						jumpattack.EaseDownT = 0;
-						Pos.y = 600;
+						
 					}
 					if (jumpattack.Matched2 == true) {
-						jumpattack.Delay++;
-						Pos.x = jumpattack.PlayerPosF2.x + (Direction * 200);
-					}
-						if (jumpattack.Delay > 10) {
-							Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.03f, Easing::easeOutBounce);
-							
-					}
-					//‰º‚É—Ž‚¿‚é
-					if (Pos.y == Size.y / 2) {
-						Wave.WaveKeep = true;
+						Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 450, 0.05f, Easing::easeOutCirc);
 
+						//Pos.x = jumpattack.PlayerPosF2.x + (Direction * 200);
 					}
+					if (jumpattack.EaseT2==1) {
+							Pos.y = Easing::easing(jumpattack.EaseDownT, 450, Size.y / 2, 0.03f, Easing::easeOutBounce);
+							if (Pos.y == Size.y / 2) {
+								Wave[1].WaveKeep = true;
+
+							}
+					}
+					
 				}
 
 			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT <= 0.9f && jumpattack.EaseDownT >= 0.8f);
@@ -1593,27 +1598,27 @@ void Boss::RainOfSwordAttack() {
 
 void Boss::KeepWaveAttack()
 {
-	
-		if (Wave.WaveKeep == false) {
-			Wave.QuadPos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
-			Wave.Quad2Pos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
+	for (int i = 0; i < kMAX_WAVE; i++) {
+		if (Wave[i].WaveKeep == false) {
+			Wave[i].QuadPos.Quad::Quad({Pos.x - 50,Pos.y}, 100, 200);
+			Wave[i].Quad2Pos.Quad::Quad({Pos.x - 50,Pos.y}, 100, 200);
 
 		}
-		if (Wave.WaveKeep == true) {
-			Wave.QuadPos.LeftTop.x += 30;
-			Wave.Quad2Pos.LeftTop.x -= 30;
-			Wave.QuadPos.Quad::Quad(Wave.QuadPos.LeftTop, 100, 200);
-			Wave.Quad2Pos.Quad::Quad(Wave.Quad2Pos.LeftTop, 100, 200);
+		if (Wave[i].WaveKeep == true) {
+			Wave[i].QuadPos.LeftTop.x += 30;
+			Wave[i].Quad2Pos.LeftTop.x -= 30;
+			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 200);
+			Wave[i].Quad2Pos.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 100, 200);
 
-			Wave.LifeTime += 0.025f;
-			Wave.LifeTime = Clamp::clamp(Wave.LifeTime, 0, 1);
+			Wave[i].LifeTime += 0.025f;
+			Wave[i].LifeTime = Clamp::clamp(Wave[i].LifeTime, 0, 1);
 
-			if (Wave.LifeTime == 1.0f) {
-				Wave.WaveKeep = false;
-				Wave.LifeTime = 0;
+			if (Wave[i].LifeTime == 1.0f) {
+				Wave[i].WaveKeep = false;
+				Wave[i].LifeTime = 0;
 			}
 		}
-	
+	}
 }
 
 
@@ -1643,12 +1648,18 @@ Quad Boss::GetBossQuad(int BossParts)
 
 Quad Boss::GetShockWave()
 {
-	return Quad(Wave.QuadPos);
+	for (int i = 0; i < kMAX_WAVE; i++) {
+
+		return Quad(Wave[i].QuadPos);
+	}
 }
 
 Quad Boss::GetShockWave2()
 {
-	return Quad(Wave.Quad2Pos);
+	for (int i = 0; i < kMAX_WAVE; i++) {
+
+		return Quad(Wave[i].Quad2Pos);
+	}
 }
 
 Quad Boss::GetBossAttackQuad()
