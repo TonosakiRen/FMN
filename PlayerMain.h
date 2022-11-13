@@ -46,6 +46,8 @@ class PlayerMain
 		{ 60,96 },
 	};
 
+	int HP = 3;
+
 	//Speed プレイヤーが動かすときに使う
 	Vec2 Speed = { 0,0 };
 	//OtherSpeed  その他要因で動かされる時に使う ノックバックなど

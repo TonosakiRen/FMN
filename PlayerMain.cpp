@@ -287,6 +287,7 @@ void PlayerMain::PlayerHit(Quad Target)
 
 			HitStop = 5;
 			HitCoolDown = 60;
+			HP--;
 		}
 	}
 }
@@ -303,6 +304,7 @@ void PlayerMain::PlayerHit(Circle Target)
 
 				HitStop = 5;
 				HitCoolDown = 60;
+				HP--;
 			}
 		}
 	}
@@ -328,7 +330,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
 
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
-	Novice::ScreenPrintf(0, 20, "%f", HitBack.x);
+	Novice::ScreenPrintf(0, 20, "%d", HP);
 
 }
 
