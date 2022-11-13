@@ -241,7 +241,8 @@ class Boss {
 	struct JumpAttack {
 		float EaseT = 0;
 		float EaseT2=0;
-		float EaseDownT=0;
+		float EaseDownT = 0;
+		float EaseDownT2=0;
 		Vec2 PlayerPosF;
 		Vec2 PlayerPosF2;
 		float Delay = 0;
@@ -250,6 +251,7 @@ class Boss {
 		bool Matched2 = false;
 		void Init() {
 			EaseT = 0;
+			EaseDownT2 = 0;
 			EaseDownT = 0; 
 			EaseT2 = 0;
 			Matched2 = false;
