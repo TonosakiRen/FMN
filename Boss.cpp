@@ -1461,9 +1461,9 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 			else
 				if (jumpattack.Matched == true) {
 					if (jumpattack.EaseDownT < 0.5 && jumpattack.Matched2 == false) {
-						Pos.x = jumpattack.PlayerPosF.x;
+						//Pos.x = jumpattack.PlayerPosF.x;
 						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, 400, 0.015f, Easing::easeInOutCirc);
-						if(jumpattack.EaseDownT < 0.3)	jumpattack.PlayerPosF2.x = player.Translation().x;
+						if(jumpattack.EaseDownT < 0.1)	jumpattack.PlayerPosF2.x = player.Translation().x;
 					}
 					else if(jumpattack.EaseDownT >= 0.5 && jumpattack.Matched2 == false) {
 						jumpattack.Matched2 = true;
@@ -1473,7 +1473,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 					}
 					if (jumpattack.Matched2 == true) {
 						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.03f, Easing::easeOutBounce);
-						Pos.x = jumpattack.PlayerPosF2.x+(Direction*100);
+						Pos.x = jumpattack.PlayerPosF2.x+(Direction*200);
 
 					}
 					//‰º‚É—Ž‚¿‚é
