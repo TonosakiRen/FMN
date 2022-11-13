@@ -1028,8 +1028,8 @@ void Boss::AttackFunction01(Screen&screen)
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
 	SwordAttack = true;
-	Vec2 Distance = Pos - player.Translation();
-	if (Distance.Length() < 300 || Attack == true) {
+	float Distance = Pos.x - player.Translation().x;
+	if ((Distance < 300 && Distance > -300) || Attack == true) {
 		if (Attack == false) {
 			AttackStartTime = 4;
 		}
@@ -1087,8 +1087,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 	SwordAttack = true;
 	
 	//int Fpos = Pos.x;
-	Vec2 Distance = Pos - player.Translation();
-	if (Distance.Length() < 300 || Attack == true) {
+	float Distance = Pos.x - player.Translation().x;
+	if ((Distance < 300 && Distance > -300) || Attack == true) {
 		if (Attack == false) {
 			AttackStartTime = 4;
 			blade.FPosBoss.x = Pos.x;
@@ -1165,8 +1165,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 	SwordAttack = true;
 
 	//int Fpos = Pos.x;
-	Vec2 Distance = Pos - player.Translation();
-	if (Distance.Length() < 300 || Attack == true) {
+	float Distance = Pos.x - player.Translation().x;
+	if ((Distance < 300 && Distance > -300) || Attack == true) {
 		if (Attack == false) {
 			AttackStartTime = 4;
 			blade.FPosBoss.x = Pos.x;
