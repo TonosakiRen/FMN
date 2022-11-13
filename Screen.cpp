@@ -73,6 +73,20 @@ void Screen::DrawEllipse(float x, float y, float radiusX, float radiusY, float a
 	Novice::DrawEllipse(static_cast<int>(x), static_cast<int>(y), radiusX * Zoom.x, radiusY * Zoom.y, angle, color, fillMode);
 }
 
+void Screen::DrawEllipse(Vec2 a, float radiusX, float radiusY, float angle, unsigned int color, FillMode fillMode) {
+	Vec2 tmp(a.x - Scroll.x, a.y - Scroll.y);
+	a.x = tmp.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	a.y = tmp.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	Novice::DrawEllipse(static_cast<int>(a.x), static_cast<int>(a.y), radiusX * Zoom.x, radiusY * Zoom.y, angle, color, fillMode);
+}
+
+void Screen::DrawEllipse(Circle a, float angle, unsigned int color, FillMode fillMode) {
+	Vec2 tmp(a.pos.x - Scroll.x, a.pos.y - Scroll.y);
+	a.pos.x = tmp.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	a.pos.y = tmp.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	Novice::DrawEllipse(static_cast<int>(a.pos.x), static_cast<int>(a.pos.y), a.radius * Zoom.x, a.radius * Zoom.y, angle, color, fillMode);
+}
+
 void Screen::DrawSprite(int x, int y, int textureHandle, int scaleX, int scaleY, int angle, unsigned int color) {
 	Vec2 tmp(x - Scroll.x, y - Scroll.y);
 	x = tmp.x * Zoom.x + Worldcenter.x + ScreenShake.x;

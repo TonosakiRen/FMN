@@ -26,6 +26,7 @@ public:
 
 	float GetWidth() const { return RightTop.DistanceFrom(LeftTop); }
 	float GetHeight() const { return LeftTop.DistanceFrom(LeftBottom); }
+	Vec2 GetCenter() const { return { ((RightTop - LeftTop).Normalized() * LeftTop.DistanceFrom(RightTop) / 2) + ((LeftBottom - LeftTop).Normalized() * LeftTop.DistanceFrom(LeftBottom) / 2) + LeftTop }; }
 
 	Quad operator + (Vec2 s) const;
 	Quad operator - (Vec2 s) const;

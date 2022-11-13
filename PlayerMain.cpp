@@ -291,6 +291,7 @@ void PlayerMain::PlayerHit(Quad Target)
 	}
 }
 
+
 void PlayerMain::PlayerHit(Circle Target)
 {
 	if (Target.radius != 0) {

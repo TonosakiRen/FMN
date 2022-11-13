@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include <Vec2.h>
 #include "Quad.h"
+#include "Circle.h"
 #include "Randam.h"
 
 const int SCREEN_WIDTH = 1920;
@@ -75,6 +76,8 @@ public:
 	/// <param name="angle">‘È‰~‚Ì‰ñ“]Šp(rad)</param>
 	/// <param name="color">‘È‰~‚ÌF</param>
 	void DrawEllipse(float x, float y, float radiusX, float radiusY, float angle, unsigned int color, FillMode fillMode);
+	void DrawEllipse(Vec2 a, float radiusX, float radiusY, float angle, unsigned int color, FillMode fillMode);
+	void DrawEllipse(Circle a, float angle, unsigned int color, FillMode fillMode);
 	/// <summary>
 	/// ƒXƒvƒ‰ƒCƒg‚ğ•`‰æ‚·‚é
 	/// </summary>
