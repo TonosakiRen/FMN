@@ -42,35 +42,35 @@ void Boss::UpDate() {
 	if (Head.PulsPos.y >= 0) {
 		Head.PulsPosSpeed *= -1;
 	}
-	else if (Head.PulsPos.y <= -10) {
+	else if (Head.PulsPos.y <= -16) {
 		Head.PulsPosSpeed *= -1;
 	}
 
 	if (Body.PulsPos.y >= 0) {
 		Body.PulsPosSpeed *= -1;
 	}
-	else if (Body.PulsPos.y <= -10) {
+	else if (Body.PulsPos.y <= -16) {
 		Body.PulsPosSpeed *= -1;
 	}
 
 	if (Leg.PulsPos.y >= 0) {
 		Leg.PulsPosSpeed *= -1;
 	}
-	else if (Leg.PulsPos.y <= -10) {
+	else if (Leg.PulsPos.y <= -16) {
 		Leg.PulsPosSpeed *= -1;
 	}
 
 	if (RightArm.PulsPos.y >= 0) {
 		RightArm.PulsPosSpeed *= -1;
 	}
-	else if (RightArm.PulsPos.y <= -10) {
+	else if (RightArm.PulsPos.y <= -16) {
 		RightArm.PulsPosSpeed *= -1;
 	}
 
 	if (LeftArm.PulsPos.y >= 0) {
 		LeftArm.PulsPosSpeed *= -1;
 	}
-	else if (LeftArm.PulsPos.y <= -10) {
+	else if (LeftArm.PulsPos.y <= -16) {
 		LeftArm.PulsPosSpeed *= -1;
 	}
 

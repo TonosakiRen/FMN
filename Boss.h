@@ -268,6 +268,8 @@ class Boss {
 
 	Vec2 BladeCenterPos;
 
+	int BossAttackTime = 0;
+
 
 #pragma region Parts
 	struct ImageStruct {
@@ -291,7 +293,7 @@ class Boss {
 		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) },
 		{0,-2},
-		{0,0.25},
+		{0,0.5},
 		{64,70},
 		{2,-5},
 		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
@@ -306,7 +308,7 @@ class Boss {
 		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) },
 		{0,0},
-		{0,0.25},
+		{0,0.5},
 		{132,144},
 		{5,-4},
 		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
@@ -336,7 +338,7 @@ class Boss {
 		{ { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
 		{0,-5},
-		{0,0.25},
+		{0,0.5},
 		{38,74},
 		{1,-11},
 		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
@@ -351,7 +353,7 @@ class Boss {
 		{ { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
 		{0,-5},
-		{0,0.25},
+		{0,0.5},
 		{38,74},
 		{-1,-11},
 		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
@@ -359,8 +361,8 @@ class Boss {
 		{0,0},
 	};
 
-	float ArmPosAngle = 2.25;
-	float ArmPosAngleSpeed = 2.25;
+	float ArmPosAngle = 2.8125;
+	float ArmPosAngleSpeed = 2.8125;
 
 #pragma endregion
 
