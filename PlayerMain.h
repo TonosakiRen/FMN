@@ -94,7 +94,7 @@ class PlayerMain
 	int HitCoolDown = 0;
 
 	int AttackCoolDown = 0;
-	int ATTACKCOOLDOWNMAX = 8;
+	int ATTACKCOOLDOWNMAX = 14;
 
 	int isAttack = 0;
 	bool isSwordAppear = 0;

@@ -53,7 +53,10 @@ class Boss {
 	Vec2 BladeImageSize = {140,460};
 
 	int HP = 2000;
-	int HalfHP = HP / 2;
+	const int HalfHP = HP*0.3f;
+	const int ThreeQuarterHP = HP * 0.6f;
+	
+
 	int load = 0;//‰æ‘œ“Ç‚Ý—ˆ‚Ý
 	struct Blade
 	{
@@ -65,10 +68,12 @@ class Boss {
 		float theta = 0;
 		float angle = 0;
 		float t = 0;
-		float t_back=0;
+		float t_back = 0;
+		float t_back2=0;
 		bool Back=0;
 		Vec2 FPosBoss = {};
 		float Boss_t = 0;
+		float Boss_t2 = 0;
 		void Init() {
 			Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
 			LeftTop = { 9999,9999 };
@@ -85,6 +90,8 @@ class Boss {
 			Back = 0;
 			FPosBoss = {};
 			Boss_t = 0;
+			Boss_t2 = 0;
+			t_back2 = 0;
 		}
 		Vec2 Vec_RotedPos;
 		float Roted_t = 0;
@@ -368,6 +375,7 @@ public:
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
 	void NomalSwordAttack2(PlayerMain& player);
+	void NomalSwordAttack3(PlayerMain& player);
 	void NomalRotedSwordAttack(PlayerMain& player);
 	void NomalRotedSwordAttack2(PlayerMain& player);
 	void JumpAttack(PlayerMain& player,Screen& screen);
