@@ -368,6 +368,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 		reload = Randam::RAND(0, 1);
 		KeepUpWaitBack(player);
 		RandMoveSet();
+		DirectionGet(player);
 
 	}
 
@@ -386,11 +387,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						NomalSwordAttack(player);
+						//NomalSwordAttack(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
-						//ShockWaveAttack2(player, screen);
+						ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -1461,7 +1462,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 				if (jumpattack.Matched == true) {
 					if (jumpattack.EaseDownT < 0.5 && jumpattack.Matched2 == false) {
 						Pos.x = jumpattack.PlayerPosF.x;
-						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, 400, 0.025f, Easing::easeInOutCirc);
+						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, 400, 0.015f, Easing::easeInOutCirc);
 						if(jumpattack.EaseDownT < 0.3)	jumpattack.PlayerPosF2.x = player.Translation().x;
 					}
 					else if(jumpattack.EaseDownT >= 0.5 && jumpattack.Matched2 == false) {
@@ -1471,7 +1472,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 						Pos.y = 600;
 					}
 					if (jumpattack.Matched2 == true) {
-						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.04f, Easing::easeOutBounce);
+						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.03f, Easing::easeOutBounce);
 						Pos.x = jumpattack.PlayerPosF2.x;
 
 					}

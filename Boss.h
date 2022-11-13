@@ -119,8 +119,8 @@ class Boss {
 		float Reserve_t = 0;
 		
 		void Init() {
-			circle = { {0,0},0 };
-			Quad_Pos = {};
+			circle = { {99999,9990},0 };
+			Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
 			Set = false;
 			Reserve = true;
 			Reserve_t = 0;
