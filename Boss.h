@@ -72,6 +72,7 @@ class Boss {
 		float t_back2=0;
 		bool Back=0;
 		Vec2 FPosBoss = {};
+		
 		float Boss_t = 0;
 		float Boss_t2 = 0;
 		void Init() {
@@ -242,7 +243,7 @@ class Boss {
 		float EaseDownT=0;
 		Vec2 PlayerPosF;
 		Vec2 PlayerPosF2;
-
+		float Delay = 0;
 		Vec2 F_Pos;
 		bool Matched=false;
 		bool Matched2 = false;
@@ -255,6 +256,7 @@ class Boss {
 			PlayerPosF={};
 			F_Pos={};
 			PlayerPosF2 = {};
+			Delay = 0;
 		}
 	};
 	JumpAttack jumpattack;
