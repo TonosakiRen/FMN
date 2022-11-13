@@ -28,7 +28,14 @@ void Boss::UpDate() {
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
+
+	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
+	if (isBossHit == true) {
+		HP -= 25;
+	};
+
 #pragma region Parts
+
 	if (Head.PulsPos.y >= 0) {
 		Head.PulsPosSpeed *= -1;
 	}
@@ -81,32 +88,36 @@ void Boss::UpDate() {
 	Head.PulsPos.y += Head.PulsPosSpeed.y;
 	Body.PulsPos.y += Body.PulsPosSpeed.y;
 
-	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x,Pos.y + Body.PosMisal.y + Body.PulsPos.y };
+	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x + Body.HitReaction.x,
+		Pos.y + Body.PosMisal.y + Body.PulsPos.y + Body.HitReaction.y};
 	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) };
 	Body.ColQuad = { { Body.ImagePos.x - Body.ColMisal.x * Direction - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
 		int(Body.ColSize.x),int(Body.ColSize.y) };
 
-	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x,Pos.y + Head.PosMisal.y + Head.PulsPos.y };
+	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x + Head.HitReaction.x,
+		Pos.y + Head.PosMisal.y + Head.PulsPos.y + Head.HitReaction.y};
 	Head.ImageQuad = { {Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) };
 	Head.ColQuad = { { Head.ImagePos.x - Head.ColMisal.x * Direction - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
 		int(Head.ColSize.x),int(Head.ColSize.y) };
 
-	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x,Pos.y + Leg.PosMisal.y + Leg.PulsPos.y };
+	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x + Leg.HitReaction.x,
+		Pos.y + Leg.PosMisal.y + Leg.PulsPos.y + Leg.HitReaction.y };
 	Leg.ImageQuad = { {Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) };
 	Leg.ColQuad = { { Leg.ImagePos.x - Leg.ColMisal.x * Direction - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
 		int(Leg.ColSize.x),int(Leg.ColSize.y) };
 
-	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x * Direction + RightArm.PulsPos.x,Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y };
+	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x * Direction + RightArm.PulsPos.x + RightArm.HitReaction.x,
+		Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y + RightArm.HitReaction.y };
 	RightArm.ImageQuad = { {RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) };
 	RightArm.ColQuad = { { RightArm.ImagePos.x - RightArm.ColMisal.x * Direction - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) };
 
-
-	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x * Direction + LeftArm.PulsPos.x,Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y };
+	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x * Direction + LeftArm.PulsPos.x + LeftArm.HitReaction.x,
+		Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y + LeftArm.HitReaction.y };
 	LeftArm.ImageQuad = { {LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) };
 	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x * Direction - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
@@ -114,10 +125,7 @@ void Boss::UpDate() {
 
 #pragma endregion
 
-	//çUåÇÇìñÇƒÇÁÇÍÇΩéûÇÃèàóù
-	if (isBossHit == true) {
-		HP-=25;
-	};
+	
 
 }
 void Boss::Set()
