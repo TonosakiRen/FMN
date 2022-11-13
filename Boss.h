@@ -234,6 +234,8 @@ class Boss {
 		float EaseT2=0;
 		float EaseDownT=0;
 		Vec2 PlayerPosF;
+		Vec2 PlayerPosF2;
+
 		Vec2 F_Pos;
 		bool Matched=false;
 		bool Matched2 = false;
@@ -245,6 +247,7 @@ class Boss {
 			Matched = false;
 			PlayerPosF={};
 			F_Pos={};
+			PlayerPosF2 = {};
 		}
 	};
 	JumpAttack jumpattack;
