@@ -388,11 +388,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						//NomalSwordAttack3(player);
+						NomalSwordAttack3(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
-						ShockWaveAttack2(player, screen);
+						//ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
