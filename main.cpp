@@ -135,7 +135,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		effect01.Draw(screen, 128, effect04Img, WHITE, kBlendModeAdd);
 		effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
 		effect03.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
+		
 		playermain.Draw(screen,ziki);
 		
 		
@@ -154,6 +154,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
 
 		playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
+		
+		effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
 		///
 		/// ↑描画処理ここまで
 		///
