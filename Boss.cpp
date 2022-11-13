@@ -658,12 +658,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack2(player);
 							//NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
+							RainOfSwordAttack();
 
+							FMoveArray = array.AttackFunction05;
 
-							//FMoveArray = array.AttackFunction05;
-
-							Action = false;
-							CoolTime = 0;
+							/*Action = false;
+							CoolTime = 0;*/
 
 						}
 						if (MovePattern[MoveArray] == 0) {
@@ -1473,7 +1473,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 					}
 					if (jumpattack.Matched2 == true) {
 						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.03f, Easing::easeOutBounce);
-						Pos.x = jumpattack.PlayerPosF2.x;
+						Pos.x = jumpattack.PlayerPosF2.x+(Direction*100);
 
 					}
 					//‰º‚É—Ž‚¿‚é
@@ -1547,7 +1547,7 @@ void Boss::RainOfSwordAttack() {
 	Rainofsword_flame++;
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		if (Rainofsword_flame % 4 == 0 && Rainofsword[i].Set == false) {
-			Rainofsword[i].Pos.x = Pos.x+Randam::RAND(-700, 700);
+			Rainofsword[i].Pos.x = Pos.x+Randam::RAND(-800, 800);
 			Rainofsword[i].Pos.y = 800;
 			Rainofsword[i].Set = true;
 			break;
