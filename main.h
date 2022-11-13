@@ -40,7 +40,7 @@ enum Scene {
 	gameclear
 };
 
-Scene scene = stage;
+Scene scene = title;
 
 float feedoutT = 0;
 float feedinT = 0;

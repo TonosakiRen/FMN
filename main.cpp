@@ -207,6 +207,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitFeedout();
 				isTitleStart = false;
 				scene = stage;
+				isFeedin = true;
 			}
 			else {
 				break;
@@ -262,9 +263,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isStageStart = false;
 				if (isGameover == true) {
 					scene = gameover;
+					isFeedin = true;
 				}
 				if (isGameclear == true) {
 					scene = gameclear;
+					isFeedin = true;
 				}
 			}
 			else {
@@ -288,6 +291,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Init();
 				isGameoverStart = false;
 				scene = stage;
+				isFeedin = true;
 			}
 			else {
 				break;
@@ -308,6 +312,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Init();
 				isGameclearStart = false;
 				scene = stage;
+				isFeedin = true;
 			}
 			else {
 				break;
