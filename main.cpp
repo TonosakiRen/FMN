@@ -94,12 +94,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						playermain.PlayerHit(boss.GetCircleOfDeathQuad(i));
 					}
 
-					for (int i = 0; i < 20; i++) {
+					/*for (int i = 0; i < 20; i++) {
 						playermain.PlayerHit({ centerOfDarknessUnder.particles[i].quad.GetCenter(),centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
 						playermain.PlayerHit({ centerOfDarknessLeft.particles[i].quad.GetCenter(),centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
 						playermain.PlayerHit({ centerOfDarknessRight.particles[i].quad.GetCenter(),centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
 						screen.DrawEllipse({ centerOfDarknessUnder.particles[i].quad.GetCenter(),centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 }, 0.0f, WHITE, kFillModeWireFrame);
-					}
+					}*/
 
 					boss.BossHit(playermain.GetHitSword());
 
