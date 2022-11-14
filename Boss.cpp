@@ -1040,6 +1040,7 @@ void Boss::AttackFunction01(Screen&screen)
 
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
+	int MOTIONEND = 20;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 	float Distance = Pos.x - player.Translation().x;
@@ -1059,8 +1060,8 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		RightArm.StandMotionFlag = 0;
 	}
 	else {
-		if (BossMotionTime <= 30) {
-			float t = 1 - (BossMotionTime / 30);
+		if (BossMotionTime <= MOTIONEND) {
+			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
 			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
 
@@ -1087,7 +1088,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		}
 	}
 
-	if (BossMotionTime >= 30) {
+	if (BossMotionTime >= MOTIONEND) {
 		RightArm.MotionPos.x = 9999;
 		RightArm.MotionPos.y = 9999;
 		if (Attack == true) {
@@ -1138,6 +1139,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 }
 void Boss::NomalSwordAttack2(PlayerMain& player)
 {
+	int MOTIONEND = 20;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 	
@@ -1161,8 +1163,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 		RightArm.StandMotionFlag = 0;
 	}
 	else {
-		if (BossMotionTime <= 30) {
-			float t = 1 - (BossMotionTime / 30);
+		if (BossMotionTime <= MOTIONEND) {
+			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
 			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
 
@@ -1189,7 +1191,7 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 		}
 	}
 
-	if (BossMotionTime >= 30) {
+	if (BossMotionTime >= MOTIONEND) {
 		RightArm.MotionPos.x = 9999;
 		RightArm.MotionPos.y = 9999;
 		if (Attack == false) {
@@ -1256,6 +1258,7 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 }
 void Boss::NomalSwordAttack3(PlayerMain& player)
 {
+	int MOTIONEND = 15;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 
@@ -1280,8 +1283,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 		RightArm.StandMotionFlag = 0;
 	}
 	else {
-		if (BossMotionTime <= 30) {
-			float t = 1 - (BossMotionTime / 30);
+		if (BossMotionTime <= MOTIONEND) {
+			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
 			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
 
@@ -1308,7 +1311,7 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 		}
 	}
 
-	if (BossMotionTime >= 30) {
+	if (BossMotionTime >= MOTIONEND) {
 		if (Attack == false) {
 			blade.FPosBoss.x = Pos.x;
 
