@@ -108,29 +108,29 @@ void Boss::UpDate() {
 	Body.ColQuad = { { Body.ImagePos.x - Body.ColMisal.x * Direction - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
 		int(Body.ColSize.x),int(Body.ColSize.y) };
 
-	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x * Body.StandMotionFlag + Head.HitReaction.x + Head.MotionPos.x,
-		Pos.y + Head.PosMisal.y + Head.PulsPos.y * Body.StandMotionFlag + Head.HitReaction.y + Head.MotionPos.y };
+	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x * Head.StandMotionFlag + Head.HitReaction.x + Head.MotionPos.x,
+		Pos.y + Head.PosMisal.y + Head.PulsPos.y * Head.StandMotionFlag + Head.HitReaction.y + Head.MotionPos.y };
 	Head.ImageQuad = { {Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) };
 	Head.ColQuad = { { Head.ImagePos.x - Head.ColMisal.x * Direction - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
 		int(Head.ColSize.x),int(Head.ColSize.y) };
 
-	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x * Body.StandMotionFlag + Leg.HitReaction.x + Leg.MotionPos.x,
-		Pos.y + Leg.PosMisal.y + Leg.PulsPos.y * Body.StandMotionFlag + Leg.HitReaction.y + Leg.MotionPos.y };
+	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x * Leg.StandMotionFlag + Leg.HitReaction.x + Leg.MotionPos.x,
+		Pos.y + Leg.PosMisal.y + Leg.PulsPos.y * Leg.StandMotionFlag + Leg.HitReaction.y + Leg.MotionPos.y };
 	Leg.ImageQuad = { {Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) };
 	Leg.ColQuad = { { Leg.ImagePos.x - Leg.ColMisal.x * Direction - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
 		int(Leg.ColSize.x),int(Leg.ColSize.y) };
 
-	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x + RightArm.PulsPos.x * Body.StandMotionFlag * Direction + RightArm.HitReaction.x + RightArm.MotionPos.x,
-		Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y * Body.StandMotionFlag + RightArm.HitReaction.y + RightArm.MotionPos.y };
+	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x + RightArm.PulsPos.x * RightArm.StandMotionFlag * Direction + RightArm.HitReaction.x + RightArm.MotionPos.x,
+		Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y * RightArm.StandMotionFlag + RightArm.HitReaction.y + RightArm.MotionPos.y };
 	RightArm.ImageQuad = { {RightArm.ImagePos.x - RightArm.ImageSize.x / 2 * Direction, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x * Direction),int(RightArm.ImageSize.y) };
 	RightArm.ColQuad = { { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) };
 
-	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x + LeftArm.PulsPos.x * Body.StandMotionFlag * Direction + LeftArm.HitReaction.x + LeftArm.MotionPos.x,
-		Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y * Body.StandMotionFlag + LeftArm.HitReaction.y + LeftArm.MotionPos.y };
+	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x + LeftArm.PulsPos.x * LeftArm.StandMotionFlag * Direction + LeftArm.HitReaction.x + LeftArm.MotionPos.x,
+		Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y * LeftArm.StandMotionFlag + LeftArm.HitReaction.y + LeftArm.MotionPos.y };
 	LeftArm.ImageQuad = { {LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2 * Direction , LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x * Direction),int(LeftArm.ImageSize.y) };
 	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2 , LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
@@ -184,16 +184,17 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
 
-	screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
 	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
 	screen.DrawEllipse(RightArm.ImageQuad.GetCenter(), 3, 3, 0, WHITE, kFillModeSolid);
+
 
 	for (int i = 0; i < kMAX_CIR; i++) {
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFF000066, kFillModeSolid);
@@ -1063,7 +1064,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		if (BossMotionTime <= MOTIONEND) {
 			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
-			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
+			RightArm.MotionPos.y = 140 * (1.0f - t * t * t * t);
 
 			float angle = 180 - 180 * (1.0f - t * t * t * t);
 
@@ -1124,6 +1125,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 					SwordAttack = false;
 					bNomalSwordAttack = true;
 					BossMotionTime = 0;
+					RightArm.StandMotionFlag = 1;
 					RightArm.MotionPos = {0,0};
 				}
 
@@ -1139,7 +1141,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 }
 void Boss::NomalSwordAttack2(PlayerMain& player)
 {
-	int MOTIONEND = 25;
+	int MOTIONEND = 20;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 	
@@ -1166,7 +1168,7 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 		if (BossMotionTime <= MOTIONEND) {
 			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
-			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
+			RightArm.MotionPos.y = 140 * (1.0f - t * t * t * t);
 
 			float angle = 180 - 180 * (1.0f - t * t * t * t);
 
@@ -1244,6 +1246,7 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 					SwordAttack = false;
 					bNomalSwordAttack = true;
 					BossMotionTime = 0;
+					RightArm.StandMotionFlag = 1;
 					RightArm.MotionPos = { 0,0 };
 				}
 
@@ -1286,7 +1289,7 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 		if (BossMotionTime <= MOTIONEND) {
 			float t = 1 - (BossMotionTime / MOTIONEND);
 			RightArm.MotionPos.x = 94 * (1.0f - t * t * t * t);
-			RightArm.MotionPos.y = 155 * (1.0f - t * t * t * t);
+			RightArm.MotionPos.y = 140 * (1.0f - t * t * t * t);
 
 			float angle = 180 - 180 * (1.0f - t * t * t * t);
 
@@ -1380,6 +1383,7 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 					SwordAttack = false;
 					bNomalSwordAttack = true;
 					BossMotionTime = 0;
+					RightArm.StandMotionFlag = 1;
 					RightArm.MotionPos = { 0,0 };
 				}
 
@@ -1394,115 +1398,248 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 }
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 30;
+	int MOTIONEND4 = 40;
 	UseBladeGra = Blade_gra;
-	if (blade.Vec_RotedPos.x == 0) {
-		blade.angle = 30 * Direction;
-		blade.Vec_RotedPos.y = -100;
-	}
+	RightArm.StandMotionFlag = 0;
 	
-	blade.angle += 12 * Direction;
+	float t = BossMotionTime / MOTIONEND1;
+	RightArm.MotionPos.x = 0 * (1.0f - t * t * t * t);
 
-	blade.theta = blade.angle / 180.0f * M_PI;
 
-	if (blade.Roted_t != 1) {
-		SwordAttack = true;
-		blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeInCubic);
+	
+	Vec2 LeftTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 78 };
+	Vec2 RightTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 78 };
+	Vec2 LeftBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 78 };
+	Vec2 RightBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 78 };
+
+	float angle = 0;
+
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		angle = 180 - 100 * (1 - t * t * t) * Direction;
+		RightArm.MotionPos.y = 40;
 	}
-	else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
-		
-		blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic);
+	else if (BossMotionTime <= MOTIONEND1 + MOTIONEND2) {
+		t = (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+		angle = 80 * Direction + 120 * t * Direction;
+		RightArm.MotionPos.y = 40;
 	}
-
-	if (blade.Roted_t > 0.8 && blade.Vec_RotedPos.y < 150) {
-		blade.Vec_RotedPos.y += 10;
+	else if (BossMotionTime <= MOTIONEND1 + MOTIONEND2 + MOTIONEND3) {
+		t = (BossMotionTime - MOTIONEND1 - MOTIONEND2) / MOTIONEND3;
+		angle = 80 * Direction + 120 * Direction + 10 * t;
+		//RightArm.StandMotionFlag = 1;
 	}
+	else if (BossMotionTime <= MOTIONEND1 + MOTIONEND2 + MOTIONEND3 + MOTIONEND4) {
+		t = 1 - ((BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3) / MOTIONEND4);
+		angle = 180 - 180 * ( 1 - t * t * t) * Direction;
 
-	blade.Vec_RotedPos.y = Clamp::clamp(blade.Vec_RotedPos.y, -100, 150);
-
-	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
-	//剣の座標最初の
-	Vec2 LeftTop = { -30 , 121 };
-	Vec2 RightTop = { 30  , 121 };
-	Vec2 LeftBottom = { -30 , -121 };
-	Vec2 RightBottom = { 30 , -121 };
-	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
-
-	blade.LeftTop = Multiply(LeftTop, mat);
-	blade.RightTop = Multiply(RightTop, mat);
-	blade.LeftBottom = Multiply(LeftBottom, mat);
-	blade.RightBottom = Multiply(RightBottom, mat);
-
-	blade.LeftTop += Pos+ blade.Vec_RotedPos;
-	blade.RightTop += Pos + blade.Vec_RotedPos;
-	blade.LeftBottom += Pos + blade.Vec_RotedPos;
-	blade.RightBottom += Pos + blade.Vec_RotedPos;
-
-
-	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
-	if (blade.Roted_tback == 1) {
-		blade.Init();
-		Action = false;
-		Attack = false;
-		SwordAttack = false;
-		bNomalRotedSwordAttack = true;
+		LeftTop.x *= -1;
+		RightTop.x *= -1;
+		LeftBottom.x *= -1;
+		RightBottom.x *= -1;
+	}
+	else {
+		LeftTop.x *= -1;
+		RightTop.x *= -1;
+		LeftBottom.x *= -1;
+		RightBottom.x *= -1;
 	}
 
-	BladeImageLink(mat);
+
+	float theta = angle / 180.0f * M_PI;
+
+	Matrix2x2 mat = MakeRotateMatrix(theta);
+
+	
+
+	RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+	RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+	RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+	RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+	RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+	RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+	RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+	RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+
+	if (BossMotionTime <= MOTIONEND1 + MOTIONEND2) {
+
+	}
+	else{
+		if (blade.Vec_RotedPos.x == 0) {
+			blade.angle = 270 * Direction;
+			blade.Vec_RotedPos.y = -100;
+		}
+
+		blade.angle += 12 * Direction;
+
+		blade.theta = blade.angle / 180.0f * M_PI;
+
+		if (blade.Roted_t != 1) {
+			SwordAttack = true;
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeOutCubic);
+		}
+		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
+
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic);
+		}
+
+		if (blade.Roted_t > 0.8 && blade.Vec_RotedPos.y < 150) {
+			blade.Vec_RotedPos.y += 10;
+		}
+
+		blade.Vec_RotedPos.y = Clamp::clamp(blade.Vec_RotedPos.y, -100, 150);
+
+		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
+		//剣の座標最初の
+		Vec2 LeftTop = { -30 , 121 };
+		Vec2 RightTop = { 30  , 121 };
+		Vec2 LeftBottom = { -30 , -121 };
+		Vec2 RightBottom = { 30 , -121 };
+		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+
+		blade.LeftTop = Multiply(LeftTop, mat);
+		blade.RightTop = Multiply(RightTop, mat);
+		blade.LeftBottom = Multiply(LeftBottom, mat);
+		blade.RightBottom = Multiply(RightBottom, mat);
+
+		blade.LeftTop += Pos + blade.Vec_RotedPos;
+		blade.RightTop += Pos + blade.Vec_RotedPos;
+		blade.LeftBottom += Pos + blade.Vec_RotedPos;
+		blade.RightBottom += Pos + blade.Vec_RotedPos;
+
+
+		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+		if (blade.Roted_tback == 1) {
+			blade.Init();
+			Action = false;
+			Attack = false;
+			SwordAttack = false;
+			bNomalRotedSwordAttack = true;
+			BossMotionTime = 0;
+			RightArm.StandMotionFlag = 1;
+			RightArm.MotionPos = { 0,0 };
+		}
+
+		BladeImageLink(mat);
+	}
+	BossMotionTime++;
 }
 void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 {
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 30;
+	int MOTIONEND4 = 40;
 	UseBladeGra = Blade_gra;
-	//DirectionGet(player);
-	if (blade.Vec_RotedPos.x == 0) {
-		blade.angle = 30 * Direction;
+	RightArm.StandMotionFlag = 0;
+
+	float t = BossMotionTime / MOTIONEND1;
+	RightArm.MotionPos.x = 0 * (1.0f - t * t * t * t);
+
+
+
+	Vec2 LeftTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 78 };
+	Vec2 RightTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 78 };
+	Vec2 LeftBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 78 };
+	Vec2 RightBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 78 };
+
+	float angle = 0;
+
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		angle = 180 - 100 * (1 - t * t * t) * Direction;
+		RightArm.MotionPos.y = 40;
+	}
+	else if (BossMotionTime <= MOTIONEND1 + MOTIONEND2) {
+		t = (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+		angle = 80 * Direction + 120 * t * Direction;
+		RightArm.MotionPos.y = 40;
+	}
+	else {
+		angle = 190;
 	}
 
-	blade.angle += 12 * Direction;
 
-	blade.theta = blade.angle / 180.0f * M_PI;
+	float theta = angle / 180.0f * M_PI;
 
-	if (blade.Roted_t != 1) {
-		SwordAttack = true;
+	Matrix2x2 mat = MakeRotateMatrix(theta);
 
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeInCubic), -100 };
+
+
+	RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+	RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+	RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+	RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+	RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+	RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+	RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+	RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+	if (BossMotionTime <= MOTIONEND1 + MOTIONEND2) {
+
 	}
-	else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
+	else {
+		if (blade.Vec_RotedPos.x == 0) {
+			blade.angle = 270 * Direction;
+		}
 
-		blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
+		blade.angle += 12 * Direction;
 
+		blade.theta = blade.angle / 180.0f * M_PI;
+
+		if (blade.Roted_t != 1) {
+			SwordAttack = true;
+
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeOutCubic), -100 };
+		}
+		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
+
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
+
+		}
+		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
+		//剣の座標最初の
+		Vec2 LeftTop = { -30 , 121 };
+		Vec2 RightTop = { 30  , 121 };
+		Vec2 LeftBottom = { -30 , -121 };
+		Vec2 RightBottom = { 30 , -121 };
+		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+
+		blade.LeftTop = Multiply(LeftTop, mat);
+		blade.RightTop = Multiply(RightTop, mat);
+		blade.LeftBottom = Multiply(LeftBottom, mat);
+		blade.RightBottom = Multiply(RightBottom, mat);
+
+		blade.LeftTop += Pos + blade.Vec_RotedPos;
+		blade.RightTop += Pos + blade.Vec_RotedPos;
+		blade.LeftBottom += Pos + blade.Vec_RotedPos;
+		blade.RightBottom += Pos + blade.Vec_RotedPos;
+
+		blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
+
+		if (blade.Roted_tback == 1) {
+			blade.Init();
+			Action = false;
+			Attack = false;
+			SwordAttack = false;
+			bNomalRotedSwordAttack = true;
+			BossMotionTime = 0;
+			RightArm.StandMotionFlag = 1;
+			RightArm.MotionPos = { 0,0 };
+		}
+
+		BladeImageLink(mat);
 	}
-	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
-	//剣の座標最初の
-	Vec2 LeftTop = { -30 , 121 };
-	Vec2 RightTop = { 30  , 121 };
-	Vec2 LeftBottom = { -30 , -121 };
-	Vec2 RightBottom = { 30 , -121 };
-	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
-
-	blade.LeftTop = Multiply(LeftTop, mat);
-	blade.RightTop = Multiply(RightTop, mat);
-	blade.LeftBottom = Multiply(LeftBottom, mat);
-	blade.RightBottom = Multiply(RightBottom, mat);
-
-	blade.LeftTop += Pos + blade.Vec_RotedPos;
-	blade.RightTop += Pos + blade.Vec_RotedPos;
-	blade.LeftBottom += Pos + blade.Vec_RotedPos;
-	blade.RightBottom += Pos + blade.Vec_RotedPos;
-
-	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
-
-	if (blade.Roted_tback == 1) {
-		blade.Init();
-		Action = false;
-		Attack = false;
-		SwordAttack = false;
-		bNomalRotedSwordAttack = true;
-	}
-
-	BladeImageLink(mat);
+	BossMotionTime++;
 }
 void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
 {

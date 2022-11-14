@@ -327,7 +327,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
-	screen.DrawLine(0, FLOOR, SCREEN_WIDTH, FLOOR, RED);
+	screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
 
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
 	Novice::ScreenPrintf(0, 20, "%d", HP);
