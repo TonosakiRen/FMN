@@ -17,6 +17,9 @@ class Boss {
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
 	int Blade_gra = 0;
+	int HoldBlade_gra = 0;
+
+	int UseBladeGra = Blade_gra;
 
 	static struct Matrix2x2
 	{
@@ -51,6 +54,7 @@ class Boss {
 
 	Quad BladeImageQuad;
 	Vec2 BladeImageSize = {140,460};
+	int HoldPlusY = 42;
 
 	int HP = 2000;
 	const int HalfHP = HP*0.3f;
@@ -268,7 +272,7 @@ class Boss {
 
 	Vec2 BladeCenterPos;
 
-	int BossAttackTime = 0;
+	float BossMotionTime = 0;
 
 
 #pragma region Parts
@@ -277,8 +281,10 @@ class Boss {
 		Vec2 ImageSize; // パーツのサイズ
 		Vec2 PosMisal; //  !!!!値を変更しないで!!!! パーツの位置 この値をボスの中心座標に加算する
 		Quad ImageQuad; // クアッドホッパーピンクとか追加されないかなぁ。ポイントセンサーとグレートバリアがいいなぁ。ホントはサメ使いたいけど
-		Vec2 PulsPos; //パーツ位置のズレ、モーションとかで動かすときに使う
+		Vec2 PulsPos; //パーツ位置のズレ、立ちで動かすときに使う
 		Vec2 PulsPosSpeed;
+		int StandMotionFlag;
+		Vec2 MotionPos; 
 		Vec2 ColSize; //当たり判定のサイズ
 		Vec2 ColMisal; //当たり判定の位置
 		Quad ColQuad; //当たり判定のクアッド
@@ -294,6 +300,8 @@ class Boss {
 		int(Head.ImageSize.x),int(Head.ImageSize.y) },
 		{0,-2},
 		{0,0.5},
+		1,
+		{0,0},
 		{64,70},
 		{2,-5},
 		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
@@ -309,6 +317,8 @@ class Boss {
 		int(Body.ImageSize.x),int(Body.ImageSize.y) },
 		{0,0},
 		{0,0.5},
+		1,
+		{0,0},
 		{132,144},
 		{5,-4},
 		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
@@ -323,6 +333,8 @@ class Boss {
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
 		{0,0},
+		{0,0},
+		1,
 		{0,0},
 		{96,106},
 		{1,11},
@@ -339,8 +351,10 @@ class Boss {
 		int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
 		{0,-5},
 		{0,0.5},
+		1,
+		{0,0},
 		{38,74},
-		{1,-11},
+		{-3,-11},
 		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
 		{0,0},
@@ -354,8 +368,10 @@ class Boss {
 		int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
 		{0,-5},
 		{0,0.5},
+		1,
+		{0,0},
 		{38,74},
-		{-1,-11},
+		{3,-11},
 		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 		{0,0},
