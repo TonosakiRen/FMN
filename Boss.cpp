@@ -1099,8 +1099,8 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 				Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 				//åïÇÃç¿ïWç≈èâÇÃ
-				Vec2 LeftTop = { -Size.x / 3 , Size.y + 230 };
-				Vec2 RightTop = { Size.x / 3  , Size.y + 230 };
+				Vec2 LeftTop = { -Size.x / 3 , Size.y + 200 };
+				Vec2 RightTop = { Size.x / 3  , Size.y + 200 };
 				Vec2 LeftBottom = { -Size.x / 3 , 200 };
 				Vec2 RightBottom = { Size.x / 3 , 200 };
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
@@ -1513,7 +1513,7 @@ void Boss::JumpAttack(PlayerMain& player,Screen& screen)
 	if (Attack == true) {
 		if (jumpattack.Matched == false) {
 			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
-			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
+			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
 			if (jumpattack.EaseT==1) {
 			
@@ -1551,7 +1551,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 		if (Attack == true) {
 			if (jumpattack.Matched == false) {
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
-				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
+				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
 				if (jumpattack.EaseT == 1) {
 
@@ -1592,7 +1592,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 		if (Attack == true) {
 			if (jumpattack.Matched == false) {
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
-				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
+				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
 				if (jumpattack.EaseT == 1) {
 					jumpattack.Matched = true;
@@ -1742,11 +1742,15 @@ void Boss::KeepWaveAttack()
 {
 	for (int i = 0; i < kMAX_WAVE; i++) {
 		if (Wave[i].WaveKeep == false) {
-			Wave[i].QuadPos.Quad::Quad({Pos.x - 50,Pos.y}, 100, 200);
-			Wave[i].Quad2Pos.Quad::Quad({Pos.x - 50,Pos.y}, 100, 200);
+			Wave[i].QuadPos.Quad::Quad({99999,9999}, 100, 200);
+			Wave[i].Quad2Pos.Quad::Quad({9000,9999}, 100, 200);
 
 		}
 		if (Wave[i].WaveKeep == true) {
+			if (Wave[i].LifeTime == 0) {
+				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
+				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
+			}
 			Wave[i].QuadPos.LeftTop.x += 30;
 			Wave[i].Quad2Pos.LeftTop.x -= 30;
 			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 200);
