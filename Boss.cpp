@@ -1139,7 +1139,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 }
 void Boss::NomalSwordAttack2(PlayerMain& player)
 {
-	int MOTIONEND = 20;
+	int MOTIONEND = 25;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 	
@@ -1216,10 +1216,10 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 				}
 				Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 				//剣の座標最初の
-				Vec2 LeftTop = { -Size.x / 3 , Size.y + 200 };
-				Vec2 RightTop = { Size.x / 3  , Size.y + 200 };
-				Vec2 LeftBottom = { -Size.x / 3 , 200 };
-				Vec2 RightBottom = { Size.x / 3 , 200 };
+				Vec2 LeftTop = { -30 , 400 };
+				Vec2 RightTop = { 30  , 400 };
+				Vec2 LeftBottom = { -30 , 50 };
+				Vec2 RightBottom = { 30 , 50 };
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 
@@ -1258,7 +1258,7 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 }
 void Boss::NomalSwordAttack3(PlayerMain& player)
 {
-	int MOTIONEND = 15;
+	int MOTIONEND = 20;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 
@@ -1312,6 +1312,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 	}
 
 	if (BossMotionTime >= MOTIONEND) {
+		RightArm.MotionPos.x = 9999;
+		RightArm.MotionPos.y = 9999;
 		if (Attack == false) {
 			blade.FPosBoss.x = Pos.x;
 
@@ -1350,10 +1352,10 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 				}
 				Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 				//剣の座標最初の
-				Vec2 LeftTop = { -Size.x / 3 , Size.y + 200 };
-				Vec2 RightTop = { Size.x / 3  , Size.y + 200 };
-				Vec2 LeftBottom = { -Size.x / 3 , 200 };
-				Vec2 RightBottom = { Size.x / 3 , 200 };
+				Vec2 LeftTop = { -30 , 400 };
+				Vec2 RightTop = { 30  , 400 };
+				Vec2 LeftBottom = { -30 , 50 };
+				Vec2 RightBottom = { 30 , 50 };
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 
@@ -1419,10 +1421,10 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 	//剣の座標最初の
-	Vec2 LeftTop = { -Size.x / 3,Size.y/2 };
-	Vec2 RightTop = { Size.x / 3 ,Size.y/2 };
-	Vec2 LeftBottom = { -Size.x / 3,-Size.y / 2 };
-	Vec2 RightBottom = { Size.x / 3,-Size.y / 2 };
+	Vec2 LeftTop = { -30 , 121 };
+	Vec2 RightTop = { 30  , 121 };
+	Vec2 LeftBottom = { -30 , -121 };
+	Vec2 RightBottom = { 30 , -121 };
 	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 
@@ -1473,10 +1475,10 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 	}
 	Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 	//剣の座標最初の
-	Vec2 LeftTop = { -Size.x / 3,Size.y / 2 };
-	Vec2 RightTop = { Size.x / 3 ,Size.y / 2 };
-	Vec2 LeftBottom = { -Size.x / 3,-Size.y / 2 };
-	Vec2 RightBottom = { Size.x / 3,-Size.y / 2 };
+	Vec2 LeftTop = { -30 , 121 };
+	Vec2 RightTop = { 30  , 121 };
+	Vec2 LeftBottom = { -30 , -121 };
+	Vec2 RightBottom = { 30 , -121 };
 	blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 
@@ -2015,6 +2017,13 @@ void Boss::BladeImageLink(Matrix2x2 mat)
 	Vec2 ImageRightTop = { BladeImageSize.x * -Direction / 2,BladeImageSize.y / 2 + 100 };
 	Vec2 ImageLeftBottom = { -BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY + 100 };
 	Vec2 ImageRightBottom = { BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY + 100};
+
+	if (UseBladeGra == Blade_gra) {
+		ImageLeftTop = { -BladeImageSize.x * -Direction / 2,BladeImageSize.y / 2 };
+		ImageRightTop = { BladeImageSize.x * -Direction / 2,BladeImageSize.y / 2 };
+		ImageLeftBottom = { -BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 };
+		ImageRightBottom = { BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 };
+	}
 
 	BladeImageQuad.LeftTop = Multiply(ImageLeftTop, mat);
 	BladeImageQuad.RightTop = Multiply(ImageRightTop, mat);
