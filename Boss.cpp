@@ -1040,7 +1040,7 @@ void Boss::AttackFunction01(Screen&screen)
 
 void Boss::NomalSwordAttack(PlayerMain& player)
 {
-	int MOTIONEND = 20;
+	int MOTIONEND = 25;
 	UseBladeGra = HoldBlade_gra;
 	SwordAttack = true;
 	float Distance = Pos.x - player.Translation().x;
@@ -1093,16 +1093,16 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		RightArm.MotionPos.y = 9999;
 		if (Attack == true) {
 			if (AttackStartTime <= 0) {
-				blade.angle = Easing::easing(blade.t, 0, 150, 0.035f, Easing::easeInBack) * -Direction;
+				blade.angle = Easing::easing(blade.t, 0, 150, 0.03f, Easing::easeInOutBack) * -Direction;
 
 				blade.theta = blade.angle / 180.0f * M_PI;
 
 				Matrix2x2 mat = MakeRotateMatrix(blade.theta);
 				//Œ•‚ÌÀ•WÅ‰‚Ì
-				Vec2 LeftTop = { -Size.x / 3 , Size.y + 200 };
-				Vec2 RightTop = { Size.x / 3  , Size.y + 200 };
-				Vec2 LeftBottom = { -Size.x / 3 , 200 };
-				Vec2 RightBottom = { Size.x / 3 , 200 };
+				Vec2 LeftTop = { -30 , 400 };
+				Vec2 RightTop = { 30  , 400 };
+				Vec2 LeftBottom = { -30 , 50 };
+				Vec2 RightBottom = { 30 , 50 };
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
 				blade.LeftTop = Multiply(LeftTop, mat);
@@ -1117,7 +1117,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 
-				if (blade.t == 1) {
+				if (blade.t == 1 && BossMotionTime >= 64) {
 					blade.Init();
 					Action = false;
 					Attack = false;
@@ -2011,10 +2011,10 @@ void Boss::BladeImageLink(Matrix2x2 mat)
 		MostLeftTop.x + (MostRightBottom.x - MostLeftTop.x) / 2,
 		MostRightBottom.y + (MostLeftTop.y - MostRightBottom.y) / 2 };
 
-	Vec2 ImageLeftTop = { -BladeImageSize.x * -Direction/ 2,BladeImageSize.y / 2 };
-	Vec2 ImageRightTop = { BladeImageSize.x * -Direction / 2,BladeImageSize.y / 2 };
-	Vec2 ImageLeftBottom = { -BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY };
-	Vec2 ImageRightBottom = { BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY };
+	Vec2 ImageLeftTop = { -BladeImageSize.x * -Direction/ 2,BladeImageSize.y / 2 + 100 };
+	Vec2 ImageRightTop = { BladeImageSize.x * -Direction / 2,BladeImageSize.y / 2 + 100 };
+	Vec2 ImageLeftBottom = { -BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY + 100 };
+	Vec2 ImageRightBottom = { BladeImageSize.x * -Direction / 2,-BladeImageSize.y / 2 - HoldPlusY + 100};
 
 	BladeImageQuad.LeftTop = Multiply(ImageLeftTop, mat);
 	BladeImageQuad.RightTop = Multiply(ImageRightTop, mat);
