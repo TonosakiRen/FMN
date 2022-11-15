@@ -61,14 +61,14 @@ void PlayerMain::Move()
 		JumpFlag = false;
 	}
 
-	if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+	/*if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
 		DashFlag = true;
 		JumpFlag = false;
 		DashFaseRight = FaceRight;
 		if (FaceDown == true || FaceUp == true) {
 			DashAvoid = true;
 		}
-	}
+	}*/
 
 	if (DashFlag == true) {
 		Gravity = 0;
@@ -172,12 +172,22 @@ void PlayerMain::Move()
 	}
 
 	if (isAttack > 0) {
-		if (AttackCoolDown <= 0) {
-			NormalAttack();
-			AttackCoolDown = ATTACKCOOLDOWNMAX;
-			isSwordAppear = true;
+		if (AttackCoolDown <= 0 && attackstarttime == -1) {
+			attackstarttime = 4;
+			
 		}
 		isAttack--;
+	}
+
+	if (attackstarttime == 0) {
+		attackstarttime = -1;
+		NormalAttack();
+		AttackCoolDown = ATTACKCOOLDOWNMAX;
+		isSwordAppear = true;
+	}
+
+	if (attackstarttime > 0) {
+		attackstarttime--;
 	}
 
 	if (AttackCoolDown > 0) {

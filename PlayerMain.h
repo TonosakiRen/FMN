@@ -103,6 +103,7 @@ class PlayerMain
 	bool isSaveSwordHit = 0;
 
 	Quad hitAttackPos = { {0,0}, 0,0};
+	int attackstarttime = -1;
 	bool isSwordHit = false;
 	int swordDrawFrame = 0;
 	int subSwordDrawNum[3];
