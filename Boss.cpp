@@ -498,10 +498,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%ÇÃçUåÇ
 						//NomalRotedSwordAttack(player);
-						NomalSwordAttack(player);
+						//NomalSwordAttack(player);
 
-						FMoveArray = array.AttackFunction02;
-						/*Action = false;*/
+						//FMoveArray = array.AttackFunction02;
+						Action = false;
+						CoolTime = 0;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
@@ -524,10 +525,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%ÇÃçUåÇ
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
-						ShockWaveAttack(player, screen);
-						CoolTime = 30;
-						/*Action = false;*/
-						FMoveArray = array.AttackFunction05;
+						//ShockWaveAttack(player, screen);
+						CoolTime = 0;
+						Action = false;
+						//FMoveArray = array.AttackFunction05;
 					}
 					if (MovePattern[MoveArray] == 0) {
 						Action = false;
@@ -575,6 +576,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
 						FMoveArray = array.AttackFunction03;
+						CoolTime = 45;
 						/*Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction04) {
@@ -660,13 +662,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack(player);
 							//NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
-							ShockWaveAttack(player, screen);
+							/*ShockWaveAttack(player, screen);
 
-							FMoveArray = array.AttackFunction04;
+							FMoveArray = array.AttackFunction04;*/
 
-							/*CoolTime = 0;
-
-							Action = false;*/
+							CoolTime = 0;
+							Action = false;
 
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction05) {
@@ -675,12 +676,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack2(player);
 							//NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
-							RainOfSwordAttack();
+							/*RainOfSwordAttack();
 
-							FMoveArray = array.AttackFunction05;
+							FMoveArray = array.AttackFunction05;*/
 
-							/*Action = false;
-							CoolTime = 0;*/
+							Action = false;
+							CoolTime = 0;
 
 						}
 						if (MovePattern[MoveArray] == 0) {
@@ -765,10 +766,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//5%ÇÃçUåÇ
 							//NomalRotedSwordAttack(player);
 							//JumpAttack(player, screen);
-							ShockWaveAttack(player, screen);
+							//ShockWaveAttack(player, screen);
 							//CircleOfDeathAttack(player);
-							/*Action = false;*/
-							FMoveArray = array.AttackFunction01;
+							Action = false;
+							CoolTime = 0;
+							//FMoveArray = array.AttackFunction01;
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction02) {
 							//5%ÇÃçUåÇ
@@ -844,7 +846,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%ÇÃçUåÇ
 						//NomalRotedSwordAttack(player);
-						NomalSwordAttack3(player);
+						//NomalSwordAttack3(player);
+						CircleOfDeathAttack(player);
 						FMoveArray = array.AttackFunction02;
 						/*Action = false;*/
 
@@ -1887,8 +1890,8 @@ void Boss::KeepWaveAttack()
 		}
 		if (Wave[i].WaveKeep == true) {
 			if (Wave[i].LifeTime == 0) {
-				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
-				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,Pos.y }, 100, 200);
+				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
+				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
 			}
 			Wave[i].QuadPos.LeftTop.x += 30;
 			Wave[i].Quad2Pos.LeftTop.x -= 30;
