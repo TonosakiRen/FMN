@@ -173,7 +173,7 @@ void PlayerMain::Move()
 
 	if (isAttack > 0) {
 		if (AttackCoolDown <= 0 && attackstarttime == -1) {
-			attackstarttime = 4;
+			attackstarttime = 3;
 			
 		}
 		isAttack--;

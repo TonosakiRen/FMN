@@ -244,7 +244,7 @@ void Boss::KeepUpWaitBack(PlayerMain&player)
 {
 	
 	keep.Time++;
-	if (keep.Time == 30) {
+	if (keep.Time == 20) {
 		keep.Time = 0;
 		keep.rand = Randam::RAND(0, 100);
 	}
@@ -397,7 +397,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 			{
 				
 			case NORMAL:
-				CoolTime = 60;
+				CoolTime = 5;
 
 				switch (pattarn) {
 				case NEAR_1:
@@ -608,7 +608,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				break;
 
 				case THREEQUARTERS:
-					CoolTime = 45;
+					CoolTime = 5;
 
 					switch (pattarn) {
 					case NEAR_1:
@@ -823,7 +823,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					break;
 
 			case HALF:
-				CoolTime = 30;
+				CoolTime = 5;
 				switch (pattarn) {
 				case NEAR_1:
 				{
@@ -1495,11 +1495,11 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeOutCubic);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 500 * Direction, 0.02f, Easing::easeInOutBack);
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 500 * Direction, 0, 0.02f, Easing::easeInCubic);
 		}
 
 		if (blade.Roted_t > 0.8 && blade.Vec_RotedPos.y < 150) {
@@ -1612,11 +1612,11 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 750 * Direction, 0.02f, Easing::easeOutCubic), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 500 * Direction, 0.02f, Easing::easeInOutBack), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 750 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 500 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
 
 		}
 		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
@@ -1703,10 +1703,10 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 	else
 		if (Attack == true) {
 			if (jumpattack.Matched == false) {
-				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
+				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
-				if (jumpattack.EaseT == 1) {
+				if (jumpattack.EaseT== 1) {
 
 					jumpattack.Matched = true;
 					//ã‚Éã‚ª‚èØ‚Á‚½
@@ -1730,6 +1730,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
+				CoolTime = 220;
 			}
 		}
 }
@@ -1772,12 +1773,12 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 						
 					}
 					if (jumpattack.Matched2 == true) {
-						Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 450, 0.05f, Easing::easeOutCirc);
+						Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
 
 						//Pos.x = jumpattack.PlayerPosF2.x + (Direction * 200);
 
 						if (jumpattack.EaseT2 == 1) {
-							Pos.y = Easing::easing(jumpattack.EaseDownT2, 450, Size.y / 2, 0.08f, Easing::easeOutBounce);
+							Pos.y = Easing::easing(jumpattack.EaseDownT2, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
 							if (Pos.y == Size.y / 2 && jumpattack.EaseDownT2 == 1) {
 								Wave[1].WaveKeep = true;
 
@@ -1795,6 +1796,8 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
+				CoolTime = 220;
+
 			}
 		}
 }
@@ -1841,6 +1844,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 			Action = false;
 			Circleofdeath_flame = 0;
 			Circleofdeath[i].Init();
+			CoolTime = 80;
 
 		}
 	}
@@ -1887,6 +1891,8 @@ void Boss::RainOfSwordAttack() {
 			Rainofsword[i].Init();
 			Rainofsword_flame = 0;
 			Action = false;
+			CoolTime = 80;
+
 		}
 	}
 }
@@ -1904,8 +1910,8 @@ void Boss::KeepWaveAttack()
 				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
 				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
 			}
-			Wave[i].QuadPos.LeftTop.x += 30;
-			Wave[i].Quad2Pos.LeftTop.x -= 30;
+			Wave[i].QuadPos.LeftTop.x += 20;
+			Wave[i].Quad2Pos.LeftTop.x -= 20;
 			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 200);
 			Wave[i].Quad2Pos.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 100, 200);
 
