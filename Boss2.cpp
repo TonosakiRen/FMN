@@ -581,6 +581,7 @@ int Boss2::ReloadMove(int Movearry)
 
 Boss2::Boss2()
 {
+
 }
 
 void Boss2::Set()

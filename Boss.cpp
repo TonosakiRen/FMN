@@ -266,6 +266,31 @@ void Boss::KeepUpWaitBack(PlayerMain&player)
 		
 	}
 }
+void Boss::BackStep(PlayerMain& player)
+{
+	
+
+	
+	Vec2 Distance = Pos - player.Translation();
+	if (StepT==0) {
+		
+		StepFPos = Pos.x;
+	}
+	if (Distance.x < 400) {
+		bStep = true;
+	}
+	else {
+		Action = false;
+	}
+	if (bStep == true) {
+		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 400 * Direction, 0.02f, Easing::easeInQuart);
+		if (StepT == 1) {
+			StepT = 0;
+			Action = false;
+		}
+	}
+
+}
 void Boss::DirectionGet(PlayerMain& player) {
 	//プレイヤーの位置によってマイナスかプラスかわかる関羽数うすうす進巣
 	if (player.Translation().x <= Pos.x) {
@@ -389,7 +414,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 		CoolTime--;
 		State(player);
 		reload = Randam::RAND(0, 1);
-		KeepUpWaitBack(player);
+		KeepUpWaitBack(player); 
+		
 		RandMoveSet();
 		DirectionGet(player);
 
@@ -403,7 +429,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 			{
 				
 			case NORMAL:
-				CoolTime = 0;
+				CoolTime = 10;
 
 				switch (pattarn) {
 				case NEAR_1:
@@ -434,11 +460,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 
+						BackStep(player);
+
 						
-						
-						//FMoveArray = array.AttackFunction02;
-						CoolTime = 0;
-						Action = false;
+						FMoveArray = array.AttackFunction02;
+						/*CoolTime = 0;
+						Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03 ) {
 						//5%の攻撃
@@ -618,6 +645,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					switch (pattarn) {
 					case NEAR_1:
 					{
+						
+
 						if (MovePattern[MoveArray] == array.NormalAttack) {
 							//通常攻撃のコードはここ
 							NomalSwordAttack2(player);
@@ -670,9 +699,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							/*ShockWaveAttack(player, screen);
 
 							FMoveArray = array.AttackFunction04;*/
+							BackStep(player);
 
-							CoolTime = 0;
-							Action = false;
+							/*CoolTime = 0;
+							Action = false;*/
 
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction05) {
@@ -745,8 +775,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack(player);
 							//ShockWaveAttack(player, screen);
 							//ShockWaveAttack2(player, screen);
-							CoolTime = 0;
-							Action = false;
+							BackStep(player);
+
+							/*CoolTime = 0;
+							Action = false;*/
 							//FMoveArray = array.AttackFunction05;
 						}
 						if (MovePattern[MoveArray] == 0) {
@@ -832,6 +864,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				switch (pattarn) {
 				case NEAR_1:
 				{
+					
+
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//通常攻撃のコードはここ
 						NomalSwordAttack3(player);
@@ -871,7 +905,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						BackStep(player);
+
 
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction04;

@@ -382,6 +382,11 @@ class Boss {
 
 #pragma endregion
 
+	float StepT = 0;
+	int StepFPos = 0;
+	bool bStep = 0;
+	
+
 public:
 	Boss();
 	void Set();
@@ -390,6 +395,7 @@ public:
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
 	void KeepUpWaitBack(PlayerMain& player);
+	void BackStep(PlayerMain& player);
 	void DirectionGet(PlayerMain& player);
 	void RandamMoveSelect(int rand,PlayerMain& player, Screen& screen);
 	void RandMoveSet();
