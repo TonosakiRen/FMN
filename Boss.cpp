@@ -404,7 +404,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						NomalSwordAttack3(player);
+						NomalSwordAttack(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
@@ -1657,93 +1657,231 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 }
 void Boss::JumpAttack(PlayerMain& player,Screen& screen) 
 {
-	
-	if (Attack == false) {
-		jumpattack.F_Pos = {Pos};
-		jumpattack.PlayerPosF = player.Translation();
-		Attack = true;
-	}else
-	if (Attack == true) {
-		if (jumpattack.Matched == false) {
-			Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
-			Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 5;
+	int MOTIONEND4 = 5;
+	Head.StandMotionFlag = 0;
+	Body.StandMotionFlag = 0;
+	RightArm.StandMotionFlag = 0;
+	LeftArm.StandMotionFlag = 0;
+	Leg.StandMotionFlag = 0;
 
-			if (jumpattack.EaseT==1) {
-			
-				jumpattack.Matched = true;
+	float t = 0;
+	float angle = 0;
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		Head.MotionPos.y = -80 * (1 - t * t);
+		Body.MotionPos.y = -55 * (1 - t * t);
+		LeftArm.MotionPos.y = -40 * (1 - t * t);
+		RightArm.MotionPos.y = -40 * (1 - t * t);
+		Leg.MotionPos.y = -20 * (1 - t * t);
+	}
+	else {
+		if (BossMotionTime - MOTIONEND1 <= MOTIONEND2) {
+			t = 1 - (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+			Head.MotionPos.y = -80 + 80 * (1 - t * t * t * t);
+			Body.MotionPos.y = -55 + 55 * (1 - t * t * t * t);
+			LeftArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			RightArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			Leg.MotionPos.y = -20 + 20 * (1 - t * t * t * t);
+		}
+		if (Attack == false) {
+			jumpattack.F_Pos = { Pos };
+			jumpattack.PlayerPosF = player.Translation();
+			Attack = true;
+		}
+		else if (Attack == true) {
+			if (jumpattack.Matched == false) {
+				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
+				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
+				if (jumpattack.EaseT == 1) {
+
+					jumpattack.Matched = true;
+
+				}
+			}
+			else if (jumpattack.Matched == true) {
+				Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
+
+				if (jumpattack.EaseDownT >= 0.3) {
+
+					if (BossMotionTime - MOTIONEND1 - MOTIONEND2 < MOTIONEND3) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2) / MOTIONEND3;
+						Head.MotionPos.y = -80 * (1 - t * t * t * t);
+						Body.MotionPos.y = -55 * (1 - t * t * t * t);
+						LeftArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						RightArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						Leg.MotionPos.y = -20 * (1 - t * t * t * t);
+					}
+					else if (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3 < MOTIONEND4) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3) / MOTIONEND4;
+						Head.MotionPos.y = -80 + 80 * (1 - t);
+						Body.MotionPos.y = -55 + 55 * (1 - t);
+						LeftArm.MotionPos.y = -40 + 40 * (1 - t);
+						RightArm.MotionPos.y = -40 + 40 * (1 - t);
+						Leg.MotionPos.y = -20 + 20 * (1 - t);
+					}
+					BossMotionTime++;
+				}
+			}
+
+			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT <= 0.9f && jumpattack.EaseDownT >= 0.8f);
+
+			if (jumpattack.EaseDownT == 1.0f && BossMotionTime > 100) {
+				blade.Init();
+				jumpattack.Init();
+				Attack = false;
+				Action = false;
+				BossMotionTime = 0;
+				Head.StandMotionFlag = 1;
+				Body.StandMotionFlag = 1;
+				RightArm.StandMotionFlag = 1;
+				LeftArm.StandMotionFlag = 1;
 			}
 		}
-		else
-		if (jumpattack.Matched == true) {
-			Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y/2, 0.05f, Easing::easeOutBounce);
-		
-		}
-			
-			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT<=0.9f&& jumpattack.EaseDownT >= 0.8f);
-		
-		if (jumpattack.EaseDownT == 1.0f) {
-			blade.Init();
-			jumpattack.Init();
-			Attack = false;
-			Action = false;
-
-		}
+	}
+	if (BossMotionTime < MOTIONEND1 + MOTIONEND2) {
+		BossMotionTime++;
 	}
 }
 
 void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 {
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 10;
+	int MOTIONEND4 = 10;
+	Head.StandMotionFlag = 0;
+	Body.StandMotionFlag = 0;
+	RightArm.StandMotionFlag = 0;
+	LeftArm.StandMotionFlag = 0;
+	Leg.StandMotionFlag = 0;
 
-	if (Attack == false) {
-		jumpattack.F_Pos = { Pos };
-		jumpattack.PlayerPosF = player.Translation();
-		Attack = true;
+	float t = 0;
+	float angle = 0;
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		Head.MotionPos.y = -80 * (1 - t * t);
+		Body.MotionPos.y = -55 * (1 - t * t);
+		LeftArm.MotionPos.y = -40 * (1 - t * t);
+		RightArm.MotionPos.y = -40 * (1 - t * t);
+		Leg.MotionPos.y = -20 * (1 - t * t);
 	}
-	else
-		if (Attack == true) {
+	else {
+		if (BossMotionTime - MOTIONEND1 <= MOTIONEND2) {
+			t = 1 - (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+			Head.MotionPos.y = -80 + 80 * (1 - t * t * t * t);
+			Body.MotionPos.y = -55 + 55 * (1 - t * t * t * t);
+			LeftArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			RightArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			Leg.MotionPos.y = -20 + 20 * (1 - t * t * t * t);
+		}
+
+		if (Attack == false) {
+			jumpattack.F_Pos = { Pos };
+			jumpattack.PlayerPosF = player.Translation();
+			Attack = true;
+		}
+		else if (Attack == true) {
 			if (jumpattack.Matched == false) {
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
-				if (jumpattack.EaseT== 1) {
+				if (jumpattack.EaseT == 1) {
 
 					jumpattack.Matched = true;
 					//è„Ç…è„Ç™ÇËêÿÇ¡ÇΩ
 				}
 			}
-			else
-				if (jumpattack.Matched == true) {
-					Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
-					//â∫Ç…óéÇøÇÈ
-					if (Pos.y == Size.y/2) {
-						Wave[0].WaveKeep = true;
-						
-					}
+			else if (jumpattack.Matched == true) {
+				Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
+				//â∫Ç…óéÇøÇÈ
+				if (Pos.y == Size.y / 2) {
+					Wave[0].WaveKeep = true;
 				}
 
+				if (jumpattack.EaseDownT >= 0.3) {
+					
+					if (BossMotionTime - MOTIONEND1 - MOTIONEND2 < MOTIONEND3) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2 ) / MOTIONEND3;
+						Head.MotionPos.y = -80 * (1 - t * t * t * t);
+						Body.MotionPos.y = -55 * (1 - t * t * t * t);
+						LeftArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						RightArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						Leg.MotionPos.y = -20 * (1 - t * t * t * t);
+					}
+					else if (BossMotionTime - MOTIONEND1 - MOTIONEND2 -MOTIONEND3 < MOTIONEND4) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3) / MOTIONEND4;
+						Head.MotionPos.y = -80 + 80 * (1 - t );
+						Body.MotionPos.y = -55 + 55 * (1 - t );
+						LeftArm.MotionPos.y = -40 + 40 * (1 - t );
+						RightArm.MotionPos.y = -40 + 40 * (1 - t );
+						Leg.MotionPos.y = -20 + 20 * (1 - t );
+					}
+					BossMotionTime++;
+				}
+			}
+
 			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT <= 0.9f && jumpattack.EaseDownT >= 0.8f);
-			
-			if (jumpattack.EaseDownT == 1.0f) {
+
+			if (jumpattack.EaseDownT == 1.0f && BossMotionTime > 110) {
 				blade.Init();
 				jumpattack.Init();
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
 				CoolTime = 220;
+				BossMotionTime = 0;
+				Head.StandMotionFlag = 1;
+				Body.StandMotionFlag = 1;
+				RightArm.StandMotionFlag = 1;
+				LeftArm.StandMotionFlag = 1;
 			}
 		}
+	}
+	if (BossMotionTime < MOTIONEND1 + MOTIONEND2) {
+		BossMotionTime++;
+	}
 }
 void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 {
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 10;
+	int MOTIONEND4 = 10;
+	Head.StandMotionFlag = 0;
+	Body.StandMotionFlag = 0;
+	RightArm.StandMotionFlag = 0;
+	LeftArm.StandMotionFlag = 0;
+	Leg.StandMotionFlag = 0;
 
-	if (Attack == false) {
-		jumpattack.F_Pos = { Pos };
-		jumpattack.PlayerPosF = player.Translation();
-		Attack = true;
+	float t = 0;
+	float angle = 0;
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		Head.MotionPos.y = -80 * (1 - t * t);
+		Body.MotionPos.y = -55 * (1 - t * t);
+		LeftArm.MotionPos.y = -40 * (1 - t * t);
+		RightArm.MotionPos.y = -40 * (1 - t * t);
+		Leg.MotionPos.y = -20 * (1 - t * t);
 	}
-	else
-		if (Attack == true) {
+	else {
+		if (BossMotionTime - MOTIONEND1 <= MOTIONEND2) {
+			t = 1 - (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+			Head.MotionPos.y = -80 + 80 * (1 - t * t * t * t);
+			Body.MotionPos.y = -55 + 55 * (1 - t * t * t * t);
+			LeftArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			RightArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			Leg.MotionPos.y = -20 + 20 * (1 - t * t * t * t);
+		}
+		if (Attack == false) {
+			jumpattack.F_Pos = { Pos };
+			jumpattack.PlayerPosF = player.Translation();
+			Attack = true;
+		}
+		else if (Attack == true) {
 			if (jumpattack.Matched == false) {
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
@@ -1758,11 +1896,11 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 			}
 			else
 				if (jumpattack.Matched == true) {
-					
-						Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
-						if(jumpattack.EaseDownT < 0.1)	jumpattack.PlayerPosF2.x = player.Translation().x;
-					
-					if(jumpattack.EaseDownT ==1&& jumpattack.Matched2 == false) {
+
+					Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
+					if (jumpattack.EaseDownT < 0.1)	jumpattack.PlayerPosF2.x = player.Translation().x;
+
+					if (jumpattack.EaseDownT == 1 && jumpattack.Matched2 == false) {
 						jumpattack.Matched2 = true;
 						//â∫Ç…óéÇøÇÈ
 						if (Pos.y == Size.y / 2) {
@@ -1770,12 +1908,14 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 
 						}
 						jumpattack.EaseDownT = 0;
-						
+
 					}
 					if (jumpattack.Matched2 == true) {
 						Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.03f, Easing::easeOutCirc);
 
 						//Pos.x = jumpattack.PlayerPosF2.x + (Direction * 200);
+
+						
 
 						if (jumpattack.EaseT2 == 1) {
 							Pos.y = Easing::easing(jumpattack.EaseDownT2, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
@@ -1783,23 +1923,52 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 								Wave[1].WaveKeep = true;
 
 							}
+
+							if (jumpattack.EaseDownT2 >= 0.3) {
+
+								if (BossMotionTime - MOTIONEND1 - MOTIONEND2 < MOTIONEND3) {
+									t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2) / MOTIONEND3;
+									Head.MotionPos.y = -80 * (1 - t * t * t * t);
+									Body.MotionPos.y = -55 * (1 - t * t * t * t);
+									LeftArm.MotionPos.y = -40 * (1 - t * t * t * t);
+									RightArm.MotionPos.y = -40 * (1 - t * t * t * t);
+									Leg.MotionPos.y = -20 * (1 - t * t * t * t);
+								}
+								else if (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3 < MOTIONEND4) {
+									t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3) / MOTIONEND4;
+									Head.MotionPos.y = -80 + 80 * (1 - t);
+									Body.MotionPos.y = -55 + 55 * (1 - t);
+									LeftArm.MotionPos.y = -40 + 40 * (1 - t);
+									RightArm.MotionPos.y = -40 + 40 * (1 - t);
+									Leg.MotionPos.y = -20 + 20 * (1 - t);
+								}
+								BossMotionTime++;
+							}
 						}
 					}
-					
+
 				}
 
 			screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT <= 0.9f && jumpattack.EaseDownT >= 0.8f);
 
-			if (jumpattack.EaseDownT2 == 1.0f&&jumpattack.Matched2 == true) {
+			if (jumpattack.EaseDownT2 == 1.0f && jumpattack.Matched2 == true && BossMotionTime > 110) {
 				blade.Init();
 				jumpattack.Init();
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
 				CoolTime = 220;
-
+				BossMotionTime = 0;
+				Head.StandMotionFlag = 1;
+				Body.StandMotionFlag = 1;
+				RightArm.StandMotionFlag = 1;
+				LeftArm.StandMotionFlag = 1;
 			}
 		}
+	}
+	if (BossMotionTime < MOTIONEND1 + MOTIONEND2) {
+		BossMotionTime++;
+	}
 }
 
 void Boss::CircleOfDeathAttack(PlayerMain& player)
