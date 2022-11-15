@@ -224,7 +224,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 
 			Novice::SetBlendMode(kBlendModeAdd);
-			screen.DrawQuad2Normal(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background, WHITE);
+			screen.DrawQuad2Normal(0 - screen.Scroll.x, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, background, WHITE);
 			Novice::SetBlendMode(kBlendModeNormal);
 			effect01.Draw(screen, 128, effect04Img, WHITE, kBlendModeAdd);
 			effect02.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
