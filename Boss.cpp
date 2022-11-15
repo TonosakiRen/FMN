@@ -1495,11 +1495,11 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 500 * Direction, 0.02f, Easing::easeInCubic);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.02f, Easing::easeInOutQuint);
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 500 * Direction, 0, 0.02f, Easing::easeInCubic);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 600 * Direction, 0, 0.02f, Easing::easeInCubic);
 		}
 
 		if (blade.Roted_t > 0.8 && blade.Vec_RotedPos.y < 150) {
@@ -1612,11 +1612,11 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 500 * Direction, 0.02f, Easing::easeInCubic), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeInOutQuint), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 500 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 600 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
 
 		}
 		Matrix2x2 mat = MakeRotateMatrix(blade.theta);
