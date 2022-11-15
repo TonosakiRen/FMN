@@ -267,26 +267,24 @@ void Boss::KeepUpWaitBack(PlayerMain&player)
 	}
 }
 void Boss::BackStep(PlayerMain& player)
-{
-	
-
-	
+{	
 	Vec2 Distance = Pos - player.Translation();
 	if (StepT==0) {
 		
 		StepFPos = Pos.x;
 	}
-	if (Distance.x < 400) {
+	if (Distance.Length()< 400) {
 		bStep = true;
 	}
-	else {
+	else if(bStep==false) {
 		Action = false;
 	}
 	if (bStep == true) {
-		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 400 * Direction, 0.02f, Easing::easeInQuart);
+		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
 		if (StepT == 1) {
 			StepT = 0;
 			Action = false;
+			bStep = false;
 		}
 	}
 
@@ -436,7 +434,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-						NomalSwordAttack(player);
+						BackStep(player);
+
+						//NomalSwordAttack(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
@@ -460,7 +460,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 
-						BackStep(player);
+						NomalSwordAttack(player);
 
 						
 						FMoveArray = array.AttackFunction02;
@@ -649,10 +649,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 						if (MovePattern[MoveArray] == array.NormalAttack) {
 							//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-							NomalSwordAttack2(player);
+							//NomalSwordAttack2(player);
 							//CircleOfDeathAttack();
 							//ShockWaveAttack(player, screen);
-
+							BackStep(player);
 							FMoveArray = array.NormalAttack;
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -694,12 +694,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//5%‚ÌUŒ‚
 							//JumpAttack(player);
 							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack(player);
+							NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
-							/*ShockWaveAttack(player, screen);
+							//ShockWaveAttack(player, screen);
 
-							FMoveArray = array.AttackFunction04;*/
-							BackStep(player);
+							FMoveArray = array.AttackFunction04;
+							//BackStep(player);
 
 							/*CoolTime = 0;
 							Action = false;*/
@@ -910,7 +910,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction04;
-						CoolTime = 20;
+						//CoolTime = 20;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%‚ÌUŒ‚
