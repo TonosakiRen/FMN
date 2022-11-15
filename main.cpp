@@ -82,6 +82,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 						boss.UpDate();
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
+						//当たり判定とかいれて！！！
+					}
+					if (boss2.IsLife == true) {
+						boss2.UpDate();
+						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						//当たり判定とかいれて！！！
+
 					}
 					playermain.PlayerHit(boss.GetBossAttackQuad());
 					for (int i = 0; i < 5; i++) {
