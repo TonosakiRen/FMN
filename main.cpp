@@ -262,9 +262,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			centerOfDarknessLeft.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
 			centerOfDarknessUnder.Draw(screen, 128, effect03Img, RED, kBlendModeNormal);
 			centerOfDarknessUnder.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);*/
+			if (boss.IsLife == true) {
 
-			boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
-
+				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
+			}
+			if (boss2.IsLife == true) {
+				boss2.Draw(screen);
+			}
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 
 			effect04.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);

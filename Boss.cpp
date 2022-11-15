@@ -550,7 +550,6 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalSwordAttack(player);
 						//JumpAttack(player, screen);
 						ShockWaveAttack(player, screen);
-
 						FMoveArray = array.NormalAttack;
 
 					}
@@ -1501,7 +1500,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.04f, Easing::easeOutQuint);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.025f, Easing::easeOutQuint);
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
@@ -1618,7 +1617,7 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.04f, Easing::easeOutQuint), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.025f, Easing::easeOutQuint), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
@@ -2053,7 +2052,7 @@ void Boss::RainOfSwordAttack() {
 			}
 		}
 		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true) {
-			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0 + Rainofsword[i].Height, 0.03f, Easing::easeInBack);
+			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0, 0.03f, Easing::easeInBack);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
 			Rainofsword[i].ColQuadPos = Quad::Quad(
 				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
