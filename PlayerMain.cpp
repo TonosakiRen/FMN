@@ -28,27 +28,39 @@ void PlayerMain::Move()
 
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
-		FaceRight = true;
+		if (attackstarttime == -1) {
+			FaceRight = true;
+		}
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
 		Speed.x = -8;
-		FaceRight = false;
+		if (attackstarttime == -1) {
+			FaceRight = false;
+		}
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdUP) || Key::IsPressed(DIK_W)) {
-		FaceUp = true;
+		if (attackstarttime == -1) {
+			FaceUp = true;
+		}
 	}
 	else {
-		FaceUp = false;
+		if (attackstarttime == -1) {
+			FaceUp = false;
+		}
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdDOWN) || Key::IsPressed(DIK_S)) {
 		//Speed.y = -1;
-		FaceDown = true;
+		if (attackstarttime == -1) {
+			FaceDown = true;
+		}
 	}
 	else {
-		FaceDown = false;
+		if (attackstarttime == -1) {
+			FaceDown = false;
+		}
 	}
 
 	if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
