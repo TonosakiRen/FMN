@@ -346,6 +346,10 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 	screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
 
+	for (int i = 0; i < HP; i++) {
+		Novice::DrawEllipse( 100 + 100 * i, 930 , 50,50,0, 0xFF3399FF,kFillModeSolid);
+	}
+
 	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
 	Novice::ScreenPrintf(0, 20, "%d", HP);
 
