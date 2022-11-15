@@ -404,7 +404,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						NomalSwordAttack(player);
+						NomalSwordAttack3(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
@@ -1337,22 +1337,31 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
+					
 					if (blade.t_back == 1) {
-						if (blade.t_back == 1 && blade.t_back2 == 0) {
-							DirectionGet(player);
-							blade.FPosBoss.x = player.Translation().x + (350 * Direction);
+						if (BossMotionTime < MOTIONEND + 30) {
+							Pos.y = 5000;
+
 						}
+						else {
+							if (blade.t_back == 1 && blade.t_back2 == 0) {
+								DirectionGet(player);
+								blade.FPosBoss.x = player.Translation().x + (350 * Direction);
+							}
 
-						blade.angle = Easing::easing(blade.t_back2, -20, 200, 0.015f, Easing::easeInOutBack) * -Direction;
-						blade.theta = blade.angle / 180.0f * M_PI;
-						Pos.x = Easing::easing(blade.Boss_t2, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
-						if (blade.t_back2 < 0.2) {
-							DirectionGet(player);
-							//a
+							blade.angle = Easing::easing(blade.t_back2, -20, 200, 0.015f, Easing::easeInOutBack) * -Direction;
+							blade.theta = blade.angle / 180.0f * M_PI;
+							Pos.x = Easing::easing(blade.Boss_t2, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
+							if (blade.t_back2 < 0.2) {
+								DirectionGet(player);
+								Pos.y = Size.y / 2;
+							}
+
+
 						}
-
-
+						BossMotionTime++;
 					}
+					
 				}
 				else {
 				}
@@ -1397,7 +1406,9 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 			}
 		}
 	}
-	BossMotionTime++;
+	if (BossMotionTime < MOTIONEND) {
+		BossMotionTime++;
+	}
 }
 void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 	//DirectionGet(player);
