@@ -27,14 +27,14 @@ void PlayerMain::Move()
 	//Speed.y = 0;
 
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
-		Speed.x = 8;
+		Speed.x = 10;
 		if (attackstarttime == -1) {
 			FaceRight = true;
 		}
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
-		Speed.x = -8;
+		Speed.x = -10;
 		if (attackstarttime == -1) {
 			FaceRight = false;
 		}
@@ -73,14 +73,14 @@ void PlayerMain::Move()
 		JumpFlag = false;
 	}
 
-	/*if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+	if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
 		DashFlag = true;
 		JumpFlag = false;
 		DashFaseRight = FaceRight;
 		if (FaceDown == true || FaceUp == true) {
 			DashAvoid = true;
 		}
-	}*/
+	}
 
 	if (DashFlag == true) {
 		Gravity = 0;
@@ -97,11 +97,11 @@ void PlayerMain::Move()
 			}
 		}
 		DashTime++;
-		if (DashTime > 7) {
+		if (DashTime > 3) {
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
-			Gravity = 0.2;
+			Gravity = 0.18;
 			DashCoolTime = 20;
 		}
 	}
@@ -118,7 +118,7 @@ void PlayerMain::Move()
 	}
 	else {
 		if (DashFlag == false) {
-			Gravity -= 0.2;
+			Gravity -= 0.18;
 		}
 	}
 
@@ -266,11 +266,11 @@ void PlayerMain::SwordHit(Quad Target)
 		isSwordHit = true;
 
 		 if(FaceDown == true){
-			 HitBack.y =4;
+			 HitBack.y =3;
 			 Gravity = 0;
 		 }
 		 else if (FaceUp == true) {
-			 HitBack.y = -4;
+			 HitBack.y = -3;
 		 }
 		 else {
 			 if (FaceRight == true) {
