@@ -1500,7 +1500,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.025f, Easing::easeOutQuint);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutQuint);
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
@@ -1617,7 +1617,7 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.025f, Easing::easeOutQuint), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutQuint), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
