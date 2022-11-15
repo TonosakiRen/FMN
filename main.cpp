@@ -75,9 +75,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (stopper.Pause() == false) {
 				if (stopper.HitStopUpdate() == false) {
 					playermain.Move();
-					boss.UpDate();
-					boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
-
+					if (boss.IsLife==false&&boss2.IsLife==false) {
+						//第二形態のセットここで
+						boss2.Set();
+					}
+					if(boss.IsLife==true) {
+						boss.UpDate();
+						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
+					}
 					playermain.PlayerHit(boss.GetBossAttackQuad());
 					for (int i = 0; i < 5; i++) {
 						playermain.PlayerHit(boss.GetBossQuad(i));
@@ -147,7 +152,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
 				}
 			}
-
+			
 
 			 //stopper.HitStopMake(playermain.HitStopOver());
 
@@ -160,6 +165,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isGameclear = true;
 			}
 			
+			break;
+		case stage2:
+
+
+
 			break;
 		case gameover:
 			//ゲームオーバー処理

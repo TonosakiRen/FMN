@@ -5,6 +5,7 @@
 #include "Easing.h"
 #include "Randam.h"
 
+
 Boss::Boss()
 {
 	Size = { 150,300 };
@@ -35,6 +36,9 @@ void Boss::UpDate() {
 	if (isBossHit == true) {
 		HP -= 25;
 	};
+	if (HP <= 0) {
+		IsLife = false;
+	}
 
 #pragma region Parts
 
@@ -153,6 +157,8 @@ void Boss::Set()
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 }
+
+
 
 void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
 {
@@ -397,14 +403,14 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 			{
 				
 			case NORMAL:
-				CoolTime = 5;
+				CoolTime = 0;
 
 				switch (pattarn) {
 				case NEAR_1:
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-						NomalSwordAttack3(player);
+						NomalSwordAttack(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
@@ -608,7 +614,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				break;
 
 				case THREEQUARTERS:
-					CoolTime = 5;
+					CoolTime = 0;
 
 					switch (pattarn) {
 					case NEAR_1:
@@ -823,7 +829,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					break;
 
 			case HALF:
-				CoolTime = 5;
+				CoolTime = 0;
 				switch (pattarn) {
 				case NEAR_1:
 				{
@@ -1901,19 +1907,19 @@ void Boss::KeepWaveAttack()
 {
 	for (int i = 0; i < kMAX_WAVE; i++) {
 		if (Wave[i].WaveKeep == false) {
-			Wave[i].QuadPos.Quad::Quad({99999,9999}, 100, 200);
-			Wave[i].Quad2Pos.Quad::Quad({9000,9999}, 100, 200);
+			Wave[i].QuadPos.Quad::Quad({99999,9999}, 100, 150);
+			Wave[i].Quad2Pos.Quad::Quad({9000,9999}, 100, 150);
 
 		}
 		if (Wave[i].WaveKeep == true) {
 			if (Wave[i].LifeTime == 0) {
-				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
-				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,200 }, 100, 200);
+				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,150 }, 100, 150);
+				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,150 }, 100, 150);
 			}
 			Wave[i].QuadPos.LeftTop.x += 20;
 			Wave[i].Quad2Pos.LeftTop.x -= 20;
-			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 200);
-			Wave[i].Quad2Pos.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 100, 200);
+			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 150);
+			Wave[i].Quad2Pos.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 100, 150);
 
 			Wave[i].LifeTime += 0.025f;
 			Wave[i].LifeTime = Clamp::clamp(Wave[i].LifeTime, 0, 1);
@@ -1965,6 +1971,11 @@ Quad Boss::GetShockWave2()
 
 		return Quad(Wave[i].Quad2Pos);
 	}
+}
+
+int Boss::GetBossHP()
+{
+	return HP;
 }
 
 Quad Boss::GetBossAttackQuad()

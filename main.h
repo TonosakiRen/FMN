@@ -10,6 +10,7 @@
 #include "Key.h"
 #include "PlayerMain.h"
 #include "Boss.h"
+#include "Boss2.h"
 #include "Stopper.h"
 #include "Effect2.h"
 #include "Effect.h"
@@ -18,6 +19,8 @@
 Screen screen;
 PlayerMain playermain;
 Boss boss;
+Boss2 boss2;
+
 Stopper stopper;
 Effect effect01(30, 2, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f , 1);
 Effect effect02(30, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 60.0f, -1.0f , 1);
@@ -36,6 +39,7 @@ Effect2 centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f
 enum Scene {
 	title,
 	stage,
+	stage2,
 	gameover,
 	gameclear
 };

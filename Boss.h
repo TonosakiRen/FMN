@@ -13,6 +13,7 @@ const int MAX_PATTERN = 100;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
 class Boss {
+
 	//‰æ‘œ‚ÌéŒ¾
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
@@ -59,7 +60,6 @@ class Boss {
 	int HP = 2000;
 	const int HalfHP = HP*0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
-	
 
 	int load = 0;//‰æ‘œ“Ç‚İ—ˆ‚İ
 	struct Blade
@@ -430,14 +430,15 @@ public:
 	Quad GetShockWave();
 	Quad GetShockWave2();
 
-
+	int GetBossHP();
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
 	Quad GetRainOfSwordQuad(int i);
 	Circle GetCircleOfDeathQuad(int i);
 	bool GetAction();
 	bool GetSwordAttack();
-
+	bool IsLife = true;
+	
 	void BossHit(bool Hit);
 
 	enum {
@@ -450,5 +451,6 @@ public:
 	void BossHitReaction(Quad PlayerQuad, bool up, bool down, bool right);
 
 	void BladeImageLink(Matrix2x2 mat);
+	
 
 };
