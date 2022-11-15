@@ -1348,7 +1348,7 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 						Pos.x = Easing::easing(blade.Boss_t2, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
 						if (blade.t_back2 < 0.2) {
 							DirectionGet(player);
-
+							//a
 						}
 
 
