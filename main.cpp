@@ -9,7 +9,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-
+	//あしをひっぱるな！！！しがみつき！！！
 
 	Controller::SetLeftStickDeadZone(0, 14000);
 
