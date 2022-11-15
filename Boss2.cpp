@@ -585,7 +585,7 @@ Boss2::Boss2()
 
 void Boss2::Set()
 {
-	Size = { 200,500 };
+	Size = { 120,192 };
 	Pos = { 1000,500 };
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
 	IsLife = true;
@@ -593,7 +593,13 @@ void Boss2::Set()
 
 void Boss2::Draw(Screen& screen)
 {
-	screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
+	if (load == 0) {
+		load = 1;
+		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+	}
+	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
+	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
+	//screen.DrawQuad2Renban(Quad_Pos,)
 }
 
 void Boss2::UpDate()

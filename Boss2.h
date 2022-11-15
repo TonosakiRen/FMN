@@ -20,7 +20,7 @@ class Boss2 {
 	int Mahoujin_gra = 0;
 	int Blade_gra = 0;
 	int HoldBlade_gra = 0;
-
+	int Boss_gra = 0;
 	int UseBladeGra = Blade_gra;
 
 	static struct Matrix2x2
