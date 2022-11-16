@@ -438,11 +438,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-						BackStep(player);
+						//BackStep(player);
 
-						//NomalSwordAttack(player);
+						NomalSwordAttack(player);
 						//RainOfSwordAttack();
-						//CircleOfDeathAttack();
+						//CircleOfDeathAttack(player);
 						//ShockWaveAttack(player, screen);
 						//ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;
@@ -1539,7 +1539,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
-			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutQuint);
+			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutCubic);
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
@@ -1656,7 +1656,7 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 
-			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutQuint), -100 };
+			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutCubic), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 
@@ -2057,6 +2057,8 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 
+				
+
 				if (jumpattack.EaseT == 1) {
 
 					jumpattack.Matched = true;
@@ -2116,51 +2118,72 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 
 void Boss::CircleOfDeathAttack(PlayerMain& player)
 {
-	Circleofdeath_flame++;
-	for (int i = 0; i < kMAX_CIR; i++) {
-		if (Circleofdeath_flame%13==0&&Circleofdeath[i].Set == false&& Circleofdeath[kMAX_CIR-1].Set==false) {
-			if(i==0) {
-				Circleofdeath[i].circle.pos = { player.GetPlayerQuad().LeftTop.x, player.GetPlayerQuad().LeftTop.y };
-
-			}else
-			if (i % 2 == 0) {
-				Circleofdeath[i].circle.pos = { Pos.x + (i*150),Pos.y + Randam::RAND(-100,100) };
-
-			}
-			else if (i % 2 == 1) {
-				Circleofdeath[i].circle.pos = { Pos.x + ( - i * 150),Pos.y + Randam::RAND(-100,100)};
-
-			}
-			
-			Circleofdeath[i].fRad = 100;
-			Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2 , Circleofdeath[i].fRad * 2 , 0);
-
-			Circleofdeath[i].Set=true;
-			break;
-		}
-		if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set==true) {
-			//Circleofdeath[i].Reserve = false;
-			Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutElastic);
-			Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad *2+ Circleofdeath[i].circle.radius, Circleofdeath[i].fRad *2+ Circleofdeath[i].circle.radius, 0);
-
-			if (Circleofdeath[i].Reserve_t == 1.0f) {
-				//Circleofdeath[i].Init();
-				
-			}
-		}
-			
+	if (CircleOfDeathMotionT2 == 0) {
+		CircleOfDeathMotion(0);
 	}
-	for (int i = 0; i < kMAX_CIR; i++) {
 
-		if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
-			Action = false;
-			Circleofdeath_flame = 0;
-			Circleofdeath[i].Init();
-			CoolTime = 80;
+	if (Circleofdeath_Expflame >= 40) {
+		CircleOfDeathMotion(1);
+	}
 
+	if (CircleOfDeathMotionT > 0.3) {
+		Circleofdeath_flame++;
+		for (int i = 0; i < kMAX_CIR; i++) {
+			if (Circleofdeath_flame % 13 == 0 && Circleofdeath[i].Set == false && Circleofdeath[kMAX_CIR - 1].Set == false) {
+				if (i == 0) {
+					Circleofdeath[i].circle.pos = { player.GetPlayerQuad().LeftTop.x, player.GetPlayerQuad().LeftTop.y };
+
+				}
+				else
+					if (i % 2 == 0) {
+						Circleofdeath[i].circle.pos = { Pos.x + (i * 150),Pos.y + Randam::RAND(-100,100) };
+
+					}
+					else if (i % 2 == 1) {
+						Circleofdeath[i].circle.pos = { Pos.x + (-i * 150),Pos.y + Randam::RAND(-100,100) };
+
+					}
+
+				Circleofdeath[i].fRad = 100;
+				Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2, Circleofdeath[i].fRad * 2, 0);
+
+				Circleofdeath[i].Set = true;
+				break;
+			}
+			if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set == true && CircleOfDeathMotionT == 1 && Circleofdeath_Expflame >= 45) {
+
+				
+
+				if (CircleOfDeathMotionT2 >= 1 ) {
+					//Circleofdeath[i].Reserve = false;
+					Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutExpo);
+					Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, 0);
+
+					if (Circleofdeath[i].Reserve_t == 1.0f) {
+						//Circleofdeath[i].Init();
+
+					}
+				}
+			}
+		}
+		for (int i = 0; i < kMAX_CIR; i++) {
+
+			if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
+				Action = false;
+				Circleofdeath_flame = 0;
+				Circleofdeath_Expflame = 0;
+				Circleofdeath[i].Init();
+				CoolTime = 80;
+				CircleOfDeathMotion(2);
+			}
+		}
+		if (Circleofdeath[kMAX_CIR - 1].Set == true) {
+			Circleofdeath_Expflame++;
 		}
 	}
 }
+
+
 
 void Boss::RainOfSwordAttack() {
 
@@ -2510,4 +2533,118 @@ void Boss::BladeImageLink(Matrix2x2 mat)
 	BladeImageQuad.RightBottom += BladeCenterPos;
 
 	BladeImageQuad = { BladeImageQuad.LeftTop,BladeImageQuad.RightTop,BladeImageQuad.LeftBottom,BladeImageQuad.RightBottom };
+}
+
+void Boss::CircleOfDeathMotion(int type) {
+
+	if (type == 0) {
+		RightArm.StandMotionFlag = 0;
+		LeftArm.StandMotionFlag = 0;
+
+		Easing::easing(CircleOfDeathMotionT, 0, 90, 1.0f / 60, Easing::easeOutQuart);
+
+		RightArm.MotionPos.x = 90.0f * CircleOfDeathMotionT + 4 * Direction;
+		LeftArm.MotionPos.x = -90.0f * CircleOfDeathMotionT + 4 * Direction;
+		RightArm.MotionPos.y = 70.0f * CircleOfDeathMotionT;
+		LeftArm.MotionPos.y = 70.0f * CircleOfDeathMotionT;
+
+		int angle = -180 + 150 * CircleOfDeathMotionT;
+
+		float theta = angle / 180.0f * M_PI;
+
+		Matrix2x2 mat = MakeRotateMatrix(theta);
+
+		Vec2 LeftTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 };
+		Vec2 RightTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 };
+		Vec2 LeftBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 };
+		Vec2 RightBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 };
+
+		RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+		RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+		RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+		RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+		theta = -angle / 180.0f * M_PI;
+
+		mat = MakeRotateMatrix(theta);
+
+		LeftTop = { -LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 };
+		RightTop = { LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 };
+		LeftBottom = { -LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+		RightBottom = { LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+
+		LeftArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		LeftArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		LeftArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		LeftArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		LeftArm.ImageQuad.LeftTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.LeftBottom += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightBottom += LeftArm.ImagePos;
+	}
+	else if (type == 1) {
+
+		Easing::easing(CircleOfDeathMotionT2, 0, 90.0f, 1.0f / 5, Easing::easeInOutBack);
+		RightArm.MotionPos.x = 90.0f - 160.0f * CircleOfDeathMotionT2 + 4 * Direction;
+		LeftArm.MotionPos.x = -90.0f + 160.0f * CircleOfDeathMotionT2 + 4 * Direction;
+		RightArm.MotionPos.y = 110.0f * CircleOfDeathMotionT2;
+		LeftArm.MotionPos.y = 110.0f * CircleOfDeathMotionT2;
+
+		int angle = -30 - 260.0f * CircleOfDeathMotionT2;
+
+		float theta = angle / 180.0f * M_PI;
+
+		Matrix2x2 mat = MakeRotateMatrix(theta);
+
+		Vec2 LeftTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 };
+		Vec2 RightTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 };
+		Vec2 LeftBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 };
+		Vec2 RightBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 };
+
+		RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+		RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+		RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+		RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+		theta = -angle / 180.0f * M_PI;
+
+		mat = MakeRotateMatrix(theta);
+
+		LeftTop = { LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 };
+		RightTop = { -LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 };
+		LeftBottom = { LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+		RightBottom = { -LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+
+		LeftArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		LeftArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		LeftArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		LeftArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		LeftArm.ImageQuad.LeftTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.LeftBottom += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightBottom += LeftArm.ImagePos;
+	}
+	else{
+		CircleOfDeathMotionT = 0;
+		CircleOfDeathMotionT2 = 0;
+
+		RightArm.MotionPos = { 0,0 };
+		LeftArm.MotionPos = { 0,0 };
+
+		RightArm.StandMotionFlag = 1;
+		LeftArm.StandMotionFlag = 1;
+
+	}
 }
