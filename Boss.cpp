@@ -440,8 +440,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
 						//BackStep(player);
 
-						//NomalSwordAttack(player);
-						RainOfSwordAttack();
+						NomalSwordAttack(player);
+						//RainOfSwordAttack();
 						//CircleOfDeathAttack(player);
 						//ShockWaveAttack(player, screen);
 						//ShockWaveAttack2(player, screen);
