@@ -29,7 +29,7 @@ void Boss::UpDate() {
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
-	Pos.x = Clamp::clamp(Pos.x, Size.x / 2, (1920 * 1.25) - Size.x / 2);
+	Pos.x = Clamp::clamp(Pos.x, Size.x / 2+100, (1920 * 1.25) - Size.x / 2-100);
 
 
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
