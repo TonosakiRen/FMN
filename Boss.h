@@ -136,6 +136,7 @@ class Boss {
 
 	}Circleofdeath[kMAX_CIR];
 	int Circleofdeath_flame;
+	int Circleofdeath_Expflame;
 	struct RainOfSword {
 		Vec2 Pos={0,0};
 		Quad QuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
@@ -172,6 +173,7 @@ class Boss {
 
 	}Rainofsword[kMAX_RAINSWORD];
 	int Rainofsword_flame;
+	
 
 	struct Keep {
 		int Time = 0;
@@ -386,6 +388,12 @@ class Boss {
 	int StepFPos = 0;
 	bool bStep = 0;
 	
+	float CircleOfDeathMotionT;
+	float CircleOfDeathMotionT2;
+	void CircleOfDeathMotion(int type);
+	float RainofswordMotionT;
+	float RainofswordMotionT2;
+	void RainOfSwordMotion(int type);
 
 public:
 	Boss();
@@ -423,7 +431,6 @@ public:
 	bool bCircleOfDeathAttack = false;
 	//派生スキル::行動が終わっても出続ける的なもの
 	void KeepWaveAttack();
-	
 
 	enum {
 		head,
