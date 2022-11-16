@@ -584,7 +584,6 @@ centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0
 centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1)
 {
-	
 }
 
 void Boss2::Set()

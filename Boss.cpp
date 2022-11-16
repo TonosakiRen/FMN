@@ -266,6 +266,33 @@ void Boss::KeepUpWaitBack(PlayerMain&player)
 		
 	}
 }
+void Boss::BackStep(PlayerMain& player)
+{	
+	Vec2 Distance = Pos - player.Translation();
+	if (Pos.x < 200 || Pos.x>2200) {
+		ShockWaveAttackCenter(player);
+	}
+
+	if (StepT==0) {
+		
+		StepFPos = Pos.x;
+	}
+	if (Distance.Length()< 400) {
+		bStep = true;
+	}
+	else if(bStep==false) {
+		Action = false;
+	}
+	if (bStep == true) {
+		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
+		if (StepT == 1) {
+			StepT = 0;
+			Action = false;
+			bStep = false;
+		}
+	}
+
+}
 void Boss::DirectionGet(PlayerMain& player) {
 	//プレイヤーの位置によってマイナスかプラスかわかる関羽数うすうす進巣
 	if (player.Translation().x <= Pos.x) {
@@ -389,7 +416,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 		CoolTime--;
 		State(player);
 		reload = Randam::RAND(0, 1);
-		KeepUpWaitBack(player);
+		KeepUpWaitBack(player); 
+		
 		RandMoveSet();
 		DirectionGet(player);
 
@@ -403,14 +431,16 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 			{
 				
 			case NORMAL:
-				CoolTime = 0;
+				CoolTime = 10;
 
 				switch (pattarn) {
 				case NEAR_1:
 				{
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//通常攻撃のコードはここ
-						NomalSwordAttack(player);
+						BackStep(player);
+
+						//NomalSwordAttack(player);
 						//RainOfSwordAttack();
 						//CircleOfDeathAttack();
 						//ShockWaveAttack(player, screen);
@@ -434,11 +464,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 
+						NomalSwordAttack(player);
+
 						
-						
-						//FMoveArray = array.AttackFunction02;
-						CoolTime = 0;
-						Action = false;
+						FMoveArray = array.AttackFunction02;
+						/*CoolTime = 0;
+						Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03 ) {
 						//5%の攻撃
@@ -618,12 +649,14 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					switch (pattarn) {
 					case NEAR_1:
 					{
+						
+
 						if (MovePattern[MoveArray] == array.NormalAttack) {
 							//通常攻撃のコードはここ
-							NomalSwordAttack2(player);
+							//NomalSwordAttack2(player);
 							//CircleOfDeathAttack();
 							//ShockWaveAttack(player, screen);
-
+							BackStep(player);
 							FMoveArray = array.NormalAttack;
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -665,14 +698,15 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//5%の攻撃
 							//JumpAttack(player);
 							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack(player);
+							NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
-							/*ShockWaveAttack(player, screen);
+							//ShockWaveAttack(player, screen);
 
-							FMoveArray = array.AttackFunction04;*/
+							FMoveArray = array.AttackFunction04;
+							//BackStep(player);
 
-							CoolTime = 0;
-							Action = false;
+							/*CoolTime = 0;
+							Action = false;*/
 
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction05) {
@@ -745,8 +779,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack(player);
 							//ShockWaveAttack(player, screen);
 							//ShockWaveAttack2(player, screen);
-							CoolTime = 0;
-							Action = false;
+							BackStep(player);
+
+							/*CoolTime = 0;
+							Action = false;*/
 							//FMoveArray = array.AttackFunction05;
 						}
 						if (MovePattern[MoveArray] == 0) {
@@ -832,6 +868,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				switch (pattarn) {
 				case NEAR_1:
 				{
+					
+
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//通常攻撃のコードはここ
 						NomalSwordAttack3(player);
@@ -871,11 +909,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						BackStep(player);
+
 
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction04;
-						CoolTime = 20;
+						//CoolTime = 20;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%の攻撃
@@ -1837,7 +1876,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
-				CoolTime = 220;
+				CoolTime = 180;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
 				Body.StandMotionFlag = 1;
@@ -1962,7 +2001,106 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
-				CoolTime = 220;
+				CoolTime = 180;
+				BossMotionTime = 0;
+				Head.StandMotionFlag = 1;
+				Body.StandMotionFlag = 1;
+				RightArm.StandMotionFlag = 1;
+				LeftArm.StandMotionFlag = 1;
+			}
+		}
+	}
+	if (BossMotionTime < MOTIONEND1 + MOTIONEND2) {
+		BossMotionTime++;
+	}
+}
+
+void Boss::ShockWaveAttackCenter(PlayerMain& player)
+{
+	int MOTIONEND1 = 50;
+	int MOTIONEND2 = 10;
+	int MOTIONEND3 = 10;
+	int MOTIONEND4 = 10;
+	Head.StandMotionFlag = 0;
+	Body.StandMotionFlag = 0;
+	RightArm.StandMotionFlag = 0;
+	LeftArm.StandMotionFlag = 0;
+	Leg.StandMotionFlag = 0;
+
+	float t = 0;
+	float angle = 0;
+	if (BossMotionTime <= MOTIONEND1) {
+		t = 1 - (BossMotionTime / MOTIONEND1);
+		Head.MotionPos.y = -80 * (1 - t * t);
+		Body.MotionPos.y = -55 * (1 - t * t);
+		LeftArm.MotionPos.y = -40 * (1 - t * t);
+		RightArm.MotionPos.y = -40 * (1 - t * t);
+		Leg.MotionPos.y = -20 * (1 - t * t);
+	}
+	else {
+		if (BossMotionTime - MOTIONEND1 <= MOTIONEND2) {
+			t = 1 - (BossMotionTime - MOTIONEND1) / MOTIONEND2;
+			Head.MotionPos.y = -80 + 80 * (1 - t * t * t * t);
+			Body.MotionPos.y = -55 + 55 * (1 - t * t * t * t);
+			LeftArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			RightArm.MotionPos.y = -40 + 40 * (1 - t * t * t * t);
+			Leg.MotionPos.y = -20 + 20 * (1 - t * t * t * t);
+		}
+
+		if (Attack == false) {
+			jumpattack.F_Pos = { Pos };
+			jumpattack.PlayerPosF.x = (2400)/2;
+			Attack = true;
+		}
+		else if (Attack == true) {
+			if (jumpattack.Matched == false) {
+				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
+				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
+
+				if (jumpattack.EaseT == 1) {
+
+					jumpattack.Matched = true;
+					//上に上がり切った
+				}
+			}
+			else if (jumpattack.Matched == true) {
+				Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
+				//下に落ちる
+				if (Pos.y == Size.y / 2) {
+					Wave[0].WaveKeep = true;
+				}
+
+				if (jumpattack.EaseDownT >= 0.3) {
+
+					if (BossMotionTime - MOTIONEND1 - MOTIONEND2 < MOTIONEND3) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2) / MOTIONEND3;
+						Head.MotionPos.y = -80 * (1 - t * t * t * t);
+						Body.MotionPos.y = -55 * (1 - t * t * t * t);
+						LeftArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						RightArm.MotionPos.y = -40 * (1 - t * t * t * t);
+						Leg.MotionPos.y = -20 * (1 - t * t * t * t);
+					}
+					else if (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3 < MOTIONEND4) {
+						t = 1 - (BossMotionTime - MOTIONEND1 - MOTIONEND2 - MOTIONEND3) / MOTIONEND4;
+						Head.MotionPos.y = -80 + 80 * (1 - t);
+						Body.MotionPos.y = -55 + 55 * (1 - t);
+						LeftArm.MotionPos.y = -40 + 40 * (1 - t);
+						RightArm.MotionPos.y = -40 + 40 * (1 - t);
+						Leg.MotionPos.y = -20 + 20 * (1 - t);
+					}
+					BossMotionTime++;
+				}
+			}
+
+			//screen.Shake(0, 0, -10, 10, jumpattack.EaseDownT <= 0.9f && jumpattack.EaseDownT >= 0.8f);
+
+			if (jumpattack.EaseDownT == 1.0f && BossMotionTime > 110) {
+				blade.Init();
+				jumpattack.Init();
+				Attack = false;
+				Action = false;
+				bShockWaveAttack = true;
+				CoolTime = 35;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
 				Body.StandMotionFlag = 1;
