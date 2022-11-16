@@ -2540,13 +2540,18 @@ void Boss::CircleOfDeathMotion(int type) {
 	if (type == 0) {
 		RightArm.StandMotionFlag = 0;
 		LeftArm.StandMotionFlag = 0;
+		Head.StandMotionFlag = 0;
+		Body.StandMotionFlag = 0;
 
 		Easing::easing(CircleOfDeathMotionT, 0, 90, 1.0f / 60, Easing::easeOutQuart);
 
-		RightArm.MotionPos.x = 90.0f * CircleOfDeathMotionT + 4 * Direction;
-		LeftArm.MotionPos.x = -90.0f * CircleOfDeathMotionT + 4 * Direction;
+		RightArm.MotionPos.x = 90.0f * CircleOfDeathMotionT + 16 * Direction;
+		LeftArm.MotionPos.x = -90.0f * CircleOfDeathMotionT + 16 * Direction;
 		RightArm.MotionPos.y = 70.0f * CircleOfDeathMotionT;
 		LeftArm.MotionPos.y = 70.0f * CircleOfDeathMotionT;
+		Head.MotionPos.x = 10.0f * CircleOfDeathMotionT * Direction;
+		Head.MotionPos.y = -30.0f * CircleOfDeathMotionT;
+		Body.MotionPos.y = -20.0f * CircleOfDeathMotionT;
 
 		int angle = -180 + 150 * CircleOfDeathMotionT;
 
@@ -2591,10 +2596,13 @@ void Boss::CircleOfDeathMotion(int type) {
 	else if (type == 1) {
 
 		Easing::easing(CircleOfDeathMotionT2, 0, 90.0f, 1.0f / 5, Easing::easeInOutBack);
-		RightArm.MotionPos.x = 90.0f - 160.0f * CircleOfDeathMotionT2 + 4 * Direction;
-		LeftArm.MotionPos.x = -90.0f + 160.0f * CircleOfDeathMotionT2 + 4 * Direction;
+		RightArm.MotionPos.x = 90.0f - 160.0f * CircleOfDeathMotionT2 + 16 * Direction;
+		LeftArm.MotionPos.x = -90.0f + 160.0f * CircleOfDeathMotionT2 + 16 * Direction;
 		RightArm.MotionPos.y = 110.0f * CircleOfDeathMotionT2;
 		LeftArm.MotionPos.y = 110.0f * CircleOfDeathMotionT2;
+		Head.MotionPos.x = 10.0f * Direction - 15.0f * CircleOfDeathMotionT * Direction;
+		Head.MotionPos.y = -30.0f + 40.0f * CircleOfDeathMotionT;
+		Body.MotionPos.y = -20.0f + 25.0f * CircleOfDeathMotionT;
 
 		int angle = -30 - 260.0f * CircleOfDeathMotionT2;
 
@@ -2642,9 +2650,13 @@ void Boss::CircleOfDeathMotion(int type) {
 
 		RightArm.MotionPos = { 0,0 };
 		LeftArm.MotionPos = { 0,0 };
+		Body.MotionPos = { 0,0 };
+		Head.MotionPos = { 0,0 };
 
 		RightArm.StandMotionFlag = 1;
 		LeftArm.StandMotionFlag = 1;
+		Body.StandMotionFlag = 1;
+		Head.StandMotionFlag = 1;
 
 	}
 }
