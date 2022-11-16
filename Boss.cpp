@@ -190,11 +190,11 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2Renban(RightArm.ImageQuad, SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 0, 60, AnimeFlame, rightarm, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 0, 60, AnimeFlame, leftarm, WHITE, BossisFlip);
 
-	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	//screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
-	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
+	screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
 	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
@@ -440,8 +440,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
 						//BackStep(player);
 
-						NomalSwordAttack(player);
-						//RainOfSwordAttack();
+						//NomalSwordAttack(player);
+						RainOfSwordAttack();
 						//CircleOfDeathAttack(player);
 						//ShockWaveAttack(player, screen);
 						//ShockWaveAttack2(player, screen);
@@ -2187,6 +2187,12 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 
 void Boss::RainOfSwordAttack() {
 
+	if (RainofswordMotionT2 == 0) {
+		RainOfSwordMotion(0);
+	}
+	if (Rainofsword[kMAX_RAINSWORD - 1].DownT >= 0.23) {
+		RainOfSwordMotion(1);
+	}
 	Rainofsword_flame++;
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		if (Rainofsword_flame % 4 == 0 && Rainofsword[i].Set == false) {
@@ -2212,7 +2218,7 @@ void Boss::RainOfSwordAttack() {
 				Rainofsword[i].Reserve = true;
 			}
 		}
-		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true) {
+		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true && RainofswordMotionT == 1) {
 			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0, 0.02f, Easing::easeInBack);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
 			Rainofsword[i].ColQuadPos = Quad::Quad(
@@ -2227,7 +2233,7 @@ void Boss::RainOfSwordAttack() {
 			Rainofsword_flame = 0;
 			Action = false;
 			CoolTime = 80;
-
+			RainOfSwordMotion(2);
 		}
 	}
 }
@@ -2595,7 +2601,7 @@ void Boss::CircleOfDeathMotion(int type) {
 	}
 	else if (type == 1) {
 
-		Easing::easing(CircleOfDeathMotionT2, 0, 90.0f, 1.0f / 5, Easing::easeInOutBack);
+		Easing::easing(CircleOfDeathMotionT2, 0, 1.0f, 1.0f / 5, Easing::easeInOutBack);
 		RightArm.MotionPos.x = 90.0f - 160.0f * CircleOfDeathMotionT2 + 16 * Direction;
 		LeftArm.MotionPos.x = -90.0f + 160.0f * CircleOfDeathMotionT2 + 16 * Direction;
 		RightArm.MotionPos.y = 110.0f * CircleOfDeathMotionT2;
@@ -2657,6 +2663,151 @@ void Boss::CircleOfDeathMotion(int type) {
 		LeftArm.StandMotionFlag = 1;
 		Body.StandMotionFlag = 1;
 		Head.StandMotionFlag = 1;
+
+	}
+}
+
+void Boss::RainOfSwordMotion(int type) {
+	if (type == 0) {
+		RightArm.StandMotionFlag = 0;
+		LeftArm.StandMotionFlag = 0;
+		Head.StandMotionFlag = 0;
+		Body.StandMotionFlag = 0;
+		Leg.StandMotionFlag = 0;
+
+		Easing::easing(RainofswordMotionT, 0, 1, 1.0f / 120, Easing::easeInSine);
+
+		RightArm.MotionPos.y = 20 + 180.0f * RainofswordMotionT;
+		LeftArm.MotionPos.y = 20 + 180.0f * RainofswordMotionT;
+		Head.MotionPos.y = 30.0f * RainofswordMotionT;
+		Body.MotionPos.y = 20.0f * RainofswordMotionT;
+		Leg.MotionPos.y = 10.0f * RainofswordMotionT;
+
+		int angle = 180 - 150 * RainofswordMotionT;
+
+		float theta = angle / 180.0f * M_PI;
+
+		Matrix2x2 mat = MakeRotateMatrix(theta);
+
+		Vec2 LeftTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 72 };
+		Vec2 RightTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 + 72 };
+		Vec2 LeftBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 72 };
+		Vec2 RightBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2 + 72 };
+
+		LeftTop.x *= Direction;
+		RightTop.x *= Direction;
+		LeftBottom.x *= Direction;
+		RightBottom.x *= Direction;
+
+		RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+		RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+		RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+		RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+		theta = -angle / 180.0f * M_PI;
+
+		mat = MakeRotateMatrix(theta);
+
+		LeftTop = { -LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 + 72 };
+		RightTop = { LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 + 72 };
+		LeftBottom = { -LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 + 72 };
+		RightBottom = { LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 + 72 };
+
+		LeftTop.x *= Direction;
+		RightTop.x *= Direction;
+		LeftBottom.x *= Direction;
+		RightBottom.x *= Direction;
+
+		LeftArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		LeftArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		LeftArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		LeftArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		LeftArm.ImageQuad.LeftTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.LeftBottom += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightBottom += LeftArm.ImagePos;
+	}else if (type == 1) {
+
+		Easing::easing(RainofswordMotionT2, 0, 1, 1.0f / 15, Easing::easeInOutBack);
+
+		RightArm.MotionPos.y = 180.0f - 200.0f * RainofswordMotionT2;
+		LeftArm.MotionPos.y = 180.0f - 200.0f * RainofswordMotionT2;
+		Head.MotionPos.y = 30.0f - 70.0f * RainofswordMotionT2;
+		Body.MotionPos.y = 20.0f - 50.0f * RainofswordMotionT2;
+		Leg.MotionPos.y = 10.0f - 20.0f * RainofswordMotionT2;
+
+		int angle = 30 + 150 * RainofswordMotionT;
+
+		float theta = angle / 180.0f * M_PI;
+
+		Matrix2x2 mat = MakeRotateMatrix(theta);
+
+		Vec2 LeftTop = { RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2 };
+		Vec2 RightTop = { -RightArm.ImageSize.x / 2 , -RightArm.ImageSize.y / 2  };
+		Vec2 LeftBottom = { RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2  };
+		Vec2 RightBottom = { -RightArm.ImageSize.x / 2 , RightArm.ImageSize.y / 2  };
+
+		LeftTop.x *= Direction;
+		RightTop.x *= Direction;
+		LeftBottom.x *= Direction;
+		RightBottom.x *= Direction;
+
+		RightArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		RightArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		RightArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		RightArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		RightArm.ImageQuad.LeftTop += RightArm.ImagePos;
+		RightArm.ImageQuad.RightTop += RightArm.ImagePos;
+		RightArm.ImageQuad.LeftBottom += RightArm.ImagePos;
+		RightArm.ImageQuad.RightBottom += RightArm.ImagePos;
+
+		theta = -angle / 180.0f * M_PI;
+
+		mat = MakeRotateMatrix(theta);
+
+		LeftTop = { LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2};
+		RightTop = { -LeftArm.ImageSize.x / 2 , -LeftArm.ImageSize.y / 2 };
+		LeftBottom = { LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+		RightBottom = { -LeftArm.ImageSize.x / 2 , LeftArm.ImageSize.y / 2 };
+
+		LeftTop.x *= Direction;
+		RightTop.x *= Direction;
+		LeftBottom.x *= Direction;
+		RightBottom.x *= Direction;
+
+		LeftArm.ImageQuad.LeftTop = Multiply(LeftTop, mat);
+		LeftArm.ImageQuad.RightTop = Multiply(RightTop, mat);
+		LeftArm.ImageQuad.LeftBottom = Multiply(LeftBottom, mat);
+		LeftArm.ImageQuad.RightBottom = Multiply(RightBottom, mat);
+
+		LeftArm.ImageQuad.LeftTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightTop += LeftArm.ImagePos;
+		LeftArm.ImageQuad.LeftBottom += LeftArm.ImagePos;
+		LeftArm.ImageQuad.RightBottom += LeftArm.ImagePos;
+	}
+	else {
+
+	RainofswordMotionT = 0;
+	RainofswordMotionT2 = 0;
+
+	RightArm.MotionPos = { 0,0 };
+	LeftArm.MotionPos = { 0,0 };
+	Body.MotionPos = { 0,0 };
+	Head.MotionPos = { 0,0 };
+	Leg.MotionPos = { 0,0 };
+
+	RightArm.StandMotionFlag = 1;
+	LeftArm.StandMotionFlag = 1;
+	Body.StandMotionFlag = 1;
+	Head.StandMotionFlag = 1;
+	Leg.StandMotionFlag = 1;
 
 	}
 }
