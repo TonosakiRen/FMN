@@ -32,9 +32,6 @@ Effect bossRightArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0
 Effect bossLeftArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect bossLegEffect(15, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 
-Effect2 centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f,1);
-Effect2 centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1);
-Effect2 centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1);
 
 enum Scene {
 	title,

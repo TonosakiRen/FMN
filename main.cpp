@@ -106,34 +106,39 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						playermain.PlayerHit(boss.GetCircleOfDeathQuad(i));
 					}
 
-					/*for (int i = 0; i < 20; i++) {
-						playermain.PlayerHit({ centerOfDarknessUnder.particles[i].quad.GetCenter(),centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
-						playermain.PlayerHit({ centerOfDarknessLeft.particles[i].quad.GetCenter(),centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
-						playermain.PlayerHit({ centerOfDarknessRight.particles[i].quad.GetCenter(),centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
-					}*/
+					for (int i = 0; i < 20; i++) {
+						playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
+						playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
+						playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+					}
+					//bossのエフェクト
+					if (boss.IsLife == true) {
+						boss.BossHit(playermain.GetHitSword());
 
-					boss.BossHit(playermain.GetHitSword());
+						effect01.Update(true, playermain.GetPlayerQuad());
+						effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
+						effect03.Update(true, { {0,-Floor},SCREEN_WIDTH,Floor });
+						bossBodyEffect.Update(true, boss.GetBossQuad(boss.body));
+						bossHeadEffect.Update(true, boss.GetBossQuad(boss.head));
+						bossRightArmEffect.Update(true, boss.GetBossQuad(boss.rightarm));
+						bossLeftArmEffect.Update(true, boss.GetBossQuad(boss.leftarm));
+						bossLegEffect.Update(true, boss.GetBossQuad(boss.leg));
 
-					effect01.Update(true, playermain.GetPlayerQuad());
-					effect02.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
-					effect03.Update(true, { {0,-Floor},SCREEN_WIDTH,Floor });
-					bossBodyEffect.Update(true, boss.GetBossQuad(boss.body));
-					bossHeadEffect.Update(true, boss.GetBossQuad(boss.head));
-					bossRightArmEffect.Update(true, boss.GetBossQuad(boss.rightarm));
-					bossLeftArmEffect.Update(true, boss.GetBossQuad(boss.leftarm));
-					bossLegEffect.Update(true, boss.GetBossQuad(boss.leg));
+					}
+					//boss2のエフェクト
+					if (boss2.IsLife == true) {
+						boss2.centerOfDarknessUnder.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
+						boss2.centerOfDarknessLeft.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
+						boss2.centerOfDarknessRight.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
 
-					/*centerOfDarknessUnder.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
-					centerOfDarknessLeft.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
-					centerOfDarknessRight.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
+						boss2.centerOfDarknessUnder.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
+						boss2.centerOfDarknessLeft.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
+						boss2.centerOfDarknessRight.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
 
-					centerOfDarknessUnder.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
-					centerOfDarknessLeft.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
-					centerOfDarknessRight.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
-
-					centerOfDarknessUnder.Update(true, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
-					centerOfDarknessLeft.Update(true, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
-					centerOfDarknessRight.Update(true, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });*/
+						boss2.centerOfDarknessUnder.Update(true, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
+						boss2.centerOfDarknessLeft.Update(true, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
+						boss2.centerOfDarknessRight.Update(true, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
+					}
 
 					if (playermain.GetHitSword() == true) {
 						if (playermain.GetisFaceUp()) {

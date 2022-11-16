@@ -5,6 +5,7 @@
 #include"Screen.h"
 #include"PlayerMain.h"
 #include"Circle.h"
+#include "Effect2.h"
 
 
 //const int MAX_PATTERN= 100;
@@ -132,7 +133,11 @@ class Boss2 {
 
 	float BossMotionTime = 0;
 
-
+	public:
+	bool isCenterOfDarkness = 0;
+	Effect2 centerOfDarknessLeft;
+	Effect2 centerOfDarknessRight;
+	Effect2 centerOfDarknessUnder;
 
 
 public:
