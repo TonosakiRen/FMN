@@ -116,8 +116,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
 						boss2.UpDate();
-						boss2.KeepUpWaitBack(playermain);
-						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 20; i++) {
 							playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });

@@ -13,7 +13,7 @@
 //const int kMAX_RAINSWORD = 30;
 //const int kMAX_WAVE = 2;
 const int MAX2_PATTERN = 100;
-const int Max_Zan = 8;
+const int Max_Zan = 20;
 class Boss2 {
 
 	//‰æ‘œ‚ÌéŒ¾
@@ -159,6 +159,7 @@ public:
 	void RandamMoveSelect(int rand, PlayerMain& player, Screen& screen);
 	void RandMoveSet();
 	int ReloadMove(int Movearry);
+	void Zanzou();
 	//ƒXƒLƒ‹
 	
 

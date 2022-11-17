@@ -584,26 +584,39 @@ int Boss2::ReloadMove(int Movearry)
 	}
 }
 
+void Boss2::Zanzou()
+{
+	Zanflame++;
+	if (Zanflame > 100) Zanflame = 1;
+	for (int i = 0; i < Max_Zan; i++) {
+		if (Zanflame % 2 == 0&&zanzou[i].bSet==false) {
+
+			zanzou[i].Pos = Quad_Pos;
+			zanzou[i].LifeTime = 3;
+			zanzou[i].bSet = true;
+			break;
+
+		}
+		if (zanzou[i].bSet == true) {
+			zanzou[i].LifeTime --;
+			if (zanzou[i].LifeTime == 0) {
+				zanzou[i].bSet = false;
+			}
+		}
+	}
+}
+
 void Boss2::UpDate()
 {
 
-	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
 
 
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 	Pos.x = Clamp::clamp(Pos.x, Size.x / 2, (1920 * 1.25) - Size.x / 2);
-	Zanflame++;
-	if (Zanflame > 100) Zanflame = 0;
-	for (int i = 0; i < Max_Zan; i++) {
-		if (Zanflame % 5 == 0) {
-			
-			zanzou[i].Pos = Quad_Pos;
-			
-		}
-		break;
+	Zanzou();
+	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
 
-	}
 
 
 	//UŒ‚‚ð“–‚Ä‚ç‚ê‚½Žž‚Ìˆ—
@@ -631,7 +644,7 @@ void Boss2::Draw(Screen& screen)
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
 	for (int i = 0; i < Max_Zan; i++)
 	{
-		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FF0066);
+		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FFFF66);
 
 	};
 	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
