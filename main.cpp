@@ -44,7 +44,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
-
+	//test
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
