@@ -3,7 +3,8 @@
 #include "Key.h"
 #include "Easing.h"
 #include "Randam.h"
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
@@ -632,6 +633,10 @@ void Boss2::KeepUP(PlayerMain& player)
 
 void Boss2::KeepUpWaitBack(PlayerMain& player)
 {
+	
+	keep.theta+=M_PI/60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
 }
 
 void Boss2::DirectionGet(PlayerMain& player)

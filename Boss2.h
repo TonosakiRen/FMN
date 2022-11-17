@@ -51,22 +51,20 @@ class Boss2 {
 	Quad Quad_Pos;
 	Vec2 Size;
 	
-	
-	
-	
-	
-
 	int HP = 2000;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 
-
-	int load = 0;//画像読み来み
-	
 	struct Keep {
 		int Time = 0;
 		int rand = 0;
+		float theta = 0;
+		float YMove = 0;
 	}keep;
+
+	int load = 0;//画像読み来み
+	
+	
 	//スウィッチ
 	enum Pattarn
 	{

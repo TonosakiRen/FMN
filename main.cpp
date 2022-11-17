@@ -67,11 +67,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				
 			}
 			break;
 		case stage:
 			//ステージ処理
-
+			//if(boss.IsLife==false&&boss2.IsLife==false)
 			if (stopper.Pause() == false) {
 				if (stopper.HitStopUpdate() == false) {
 					playermain.Move();
@@ -81,6 +82,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					//bossのアップデート
 					if(boss.IsLife==true) {
+
+						///デバック用
+						boss.IsLife = false;
+						///デバック用
+
 						boss.UpDate();
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
@@ -105,7 +111,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
 						boss2.UpDate();
-						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						boss2.KeepUpWaitBack(playermain);
+						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 20; i++) {
 							playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
