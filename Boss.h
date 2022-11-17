@@ -173,6 +173,7 @@ class Boss {
 
 	}Rainofsword[kMAX_RAINSWORD];
 	int Rainofsword_flame;
+	
 
 	struct Keep {
 		int Time = 0;
@@ -390,6 +391,9 @@ class Boss {
 	float CircleOfDeathMotionT;
 	float CircleOfDeathMotionT2;
 	void CircleOfDeathMotion(int type);
+	float RainofswordMotionT;
+	float RainofswordMotionT2;
+	void RainOfSwordMotion(int type);
 
 public:
 	Boss();
