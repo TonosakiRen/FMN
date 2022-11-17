@@ -15,11 +15,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 	int tex = Novice::LoadTexture("white1x1.png");
-	int effect01Img = Novice::LoadTexture("./Resources/Images/Effect01.png");
-	int effect02Img = Novice::LoadTexture("./Resources/Images/Effect02.png");
-	int effect03Img = Novice::LoadTexture("./Resources/Images/Effect03.png");
-	int playerEffectImg = Novice::LoadTexture("./Resources/Images/Effect04.png");
-	int effect05Img = Novice::LoadTexture("./Resources/Images/Effect05.png");
+	int quadRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect01.png");
+	int circleRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect02.png");
+	int circleEffectImg = Novice::LoadTexture("./Resources/Images/Effect03.png");
+	int quadBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect04.png");
+	int CircleBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect05.png");
 	int mainaBladeImg = Novice::LoadTexture("./Resources/Images/mainblade.png");
 	int upMainaBladeImg = Novice::LoadTexture("./Resources/Images/upmainblade.png");
 	int downMainaBladeImg = Novice::LoadTexture("./Resources/Images/downmainblade.png");
@@ -252,25 +252,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::SetBlendMode(kBlendModeNormal);
 
 			//エフェクト描画
-			playerEffect.Draw(screen, 128, playerEffectImg, WHITE, kBlendModeAdd);
-			enemySwordEffect.Draw(screen, 128, effect01Img, WHITE, kBlendModeAdd);
-			stageEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossBodyEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossBodyEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			bossHeadEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossHeadEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			bossRightArmEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossRightArmEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			bossLeftArmEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossLeftArmEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			bossLegEffect.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			bossLegEffect.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			boss2.centerOfDarknessRight.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			boss2.centerOfDarknessRight.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			boss2.centerOfDarknessLeft.Draw(screen, 128, effect03Img, RED, kBlendModeAdd);
-			boss2.centerOfDarknessLeft.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
-			boss2.centerOfDarknessUnder.Draw(screen, 128, effect03Img, RED, kBlendModeNormal);
-			boss2.centerOfDarknessUnder.Draw(screen, 128, effect03Img, BLACK, kBlendModeNormal);
+			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
+			enemySwordEffect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
+			stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossBodyEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossBodyEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			bossHeadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossHeadEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			bossRightArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossRightArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			bossLeftArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossLeftArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			bossLegEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			bossLegEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, RED, kBlendModeNormal);
+			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 
 			//プレイヤー描画
 			playermain.Draw(screen, ziki);
@@ -286,7 +286,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
-			playerEffectSword.Draw(screen, 128, effect03Img, 0x20a8b4FF, kBlendModeAdd);
+			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
 
 
 
