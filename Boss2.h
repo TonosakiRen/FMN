@@ -13,7 +13,7 @@
 //const int kMAX_RAINSWORD = 30;
 //const int kMAX_WAVE = 2;
 const int MAX2_PATTERN = 100;
-
+const int Max_Zan = 8;
 class Boss2 {
 
 	//画像の宣言
@@ -51,22 +51,29 @@ class Boss2 {
 	Quad Quad_Pos;
 	Vec2 Size;
 	
-	
-	
-	
-	
-
 	int HP = 2000;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 
-
-	int load = 0;//画像読み来み
-	
 	struct Keep {
 		int Time = 0;
 		int rand = 0;
+		float theta = 0;
+		float YMove = 0;
+		float Ease_T = 0;
+		float FPos = 0;
+		bool bMove = false;
+
 	}keep;
+	struct Zanzou {
+		Quad Pos = { {9999,9999},{9999,9999},{9999,9999},{9999,9999} };
+		int LifeTime = 0;
+		bool bSet = 0;
+	}zanzou[Max_Zan];
+	int Zanflame = 0;
+	int load = 0;//画像読み来み
+	
+	
 	//スウィッチ
 	enum Pattarn
 	{

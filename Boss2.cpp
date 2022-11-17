@@ -3,9 +3,16 @@
 #include "Key.h"
 #include "Easing.h"
 #include "Randam.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
+Boss2::Boss2() :
+	centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1)
+{
 
-
+}
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
 	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
@@ -577,14 +584,35 @@ int Boss2::ReloadMove(int Movearry)
 	}
 }
 
-
-
-Boss2::Boss2():
-centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1)
+void Boss2::UpDate()
 {
+
+	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
+
+
+
+	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
+	Pos.x = Clamp::clamp(Pos.x, Size.x / 2, (1920 * 1.25) - Size.x / 2);
+	Zanflame++;
+	if (Zanflame > 100) Zanflame = 0;
+	for (int i = 0; i < Max_Zan; i++) {
+		if (Zanflame % 5 == 0) {
+			
+			zanzou[i].Pos = Quad_Pos;
+			
+		}
+		break;
+
+	}
+
+
+	//攻撃を当てられた時の処理
+	if (isBossHit == true) {
+		HP -= 25;
+	};
 }
+
+
 
 void Boss2::Set()
 {
@@ -601,26 +629,16 @@ void Boss2::Draw(Screen& screen)
 		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
 	}
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
+	for (int i = 0; i < Max_Zan; i++)
+	{
+		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FF0066);
+
+	};
 	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
 	//screen.DrawQuad2Renban(Quad_Pos,)
 }
 
-void Boss2::UpDate()
-{
 
-	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
-	
-	
-
-	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
-	Pos.x = Clamp::clamp(Pos.x, Size.x / 2, (1920 * 1.25) - Size.x / 2);
-
-
-	//攻撃を当てられた時の処理
-	if (isBossHit == true) {
-		HP -= 25;
-	};
-}
 
 void Boss2::State(PlayerMain& player)
 {
@@ -632,8 +650,54 @@ void Boss2::KeepUP(PlayerMain& player)
 
 void Boss2::KeepUpWaitBack(PlayerMain& player)
 {
+	if (keep.Time != 0) {
+		keep.theta += M_PI / 60;
+		keep.YMove = sinf(keep.theta) * 1;
+		Pos.y += keep.YMove;
+	}
+	if (keep.bMove == false) {
+
+		keep.Time++;
+	}
+	if (keep.Time == 50&& keep.bMove == false) {
+		keep.rand = Randam::RAND(0, 100);
+		keep.FPos = Pos.x;
+		DirectionGet(player);
+		keep.Ease_T = 0;
+		keep.Time = 0;
+		keep.bMove = true;
+	}
+	if (keep.bMove == true) {
+		if (0 <= keep.rand && keep.rand <= 50) {
+			/*Vec2 vel = (player.Translation() - Pos).Normalized();
+			Pos.x += vel.x * 10;*/
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 500, 0.01, Easing::easeInBack);
+			if (keep.Ease_T == 1) {
+				keep.bMove = false;
+			}
+		}
+		if (51 <= keep.rand && keep.rand <= 100) {
+			/*Vec2 vel = (player.Translation() - Pos).Normalized();
+			Pos.x -= vel.x * 10;*/
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 500, 0.01, Easing::easeInBack);
+			if (keep.Ease_T == 1) {
+				keep.bMove = false;
+			}
+		}
+		/*if (41 <= keep.rand && keep.rand <= 100) {
+			keep.Ease_T += 0.01f;
+			if (keep.Ease_T == 1) {
+				keep.bMove = false;
+			}
+		}*/
+	}
 }
 
 void Boss2::DirectionGet(PlayerMain& player)
 {
+	//プレイヤーの位置によってマイナスかプラスかわかる関羽数うすうす進巣
+	if (player.Translation().x <= Pos.x) {
+		Direction = -1;
+	}
+	else Direction = 1;
 }

@@ -30,6 +30,7 @@ void Boss::UpDate() {
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 	Pos.x = Clamp::clamp(Pos.x, Size.x / 2+100, (1920 * 1.25) - Size.x / 2-100);
+	blade.LeftTop.x = Clamp::clamp(blade.LeftTop.x, Size.x / 2 + 100, (1920 * 1.25) - Size.x / 2 - 100);
 
 
 	//攻撃を当てられた時の処理
@@ -156,6 +157,9 @@ void Boss::Set()
 	RightBottom = { Pos.x + (Size.x / 2),Pos.y - (Size.y / 2) };
 	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
 
+	HP = 2000;
+	IsLife = true;
+	CoolTime = 200;
 }
 
 
@@ -942,8 +946,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
 						//RainOfSwordAttack();
-						Action = false;
-						CoolTime = 0;
+						CircleOfDeathAttack(player);
+						/*Action = false;
+						CoolTime = 0;*/
 						//FMoveArray = array.AttackFunction05;
 					}
 					if (MovePattern[MoveArray] == 0) {
@@ -964,9 +969,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
-						NomalRotedSwordAttack2(player);
+						//NomalRotedSwordAttack2(player);
 
-						//NomalSwordAttack(player);
+						NomalSwordAttack2(player);
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction01;
 					}
@@ -1044,7 +1049,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						RainOfSwordAttack();
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction02;
-						CoolTime = 10;
+						//CoolTime = 10;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
@@ -1895,7 +1900,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
-				CoolTime = 180;
+				CoolTime = 120;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
 				Body.StandMotionFlag = 1;
@@ -2020,7 +2025,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
-				CoolTime = 180;
+				CoolTime = 120;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
 				Body.StandMotionFlag = 1;
@@ -2176,7 +2181,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 
 				if (CircleOfDeathMotionT2 >= 1 ) {
 					//Circleofdeath[i].Reserve = false;
-					Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.01f, Easing::easeOutExpo);
+					Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.02f, Easing::easeOutExpo);
 					Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, 0);
 
 					if (Circleofdeath[i].Reserve_t == 1.0f) {
@@ -2193,7 +2198,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 				Circleofdeath_flame = 0;
 				Circleofdeath_Expflame = 0;
 				Circleofdeath[i].Init();
-				CoolTime = 80;
+				CoolTime = 30;
 				CircleOfDeathMotion(2);
 			}
 		}
@@ -2215,7 +2220,7 @@ void Boss::RainOfSwordAttack() {
 	}
 	Rainofsword_flame++;
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
-		if (Rainofsword_flame % 4 == 0 && Rainofsword[i].Set == false) {
+		if (Rainofsword_flame % 3 == 0 && Rainofsword[i].Set == false) {
 			Rainofsword[i].Pos.x = Pos.x+Randam::RAND(-800, 800);
 			Rainofsword[i].Pos.y = 800;
 			Rainofsword[i].Set = true;
@@ -2252,7 +2257,7 @@ void Boss::RainOfSwordAttack() {
 			Rainofsword[i].Init();
 			Rainofsword_flame = 0;
 			Action = false;
-			CoolTime = 80;
+			CoolTime = 20;
 			RainOfSwordMotion(2);
 		}
 	}
