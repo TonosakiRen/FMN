@@ -14,12 +14,13 @@
 #include "Stopper.h"
 #include "Effect2.h"
 #include "Effect.h"
-
+#include "Background.h"
 
 Screen screen;
 PlayerMain playermain;
 Boss boss;
 Boss2 boss2;
+Background background;
 
 Stopper stopper;
 Effect playerEffect(30, 2, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f, 1);

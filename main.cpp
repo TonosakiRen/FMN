@@ -41,7 +41,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bossrightarmImg = Novice::LoadTexture("./Resources/Images/Boss/RightArm.png");
 	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
 	int ziki = Novice::LoadTexture("./Resources/Images/ziki.png");
-	int background = Novice::LoadTexture("./Resources/Images/background.png");
+
+	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png");
+	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
+	int bg3_gra = Novice::LoadTexture("./Resources/images/Background/Background3.png");
+
+	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
 	//test
@@ -245,11 +250,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 			//ステージ描画処理
-			//背景
-			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
-			Novice::SetBlendMode(kBlendModeAdd);
-			screen.DrawQuad2Normal(0 - screen.Scroll.x, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, background, WHITE);
-			Novice::SetBlendMode(kBlendModeNormal);
+			//背景d
+
+			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra);
+
+			//Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
+			//Novice::SetBlendMode(kBlendModeAdd);
+			//screen.DrawQuad2Normal(0 - screen.Scroll.x, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, background, WHITE);
+			//Novice::SetBlendMode(kBlendModeNormal);
 
 			//エフェクト描画
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
