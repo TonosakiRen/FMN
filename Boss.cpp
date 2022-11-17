@@ -274,18 +274,23 @@ void Boss::BackStep(PlayerMain& player)
 		StepFPos = Pos.x;
 	}
 	
-	if (Distance.Length()< 400) {
-		if (Pos.x < 200 || Pos.x>2200) {
-			ShockWaveAttackCenter(player);
+	if (Distance.Length() < 400 ) {
+		if ((Pos.x < 300 || Pos.x>2100) && bStep == false) {
+			bJumpAttack2 = true;
 		}
-		else {
-			bStep = true;
+		else if(bJumpAttack2 ==false) {
+			
+				bStep = true;
+			
 		}
 	}
-	else if (bStep == false) {
+	else if (bStep == false&& bJumpAttack2==false) {
 		Action = false;
 	}
+	if (bJumpAttack2 == true) {
+		ShockWaveAttackCenter(player);
 
+	}
 	if (bStep == true) {
 		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
 		if (StepT == 1) {
@@ -492,10 +497,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);						
-						FMoveArray = array.AttackFunction04;
-						/*CoolTime = 0;
-						Action = false;*/
+						/*ShockWaveAttack(player, screen);						
+						FMoveArray = array.AttackFunction04;*/
+						CoolTime = 0;
+						Action = false;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05 ) {
@@ -531,24 +536,26 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
-						NomalSwordAttack(player);
-						/*Action = false;*/
-						FMoveArray = array.AttackFunction01;
+						//NomalSwordAttack(player);
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction01;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-
-						//FMoveArray = array.AttackFunction02;
-						Action = false;
-						CoolTime = 0;
+						NomalSwordAttack(player);
+						FMoveArray = array.AttackFunction02;
+						/*Action = false;
+						CoolTime = 0;*/
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
-						NomalSwordAttack(player);
+						//NomalSwordAttack(player);
+						ShockWaveAttack(player, screen);
 
 						//NomalRotedSwordAttack(player);
 						/*Action = false;*/
@@ -558,9 +565,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%の攻撃
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
-						ShockWaveAttack(player, screen);
-						/*Action = false;*/
-						FMoveArray = array.AttackFunction04;
+						//ShockWaveAttack(player, screen);
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction04;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%の攻撃
@@ -592,7 +600,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
 						//JumpAttack(player, screen);
-						NomalSwordAttack(player);
+						NomalRotedSwordAttack(player);
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
 						/*Action = false;*/
@@ -600,10 +608,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
 						//NomalRotedSwordAttack(player);
 						//CircleOfDeathAttack(player);
 						//NomalSwordAttack(player);
+						NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
 						//JumpAttack(player, screen);
 						/*Action = false;*/
@@ -616,7 +624,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
 						FMoveArray = array.AttackFunction03;
-						CoolTime = 45;
+						//CoolTime = 45;
 						/*Action = false;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction04) {
@@ -678,8 +686,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						if (MovePattern[MoveArray] == array.AttackFunction02) {
 							//5%の攻撃
 							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack2(player);
-							RainOfSwordAttack();
+							NomalSwordAttack2(player);
+							//RainOfSwordAttack();
 
 
 							FMoveArray = array.AttackFunction02;
@@ -702,10 +710,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//5%の攻撃
 							//JumpAttack(player);
 							//NomalRotedSwordAttack(player);
-							NomalSwordAttack(player);
+							//NomalSwordAttack(player);
 							//ShockWaveAttack(player, screen);
 							//ShockWaveAttack(player, screen);
-
+							RainOfSwordAttack();
 							FMoveArray = array.AttackFunction04;
 							//BackStep(player);
 
@@ -746,25 +754,27 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						if (MovePattern[MoveArray] == array.AttackFunction01) {
 							//5%の攻撃
 							//NomalRotedSwordAttack(player);
-							NomalSwordAttack2(player);
-							/*Action = false;*/
-							FMoveArray = array.AttackFunction01;
+							//NomalSwordAttack2(player);
+							Action = false;
+							CoolTime = 0;
+							//FMoveArray = array.AttackFunction01;
 
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction02) {
 							//5%の攻撃
 							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack2(player);
-							RainOfSwordAttack();
-							//FMoveArray = array.AttackFunction02;
+							NomalSwordAttack2(player);
+							//RainOfSwordAttack();
+							FMoveArray = array.AttackFunction02;
 							/*Action = false;
 							CoolTime = 0;*/
 
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction03) {
 							//5%の攻撃
-							NomalSwordAttack2(player);
-
+							//NomalSwordAttack2(player);
+							//RainOfSwordAttack();
+							ShockWaveAttack(player,screen);
 							//NomalRotedSwordAttack(player);
 							/*Action = false;*/
 							FMoveArray = array.AttackFunction03;
@@ -773,8 +783,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//5%の攻撃
 							//JumpAttack(player);
 							//NomalRotedSwordAttack(player);
-							ShockWaveAttack(player, screen);
+							//ShockWaveAttack(player, screen);
+							RainOfSwordAttack();
 							/*Action = false;*/
+
 							FMoveArray = array.AttackFunction04;
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction05) {
@@ -783,10 +795,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalRotedSwordAttack(player);
 							//ShockWaveAttack(player, screen);
 							//ShockWaveAttack2(player, screen);
-							BackStep(player);
+							//BackStep(player);
 
-							/*CoolTime = 0;
-							Action = false;*/
+							CoolTime = 0;
+							Action = false;
 							//FMoveArray = array.AttackFunction05;
 						}
 						if (MovePattern[MoveArray] == 0) {
@@ -803,7 +815,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//NomalSwordAttack(player);
 							//JumpAttack(player, screen);
 							//ShockWaveAttack(player, screen);
-							ShockWaveAttack(player, screen);
+							//ShockWaveAttack(player, screen);
+							CircleOfDeathAttack(player);
 							FMoveArray = array.NormalAttack;
 
 						}
@@ -835,7 +848,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 							//JumpAttack(player, screen);
 							/*Action = false;*/
 							//ShockWaveAttack(player, screen);
-							CircleOfDeathAttack(player);
+							//CircleOfDeathAttack(player);
+							ShockWaveAttack2(player, screen);
 							FMoveArray = array.AttackFunction03;
 						}
 						if (MovePattern[MoveArray] == array.AttackFunction04) {
@@ -884,17 +898,17 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						//NomalRotedSwordAttack(player);
-						NomalSwordAttack2(player);
+						NomalRotedSwordAttack2(player);
+						//CircleOfDeathAttack(player);
 						FMoveArray = array.AttackFunction01;
 						/*Action = false;*/
-						CoolTime = 20;
+						//CoolTime = 20;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack3(player);
-						CircleOfDeathAttack(player);
+						NomalSwordAttack2(player);
 						FMoveArray = array.AttackFunction02;
 						/*Action = false;*/
 
@@ -913,7 +927,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						BackStep(player);
+						//BackStep(player);
+						RainOfSwordAttack();
 
 
 						/*Action = false;*/
@@ -926,10 +941,10 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
-						RainOfSwordAttack();
-						/*Action = false;
-						CoolTime = 0;*/
-						FMoveArray = array.AttackFunction05;
+						//RainOfSwordAttack();
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction05;
 					}
 					if (MovePattern[MoveArray] == 0) {
 						Action = false;
@@ -949,7 +964,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
-						CircleOfDeathAttack(player);
+						NomalRotedSwordAttack2(player);
 
 						//NomalSwordAttack(player);
 						/*Action = false;*/
@@ -957,9 +972,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 						//CircleOfDeathAttack(player);
+						CircleOfDeathAttack(player);
 
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction02;
@@ -968,7 +983,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%の攻撃
 						//NomalSwordAttack(player);
 						//CircleOfDeathAttack(player);
-						RainOfSwordAttack();
+						ShockWaveAttack2(player, screen);
 						//NomalRotedSwordAttack(player);
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction03;
@@ -977,18 +992,18 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%の攻撃
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
-						ShockWaveAttack2(player, screen);
 						/*Action = false;*/
+						RainOfSwordAttack();
 						FMoveArray = array.AttackFunction04;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%の攻撃
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
-						ShockWaveAttack(player, screen);
-
+						//ShockWaveAttack(player, screen);
+						CircleOfDeathAttack(player);
 						/*Action = false;*/
-						CoolTime = 20;
+						//CoolTime = 20;
 						FMoveArray = array.AttackFunction05;
 					}
 					if (MovePattern[MoveArray] == 0) {
@@ -1004,20 +1019,20 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//通常攻撃のコードはここ
 						//NomalSwordAttack(player);
 						//JumpAttack(player, screen);
-						ShockWaveAttack2(player, screen);
+						//ShockWaveAttack2(player, screen);
+						CircleOfDeathAttack(player);
 
 						FMoveArray = array.NormalAttack;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						//NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
-						CircleOfDeathAttack(player);
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction01;
-						CoolTime = 20;
+						//CoolTime = 20;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
@@ -1026,7 +1041,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//CircleOfDeathAttack(player);
 
 						//ShockWaveAttack(player, screen);
-						JumpAttack(player, screen);
+						RainOfSwordAttack();
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction02;
 						CoolTime = 10;
@@ -1037,7 +1052,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
-						RainOfSwordAttack();
+						JumpAttack(player, screen);
 						FMoveArray = array.AttackFunction03;
 						/*Action = false;
 						CoolTime = 0;*/
@@ -1145,7 +1160,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		RightArm.MotionPos.y = 9999;
 		if (Attack == true) {
 			if (AttackStartTime <= 0) {
-				blade.angle = Easing::easing(blade.t, 0, 150, 0.03f, Easing::easeInOutBack) * -Direction;
+				blade.angle = Easing::easing(blade.t,0, 200, 0.027f, Easing::easeInBack) * -Direction;
 
 				blade.theta = blade.angle / 180.0f * M_PI;
 
@@ -2106,6 +2121,7 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
+				bJumpAttack2 = false;
 				CoolTime = 35;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
