@@ -13,7 +13,7 @@
 //const int kMAX_RAINSWORD = 30;
 //const int kMAX_WAVE = 2;
 const int MAX2_PATTERN = 100;
-
+const int Max_Zan = 8;
 class Boss2 {
 
 	//‰æ‘œ‚ÌéŒ¾
@@ -60,8 +60,17 @@ class Boss2 {
 		int rand = 0;
 		float theta = 0;
 		float YMove = 0;
-	}keep;
+		float Ease_T = 0;
+		float FPos = 0;
+		bool bMove = false;
 
+	}keep;
+	struct Zanzou {
+		Quad Pos = { {9999,9999},{9999,9999},{9999,9999},{9999,9999} };
+		int LifeTime = 0;
+		bool bSet = 0;
+	}zanzou[Max_Zan];
+	int Zanflame = 0;
 	int load = 0;//‰æ‘œ“Ç‚İ—ˆ‚İ
 	
 	
