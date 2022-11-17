@@ -269,20 +269,23 @@ void Boss::KeepUpWaitBack(PlayerMain&player)
 void Boss::BackStep(PlayerMain& player)
 {	
 	Vec2 Distance = Pos - player.Translation();
-	if (Pos.x < 200 || Pos.x>2200) {
-		ShockWaveAttackCenter(player);
-	}
-
 	if (StepT==0) {
 		
 		StepFPos = Pos.x;
 	}
+	
 	if (Distance.Length()< 400) {
-		bStep = true;
+		if (Pos.x < 200 || Pos.x>2200) {
+			ShockWaveAttackCenter(player);
+		}
+		else {
+			bStep = true;
+		}
 	}
-	else if(bStep==false) {
+	else if (bStep == false) {
 		Action = false;
 	}
+
 	if (bStep == true) {
 		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
 		if (StepT == 1) {
@@ -291,6 +294,7 @@ void Boss::BackStep(PlayerMain& player)
 			bStep = false;
 		}
 	}
+	
 
 }
 void Boss::DirectionGet(PlayerMain& player) {
