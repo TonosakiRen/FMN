@@ -195,7 +195,9 @@ void Screen::DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH,
 	x4 = tmp4.x * Zoom.x + Worldcenter.x + ScreenShake.x;
 	y4 = tmp4.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
 	if (framehensuu % frame == 0 && framehensuu != 0) {
-		srcX += srcW;
+		if (isPause == false) {
+			srcX += srcW;
+		}
 	}
 	if (srcX >= srcW * sheets) {
 		srcX = 0;
