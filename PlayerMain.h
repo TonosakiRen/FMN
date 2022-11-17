@@ -36,7 +36,7 @@ class PlayerMain
 	bool FaceUp = false;
 
 	GeneralStruct Player = {
-		{100,500},
+		{100,0},
 		{ 40,70 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
@@ -75,8 +75,8 @@ class PlayerMain
 
 	bool DashFlag = false;
 	int DashTime = 0;
-	const int DASHSPEED = 34;
-	int DashCoolTime = 20;
+	const int DASHSPEED = 20;
+	int DashCoolTime = 60;
 	bool DashFaseRight = true;
 	bool DashAvoid = false;
 	

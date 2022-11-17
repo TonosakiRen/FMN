@@ -9,17 +9,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// ライブラリの初期化
 	Novice::Initialize(kWindowTitle, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	//あしをひっぱるな！！！しがみつき！！！
+	//頑張ったな！！！しがみつき！！！
 
 	Controller::SetLeftStickDeadZone(0, 14000);
 
+	clock_t offset;
+	offset = clock();
+	int FPS = 0;
 
 	int tex = Novice::LoadTexture("white1x1.png");
-	int quadRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect01.png");
-	int circleRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect02.png");
+	int quadRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect01n.png");
+	int circleRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect02n.png");
 	int circleEffectImg = Novice::LoadTexture("./Resources/Images/Effect03.png");
-	int quadBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect04.png");
-	int CircleBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect05.png");
+	int quadBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect04n.png");
+	int CircleBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect05n.png");
 	int mainaBladeImg = Novice::LoadTexture("./Resources/Images/mainblade.png");
 	int upMainaBladeImg = Novice::LoadTexture("./Resources/Images/upmainblade.png");
 	int downMainaBladeImg = Novice::LoadTexture("./Resources/Images/downmainblade.png");
@@ -42,9 +45,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
 	int ziki = Novice::LoadTexture("./Resources/Images/ziki.png");
 
-	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png");
+	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png"); //bg = background
 	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
 	int bg3_gra = Novice::LoadTexture("./Resources/images/Background/Background3.png");
+	int bg5_gra = Novice::LoadTexture("./Resources/images/Background/Background5.png");
+	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
+	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
 
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
@@ -63,7 +69,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, 1.25);
+		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, playermain.GetPlayerQuad().LeftTop.y, 1.25);
 
 		switch (scene)
 		{
@@ -89,7 +95,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -215,6 +221,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		
 		
+		
+		FPS++;
+		if (FPS >= 60) FPS = 0;
 
 		///
 		/// ↑更新処理ここまで
@@ -258,7 +267,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ステージ描画処理
 			//背景d
 
-			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra);
+			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra,bg5_gra,bg6_gra, bg7_gra);
 
 			//Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 			//Novice::SetBlendMode(kBlendModeAdd);
@@ -374,6 +383,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Feed::Feedout(feedoutT, 0.05f, SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 		
+		
+		Novice::ScreenPrintf(0, 400, "FPS:%0.1f", 1.0f / ((double)(clock() - offset) / CLOCKS_PER_SEC));
+		offset = clock();
+
 		///
 		/// ↑描画処理ここまで
 		///

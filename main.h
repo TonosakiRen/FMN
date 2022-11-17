@@ -15,6 +15,7 @@
 #include "Effect2.h"
 #include "Effect.h"
 #include "Background.h"
+#include <time.h>
 
 Screen screen;
 PlayerMain playermain;
@@ -67,6 +68,7 @@ void InitFeedout() {
 void Init() {
 
 }
+
 
 
 

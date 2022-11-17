@@ -7,7 +7,7 @@
 
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
-const int Floor = 200;//赤い線のところがｙ＝０このフロアの値を変えれば地面の位置が変わる
+const int Floor = 190;//赤い線のところがｙ＝０このフロアの値を変えれば地面の位置が変わる
 
 
 constexpr int kFrameMag = 2;
@@ -24,11 +24,12 @@ public:
 	Vec2 Scroll;
 	Vec2 ScreenShake;
 	float Scroll_Fixed_Value_X;
+	float Scroll_Fixed_Value_Y;
 	bool Ishit;
 
 	Vec2 Zoom;
 
-	void Scroll_update(float playerX, float map_sheets_number);
+	void Scroll_update(float playerX, float playerY, float map_sheets_number);
 
 
 	void Shake(int minX, int maxX, int minY, int maxY, bool is);

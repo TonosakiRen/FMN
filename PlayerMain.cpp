@@ -27,14 +27,14 @@ void PlayerMain::Move()
 	//Speed.y = 0;
 
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
-		Speed.x = 10;
+		Speed.x = 8;
 		if (attackstarttime == -1) {
 			FaceRight = true;
 		}
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
-		Speed.x = -10;
+		Speed.x = -8;
 		if (attackstarttime == -1) {
 			FaceRight = false;
 		}
@@ -44,12 +44,14 @@ void PlayerMain::Move()
 		if (attackstarttime == -1) {
 			FaceUp = true;
 		}
+		//Speed.y = 1;
 	}
 	else {
 		if (attackstarttime == -1) {
 			FaceUp = false;
 		}
 	}
+
 
 	if (Controller::IsStickDirection(0, Controller::lsdDOWN) || Key::IsPressed(DIK_S)) {
 		//Speed.y = -1;
@@ -97,7 +99,7 @@ void PlayerMain::Move()
 			}
 		}
 		DashTime++;
-		if (DashTime > 2) {
+		if (DashTime > 6) {
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
@@ -121,6 +123,8 @@ void PlayerMain::Move()
 			Gravity -= 0.18;
 		}
 	}
+	
+	//Gravity = 0;
 
 	Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x;
 	Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y + Gravity) * G;
@@ -339,12 +343,12 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
 			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
-			screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
+			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
 	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
-	screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
+	//screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
 
 	for (int i = 0; i < HP; i++) {
 		Novice::DrawEllipse( 100 + 100 * i, 930 , 50,50,0, 0xFF3399FF,kFillModeSolid);
