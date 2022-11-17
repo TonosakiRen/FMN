@@ -579,9 +579,11 @@ int Boss2::ReloadMove(int Movearry)
 
 
 
-Boss2::Boss2()
+Boss2::Boss2():
+centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1)
 {
-
 }
 
 void Boss2::Set()

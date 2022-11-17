@@ -97,7 +97,7 @@ void PlayerMain::Move()
 			}
 		}
 		DashTime++;
-		if (DashTime > 3) {
+		if (DashTime > 2) {
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
