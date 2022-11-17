@@ -21,6 +21,8 @@ public:
 	
 	bool Pause();
 
+	void PauseDraw();
+
 	void HitStopMake(int StopFlame);
 
 	bool HitStopUpdate();

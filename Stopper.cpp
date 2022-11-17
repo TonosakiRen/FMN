@@ -1,4 +1,5 @@
 #include "Stopper.h"
+#include "Screen.h"
 
 bool Stopper::Pause()
 {
@@ -11,8 +12,12 @@ bool Stopper::Pause()
 		}
 	}
 
+	
+
 	return isPause;
 }
+
+
 
 void Stopper::HitStopMake(int StopFlame)
 {	
@@ -34,4 +39,11 @@ bool Stopper::HitStopUpdate()
 
 	return isHitStop;
 
+}
+
+void Stopper::PauseDraw()
+{
+	if (isPause == true) {
+		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0x22000022, kFillModeSolid);
+	}
 }

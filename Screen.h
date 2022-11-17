@@ -34,6 +34,8 @@ public:
 
 	void Shake(int minX, int maxX, int minY, int maxY, bool is);
 
+	bool isPause = false;
+	void Pause(bool pause);
 
 	/// <summary>
 	/// lŠpŒ`‚ğ•`‰æ‚·‚é

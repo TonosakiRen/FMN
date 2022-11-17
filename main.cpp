@@ -84,7 +84,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
+
+			
 			if (stopper.Pause() == false) {
+				screen.Pause(false);
 				if (stopper.HitStopUpdate() == false) {
 					playermain.Move();
 					if (boss.IsLife==false&&boss2.IsLife==false) {
@@ -182,6 +185,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					stageEffect.Update(true, { {0,-Floor},int (SCREEN_WIDTH * 1.5),Floor });
 				
 				}
+			}
+			else {
+			screen.Pause(true);
 			}
 			
 
@@ -311,8 +317,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
 
-
-
+			//ポーズ描画
+			stopper.PauseDraw();
 
 			if (feedoutT >= 1 ) {
 				InitFeedout();

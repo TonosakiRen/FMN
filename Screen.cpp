@@ -43,6 +43,11 @@ void Screen::Shake(int minX, int maxX, int minY, int maxY, bool is) {
 	}
 }
 
+void Screen::Pause(bool pause)
+{
+	isPause = pause;
+}
+
 
 
 void Screen::DrawBox(float x, float y, float w, float h, float angle, unsigned int color, FillMode fillMode) {
@@ -201,7 +206,9 @@ void Screen::DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH,
 	else if (isFlip == false) {
 		Novice::DrawQuad(x1, y1, x2, y2, x3, y3, x4, y4, srcX, srcY, srcW, srcH, textureHandle, color);
 	}
-	framehensuu++;
+	if (isPause == false) {
+		framehensuu++;
+	}
 }
 
 void Screen::Background(int x1, int y1, int quadw, int quadh, float scrollkakeru, int srcX, int srcY, int srcW, int srcH, int textureHandle, unsigned int color) {
