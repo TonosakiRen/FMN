@@ -964,7 +964,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
-						NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 
 						//NomalSwordAttack(player);
 						/*Action = false;*/
@@ -1027,7 +1027,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
 						/*Action = false;*/
@@ -1160,7 +1160,7 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 		RightArm.MotionPos.y = 9999;
 		if (Attack == true) {
 			if (AttackStartTime <= 0) {
-				blade.angle = Easing::easing(blade.t, 0, 150, 0.03f, Easing::easeInOutBack) * -Direction;
+				blade.angle = Easing::easing(blade.t,0, 200, 0.027f, Easing::easeInBack) * -Direction;
 
 				blade.theta = blade.angle / 180.0f * M_PI;
 
