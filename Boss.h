@@ -395,6 +395,7 @@ class Boss {
 	float RainofswordMotionT2;
 	void RainOfSwordMotion(int type);
 
+	bool bJumpAttack2 = false;
 public:
 	Boss();
 	void Set();

@@ -274,18 +274,23 @@ void Boss::BackStep(PlayerMain& player)
 		StepFPos = Pos.x;
 	}
 	
-	if (Distance.Length()< 400) {
-		if (Pos.x < 200 || Pos.x>2200) {
-			ShockWaveAttackCenter(player);
+	if (Distance.Length() < 400 ) {
+		if ((Pos.x < 300 || Pos.x>2100) && bStep == false) {
+			bJumpAttack2 = true;
 		}
-		else {
-			bStep = true;
+		else if(bJumpAttack2 ==false) {
+			
+				bStep = true;
+			
 		}
 	}
-	else if (bStep == false) {
+	else if (bStep == false&& bJumpAttack2==false) {
 		Action = false;
 	}
+	if (bJumpAttack2 == true) {
+		ShockWaveAttackCenter(player);
 
+	}
 	if (bStep == true) {
 		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
 		if (StepT == 1) {
@@ -2106,6 +2111,7 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 				Attack = false;
 				Action = false;
 				bShockWaveAttack = true;
+				bJumpAttack2 = false;
 				CoolTime = 35;
 				BossMotionTime = 0;
 				Head.StandMotionFlag = 1;
