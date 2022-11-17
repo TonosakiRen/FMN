@@ -291,13 +291,15 @@ class Boss {
 		Vec2 ColMisal; //当たり判定の位置
 		Quad ColQuad; //当たり判定のクアッド
 		Vec2 HitReaction;
+		int SrcX;
+		int AnimeFlame;
 	};
 
 
 	ImageStruct Head = {
 		{0,0},
-		{90,82},
-		{18,155},
+		{176,160},
+		{10,155},
 		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) },
 		{0,-2},
@@ -309,11 +311,13 @@ class Boss {
 		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
 		int(Head.ColSize.x),int(Head.ColSize.y) },
 		{0,0},
+		0,
+		0,
 	};
 
 	ImageStruct Body = {
 		{0,0},
-		{146,164},
+		{144,164},
 		{2,52},
 		{ { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) },
@@ -326,12 +330,14 @@ class Boss {
 		{ { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
 		int(Body.ColSize.x),int(Body.ColSize.y) },
 		{0,0},
+		0,
+		0,
 	};
 
 	ImageStruct Leg = {
 		{0,0},
 		{130,130},
-		{-4,-59},
+		{-12,-59},
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
 		{0,0},
@@ -343,6 +349,8 @@ class Boss {
 		{ { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
 		int(Leg.ColSize.x),int(Leg.ColSize.y) },
 		{0,0},
+		0,
+		0,
 	};
 
 	ImageStruct RightArm = {
@@ -360,6 +368,8 @@ class Boss {
 		{ { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
 		{0,0},
+		0,
+		0,
 	};
 
 	ImageStruct LeftArm = {
@@ -377,6 +387,8 @@ class Boss {
 		{ { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
 		int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
 		{0,0},
+		0,
+		0,
 	};
 
 	float ArmPosAngle = 2.8125;
