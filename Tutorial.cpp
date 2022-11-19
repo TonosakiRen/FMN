@@ -4,6 +4,7 @@ void Tutorial::Update()
 {
 }
 
-void Tutorial::Draw()
+void Tutorial::Draw(Screen& screen)
 {
-}
+	screen
+};
