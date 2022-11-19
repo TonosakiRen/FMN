@@ -41,6 +41,6 @@ bool Stopper::HitStopUpdate()
 void Stopper::PauseDraw()
 {
 	if (isPause == true) {
-		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0x4400007F, kFillModeSolid);
+		Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0x44000000, kFillModeSolid);
 	}
 }
