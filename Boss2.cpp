@@ -155,7 +155,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					Undertale(player);
+					UndertaleAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -744,7 +744,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 	}
 }
 
-void Boss2::Undertale(PlayerMain& player) {
+void Boss2::UndertaleAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;

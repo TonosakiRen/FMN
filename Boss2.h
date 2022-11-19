@@ -235,7 +235,7 @@ public:
 	//スキル
 	void CenterOfDarknessAttack(PlayerMain& player);
 	void BulletAttack(PlayerMain& player);
-	void Undertale(PlayerMain& player);
+	void UndertaleAttack(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	
