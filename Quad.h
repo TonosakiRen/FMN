@@ -20,6 +20,7 @@ public:
 	Quad XScaling(Quad quad, float scale);
 	Quad YScaling(Quad quad, float scale);
 	Quad Rotate(Quad quad, float theta);
+	Quad Rotate(Quad quad, float theta, float radius);
 	Quad CenterRotate(Quad quad, float theta);
 	Quad Translation(Quad quad, Vec2 position);
 	void WidthAdd(Quad& quad, float add);

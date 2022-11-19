@@ -5,13 +5,22 @@
 #include "Randam.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "Feed.h"
 
 Boss2::Boss2() :
 	centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2)
+	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2),
+	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1)
 {
-
+	for (int i = 0; i < swordNum; i++) {
+		orbitColor[i] = RED;
+		theta[i] = -(M_PI * 2.0f / swordNum) * i - 1.0f * M_PI / 180;
+		isSword[i] = false;
+		getFrag[i] = false;
+		swordT[i] = 0.0f;
+		isOrbit[i] = false;
+	}
 }
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
@@ -69,28 +78,27 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack; 
 					//Action = false;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction01;
-					Action = false;
+					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
-					Action = false;
+					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					
-					Action = false;
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction03;
 
 
@@ -124,21 +132,20 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
-					Action = false;
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction02;
-					Action = false;
+					
 					
 
 				}
@@ -639,6 +646,80 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	
 }
 
+
+void Boss2::BulletAttack(PlayerMain& player) {
+
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	bulletAttackCoolTime--;
+	for (int i = 0; i < swordNum; i++) {
+		//thetaÇâ¡éZ
+		if (theta[swordNum - 1] <= 0) {
+			theta[i] += M_PI / 80.0f;
+			initialSword = { Pos,30,30, };
+		}
+		//thetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁèoåªÇ≥ÇπÇÈ
+		if (theta[i] >= 0 && isSword[i] == false) {
+			isSword[i] = true;
+		}
+		if (theta[swordNum - 1] <= 0) {
+			if (isSword[i] == true) {
+				//âÒì]
+				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
+			}
+
+		}
+		else {
+			isRelease = true;
+		}
+	}
+	for (int i = 0; i < swordNum; i++) {
+		if(isRelease == true) {//ç≈ä˙ÇÃíeÇÃthetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁ
+			
+				
+				radius += 1;
+				bulletAttackCoolTime--;
+				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
+				if (swordT[i] < 1.0f && isOrbit[i] == false) {
+					orbitColor[i] = Feed::Feedin(swordT[i], 0.05f, orbitColor[i]);
+				}
+				if (swordT[i] >= 1.0f && isOrbit[i] == false) {
+					isOrbit[i] = true;
+					swordT[i] = 0.0f;
+				}
+				if (isOrbit[i] == true) {
+					orbitColor[i] = Feed::Feedout(swordT[i], 0.05f, orbitColor[i]);
+				}
+				//ï˙èoÇµÇƒç≈èâÇÃÉtÉåÅ[ÉÄÇæÇØ
+				if (getFrag[i] == false) {
+					swordT[i] = 0.0f;
+					effectSword[i] = sword[i];
+					effectSword[i].LeftBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).LeftBottom;
+					effectSword[i].RightBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).RightBottom;
+					getFrag[i] = true;
+				}
+				
+				swordEffect.Update(true, sword[i]);
+			
+		}
+	}
+	if (bulletAttackCoolTime <= 0) {
+		isRelease = false;
+		bulletAttackCoolTime = saveBulletAttackCoolTime;
+		radius = 200.0f;
+		for (int i = 0; i < swordNum; i++) {
+			orbitColor[i] = RED;
+			theta[i] = -(M_PI * 2.0f / swordNum ) * i - 1.0f * M_PI / 180;
+			isSword[i] = false;
+			getFrag[i] = false;
+			swordT[i] = 0.0f;
+			isOrbit[i] = false;
+		}
+		Action = false;
+	}
+}
+
 void Boss2::UpDate()
 {
 
@@ -682,6 +763,8 @@ void Boss2::Draw(Screen& screen)
 	};
 	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
 	//screen.DrawQuad2Renban(Quad_Pos,)
+
+	
 }
 
 

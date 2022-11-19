@@ -58,6 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
 	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
 
+	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
+
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
@@ -322,6 +324,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				boss2.Draw(screen);
+			}
+
+			boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			for (int i = 0; i < swordNum; i++) {
+
+				if (boss2.isRelease == true && boss2.swordT[i] >= 0.0f) {
+
+					/*screen.DrawQuad2(boss2.effectSword[i], 0, 0, 128, 128, orbitImg, boss2.orbitColor[i]);*/
+				}
+				if (boss2.isSword[i] == true) {
+					screen.DrawQuad2(boss2.sword[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
 			}
 
 			//プレイヤーソード描画
