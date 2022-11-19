@@ -674,6 +674,11 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 	}
 	if (keep.Time == 50&& keep.bMove == false) {
 		keep.rand = Randam::RAND(0, 100);
+		if (keep.rand <= 50 && Pos.x >= 1200) {
+			keep.rand = Randam::RAND(25, 100);
+		}else if(keep.rand >= 50 && Pos.x <= 1200) {
+			keep.rand = Randam::RAND(0, 75);
+		}
 		keep.FPos = Pos.x;
 		DirectionGet(player);
 		keep.Ease_T = 0;

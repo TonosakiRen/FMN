@@ -172,6 +172,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		Mahoujin_gra = Novice::LoadTexture("./Resources/images/mahoujin.png");
 		Blade_gra = Novice::LoadTexture("./Resources/images/Boss/Blade.png");
 		HoldBlade_gra = Novice::LoadTexture("./Resources/images/Boss/HoldBlade.png");
+		Tatsumaki_gra = Novice::LoadTexture("./Resources/images/Tatsumaki.png");
+		ShockWave_gra = Novice::LoadTexture("./Resources/images/ShockWave.png");
 	}
 	bool BossisFlip = false;
 
@@ -185,8 +187,12 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	
 	for (int i = 0; i < kMAX_WAVE; i++) {
 
-		screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 0, 0, 0, 0x00FF0011);
+		screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 256, 256, 0, 0x00FF0011);
 		screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
+		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
+		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
+		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
+		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, true);
 	}
 	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 4, 5, Leg.AnimeFlame, legtex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 4, 5, Body.AnimeFlame, bodytex, WHITE, BossisFlip);
@@ -2269,17 +2275,23 @@ void Boss::KeepWaveAttack()
 		if (Wave[i].WaveKeep == false) {
 			Wave[i].QuadPos.Quad::Quad({99999,9999}, 100, 150);
 			Wave[i].Quad2Pos.Quad::Quad({9000,9999}, 100, 150);
+			Wave[i].QuadPosAnime.Quad::Quad({ 99999,9999 }, 150, 150);
+			Wave[i].Quad2PosAnime.Quad::Quad({ 9000,9999 }, 150, 150);
 
 		}
 		if (Wave[i].WaveKeep == true) {
 			if (Wave[i].LifeTime == 0) {
 				Wave[i].QuadPos.Quad::Quad({ Pos.x - 50,150 }, 100, 150);
 				Wave[i].Quad2Pos.Quad::Quad({ Pos.x - 50,150 }, 100, 150);
+				Wave[i].QuadPosAnime.Quad::Quad({ Pos.x - 75,150 }, 150, 150);
+				Wave[i].Quad2PosAnime.Quad::Quad({ Pos.x - 75,150 }, 150, 150);
 			}
 			Wave[i].QuadPos.LeftTop.x += 20;
 			Wave[i].Quad2Pos.LeftTop.x -= 20;
 			Wave[i].QuadPos.Quad::Quad(Wave[i].QuadPos.LeftTop, 100, 150);
 			Wave[i].Quad2Pos.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 100, 150);
+			Wave[i].QuadPosAnime.Quad::Quad(Wave[i].QuadPos.LeftTop, 150, 150);
+			Wave[i].Quad2PosAnime.Quad::Quad(Wave[i].Quad2Pos.LeftTop, 150, 150);
 
 			Wave[i].LifeTime += 0.025f;
 			Wave[i].LifeTime = Clamp::clamp(Wave[i].LifeTime, 0, 1);

@@ -19,8 +19,9 @@ class Boss {
 	int Mahoujin_gra = 0;
 	int Blade_gra = 0;
 	int HoldBlade_gra = 0;
-
+	int Tatsumaki_gra = 0;
 	int UseBladeGra = Blade_gra;
+	int ShockWave_gra=0;
 
 	static struct Matrix2x2
 	{
@@ -107,13 +108,16 @@ class Boss {
 	};
 	struct ShockWave {
 		Quad QuadPos = { {0,0},{0,0},{0,0},{0,0} };
-		Quad Quad2Pos = { {0,0},{0,0},{0,0},{0,0} };
+		Quad Quad2Pos = { {0,0},{0,0},{0,0},{0,0} }; 
+		Quad QuadPosAnime = { {0,0},{0,0},{0,0},{0,0} };
+		Quad Quad2PosAnime = { {0,0},{0,0},{0,0},{0,0} };
 		/*Vec2 Pos = {};
 		Vec2 Pos2 = {};*/
 		float LifeTime = 0;
 		bool WaveKeep = false;
 		bool Reserve = true;
-
+		int SrcX = 0;
+		int AnimeFlame = 0;
 
 	}Wave[kMAX_WAVE];
 	struct CircleOfDeath {
