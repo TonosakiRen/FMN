@@ -168,7 +168,7 @@ public:
 	int ReloadMove(int Movearry);
 	void Zanzou();
 	//スキル
-	void CenterOfDarkness(PlayerMain& player);
+	void CenterOfDarknessAttack(PlayerMain& player);
 
 
 	//スキル出したかどうか：：次に出すやつを変えれる

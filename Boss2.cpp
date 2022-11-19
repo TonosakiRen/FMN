@@ -53,7 +53,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 		DirectionGet(player);
 
 	}
-
+	//‹Z’Ç‰Á‚·‚é‚Æ‚«Action=false‚ÍÁ‚·‚±‚Æ
 	
 
 	if (Action == true) {
@@ -69,9 +69,9 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.NormalAttack; 
-					Action = false;
+					//Action = false;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
@@ -124,19 +124,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					CenterOfDarkness(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					CenterOfDarkness(player);
+					CenterOfDarknessAttack(player);
 					Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					CenterOfDarkness(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction02;
 					Action = false;
 					
@@ -606,7 +606,7 @@ void Boss2::Zanzou()
 	}
 }
 
-void Boss2::CenterOfDarkness(PlayerMain& player) {
+void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	if (isCenteroOfDarknessMove == true) {
 		if (isGetPos == false) {
 			saveBoss2x = Pos.x;

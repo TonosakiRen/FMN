@@ -191,8 +191,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
 		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
 		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
-		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
-		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, true);
+		//screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
+		//screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, true);
 	}
 	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 4, 5, Leg.AnimeFlame, legtex, WHITE, BossisFlip);
 	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 4, 5, Body.AnimeFlame, bodytex, WHITE, BossisFlip);
