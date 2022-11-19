@@ -14,6 +14,10 @@ class PlayerMain
 	private:
 		
 		int HitStop = 0;
+		int Load = 0;
+		int PlayerHpBar_gra = 0;
+
+
 
 	//Pos 位置(中央だぜ)
 	//HitBoxSize 当たり判定の大きさ
@@ -48,7 +52,8 @@ class PlayerMain
 		int(Player.HitBoxSize.y - Player.ImageSize.y) / 2,
 	};
 
-	int HP = 3;
+	int HP = 10;
+	int MaxHp = HP;
 
 	//Speed プレイヤーが動かすときに使う
 	Vec2 Speed = { 0,0 };
