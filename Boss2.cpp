@@ -21,52 +21,58 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
 	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
 	Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
+	Novice::ScreenPrintf(1000, 220, "boss:keep_bmove:%d", keep.bMove);
 
 	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);
 
 	if (CoolTime <= 0 && Action == false) {
-		MoveArray = rand;
+		if (keep.bMove == false) {
+			MoveArray = rand;
 
-		if (MovePattern[MoveArray] == FMoveArray) {
-			Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
+			if (MovePattern[MoveArray] == FMoveArray) {
+				Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
-			if (reload == 0) {
-				
+				if (reload == 0) {
+
 					Action = true;
-					
-				
-			}
-			if (reload == 1) {
-				MovePattern[MoveArray] = ReloadMove(FMoveArray);
-			}
-		}
-		else {
-			
-				Action = true;
-			
 
+
+				}
+				if (reload == 1) {
+					MovePattern[MoveArray] = ReloadMove(FMoveArray);
+				}
+			}
+			else {
+
+				Action = true;
+
+
+			}
 		}
 		DirectionGet(player);
+		/*keep.Init();*/
+
 	}
 	else if (CoolTime >0 && Action == false ) {
 		CoolTime--;
 		State(player);
 		reload = Randam::RAND(0, 1);
-		KeepUpWaitBack(player);
 		RandMoveSet();
 		DirectionGet(player);
 
 	}
 	//ãZí«â¡Ç∑ÇÈÇ∆Ç´Action=falseÇÕè¡Ç∑Ç±Ç∆
-	
+	if (Action == false) {
+		KeepUpWaitBack(player);
 
-	if (Action == true) {
-		keep.Init();
+	}
+
+	if (Action == true&&keep.bMove==false) {
 		switch (hppattarn)
 		{
 
 		case NORMAL:
-			CoolTime = 50;
+			CoolTime = 60;
 
 			switch (pattarn) {
 			case NEAR_1:
@@ -134,7 +140,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
 					CenterOfDarknessAttack(player);
-					Action = false;
+					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
@@ -142,7 +148,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 					//5%ÇÃçUåÇ
 					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction02;
-					Action = false;
+					//Action = false;
 					
 
 				}
@@ -633,11 +639,11 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			isCenterOfDarkness = false;
 		}
 		else {
+			Action = false;
 			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
 			centerOfDarknessMoveT = 0.0f;
 			isCenteroOfDarknessMove = true;
 			isGetPos = false;
-			Action = false;
 		}
 	}
 	
@@ -708,7 +714,7 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 	if (keep.bMove == false) {
 		keep.Time++;
 	}
-	if (keep.Time == 30&& keep.bMove == false) {
+	if (keep.Time == 5&& keep.bMove == false) {
 		keep.rand = Randam::RAND(0, 100);
 		if (keep.rand <= 50 && Pos.x >= 1200) {
 			keep.rand = Randam::RAND(25, 100);
