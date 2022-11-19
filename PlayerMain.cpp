@@ -338,7 +338,7 @@ void PlayerMain::PlayerHit(Quad Target)
 
 	if (HitCoolDown == 0 ) {
 		if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
-			Novice::ScreenPrintf(0, 300, "chinchin");
+			//Novice::ScreenPrintf(0, 300, "chinchin");
 
 
 			Vec2 TargetPos = { Target.LeftTop.x + (Target.RightBottom.x - Target.LeftTop.x) / 2,
@@ -358,7 +358,7 @@ void PlayerMain::PlayerHit(Circle Target)
 	if (Target.radius != 0) {
 		if (HitCoolDown == 0 ) {
 			if (Collision::CircleToQuad(Target, Player.Quad)) {
-				Novice::ScreenPrintf(0, 300, "chinchin");
+				//Novice::ScreenPrintf(0, 300, "chinchin");
 
 
 
@@ -404,7 +404,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 	}
 
 
-	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
+	//Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
 	Quad ImageQuad = { {Player.Pos.x - Player.ImageSize.x / 2, Player.Pos.y + Player.ImageSize.y / 2 - Player.ImageMisal},
 		int(Player.ImageSize.x),int(Player.ImageSize.y) };
@@ -419,8 +419,9 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 	//screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
 
 	
-	Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
-	Novice::ScreenPrintf(0, 20, "%d", HP);
+	/*Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
+	Novice::ScreenPrintf(0, 20, "%d", HP);*/
+	Clamp::clamp(HP, 0, 200);
 	Novice::DrawBox(113, 920, 210*HP/MaxHp, 30, 0, GREEN, kFillModeSolid);
 	Novice::DrawSprite(50, 900, PlayerHpBar_gra, 1, 1, 0, WHITE);
 

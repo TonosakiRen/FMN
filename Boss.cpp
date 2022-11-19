@@ -223,8 +223,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
 		screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
-	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
-	Novice::ScreenPrintf(960, 400, "O");
+	//Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
+	//Novice::ScreenPrintf(960, 400, "O");
 
 	Clamp::clamp(HP, 0, 10000);
 	Novice::DrawBox(456, 20, HP * 0.51, 50, 0, HpColor, kFillModeSolid);
@@ -409,21 +409,21 @@ int Boss::ReloadMove(int Movearray)
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 {
-	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
+	/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
 	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
 	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
 	Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
 
-	Novice::ScreenPrintf(Pos.x, Pos.y - 200+SCREEN_HEIGHT, "HP:%d", HP);
+	Novice::ScreenPrintf(Pos.x, Pos.y - 200+SCREEN_HEIGHT, "HP:%d", HP);*/
 
 
 	if (CoolTime == 0&&Action==false) {
 		MoveArray =rand;
 
 		if (MovePattern[MoveArray] == FMoveArray) {
-			Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
+			//Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
 			if (reload == 0) {
 				Action = true;
