@@ -17,6 +17,10 @@
 const int MAX2_PATTERN = 100;
 const int Max_Zan = 20;
 const int swordNum = 20;
+const int chaseBulletNum = 5;
+const int savechaseframe = 3;
+const int rotateBulletNum = 20;
+const int saveUndertaleFrame = 1000;
 class Boss2 {
 
 	//画像の宣言
@@ -182,6 +186,39 @@ class Boss2 {
 	int bulletAttackCoolTime = saveBulletAttackCoolTime;
 	bool isOrbit[swordNum] ;
 
+	//undertale
+
+	float xMove = 0;
+	float xSpeed = 1;
+	float yMove = 0;
+	float ytheta = 0;
+	float ythetaSpeed = M_PI / 30;
+	Vec2 savePlayerPos;
+	Quad initialRotateBullet;
+	Quad rotateBullet[rotateBulletNum];
+	Quad bullet[rotateBulletNum];
+	float bulletRadius = 500;
+	float rotatetheta[rotateBulletNum];
+	float rotatethetaSpeed = M_PI / 40.0f;
+	bool isRotateBullet[rotateBulletNum];
+	float rotateT;
+	float upCircleY = 0;
+	float wideMostMove = 100;
+
+	Effect4 chaseEffect;
+	int chaseframe[chaseBulletNum];
+	Vec2 leftVec[chaseBulletNum];
+	Vec2 rightVec[chaseBulletNum];
+	Vec2 chaseVec[chaseBulletNum];
+	float chaseTheta = 5.0f * M_PI / 180;
+	bool isGet[chaseBulletNum];
+	Vec2 playerToEffect[chaseBulletNum];
+	bool isFeedrotateBullet = false;
+	float rotateBulletT[rotateBulletNum];
+	bool emitchaseEffect = true;
+	
+	int undertaleFrame = saveUndertaleFrame;
+
 public:
 	Boss2();
 	void Set();
@@ -198,6 +235,7 @@ public:
 	//スキル
 	void CenterOfDarknessAttack(PlayerMain& player);
 	void BulletAttack(PlayerMain& player);
+	void Undertale(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	

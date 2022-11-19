@@ -155,9 +155,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 20; i++) {
-							playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
-							playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
-							playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+							if (boss2.centerOfDarknessUnder.particles[i].isActive == true) {
+								playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
+								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
+								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+							}
 						}
 
 					}
@@ -325,7 +327,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, RED, kBlendModeNormal);
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-
+			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra);
 			
@@ -338,6 +340,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss2.Draw(screen);
 			}
 
+			//BulletAttack
 			boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 			for (int i = 0; i < swordNum; i++) {
 
@@ -347,6 +350,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				if (boss2.isSword[i] == true) {
 					screen.DrawQuad2(boss2.sword[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+			}
+
+			//rotatebullet
+			for (int i = 0; i < rotateBulletNum; i++) {
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == false) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == true) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.01f, WHITE));
 				}
 			}
 
