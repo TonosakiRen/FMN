@@ -37,7 +37,7 @@ class PlayerMain
 	bool FaceUp = false;
 
 	GeneralStruct Player = {
-		{100,0},
+		{200,0},
 		{ 40,70 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
