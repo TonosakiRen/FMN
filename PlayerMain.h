@@ -44,7 +44,7 @@ class PlayerMain
 		9,
 		0,
 		WHITE,
-		{ 100,100 },
+		{ 108,108 },
 		int(Player.HitBoxSize.y - Player.ImageSize.y) / 2,
 	};
 
@@ -112,6 +112,17 @@ class PlayerMain
 	int CurrentSubSwordDrawNum = 0;
 	int isSwordHitFace = 0;
 
+	enum {
+		stand,
+		walk,
+		dash,
+		jump,
+		fall,
+		attack,
+	};
+
+	int PlayerAnimeMode = 0;
+
 public:
 
 	Quad GetPlayerQuad()
@@ -161,7 +172,7 @@ public:
 	bool GetisFaceUp() { return FaceUp; }
 	bool GetisFaceDown() { return FaceDown; }
 
-	void Draw(Screen& screen,int texture);
+	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack);
 	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
 };

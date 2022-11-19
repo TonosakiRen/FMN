@@ -26,11 +26,14 @@ void PlayerMain::Move()
 	Speed.x = 0;
 	//Speed.y = 0;
 
+	PlayerAnimeMode = stand;
+
 	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
 		Speed.x = 8;
 		if (attackstarttime == -1) {
 			FaceRight = true;
 		}
+		PlayerAnimeMode = walk;
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
@@ -38,6 +41,7 @@ void PlayerMain::Move()
 		if (attackstarttime == -1) {
 			FaceRight = false;
 		}
+		PlayerAnimeMode = walk;
 	}
 
 	if (Controller::IsStickDirection(0, Controller::lsdUP) || Key::IsPressed(DIK_W)) {
@@ -126,6 +130,8 @@ void PlayerMain::Move()
 	
 	//Gravity = 0;
 
+	
+
 	Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x;
 	Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y + Gravity) * G;
 
@@ -172,6 +178,18 @@ void PlayerMain::Move()
 		CanJump = false;
 	}
 
+	if ((Speed.y + Gravity) * G > 0) {
+		PlayerAnimeMode = jump;
+	}
+
+	if ((Speed.y + Gravity) * G < 0) {
+		PlayerAnimeMode = fall;
+	}
+
+	if (DashFlag == true) {
+		PlayerAnimeMode = dash;
+	}
+
 
 
 	Player.Quad = { { Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2 },
@@ -193,6 +211,7 @@ void PlayerMain::Move()
 			
 		}
 		isAttack--;
+
 	}
 
 	if (attackstarttime == 0) {
@@ -200,10 +219,12 @@ void PlayerMain::Move()
 		NormalAttack();
 		AttackCoolDown = ATTACKCOOLDOWNMAX;
 		isSwordAppear = true;
+		PlayerAnimeMode = attack;
 	}
 
 	if (attackstarttime > 0) {
 		attackstarttime--;
+		PlayerAnimeMode = attack;
 	}
 
 	if (AttackCoolDown > 0) {
@@ -333,8 +354,33 @@ void PlayerMain::PlayerHit(Circle Target)
 
 
 
-void PlayerMain::Draw(Screen& screen,int texture)
+void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, int fall, int attack)
 {
+	int player_gra = stand;
+	int flame = 1;
+	int sheets = 1;
+
+	switch (PlayerAnimeMode)
+	{
+	case 1:
+		player_gra = walk;
+		flame = 5;
+		sheets = 4;
+		break;
+	case 2:
+		player_gra = dash;
+		break;
+	case 3:
+		player_gra = jump;
+		break;
+	case 4:
+		player_gra = fall;
+		break;
+	case 5:
+		player_gra = attack;
+		break;
+	}
+
 
 	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
@@ -342,7 +388,7 @@ void PlayerMain::Draw(Screen& screen,int texture)
 		int(Player.ImageSize.x),int(Player.ImageSize.y) };
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, Player.ImageSize.x, Player.ImageSize.y, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
+			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, Player.ImageSize.x, Player.ImageSize.y, sheets, flame, Player.AnimeFlame, player_gra, Player.Color, FaceRight);
 			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 

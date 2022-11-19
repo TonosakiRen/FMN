@@ -43,7 +43,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bosslegImg = Novice::LoadTexture("./Resources/Images/Boss/Leg.png");
 	int bossrightarmImg = Novice::LoadTexture("./Resources/Images/Boss/RightArm.png");
 	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
-	int ziki = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
+
+	int playerstand_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
+	int playerwalk_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerWalk.png");
+	int playerdash_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerDash.png");
+	int playerjump_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerJump.png");
+	int playerfall_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerFall.png");
+	int playerattack_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerAttack.png");
 
 	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png"); //bg = background
 	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
@@ -98,7 +104,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -196,7 +202,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			
 
-			 //stopper.HitStopMake(playermain.HitStopOver());
+			 stopper.HitStopMake(playermain.HitStopOver());
 
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
@@ -307,7 +313,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 
 			//プレイヤー描画
-			playermain.Draw(screen, ziki);
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra);
 			
 			//ボス描画
 			if (boss.IsLife == true) {
