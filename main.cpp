@@ -65,6 +65,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	//test
 
+	//tutorial.unko();
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -78,18 +80,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, playermain.GetPlayerQuad().LeftTop.y, 1.25);
-
+		
 		switch (scene)
 		{
 		case title:
 			//タイトル処理
 
-			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
 				isFeedout = true;
-				
 			}
-
-			playermain.Move();
 
 			if (isTitleStart == false) {
 				isFeedin = true;
@@ -100,12 +99,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			if (feedoutT >= 1) {
+				playermain.Init();
 				InitFeedout();
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
 			}
 
+			playermain.Move();
+
+			//tutorial.HitLetAttack(playermain.GetSwordQuad());
+
+			for (int i = 0; i < 2; i++) {
+				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+			}
+
+			tutorial.Update();
 
 			break;
 		case stage:
@@ -281,9 +290,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
 
 
-			Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
+			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
-			
+			tutorial.Draw(screen);
 			
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra);

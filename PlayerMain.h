@@ -37,7 +37,7 @@ class PlayerMain
 	bool FaceUp = false;
 
 	GeneralStruct Player = {
-		{400,0},
+		{300,0},
 		{ 40,70 },
 		{ {Player.Pos.x - Player.HitBoxSize.x / 2, Player.Pos.y + Player.HitBoxSize.y / 2},
 		int(Player.HitBoxSize.x),int(Player.HitBoxSize.y)},
@@ -96,6 +96,7 @@ class PlayerMain
 
 	//HitCoolDown —v‚Í–³“GŽžŠÔ‚¶‚á
 	int HitCoolDown = 0;
+	const int HITCOOLDOWNMAX = 180;
 
 	int AttackCoolDown = 0;
 	int ATTACKCOOLDOWNMAX = 20;
@@ -153,6 +154,8 @@ public:
 		}
 		return a;
 	}
+
+	void Init();
 
 	void Move();
 

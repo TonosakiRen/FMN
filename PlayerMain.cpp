@@ -1,6 +1,24 @@
 #include "PlayerMain.h"
 
 
+void PlayerMain::Init()
+{
+	Player.Pos = { 300,0 };
+	DashFlag = false;
+	DashTime = 0;
+	attackstarttime = -1;
+	HitCoolDown = 0;
+	AttackCoolDown = 0;
+	PreJumpKey = false;
+	JumpFlag = false;
+	Speed = { 0,0 };
+	OtherSpeed = { 0,0 };
+	HitBack = { 0,0 };
+	Gravity = 0;
+	FaceRight = true;
+	HitStop = 0;
+}
+
 void PlayerMain::Move()
 {
 	isSwordHit = false;
@@ -328,7 +346,7 @@ void PlayerMain::PlayerHit(Quad Target)
 
 
 			HitStop = 5;
-			HitCoolDown = 60;
+			HitCoolDown = HITCOOLDOWNMAX;
 			HP--;
 		}
 	}
@@ -345,7 +363,7 @@ void PlayerMain::PlayerHit(Circle Target)
 
 
 				HitStop = 5;
-				HitCoolDown = 60;
+				HitCoolDown = HITCOOLDOWNMAX;
 				HP--;
 			}
 		}
