@@ -92,6 +92,9 @@
     <ClCompile Include="Effect4.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -192,6 +195,7 @@
     <ClInclude Include="Effect2.h" />
     <ClInclude Include="Boss2.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="Effect3.h" />
     <ClInclude Include="Effect4.h" />
   </ItemGroup>

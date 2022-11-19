@@ -88,6 +88,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedout = true;
 				
 			}
+
+			playermain.Move();
+
+			if (isTitleStart == false) {
+				isFeedin = true;
+				if (feedinT >= 1) {
+					InitFeedin();
+					isTitleStart = true;
+				}
+			}
+
+			if (feedoutT >= 1) {
+				InitFeedout();
+				isTitleStart = false;
+				scene = stage;
+				isFeedin = true;
+			}
+
+
 			break;
 		case stage:
 			//ステージ処理
@@ -255,26 +274,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case title:
-			if (isTitleStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1) {
-					InitFeedin();
-					isTitleStart = true;
-				}
-			}
-		//title描画処理
+			
+		//title描画処理1
+			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
+
+
 			Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
 			
-			if (feedoutT >= 1) {
-				InitFeedout();
-				isTitleStart = false;
-				scene = stage;
-				isFeedin = true;
-			}
-			else {
-				break;
-			}
+			
+			
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra);
+
+			break;
 		case stage:
 			if (isStageStart == false) {
 				isFeedin = true;
