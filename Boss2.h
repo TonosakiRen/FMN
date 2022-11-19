@@ -63,6 +63,11 @@ class Boss2 {
 		float Ease_T = 0;
 		float FPos = 0;
 		bool bMove = false;
+		void Init() {
+			Time = 0;
+			Ease_T = 0;
+			bMove = false;
+		}
 
 	}keep;
 	struct Zanzou {

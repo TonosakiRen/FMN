@@ -24,27 +24,31 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 
 	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);
 
-
-	if (CoolTime == 0 && Action == false) {
+	if (CoolTime <= 0 && Action == false) {
 		MoveArray = rand;
 
 		if (MovePattern[MoveArray] == FMoveArray) {
 			Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
 			if (reload == 0) {
-				Action = true;
+				
+					Action = true;
+					
+				
 			}
 			if (reload == 1) {
 				MovePattern[MoveArray] = ReloadMove(FMoveArray);
 			}
 		}
 		else {
-			Action = true;
+			
+				Action = true;
+			
 
 		}
 		DirectionGet(player);
 	}
-	else if (CoolTime != 0 && Action == false) {
+	else if (CoolTime >0 && Action == false ) {
 		CoolTime--;
 		State(player);
 		reload = Randam::RAND(0, 1);
@@ -57,7 +61,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 	
 
 	if (Action == true) {
-
+		keep.Init();
 		switch (hppattarn)
 		{
 
@@ -69,9 +73,9 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					CenterOfDarknessAttack(player);
+					//CenterOfDarknessAttack(player);
 					FMoveArray = array.NormalAttack; 
-					//Action = false;
+					Action = false;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
@@ -702,10 +706,9 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		Pos.y += keep.YMove;
 	}
 	if (keep.bMove == false) {
-
 		keep.Time++;
 	}
-	if (keep.Time == 50&& keep.bMove == false) {
+	if (keep.Time == 30&& keep.bMove == false) {
 		keep.rand = Randam::RAND(0, 100);
 		if (keep.rand <= 50 && Pos.x >= 1200) {
 			keep.rand = Randam::RAND(25, 100);
