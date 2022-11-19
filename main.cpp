@@ -98,7 +98,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -161,7 +161,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
 
 					//bossのエフェクト
-					enemySwordEffect.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
+					if (boss.IsLife) {
+						enemySwordEffect.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
+					}
+					else {
+						enemySwordEffect.Update(false, boss.GetBossBladeQuad());
+					}
 					bossBodyEffect.Update(boss.IsLife, boss.GetBossQuad(boss.body));
 					bossHeadEffect.Update(boss.IsLife, boss.GetBossQuad(boss.head));
 					bossRightArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.rightarm));
@@ -169,13 +174,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					bossLegEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leg));
 					
 					//boss2のエフェクト
-					boss2.centerOfDarknessUnder.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
-					boss2.centerOfDarknessLeft.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
-					boss2.centerOfDarknessRight.target = Quad{ { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 }.GetCenter();
+					boss2.centerOfDarknessUnder.target = boss2.GetBossQuad().GetCenter();
+					boss2.centerOfDarknessLeft.target = boss2.GetBossQuad().GetCenter();
+					boss2.centerOfDarknessRight.target = boss2.GetBossQuad().GetCenter();
 
-					boss2.centerOfDarknessUnder.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
-					boss2.centerOfDarknessLeft.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
-					boss2.centerOfDarknessRight.deleteQuad = { { SCREEN_WIDTH / 2 - 10,(SCREEN_HEIGHT - Floor) / 2 + 10 },10,10 };
+					boss2.centerOfDarknessUnder.deleteQuad = boss2.GetBossQuad();
+					boss2.centerOfDarknessLeft.deleteQuad = boss2.GetBossQuad();
+					boss2.centerOfDarknessRight.deleteQuad = boss2.GetBossQuad();
 
 					boss2.centerOfDarknessUnder.Update( boss2.isCenterOfDarkness, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
 					boss2.centerOfDarknessLeft.Update( boss2.isCenterOfDarkness, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });

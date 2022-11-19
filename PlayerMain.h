@@ -117,6 +117,16 @@ public:
 		return Quad(Player.Quad);
 	}
 
+	Vec2 GetPlayerPos()
+	{
+		return Vec2(Player.Pos);
+	}
+
+	void SetPlayerPos(Vec2 pos)
+	{
+		Player.Pos = pos;
+	}
+
 	Quad GetSwordQuad()
 	{
 		return Quad(Sword.Quad);
