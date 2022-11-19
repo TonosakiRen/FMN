@@ -22,6 +22,7 @@ class Boss {
 	int Tatsumaki_gra = 0;
 	int UseBladeGra = Blade_gra;
 	int ShockWave_gra=0;
+	int HpBar_gra = 0;
 
 	static struct Matrix2x2
 	{
@@ -59,6 +60,7 @@ class Boss {
 	int HoldPlusY = 42;
 
 	int HP = 2000;
+	unsigned int HpColor = 0x00FF44FF;
 	const int HalfHP = HP*0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 
@@ -436,7 +438,6 @@ public:
 	void ShockWaveAttack(PlayerMain& player, Screen& screen);
 	void ShockWaveAttack2(PlayerMain& player, Screen& screen);
 	void ShockWaveAttackCenter(PlayerMain& player);
-
 
 	void CircleOfDeathAttack(PlayerMain& player);
 	void RainOfSwordAttack();

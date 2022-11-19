@@ -174,6 +174,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		HoldBlade_gra = Novice::LoadTexture("./Resources/images/Boss/HoldBlade.png");
 		Tatsumaki_gra = Novice::LoadTexture("./Resources/images/Tatsumaki.png");
 		ShockWave_gra = Novice::LoadTexture("./Resources/images/ShockWave.png");
+		HpBar_gra=Novice::LoadTexture("./Resources/images/BossHpBar.png");
 	}
 	bool BossisFlip = false;
 
@@ -187,8 +188,8 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	
 	for (int i = 0; i < kMAX_WAVE; i++) {
 
-		screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 256, 256, 0, 0x00FF0011);
-		screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
+		//screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 256, 256, 0, 0x00FF0011);
+		//screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
 		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
 		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
 		//screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
@@ -217,13 +218,17 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
 		screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
 	}
-	Novice::DrawBox(20, 20, HP, 80, 0, GREEN, kFillModeSolid);
+	
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
 		screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
 	Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
+	Novice::ScreenPrintf(960, 400, "O");
+
 	Clamp::clamp(HP, 0, 10000);
+	Novice::DrawBox(456, 20, HP * 0.51, 50, 0, HpColor, kFillModeSolid);
+	Novice::DrawSprite(350, 0, HpBar_gra, 1, 1, 0, WHITE);
 }
 
 void Boss::State(PlayerMain& player)
@@ -242,8 +247,11 @@ void Boss::State(PlayerMain& player)
 			}
 		if (HP < ThreeQuarterHP) {
 			hppattarn = THREEQUARTERS;
+			HpColor =0xFFFF00FF;
 			if (HP < HalfHP) {
 				hppattarn = HALF;
+				HpColor = 0xFF4400FF;
+
 			}
 		}else {
 				hppattarn = NORMAL;
