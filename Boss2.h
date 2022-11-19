@@ -6,6 +6,8 @@
 #include"PlayerMain.h"
 #include"Circle.h"
 #include "Effect2.h"
+#include "Effect3.h"
+#include "Effect4.h"
 
 
 //const int MAX_PATTERN= 100;
@@ -14,6 +16,11 @@
 //const int kMAX_WAVE = 2;
 const int MAX2_PATTERN = 100;
 const int Max_Zan = 20;
+const int swordNum = 20;
+const int chaseBulletNum = 5;
+const int savechaseframe = 3;
+const int rotateBulletNum = 20;
+const int saveUndertaleFrame = 1000;
 class Boss2 {
 
 	//画像の宣言
@@ -146,6 +153,8 @@ class Boss2 {
 	float BossMotionTime = 0;
 
 	public:
+
+	//CenterofDarkness
 	float centerOfDarknessMoveT = 0;
 	bool isCenteroOfDarknessMove = true;
 	bool isCenterOfDarkness = 0;
@@ -158,6 +167,57 @@ class Boss2 {
 	float gravityPower = 5.0f;
 	const int saveCenterOfDarknessCooltime = 1000;
 	int centerOfDarknessCooltime = 1000;
+
+	//BulletAttack
+	
+	Quad initialSword = {Pos,30,30,};
+	Quad effectSword[swordNum];
+	Quad sword[swordNum];
+	float radius = 200.0f;
+	float mostRadius = 2000.0f;
+	float theta[swordNum];
+	bool isSword[swordNum];
+	unsigned int orbitColor[swordNum];
+	bool isRelease = false;
+	bool getFrag[swordNum];
+	Effect3 swordEffect;
+	float swordT[swordNum] ;
+	const int saveBulletAttackCoolTime = 2000;
+	int bulletAttackCoolTime = saveBulletAttackCoolTime;
+	bool isOrbit[swordNum] ;
+
+	//undertale
+
+	float xMove = 0;
+	float xSpeed = 1;
+	float yMove = 0;
+	float ytheta = 0;
+	float ythetaSpeed = M_PI / 30;
+	Vec2 savePlayerPos;
+	Quad initialRotateBullet;
+	Quad rotateBullet[rotateBulletNum];
+	Quad bullet[rotateBulletNum];
+	float bulletRadius = 500;
+	float rotatetheta[rotateBulletNum];
+	float rotatethetaSpeed = M_PI / 40.0f;
+	bool isRotateBullet[rotateBulletNum];
+	float rotateT;
+	float upCircleY = 0;
+	float wideMostMove = 100;
+
+	Effect4 chaseEffect;
+	int chaseframe[chaseBulletNum];
+	Vec2 leftVec[chaseBulletNum];
+	Vec2 rightVec[chaseBulletNum];
+	Vec2 chaseVec[chaseBulletNum];
+	float chaseTheta = 5.0f * M_PI / 180;
+	bool isGet[chaseBulletNum];
+	Vec2 playerToEffect[chaseBulletNum];
+	bool isFeedrotateBullet = false;
+	float rotateBulletT[rotateBulletNum];
+	bool emitchaseEffect = true;
+	
+	int undertaleFrame = saveUndertaleFrame;
 
 public:
 	Boss2();
@@ -174,7 +234,8 @@ public:
 	void Zanzou();
 	//スキル
 	void CenterOfDarknessAttack(PlayerMain& player);
-
+	void BulletAttack(PlayerMain& player);
+	void UndertaleAttack(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	

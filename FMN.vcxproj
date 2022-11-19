@@ -107,6 +107,8 @@
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Effect2.cpp" />
+    <ClCompile Include="Effect3.cpp" />
+    <ClCompile Include="Effect4.cpp" />
     <ClCompile Include="Feed.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +158,8 @@
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Effect2.h" />
+    <ClInclude Include="Effect3.h" />
+    <ClInclude Include="Effect4.h" />
     <ClInclude Include="Feed.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="main.h" />

@@ -15,6 +15,7 @@
 #include "Effect2.h"
 #include "Effect.h"
 #include "Background.h"
+#include "Tutorial.h"
 #include <time.h>
 
 Screen screen;
@@ -22,7 +23,7 @@ PlayerMain playermain;
 Boss boss;
 Boss2 boss2;
 Background background;
-
+Tutorial tutorial;
 Stopper stopper;
 Effect playerEffect(30, 2, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f, 1);
 Effect enemySwordEffect(30, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 60.0f, -1.0f , 1);

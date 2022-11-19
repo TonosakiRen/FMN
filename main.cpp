@@ -58,10 +58,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
 	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
 
+	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
+
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
 	//test
+
+	//tutorial.unko();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -76,18 +80,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, playermain.GetPlayerQuad().LeftTop.y, 1.25);
-
+		
 		switch (scene)
 		{
 		case title:
 			//タイトル処理
 
-			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
 				isFeedout = true;
-				
 			}
-
-			playermain.Move();
 
 			if (isTitleStart == false) {
 				isFeedin = true;
@@ -98,12 +99,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			if (feedoutT >= 1) {
+				playermain.Init();
 				InitFeedout();
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
 			}
 
+			playermain.Move();
+
+			//tutorial.HitLetAttack(playermain.GetSwordQuad());
+
+			for (int i = 0; i < 2; i++) {
+				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+			}
+
+			tutorial.Update();
 
 			break;
 		case stage:
@@ -153,9 +164,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 20; i++) {
-							playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
-							playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
-							playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+							if (boss2.centerOfDarknessUnder.particles[i].isActive == true) {
+								playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
+								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
+								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+							}
 						}
 
 					}
@@ -277,9 +290,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
 
 
-			Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
+			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
-			
+			tutorial.Draw(screen);
 			
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra);
@@ -323,7 +336,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, RED, kBlendModeNormal);
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-
+			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra);
 			
@@ -334,6 +347,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				boss2.Draw(screen);
+			}
+
+			//BulletAttack
+			boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			for (int i = 0; i < swordNum; i++) {
+
+				if (boss2.isRelease == true && boss2.swordT[i] >= 0.0f) {
+
+					/*screen.DrawQuad2(boss2.effectSword[i], 0, 0, 128, 128, orbitImg, boss2.orbitColor[i]);*/
+				}
+				if (boss2.isSword[i] == true) {
+					screen.DrawQuad2(boss2.sword[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+			}
+
+			//rotatebullet
+			for (int i = 0; i < rotateBulletNum; i++) {
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == false) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == true) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.01f, WHITE));
+				}
 			}
 
 			//プレイヤーソード描画

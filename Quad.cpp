@@ -57,6 +57,20 @@ Quad Quad::Rotate(Quad quad, float theta) {
 			 {quad.RightBottom.x * c - quad.RightBottom.y * s , quad.RightBottom.y * c + quad.RightBottom.x * s }
 	};
 }
+
+Quad Quad::Rotate(Quad quad, float radius, float theta) {
+	Vec2 center = quad.GetCenter();
+	Quad CenterQuad = quad - center;
+	CenterQuad = CenterQuad + Vec2{ 0, radius };
+	float c = cosf(theta);
+	float s = sinf(theta);
+	return { {CenterQuad.LeftTop.x * c - CenterQuad.LeftTop.y * s + center.x,			CenterQuad.LeftTop.y * c + CenterQuad.LeftTop.x * s + center.y},
+			 {CenterQuad.RightTop.x * c - CenterQuad.RightTop.y * s + center.x,		CenterQuad.RightTop.y * c + CenterQuad.RightTop.x * s + center.y},
+			 {CenterQuad.LeftBottom.x * c - CenterQuad.LeftBottom.y * s + center.x,	CenterQuad.LeftBottom.y * c + CenterQuad.LeftBottom.x * s + center.y},
+			 {CenterQuad.RightBottom.x * c - CenterQuad.RightBottom.y * s + center.x, CenterQuad.RightBottom.y * c + CenterQuad.RightBottom.x * s + center.y}
+	};
+}
+
 Quad Quad::Translation(Quad quad, Vec2 position) {
 	return { {quad.LeftTop.x + position.x,        quad.LeftTop.y + position.y},
 			 {quad.RightTop.x + position.x,       quad.RightTop.y + position.y},

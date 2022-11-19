@@ -5,13 +5,35 @@
 #include "Randam.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "Feed.h"
 
 Boss2::Boss2() :
 	centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2)
+	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2),
+	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
+	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1)
 {
+	for (int i = 0; i < swordNum; i++) {
+		orbitColor[i] = RED;
+		theta[i] = -(M_PI * 2.0f / swordNum) * i - 1.0f * M_PI / 180;
+		isSword[i] = false;
+		getFrag[i] = false;
+		swordT[i] = 0.0f;
+		isOrbit[i] = false;
+	}
+	for (int i = 0; i < chaseBulletNum; i++) {
+		chaseframe[i] = 0.0f;
+		isGet[i] = false;
+	}
 
+	for (int i = 0; i < rotateBulletNum; i++) {
+		rotatetheta[i] = -(M_PI * 2.0f / rotateBulletNum) * i;
+		isSword[i] = false;
+		isRotateBullet[i] = false;
+		rotateBulletT[i] = 0.0f;
+	}
+	
 }
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
@@ -79,46 +101,45 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					//CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack; 
-					Action = false;
+					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction01;
-					Action = false;
+					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
-					Action = false;
+					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					
-					Action = false;
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction04;
 				
-					Action = false;
+					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%ÇÃçUåÇ
-					
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction05;
 
-					Action = false;
+					
 					
 
 				}
@@ -134,7 +155,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					CenterOfDarknessAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -649,6 +670,198 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	
 }
 
+
+void Boss2::BulletAttack(PlayerMain& player) {
+
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	bulletAttackCoolTime--;
+	for (int i = 0; i < swordNum; i++) {
+		//thetaÇâ¡éZ
+		if (theta[swordNum - 1] <= 0) {
+			theta[i] += M_PI / 80.0f;
+			initialSword = { Pos,30,30, };
+		}
+		//thetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁèoåªÇ≥ÇπÇÈ
+		if (theta[i] >= 0 && isSword[i] == false) {
+			isSword[i] = true;
+		}
+		if (theta[swordNum - 1] <= 0) {
+			if (isSword[i] == true) {
+				//âÒì]
+				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
+			}
+
+		}
+		else {
+			isRelease = true;
+		}
+	}
+	for (int i = 0; i < swordNum; i++) {
+		if(isRelease == true) {//ç≈ä˙ÇÃíeÇÃthetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁ
+			
+				
+				radius += 1;
+				bulletAttackCoolTime--;
+				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
+				if (swordT[i] < 1.0f && isOrbit[i] == false) {
+					orbitColor[i] = Feed::Feedin(swordT[i], 0.05f, orbitColor[i]);
+				}
+				if (swordT[i] >= 1.0f && isOrbit[i] == false) {
+					isOrbit[i] = true;
+					swordT[i] = 0.0f;
+				}
+				if (isOrbit[i] == true) {
+					orbitColor[i] = Feed::Feedout(swordT[i], 0.05f, orbitColor[i]);
+				}
+				//ï˙èoÇµÇƒç≈èâÇÃÉtÉåÅ[ÉÄÇæÇØ
+				if (getFrag[i] == false) {
+					swordT[i] = 0.0f;
+					effectSword[i] = sword[i];
+					effectSword[i].LeftBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).LeftBottom;
+					effectSword[i].RightBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).RightBottom;
+					getFrag[i] = true;
+				}
+				
+				swordEffect.Update(true, sword[i]);
+			
+		}
+	}
+	if (bulletAttackCoolTime <= 0) {
+		isRelease = false;
+		bulletAttackCoolTime = saveBulletAttackCoolTime;
+		radius = 200.0f;
+		for (int i = 0; i < swordNum; i++) {
+			orbitColor[i] = RED;
+			theta[i] = -(M_PI * 2.0f / swordNum ) * i - 1.0f * M_PI / 180;
+			isSword[i] = false;
+			getFrag[i] = false;
+			swordT[i] = 0.0f;
+			isOrbit[i] = false;
+		}
+		Action = false;
+	}
+}
+
+void Boss2::UndertaleAttack(PlayerMain& player) {
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	undertaleFrame--;
+	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
+		chaseEffect.feedSpeed = 0.01;
+		isFeedrotateBullet = true;
+		emitchaseEffect = false;
+	}
+
+	if (rotatetheta[0] >= 0 && isRotateBullet[0] == false) {
+		initialRotateBullet = { {player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY},30,30,0 };
+		savePlayerPos = { player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY };
+	}
+	else {
+		if (xMove >= wideMostMove && xSpeed) {
+			xSpeed = -xSpeed;
+		}
+		if (xMove <= -100 && xSpeed <= 0) {
+			xSpeed = -xSpeed;
+		}
+
+		xMove += xSpeed;
+		ytheta += ythetaSpeed;
+		yMove = sinf(ytheta) * 30;
+		initialRotateBullet = { {savePlayerPos.x + xMove, savePlayerPos.y + yMove},30,30,0 };
+	}
+	for (int i = 0; i < rotateBulletNum; i++) {
+		rotatetheta[i] += rotatethetaSpeed;
+		if (rotatetheta[i] >= 0 && isRotateBullet[i] == false) {
+				isRotateBullet[i] = true;
+		}
+
+		if (isRotateBullet[i] == true) {
+			//âÒì]
+			rotateBullet[i] = initialRotateBullet.Rotate(initialRotateBullet, bulletRadius, rotatetheta[i]);
+		}
+		if (rotateBulletT[i] >= 1.0f) {
+			isRotateBullet[i] = false;
+		}
+	}
+	if (undertaleFrame <= 940) {
+		chaseEffect.Update(emitchaseEffect, { Pos,30,30 });
+		for (int i = 0; i < chaseBulletNum; i++) {
+			chaseframe[i]--;
+			if (isGet[i] == false && chaseEffect.particles[i].isActive == true) {
+				chaseframe[i]--;
+				if (isGet[i] == false && chaseEffect.particles[i].isActive == true) {
+					chaseVec[i] = player.GetPlayerPos() - chaseEffect.particles[i].quad.GetCenter();
+					isGet[i] = true;
+				}
+			}
+
+			if (chaseEffect.particles[i].isActive == true) {
+				if (chaseframe[i] <= 0) {
+					playerToEffect[i] = player.GetPlayerPos() - chaseEffect.particles[i].quad.GetCenter();
+					leftVec[i] = chaseVec[i].Rotation(chaseTheta);
+					rightVec[i] = chaseVec[i].Rotation(-chaseTheta);
+
+					float rightCross = rightVec[i].Cross(playerToEffect[i]);
+					float leftCross = leftVec[i].Cross(playerToEffect[i]);
+
+					if (rightCross >= 0.0f && leftCross <= 0.0f) {
+						chaseVec[i] = playerToEffect[i];
+					}
+
+					if (rightCross <= 0.0f && leftCross >= 0.0f) {
+						if (-rightCross > leftCross) {
+							chaseVec[i] = rightVec[i];
+						}
+						else {
+							chaseVec[i] = leftVec[i];
+						}
+					}
+
+					if (rightCross > 0.0f && leftCross > 0.0f) {
+						chaseVec[i] = leftVec[i];
+					}
+
+					if (rightCross < 0.0f && leftCross < 0.0f) {
+						chaseVec[i] = rightVec[i];
+					}
+
+					chaseEffect.particles[i].maxDirection = chaseVec[i];
+					chaseEffect.particles[i].minDirection = chaseVec[i];
+					chaseframe[i] = savechaseframe;
+				}
+			}
+		}
+	}
+
+		if (undertaleFrame <= 0) {
+			chaseEffect.feedSpeed = 0.0f;
+			xMove = 0.0f;
+			yMove = 0;
+			ytheta = 0.0f;
+			rotateT = 0.0f;
+			isFeedrotateBullet = false;
+			emitchaseEffect = true;
+			undertaleFrame = saveUndertaleFrame;
+			for (int i = 0; i < chaseBulletNum; i++) {
+				chaseframe[i] = 0.0f;
+				isGet[i] = false;
+			}
+
+			for (int i = 0; i < rotateBulletNum; i++) {
+				rotatetheta[i] = -(M_PI * 2.0f / rotateBulletNum) * i;
+				isSword[i] = false;
+				isRotateBullet[i] = false;
+				rotateBulletT[i] = 0.0f;
+			}
+
+			Action = false;
+		}
+	
+}
+
 void Boss2::UpDate()
 {
 
@@ -692,6 +905,8 @@ void Boss2::Draw(Screen& screen)
 	};
 	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
 	//screen.DrawQuad2Renban(Quad_Pos,)
+
+	
 }
 
 
