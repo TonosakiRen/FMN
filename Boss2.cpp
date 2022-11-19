@@ -101,34 +101,34 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction01;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction04;
 				
 					
@@ -136,7 +136,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction05;
 
 					
@@ -155,19 +155,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					UndertaleAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					nyokkiAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -860,6 +860,58 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			Action = false;
 		}
 	
+}
+
+void Boss2::nyokkiAttack(PlayerMain& player) {
+	if (isdropMove == false) {
+		if (isSaveBossY == false) {
+			saveBossY = Pos.y;
+			isSaveBossY = true;
+		}
+		Pos.y = Easing::easing(dropMoveT,saveBossY, saveBossY + upDropMove,upSpeed,Easing::easeInOutQuart);
+		if (dropMoveT >= 1.0f) {
+			isdropMove = true;
+		}
+	}
+	if (isSaveBossY2 == false && isdropMove == true) {
+		saveBossY2 = Pos.y;
+		isSaveBossY2 = true;
+		isdrop = true;
+	}
+	if (isdrop == true) {
+		Pos.y  = Easing::easing(dropT, saveBossY2, underPos, dropSpeed, Easing::easeInOutQuint);
+		if (dropT >= 1.0f) {
+			isdrop = false;
+			isNyokki = true;
+		}
+	}
+	if (isNyokki == true ) {
+		//nyokkiˆ—
+		isNyokki = false;
+		isreturn = true;
+	}
+
+	if (isNyokki == false && isreturn == true) {
+		if (isSaveBossY3 == false) {
+			saveUnderBossY = Pos.y;
+			isSaveBossY3 = true;
+		}
+		Pos.y = Easing::easing(returnMoveT, saveUnderBossY, saveBossY, upSpeed, Easing::easeInOutQuint);
+		if (returnMoveT >= 1.0f) {
+			dropT = 0.0f;
+			isSaveBossY = false;
+			isSaveBossY2 = false;
+			isSaveBossY3 = false;
+			isdropMove = false;
+			dropMoveT = 0.0f;
+			returnMoveT = 0.0f;
+			isdrop = false;
+			Action = false;
+			isNyokki = false;
+			isreturn = false;
+		}
+	}
+
 }
 
 void Boss2::UpDate()

@@ -21,6 +21,7 @@ const int chaseBulletNum = 5;
 const int savechaseframe = 3;
 const int rotateBulletNum = 20;
 const int saveUndertaleFrame = 1000;
+const int nyokkiNum = 30;
 class Boss2 {
 
 	//画像の宣言
@@ -219,6 +220,26 @@ class Boss2 {
 	
 	int undertaleFrame = saveUndertaleFrame;
 
+	//nyokki
+	Quad nyokkiQuad[nyokkiNum];
+	float  saveBossY;
+	float  saveBossY2;
+	float  saveUnderBossY;
+	float underPos = 92.0f;
+	float dropT = 0.0f;
+	bool isSaveBossY = false;
+	bool isSaveBossY2 = false;
+	bool isSaveBossY3 = false;
+	float upSpeed = 0.02;
+	float dropSpeed = 0.02;
+	bool isdropMove = false;
+	bool isdrop = false;
+	float dropMoveT = 0.0f;
+	float returnMoveT = 0.0f;
+	float upDropMove = 70;
+	bool isNyokki = false;
+	bool isreturn = false;
+
 public:
 	Boss2();
 	void Set();
@@ -236,6 +257,7 @@ public:
 	void CenterOfDarknessAttack(PlayerMain& player);
 	void BulletAttack(PlayerMain& player);
 	void UndertaleAttack(PlayerMain& player);
+	void nyokkiAttack(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	
