@@ -25,6 +25,7 @@ class PlayerMain
 		int SrcX;
 		unsigned int Color;
 		Vec2 ImageSize;
+		int ImageMisal;
 	};
 	
 	//FaceRight プレイヤーがどっち向いてるか判別 false 左 : 右 true
@@ -43,7 +44,8 @@ class PlayerMain
 		9,
 		0,
 		WHITE,
-		{ 60,96 },
+		{ 108,108 },
+		int(Player.HitBoxSize.y - Player.ImageSize.y) / 2,
 	};
 
 	int HP = 3;
@@ -64,7 +66,7 @@ class PlayerMain
 	int JumpTime = 0;
 
 	//JUMPPOWER ジャンプ力ぅ...ですかねぇ...
-	float JUMPPOWER = 2.3;
+	float JUMPPOWER = 2.1;
 
 	//JumpFlag ジャンプさせるフラグ Trueの間はSpeedにジャンプ力が入る
 	bool JumpFlag = false;
@@ -110,11 +112,32 @@ class PlayerMain
 	int CurrentSubSwordDrawNum = 0;
 	int isSwordHitFace = 0;
 
+	enum {
+		stand,
+		walk,
+		dash,
+		jump,
+		fall,
+		attack,
+	};
+
+	int PlayerAnimeMode = 0;
+
 public:
 
 	Quad GetPlayerQuad()
 	{
 		return Quad(Player.Quad);
+	}
+
+	Vec2 GetPlayerPos()
+	{
+		return Vec2(Player.Pos);
+	}
+
+	void SetPlayerPos(Vec2 pos)
+	{
+		Player.Pos = pos;
 	}
 
 	Quad GetSwordQuad()
@@ -149,7 +172,7 @@ public:
 	bool GetisFaceUp() { return FaceUp; }
 	bool GetisFaceDown() { return FaceDown; }
 
-	void Draw(Screen& screen,int texture);
+	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack);
 	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
 };

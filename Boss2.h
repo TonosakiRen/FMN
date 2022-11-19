@@ -141,11 +141,18 @@ class Boss2 {
 	float BossMotionTime = 0;
 
 	public:
+	float centerOfDarknessMoveT = 0;
+	bool isCenteroOfDarknessMove = true;
 	bool isCenterOfDarkness = 0;
+	bool isGetPos = false;
+	float saveBoss2x;
+	float savePlayerx;
 	Effect2 centerOfDarknessLeft;
 	Effect2 centerOfDarknessRight;
 	Effect2 centerOfDarknessUnder;
-
+	float gravityPower = 5.0f;
+	const int saveCenterOfDarknessCooltime = 1000;
+	int centerOfDarknessCooltime = 1000;
 
 public:
 	Boss2();
@@ -161,7 +168,7 @@ public:
 	int ReloadMove(int Movearry);
 	void Zanzou();
 	//スキル
-	
+	void CenterOfDarkness(PlayerMain& player);
 
 
 	//スキル出したかどうか：：次に出すやつを変えれる
@@ -170,7 +177,7 @@ public:
 	//派生スキル::行動が終わっても出続ける的なもの
 	
 
-	Quad GetBossQuad(int BossParts);
+	Quad GetBossQuad(){ return Quad_Pos; }
 
 	Quad GetShockWave();
 	Quad GetShockWave2();

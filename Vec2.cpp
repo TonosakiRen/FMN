@@ -45,7 +45,7 @@ void Vec2::setZero() {
 }
 
 Vec2 Vec2::Rotation(float t) const {
-    return{ x * cosf(t) - x * sinf(t) ,y * sinf(t) + y * cosf(t) };
+    return{ x * cosf(t) - y * sinf(t) ,x * sinf(t) + y * cosf(t) };
 }
 
 

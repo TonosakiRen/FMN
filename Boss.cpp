@@ -207,7 +207,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
-	screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
+	//screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
 	screen.DrawEllipse(RightArm.ImageQuad.GetCenter(), 3, 3, 0, WHITE, kFillModeSolid);
 

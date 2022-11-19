@@ -9,7 +9,7 @@
 Boss2::Boss2() :
 	centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(30, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1)
+	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2)
 {
 
 }
@@ -124,19 +124,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					CenterOfDarkness(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					
+					CenterOfDarkness(player);
 					Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					
+					CenterOfDarkness(player);
 					FMoveArray = array.AttackFunction02;
 					Action = false;
 					
@@ -604,6 +604,39 @@ void Boss2::Zanzou()
 			}
 		}
 	}
+}
+
+void Boss2::CenterOfDarkness(PlayerMain& player) {
+	if (isCenteroOfDarknessMove == true) {
+		if (isGetPos == false) {
+			saveBoss2x = Pos.x;
+			savePlayerx = player.GetPlayerQuad().GetCenter().x;
+			isGetPos = true;
+		}
+		Pos.x = Easing::easing(centerOfDarknessMoveT, saveBoss2x, savePlayerx, 0.01f, Easing::easeInOutQuint);
+		if (centerOfDarknessMoveT >= 1.0f) {
+			isCenteroOfDarknessMove = false;
+		}
+	}
+	else {
+		--centerOfDarknessCooltime;
+		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
+		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
+		if (centerOfDarknessCooltime >= 200) {
+			isCenterOfDarkness = true;
+		}
+		else if (centerOfDarknessCooltime >= 0) {
+			isCenterOfDarkness = false;
+		}
+		else {
+			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
+			centerOfDarknessMoveT = 0.0f;
+			isCenteroOfDarknessMove = true;
+			isGetPos = false;
+			Action = false;
+		}
+	}
+	
 }
 
 void Boss2::UpDate()

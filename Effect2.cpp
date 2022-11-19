@@ -122,7 +122,7 @@ void Effect2::EffectUpdate() {
 void Effect2::Delete() {
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
-			if (particles[i].quad.GetWidth() < 1.0f || Collision::QuadToQuad(deleteQuad, particles[i].quad)) {
+			if (particles[i].quad.GetWidth() < 1.0f || Collision::QuadToQuad(deleteQuad, particles[i].quad) || particles[i].quad.GetCenter().y >= SCREEN_WIDTH -Floor + particles[i].quad.GetWidth()) {
 				particles[i].isActive = false;
 			}
 		}
