@@ -120,7 +120,7 @@ void PlayerMain::Move()
 	}
 	else {
 		if (DashFlag == false) {
-			Gravity -= 0.18;
+			Gravity -= 0.14;
 		}
 	}
 	
@@ -338,12 +338,12 @@ void PlayerMain::Draw(Screen& screen,int texture)
 
 	Novice::ScreenPrintf(0, 100, "%f", HitBack.y);
 
-	Quad ImageQuad = { {Player.Pos.x - Player.ImageSize.x / 2, Player.Pos.y + Player.ImageSize.y / 2},
+	Quad ImageQuad = { {Player.Pos.x - Player.ImageSize.x / 2, Player.Pos.y + Player.ImageSize.y / 2 - Player.ImageMisal},
 		int(Player.ImageSize.x),int(Player.ImageSize.y) };
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
-			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, 40, 64, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
+			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, Player.ImageSize.x, Player.ImageSize.y, 1, 60, Player.AnimeFlame, texture, Player.Color, FaceRight);
+			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
 	screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);

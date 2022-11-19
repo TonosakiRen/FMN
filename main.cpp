@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bosslegImg = Novice::LoadTexture("./Resources/Images/Boss/Leg.png");
 	int bossrightarmImg = Novice::LoadTexture("./Resources/Images/Boss/RightArm.png");
 	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
-	int ziki = Novice::LoadTexture("./Resources/Images/ziki.png");
+	int ziki = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
 
 	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png"); //bg = background
 	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
