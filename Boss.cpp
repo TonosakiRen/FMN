@@ -425,14 +425,14 @@ int Boss::ReloadMove(int Movearray)
 void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 {
 	if (CanMove == true) {
-		Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
+		/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
 		Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 		Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 		Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
 		Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
 		Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
 
-		Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);
+		Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);*/
 
 
 		if (CoolTime == 0 && Action == false) {
@@ -2881,6 +2881,8 @@ void Boss::Movie()
 	const int BODYMINUS = 190;
 	if (MovieTime == 0) {
 		CanMove = false;
+		isImageDead = true;
+		isRedBlackEffect = false;
 		RightArm.StandMotionFlag = 0;
 		LeftArm.StandMotionFlag = 0;
 		Body.StandMotionFlag = 0;

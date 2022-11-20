@@ -530,6 +530,7 @@ void PlayerMain::Movie()
 	}
 	else if (MovieTime == 760) {
 		CanMove = true;
+		PulsScroll = 0;
 	}
 
 	MovieTime++;

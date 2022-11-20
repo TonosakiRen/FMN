@@ -96,6 +96,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedout = true;
 			}
 
+			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+			}
+
 			if (isTitleStart == false) {
 				isFeedin = true;
 				if (feedinT >= 1) {
@@ -110,7 +114,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
-				isMovie = true;
+				//isMovie = true;
 			}
 
 			playermain.Move();

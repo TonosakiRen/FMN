@@ -408,9 +408,9 @@ class Boss {
 
 
 	int MovieTime = 0;
-	bool CanMove = false;
-	bool isImageDead = true;
-	bool isRedBlackEffect = false;
+	bool CanMove = true;
+	bool isImageDead = false;
+	bool isRedBlackEffect = true;
 
 #pragma endregion
 
