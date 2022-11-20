@@ -10,7 +10,7 @@ Boss::Boss()
 {
 	Size = { 150,300 };
 
-	Pos = { 1000,Size.y/2};
+	Pos = { 1600,Size.y/2};
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2)};
 	LeftBottom = Vec2(Pos - (Size/2));
 	RightTop= Vec2(Pos + (Size/2));
@@ -106,36 +106,36 @@ void Boss::UpDate() {
 	}
 
 
-	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x * Body.StandMotionFlag + Body.HitReaction.x + Body.MotionPos.x,
-		Pos.y + Body.PosMisal.y + Body.PulsPos.y * Body.StandMotionFlag + Body.HitReaction.y + Body.MotionPos.y};
+	Body.ImagePos = { Pos .x + Body.PosMisal.x * Direction + Body.PulsPos.x * Body.StandMotionFlag + Body.HitReaction.x + Body.MotionPos.x + Body.MoviePulsPos.x,
+		Pos.y + Body.PosMisal.y + Body.PulsPos.y * Body.StandMotionFlag + Body.HitReaction.y + Body.MotionPos.y + Body.MoviePulsPos.y};
 	Body.ImageQuad = { {Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
 		int(Body.ImageSize.x),int(Body.ImageSize.y) };
 	Body.ColQuad = { { Body.ImagePos.x - Body.ColMisal.x * Direction - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
 		int(Body.ColSize.x),int(Body.ColSize.y) };
 
-	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x * Head.StandMotionFlag + Head.HitReaction.x + Head.MotionPos.x,
-		Pos.y + Head.PosMisal.y + Head.PulsPos.y * Head.StandMotionFlag + Head.HitReaction.y + Head.MotionPos.y };
+	Head.ImagePos = { Pos.x + Head.PosMisal.x * Direction + Head.PulsPos.x * Head.StandMotionFlag + Head.HitReaction.x + Head.MotionPos.x + Head.MoviePulsPos.x,
+		Pos.y + Head.PosMisal.y + Head.PulsPos.y * Head.StandMotionFlag + Head.HitReaction.y + Head.MotionPos.y + Head.MoviePulsPos.y };
 	Head.ImageQuad = { {Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
 		int(Head.ImageSize.x),int(Head.ImageSize.y) };
 	Head.ColQuad = { { Head.ImagePos.x - Head.ColMisal.x * Direction - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
 		int(Head.ColSize.x),int(Head.ColSize.y) };
 
-	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x * Leg.StandMotionFlag + Leg.HitReaction.x + Leg.MotionPos.x,
-		Pos.y + Leg.PosMisal.y + Leg.PulsPos.y * Leg.StandMotionFlag + Leg.HitReaction.y + Leg.MotionPos.y };
+	Leg.ImagePos = { Pos.x + Leg.PosMisal.x * Direction + Leg.PulsPos.x * Leg.StandMotionFlag + Leg.HitReaction.x + Leg.MotionPos.x + Leg.MoviePulsPos.x,
+		Pos.y + Leg.PosMisal.y + Leg.PulsPos.y * Leg.StandMotionFlag + Leg.HitReaction.y + Leg.MotionPos.y + Leg.MoviePulsPos.y };
 	Leg.ImageQuad = { {Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) };
 	Leg.ColQuad = { { Leg.ImagePos.x - Leg.ColMisal.x * Direction - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
 		int(Leg.ColSize.x),int(Leg.ColSize.y) };
 
-	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x + RightArm.PulsPos.x * RightArm.StandMotionFlag * Direction + RightArm.HitReaction.x + RightArm.MotionPos.x,
-		Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y * RightArm.StandMotionFlag + RightArm.HitReaction.y + RightArm.MotionPos.y };
+	RightArm.ImagePos = { Pos.x + RightArm.PosMisal.x + RightArm.PulsPos.x * RightArm.StandMotionFlag * Direction + RightArm.HitReaction.x + RightArm.MotionPos.x + RightArm.MoviePulsPos.x,
+		Pos.y + RightArm.PosMisal.y + RightArm.PulsPos.y * RightArm.StandMotionFlag + RightArm.HitReaction.y + RightArm.MotionPos.y + RightArm.MoviePulsPos.y };
 	RightArm.ImageQuad = { {RightArm.ImagePos.x - RightArm.ImageSize.x / 2 * Direction, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
 		int(RightArm.ImageSize.x * Direction),int(RightArm.ImageSize.y) };
 	RightArm.ColQuad = { { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
 		int(RightArm.ColSize.x),int(RightArm.ColSize.y) };
 
-	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x + LeftArm.PulsPos.x * LeftArm.StandMotionFlag * Direction + LeftArm.HitReaction.x + LeftArm.MotionPos.x,
-		Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y * LeftArm.StandMotionFlag + LeftArm.HitReaction.y + LeftArm.MotionPos.y };
+	LeftArm.ImagePos = { Pos.x + LeftArm.PosMisal.x + LeftArm.PulsPos.x * LeftArm.StandMotionFlag * Direction + LeftArm.HitReaction.x + LeftArm.MotionPos.x + LeftArm.MoviePulsPos.x,
+		Pos.y + LeftArm.PosMisal.y + LeftArm.PulsPos.y * LeftArm.StandMotionFlag + LeftArm.HitReaction.y + LeftArm.MotionPos.y + LeftArm.MoviePulsPos.y };
 	LeftArm.ImageQuad = { {LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2 * Direction , LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
 		int(LeftArm.ImageSize.x * Direction),int(LeftArm.ImageSize.y) };
 	LeftArm.ColQuad = { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2 , LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
@@ -162,9 +162,177 @@ void Boss::Set()
 	CoolTime = 200;
 }
 
+void Boss::Init()
+{
+	
+	Pos = { 1500,Size.y / 2 };
+	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
+	LeftBottom = Vec2(Pos - (Size / 2));
+	RightTop = Vec2(Pos + (Size / 2));
+	RightBottom = { Pos.x + (Size.x / 2),Pos.y - (Size.y / 2) };
+	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
+	
+	
+	HP = 2000;
+	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
 
 
-void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
+	keep.rand = 0;
+	keep.Time = 0;
+	//ステート管理初期化
+	hppattarn = NORMAL;
+	pattarn = MIDDLE;
+	//攻撃パラメータ初期化
+	CoolTime = 200;
+	Action = false;
+	Attack = false;
+	AttackStartTime = 0;
+	reload = 0;
+	isBossHit = false;
+	BossMotionTime = 0;
+	StepT = 0;
+	StepFPos = 0;
+	bStep = 0;
+
+	//技の初期化
+
+	blade.Init();
+	for (int i = 0; i < kMAX_WAVE; i++) {
+		Wave[i].Init();
+	}
+	for (int i = 0; i < kMAX_CIR; i++) {
+		Circleofdeath[i].Init();
+	}
+	Circleofdeath_flame = 0;
+	Circleofdeath_Expflame = 0;
+
+	for (int i = 0; i < kMAX_RAINSWORD; i++) {
+		Rainofsword[i].Init();
+	}
+	Rainofsword_flame = 0;
+
+	jumpattack.Init();
+
+	 CircleOfDeathMotionT;
+	 CircleOfDeathMotionT2;
+	 RainofswordMotionT;
+	 RainofswordMotionT2;
+	 bJumpAttack2 = false;
+
+	 bNomalSwordAttack = false;
+	 bNomalRotedSwordAttack = false;
+	 bJumpAttack = false;
+	 bShockWaveAttack = false;
+	 bCircleOfDeathAttack = false;
+
+	 IsLife = true; //生きてるかどうか
+
+	 //モーションの初期化
+#pragma region Parts
+	  Head = {
+		{0,0},
+		{176,160},
+		{10,155},
+		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
+		int(Head.ImageSize.x),int(Head.ImageSize.y) },
+		{0,-2},
+		{0,0.5},
+		1,
+		{0,0},
+		{64,70},
+		{2,-5},
+		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
+		int(Head.ColSize.x),int(Head.ColSize.y) },
+		{0,0},
+		0,
+		0,
+	 };
+
+	 Body = {
+		 {0,0},
+		 {144,164},
+		 {2,52},
+		 { { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
+		 int(Body.ImageSize.x),int(Body.ImageSize.y) },
+		 {0,0},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {132,144},
+		 {5,-4},
+		 { { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
+		 int(Body.ColSize.x),int(Body.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	 Leg = {
+		 {0,0},
+		 {130,130},
+		 {-12,-59},
+		 { { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
+		 int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
+		 {0,0},
+		 {0,0},
+		 1,
+		 {0,0},
+		 {96,106},
+		 {1,11},
+		 { { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
+		 int(Leg.ColSize.x),int(Leg.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  RightArm = {
+		 {0,0},
+		 {52,116},
+		 {-94,-4},
+		 { { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
+		 int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
+		 {0,-5},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {38,74},
+		 {-3,-11},
+		 { { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
+		 int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  LeftArm = {
+		 {0,0},
+		 {52,116},
+		 {86,-4},
+		 { { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
+		 int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
+		 {0,-5},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {38,74},
+		 {3,-11},
+		 { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
+		 int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  ArmPosAngle = 2.8125;
+	  ArmPosAngleSpeed = 2.8125;
+#pragma endregion
+	  BladeImageQuad = { {9999,9999},{9999,9999}, {9999,9999}, {9999,9999} };
+}
+
+
+
+void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm, int deadbody, int deadrightarm, int deadleftarm)
 {
 	if (load == 0) {
 		load = 1;
@@ -184,6 +352,18 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	else {
 		BossisFlip = false;
 	}
+
+	int BodyGra = bodytex;
+	int rightGra = rightarm;
+	int leftGra = leftarm;
+	int BossSheets = 4;
+
+	if (isImageDead == true) {
+		BodyGra = deadbody;
+		rightGra = deadrightarm;
+		leftGra = deadleftarm;
+		BossSheets = 1;
+	}
 	
 	
 	for (int i = 0; i < kMAX_WAVE; i++) {
@@ -195,12 +375,14 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 		//screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
 		//screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, true);
 	}
-	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, 4, 5, Leg.AnimeFlame, legtex, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, 4, 5, Body.AnimeFlame, bodytex, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(Head.ImageQuad, Head.SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, 4, 5, Head.AnimeFlame, headtex, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, 4, 5, RightArm.AnimeFlame, rightarm, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, 4, 5, LeftArm.AnimeFlame, leftarm, WHITE, BossisFlip);
 
+	
+	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, BossSheets, 5, Leg.AnimeFlame, legtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, BossSheets, 5, Body.AnimeFlame, BodyGra, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Head.ImageQuad, Head.SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, BossSheets, 5, Head.AnimeFlame, headtex, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, WHITE, BossisFlip);
+	
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
@@ -210,8 +392,9 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
 	//screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
-	screen.DrawEllipse(RightArm.ImageQuad.GetCenter(), 3, 3, 0, WHITE, kFillModeSolid);
-
+	screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	screen.DrawEllipse(RightArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFF000066, kFillModeSolid);
@@ -221,7 +404,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
-		screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
+		//screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
 	//Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	//Novice::ScreenPrintf(960, 400, "O");
@@ -409,54 +592,55 @@ int Boss::ReloadMove(int Movearray)
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 {
-	/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
-	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
-	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
-	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
-	Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
-	Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
+	if (CanMove == true) {
+		/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
+		Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
+		Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
+		Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
+		Novice::ScreenPrintf(1000, 80, "boss:state:%d", pattarn);
+		Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
 
-	Novice::ScreenPrintf(Pos.x, Pos.y - 200+SCREEN_HEIGHT, "HP:%d", HP);*/
+		Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);*/
 
 
-	if (CoolTime == 0&&Action==false) {
-		MoveArray =rand;
+		if (CoolTime == 0 && Action == false) {
+			MoveArray = rand;
 
 		if (MovePattern[MoveArray] == FMoveArray) {
 			//Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
-			if (reload == 0) {
+				if (reload == 0) {
+					Action = true;
+
+				}
+				if (reload == 1) {
+					MovePattern[MoveArray] = ReloadMove(FMoveArray);
+				}
+			}
+			else {
 				Action = true;
 
 			}
-			if (reload == 1) {
-				MovePattern[MoveArray] = ReloadMove(FMoveArray);
-			}
+			DirectionGet(player);
 		}
-		else {
-			Action = true;
+		else if (CoolTime != 0 && Action == false) {
+			CoolTime--;
+			State(player);
+			reload = Randam::RAND(0, 1);
+			KeepUpWaitBack(player);
+
+			RandMoveSet();
+			DirectionGet(player);
 
 		}
-		DirectionGet(player);
-	}
-	else if (CoolTime != 0&&Action==false) {
-		CoolTime--;
-		State(player);
-		reload = Randam::RAND(0, 1);
-		KeepUpWaitBack(player); 
-		
-		RandMoveSet();
-		DirectionGet(player);
-
-	}
 
 		KeepWaveAttack();
 
 		if (Action == true) {
-			
+
 			switch (hppattarn)
 			{
-				
+
 			case NORMAL:
 				CoolTime = 10;
 
@@ -483,22 +667,22 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						/*CoolTime = 40;*/
 						FMoveArray = array.AttackFunction01;
 
-						
+
 						//Action = false;
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction02 ) {
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 
 						NomalSwordAttack(player);
 
-						
+
 						FMoveArray = array.AttackFunction02;
 						/*CoolTime = 0;
 						Action = false;*/
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction03 ) {
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
 						//NomalSwordAttack(player);
 						ShockWaveAttack(player, screen);
@@ -510,25 +694,25 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction04 ) {
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
 						//5%の攻撃
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
-						/*ShockWaveAttack(player, screen);						
+						/*ShockWaveAttack(player, screen);
 						FMoveArray = array.AttackFunction04;*/
 						CoolTime = 0;
 						Action = false;
 
 					}
-					if (MovePattern[MoveArray] == array.AttackFunction05 ) {
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
 						//5%の攻撃
 						//JumpAttack(player);
 						//NomalRotedSwordAttack(player);
 						//NomalSwordAttack(player);
 						//ShockWaveAttack(player, screen);
 
-						
+
 						//FMoveArray = array.AttackFunction05;
 
 						Action = false;
@@ -536,7 +720,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 					}
 					if (MovePattern[MoveArray] == 0) {
-						
+
 						Action = false;
 					}
 					//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
@@ -660,7 +844,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
 						//FMoveArray = array.AttackFunction05;
-						Action = false; 
+						Action = false;
 						CoolTime = 0;
 					}
 					if (MovePattern[MoveArray] == 0) {
@@ -673,238 +857,238 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 				}
 				break;
 
-				case THREEQUARTERS:
-					CoolTime = 0;
+			case THREEQUARTERS:
+				CoolTime = 0;
 
-					switch (pattarn) {
-					case NEAR_1:
-					{
-						
-
-						if (MovePattern[MoveArray] == array.NormalAttack) {
-							//通常攻撃のコードはここ
-							//NomalSwordAttack2(player);
-							//CircleOfDeathAttack();
-							//ShockWaveAttack(player, screen);
-							BackStep(player);
-							FMoveArray = array.NormalAttack;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction01) {
-							//5%の攻撃
-							NomalRotedSwordAttack(player);
-							/*NomalSwordAttack(player);
-							array.bAttackFunction01 = true;
-							array.InitNotThis(array.bAttackFunction01);*/
-							/*CoolTime = 40;*/
-							FMoveArray = array.AttackFunction01;
+				switch (pattarn) {
+				case NEAR_1:
+				{
 
 
-							//Action = false;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction02) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							NomalSwordAttack2(player);
-							//RainOfSwordAttack();
-
-
-							FMoveArray = array.AttackFunction02;
-							//CoolTime = 30;
-							//Action = false;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction03) {
-							//5%の攻撃
-							//NomalSwordAttack(player);
-							ShockWaveAttack(player, screen);
-
-							//NomalRotedSwordAttack(player);
-							/*Action = false;
-							CoolTime = 0;*/
-							FMoveArray = array.AttackFunction03;
-
-
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction04) {
-							//5%の攻撃
-							//JumpAttack(player);
-							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack(player);
-							//ShockWaveAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							RainOfSwordAttack();
-							FMoveArray = array.AttackFunction04;
-							//BackStep(player);
-
-							/*CoolTime = 0;
-							Action = false;*/
-
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction05) {
-							//5%の攻撃
-							//JumpAttack(player);
-							//NomalRotedSwordAttack2(player);
-							//NomalSwordAttack(player);
-							//ShockWaveAttack(player, screen);
-							/*RainOfSwordAttack();
-
-							FMoveArray = array.AttackFunction05;*/
-
-							Action = false;
-							CoolTime = 0;
-
-						}
-						if (MovePattern[MoveArray] == 0) {
-
-							Action = false;
-						}
-						//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
-						//関数ないとこにはAction=falseを入れること。
-						break;
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//通常攻撃のコードはここ
+						//NomalSwordAttack2(player);
+						//CircleOfDeathAttack();
+						//ShockWaveAttack(player, screen);
+						BackStep(player);
+						FMoveArray = array.NormalAttack;
 					}
-					case MIDDLE:
-					{
-						if (MovePattern[MoveArray] == array.NormalAttack) {
-							//通常攻撃のコードはここ
-							//NomalSwordAttack(player);
-							NomalRotedSwordAttack(player);
-							FMoveArray = array.NormalAttack;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction01) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							//NomalSwordAttack2(player);
-							Action = false;
-							CoolTime = 0;
-							//FMoveArray = array.AttackFunction01;
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%の攻撃
+						NomalRotedSwordAttack(player);
+						/*NomalSwordAttack(player);
+						array.bAttackFunction01 = true;
+						array.InitNotThis(array.bAttackFunction01);*/
+						/*CoolTime = 40;*/
+						FMoveArray = array.AttackFunction01;
 
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction02) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							NomalSwordAttack2(player);
-							//RainOfSwordAttack();
-							FMoveArray = array.AttackFunction02;
-							/*Action = false;
-							CoolTime = 0;*/
 
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction03) {
-							//5%の攻撃
-							//NomalSwordAttack2(player);
-							//RainOfSwordAttack();
-							ShockWaveAttack(player,screen);
-							//NomalRotedSwordAttack(player);
-							/*Action = false;*/
-							FMoveArray = array.AttackFunction03;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction04) {
-							//5%の攻撃
-							//JumpAttack(player);
-							//NomalRotedSwordAttack(player);
-							//ShockWaveAttack(player, screen);
-							RainOfSwordAttack();
-							/*Action = false;*/
-
-							FMoveArray = array.AttackFunction04;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction05) {
-							//5%の攻撃
-							//JumpAttack(player);
-							//NomalRotedSwordAttack(player);
-							//ShockWaveAttack(player, screen);
-							//ShockWaveAttack2(player, screen);
-							//BackStep(player);
-
-							CoolTime = 0;
-							Action = false;
-							//FMoveArray = array.AttackFunction05;
-						}
-						if (MovePattern[MoveArray] == 0) {
-							Action = false;
-						}
-						//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
-						//関数ないとこにはAction=falseを入れること。
-						break;
+						//Action = false;
 					}
-					case FAR_1:
-					{
-						if (MovePattern[MoveArray] == array.NormalAttack) {
-							//通常攻撃のコードはここ
-							//NomalSwordAttack(player);
-							//JumpAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							CircleOfDeathAttack(player);
-							FMoveArray = array.NormalAttack;
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack2(player);
+						//RainOfSwordAttack();
 
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction01) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							//JumpAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							//CircleOfDeathAttack(player);
-							Action = false;
-							CoolTime = 0;
-							//FMoveArray = array.AttackFunction01;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction02) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							//NomalRotedSwordAttack(player);
-							//CircleOfDeathAttack(player);
 
-							//ShockWaveAttack(player, screen);
-							JumpAttack(player, screen);
-							/*Action = false;*/
-							FMoveArray = array.AttackFunction02;
-							CoolTime = 20;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction03) {
-							//5%の攻撃
-							//NomalRotedSwordAttack(player);
-							//JumpAttack(player, screen);
-							/*Action = false;*/
-							//ShockWaveAttack(player, screen);
-							//CircleOfDeathAttack(player);
-							ShockWaveAttack2(player, screen);
-							FMoveArray = array.AttackFunction03;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction04) {
-							//5%の攻撃
-							//JumpAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							CircleOfDeathAttack(player);
-
-							/*Action = false;*/
-							FMoveArray = array.AttackFunction04;
-						}
-						if (MovePattern[MoveArray] == array.AttackFunction05) {
-							//5%の攻撃
-							//JumpAttack(player, screen);
-							//ShockWaveAttack(player, screen);
-							//CircleOfDeathAttack(player);
-
-							Action = false;
-							CoolTime = 0;
-							//FMoveArray = array.AttackFunction05;
-						}
-						if (MovePattern[MoveArray] == 0) {
-							Action = false;
-						}
-						//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
-						//関数ないとこにはAction=falseを入れること。
-						break;
+						FMoveArray = array.AttackFunction02;
+						//CoolTime = 30;
+						//Action = false;
 					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%の攻撃
+						//NomalSwordAttack(player);
+						ShockWaveAttack(player, screen);
+
+						//NomalRotedSwordAttack(player);
+						/*Action = false;
+						CoolTime = 0;*/
+						FMoveArray = array.AttackFunction03;
+
+
 					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%の攻撃
+						//JumpAttack(player);
+						//NomalRotedSwordAttack(player);
+						//NomalSwordAttack(player);
+						//ShockWaveAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						RainOfSwordAttack();
+						FMoveArray = array.AttackFunction04;
+						//BackStep(player);
+
+						/*CoolTime = 0;
+						Action = false;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%の攻撃
+						//JumpAttack(player);
+						//NomalRotedSwordAttack2(player);
+						//NomalSwordAttack(player);
+						//ShockWaveAttack(player, screen);
+						/*RainOfSwordAttack();
+
+						FMoveArray = array.AttackFunction05;*/
+
+						Action = false;
+						CoolTime = 0;
+
+					}
+					if (MovePattern[MoveArray] == 0) {
+
+						Action = false;
+					}
+					//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
+					//関数ないとこにはAction=falseを入れること。
 					break;
+				}
+				case MIDDLE:
+				{
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//通常攻撃のコードはここ
+						//NomalSwordAttack(player);
+						NomalRotedSwordAttack(player);
+						FMoveArray = array.NormalAttack;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						//NomalSwordAttack2(player);
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction01;
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						NomalSwordAttack2(player);
+						//RainOfSwordAttack();
+						FMoveArray = array.AttackFunction02;
+						/*Action = false;
+						CoolTime = 0;*/
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%の攻撃
+						//NomalSwordAttack2(player);
+						//RainOfSwordAttack();
+						ShockWaveAttack(player, screen);
+						//NomalRotedSwordAttack(player);
+						/*Action = false;*/
+						FMoveArray = array.AttackFunction03;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%の攻撃
+						//JumpAttack(player);
+						//NomalRotedSwordAttack(player);
+						//ShockWaveAttack(player, screen);
+						RainOfSwordAttack();
+						/*Action = false;*/
+
+						FMoveArray = array.AttackFunction04;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%の攻撃
+						//JumpAttack(player);
+						//NomalRotedSwordAttack(player);
+						//ShockWaveAttack(player, screen);
+						//ShockWaveAttack2(player, screen);
+						//BackStep(player);
+
+						CoolTime = 0;
+						Action = false;
+						//FMoveArray = array.AttackFunction05;
+					}
+					if (MovePattern[MoveArray] == 0) {
+						Action = false;
+					}
+					//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
+					//関数ないとこにはAction=falseを入れること。
+					break;
+				}
+				case FAR_1:
+				{
+					if (MovePattern[MoveArray] == array.NormalAttack) {
+						//通常攻撃のコードはここ
+						//NomalSwordAttack(player);
+						//JumpAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						CircleOfDeathAttack(player);
+						FMoveArray = array.NormalAttack;
+
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction01) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						//JumpAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						//CircleOfDeathAttack(player);
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction01;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction02) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						//NomalRotedSwordAttack(player);
+						//CircleOfDeathAttack(player);
+
+						//ShockWaveAttack(player, screen);
+						JumpAttack(player, screen);
+						/*Action = false;*/
+						FMoveArray = array.AttackFunction02;
+						CoolTime = 20;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction03) {
+						//5%の攻撃
+						//NomalRotedSwordAttack(player);
+						//JumpAttack(player, screen);
+						/*Action = false;*/
+						//ShockWaveAttack(player, screen);
+						//CircleOfDeathAttack(player);
+						ShockWaveAttack2(player, screen);
+						FMoveArray = array.AttackFunction03;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction04) {
+						//5%の攻撃
+						//JumpAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						CircleOfDeathAttack(player);
+
+						/*Action = false;*/
+						FMoveArray = array.AttackFunction04;
+					}
+					if (MovePattern[MoveArray] == array.AttackFunction05) {
+						//5%の攻撃
+						//JumpAttack(player, screen);
+						//ShockWaveAttack(player, screen);
+						//CircleOfDeathAttack(player);
+
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction05;
+					}
+					if (MovePattern[MoveArray] == 0) {
+						Action = false;
+					}
+					//関数の終わりにAction=falseと関数内で使った変数の初期化をしろおおおおおおお
+					//関数ないとこにはAction=falseを入れること。
+					break;
+				}
+				}
+				break;
 
 			case HALF:
 				CoolTime = 0;
 				switch (pattarn) {
 				case NEAR_1:
 				{
-					
+
 
 					if (MovePattern[MoveArray] == array.NormalAttack) {
 						//通常攻撃のコードはここ
@@ -1108,6 +1292,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 			}
 		}
+	}
 }
 
 
@@ -2586,6 +2771,8 @@ void Boss::BladeImageLink(Matrix2x2 mat)
 	BladeImageQuad = { BladeImageQuad.LeftTop,BladeImageQuad.RightTop,BladeImageQuad.LeftBottom,BladeImageQuad.RightBottom };
 }
 
+
+
 void Boss::CircleOfDeathMotion(int type) {
 
 	if (type == 0) {
@@ -2855,4 +3042,77 @@ void Boss::RainOfSwordMotion(int type) {
 	Leg.StandMotionFlag = 1;
 
 	}
+}
+
+void Boss::Movie()
+{
+	const int BODYMINUS = 190;
+	if (MovieTime == 0) {
+		CanMove = false;
+		isImageDead = true;
+		isRedBlackEffect = false;
+		RightArm.StandMotionFlag = 0;
+		LeftArm.StandMotionFlag = 0;
+		Body.StandMotionFlag = 0;
+		Head.StandMotionFlag = 0;
+		Leg.StandMotionFlag = 0;
+		Head.MoviePulsPos = { 0,-9999 };
+		Leg.MoviePulsPos = { 0,-9999 };
+		Body.MoviePulsPos = { 0,-BODYMINUS };
+		RightArm.MoviePulsPos = { 0,-165 };
+		LeftArm.MoviePulsPos = { 0,-165 };
+	}
+	else if (MovieTime > 400 && MovieTime <= 700) {
+		/*isImageDead = false;
+		isRedBlackEffect = true;*/
+
+		int t = (MovieTime - 400);
+
+		if (MovieTime == 401) {
+			Body.MoviePulsPos.x = -2;
+			RightArm.MoviePulsPos.x = 2;
+			LeftArm.MoviePulsPos.x = 2;
+		}
+
+		if (t % 4 == 0) {
+			Body.MoviePulsPos.x *= -1;
+			RightArm.MoviePulsPos.x *= -1;
+			LeftArm.MoviePulsPos.x *= -1;
+		}
+
+		else if (MovieTime > 580 && MovieTime <= 700) {
+
+			float t2 = float(MovieTime - 580) / (700 - 580);
+
+			Body.MoviePulsPos.y = -BODYMINUS + BODYMINUS * (t2 * t2);
+			RightArm.MoviePulsPos.y = -165 + 165 * (t2 * t2);
+			LeftArm.MoviePulsPos.y = -165 + 165 * (t2 * t2);
+
+		}
+	}
+	else if (MovieTime == 701) {
+		Body.MoviePulsPos = { 0,0 };
+		RightArm.MoviePulsPos = { 0,0 };
+		LeftArm.MoviePulsPos = { 0,0 };
+	}
+	else if (MovieTime == 730) {
+		Head.MoviePulsPos = { 0,0 };
+		Leg.MoviePulsPos = { 0,0 };
+		isImageDead = false;
+	}
+	else if (MovieTime == 760) {
+		isRedBlackEffect = true;
+		CanMove = true;
+		RightArm.StandMotionFlag = 1;
+		LeftArm.StandMotionFlag = 1;
+		Body.StandMotionFlag = 1;
+		Head.StandMotionFlag = 1;
+		Leg.StandMotionFlag = 1;
+	}
+	
+	MovieTime++;
+}
+
+bool Boss::RedBlackEffectFlag() {
+	return isRedBlackEffect;
 }

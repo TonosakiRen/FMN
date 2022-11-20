@@ -56,6 +56,7 @@ bool isGameoverStart = false;
 bool isGameclearStart = false;
 bool isGameover = false;
 bool isGameclear = false;
+bool isMovie = false;
 
 void InitFeedin() {
 	feedinT = 0;

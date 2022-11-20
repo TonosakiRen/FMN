@@ -44,6 +44,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bossrightarmImg = Novice::LoadTexture("./Resources/Images/Boss/RightArm.png");
 	int bossleftarmImg = Novice::LoadTexture("./Resources/Images/Boss/LeftArm.png");
 
+	int deadbossbodyImg = Novice::LoadTexture("./Resources/Images/BossDead/Body.png");
+	int deadbossrightarmImg = Novice::LoadTexture("./Resources/Images/BossDead/RightArm.png");
+	int deadbossleftarmImg = Novice::LoadTexture("./Resources/Images/BossDead/LeftArm.png");
+
 	int playerstand_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
 	int playerwalk_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerWalk.png");
 	int playerdash_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerDash.png");
@@ -82,7 +86,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x, playermain.GetPlayerQuad().LeftTop.y, 1.25);
+		
+
+		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x + playermain.ReturnPulsScroll(), playermain.GetPlayerQuad().LeftTop.y, 1.25);
 		
 		switch (scene)
 		{
@@ -90,6 +96,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//タイトル処理
 
 			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
+				isFeedout = true;
+			}
+
+			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 			}
 
@@ -107,6 +117,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
+				//isMovie = true;
 			}
 
 			playermain.Move();
@@ -124,6 +135,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
 
+			if (isMovie == true) {
+				playermain.Movie();
+				boss.Movie();
+			}
 			
 			if (stopper.Pause() == false) {
 				screen.Pause(false);
@@ -208,11 +223,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					else {
 						enemySwordEffect.Update(false, boss.GetBossBladeQuad());
 					}
-					bossBodyEffect.Update(boss.IsLife, boss.GetBossQuad(boss.body));
-					bossHeadEffect.Update(boss.IsLife, boss.GetBossQuad(boss.head));
-					bossRightArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.rightarm));
-					bossLeftArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leftarm));
-					bossLegEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leg));
+
+					if (boss.RedBlackEffectFlag()) {
+						bossBodyEffect.Update(boss.IsLife, boss.GetBossQuad(boss.body));
+						bossHeadEffect.Update(boss.IsLife, boss.GetBossQuad(boss.head));
+						bossRightArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.rightarm));
+						bossLeftArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leftarm));
+						bossLegEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leg));
+					}
 					
 					//boss2のエフェクト
 					boss2.centerOfDarknessUnder.target = boss2.GetBossQuad().GetCenter();
@@ -228,7 +246,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					boss2.centerOfDarknessRight.Update( boss2.isCenterOfDarkness, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
 					
 					//stageのeffect
-					stageEffect.Update(true, { {0,-Floor},int (SCREEN_WIDTH * 1.5),Floor });
+					if (boss.RedBlackEffectFlag()) {
+						stageEffect.Update(true, { {0,-Floor},int(SCREEN_WIDTH * 1.5),Floor });
+					}
 				
 				}
 			}
@@ -242,6 +262,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameover = true;
+				boss.Init();
 			}
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
@@ -308,6 +329,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					InitFeedin();
 					isStageStart = true;
 				}
+				
 			}
 			//ステージ描画処理
 			//背景d
@@ -322,17 +344,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//エフェクト描画
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
 			enemySwordEffect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
-			stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossBodyEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossBodyEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			bossHeadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossHeadEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			bossRightArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossRightArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			bossLeftArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossLeftArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			bossLegEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			bossLegEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			if (boss.RedBlackEffectFlag()) {
+				stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossBodyEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossBodyEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+				bossHeadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossHeadEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+				bossRightArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossRightArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+				bossLeftArmEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossLeftArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+				bossLegEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				bossLegEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			}
 			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
@@ -346,7 +370,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 
-				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg);
+				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
 				boss2.Draw(screen);
