@@ -128,7 +128,7 @@ void PlayerMain::Move()
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
-			Gravity = 0.18;
+			Gravity = 0.14;
 			DashCoolTime = 20;
 		}
 	}

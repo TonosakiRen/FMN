@@ -75,8 +75,6 @@ private:
 public:
 
 	int HitStopTimeStart = 0;
-
-
 	
 	bool Pause();
 
