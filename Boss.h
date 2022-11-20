@@ -9,6 +9,7 @@
 #define kMAX_CIR 7
 
 const int MAX_PATTERN = 100;
+const int kMAX_CIR_Par = 30;
 //const int kMAX_CIR = 7;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
@@ -23,6 +24,7 @@ class Boss {
 	int UseBladeGra = Blade_gra;
 	int ShockWave_gra=0;
 	int HpBar_gra = 0;
+	int CirPar_gra = 0;
 
 	static struct Matrix2x2
 	{
@@ -148,6 +150,7 @@ class Boss {
 
 	}Circleofdeath[kMAX_CIR];
 	int Circleofdeath_flame;
+	int Circleofdeath_flame2;
 	int Circleofdeath_Expflame;
 	struct RainOfSword {
 		Vec2 Pos= { 9999,9999 };
@@ -287,8 +290,23 @@ class Boss {
 	Vec2 BladeCenterPos;
 
 	float BossMotionTime = 0;
-
-
+	struct CirParticle {
+		Vec2 Pos;
+		Quad QuadPos;
+		Vec2 Size;
+		float LifeTime = 0;
+		bool Set = false;
+		unsigned int color = 0xFFFFFFFF;
+		void Init() {
+			Pos = { 9999,9999 };
+			QuadPos = { { 9999,9999 } ,{ 9999,9999 } ,{ 9999,9999 } ,{ 9999,9999 } };
+			Size = { 0,0 };
+			LifeTime = 0;
+			Set = false;
+			color = 0xFFFFFFFF;
+		}
+	}Cirparticle[kMAX_CIR][kMAX_CIR_Par];
+	int CirParFlame = 0;
 #pragma region Parts
 	struct ImageStruct {
 		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
@@ -506,4 +524,5 @@ public:
 	
 	void Movie();
 	bool RedBlackEffectFlag();
+	void CirPar();
 };
