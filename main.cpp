@@ -436,6 +436,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
+
+			//AsgoreAttack
+			for (int i = 0; i < boss2.emitNum; i++) {
+				if (boss2.AsgoreBullet[i].isBullet == true) {
+					if (boss2.isAsgoreFeed == true) {
+						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.AsgoreBullet[i].t,0.01,WHITE));
+					}
+					else {
+						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, WHITE);
+					}
+				}
+			}
+
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
