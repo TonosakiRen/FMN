@@ -1943,7 +1943,7 @@ void Boss::JumpAttack(PlayerMain& player,Screen& screen)
 
 	float t = 0;
 	float angle = 0;
-	if (BossMotionTime <= MOTIONEND1) {
+	if (BossMotionTime <= MOTIONEND1) { 
 		t = 1 - (BossMotionTime / MOTIONEND1);
 		Head.MotionPos.y = -80 * (1 - t * t);
 		Body.MotionPos.y = -55 * (1 - t * t);
@@ -2613,7 +2613,7 @@ void Boss::BossHitReaction(Quad PlayerQuad, bool up, bool down, bool right)
 		ReactionPuls = { 0 , 30 };
 	}
 	else if (down == true) {
-		ReactionPuls = { 0 , -30 };
+		ReactionPuls = { 0 , -51 };
 	}
 	else {
 		if (right == true) {

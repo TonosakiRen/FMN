@@ -193,5 +193,7 @@ public:
 	void Movie();
 
 	float ReturnPulsScroll() { return PulsScroll; }
+
+	void PauseLag();
 };
 

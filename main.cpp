@@ -62,6 +62,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
 	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
 
+	int inPauseGra = Novice::LoadTexture("./Resources/images/UI/InPause.png");
+	int PauseSelectGra = Novice::LoadTexture("./Resources/images/UI/PauseSelect.png");
+
 	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
 
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
@@ -254,6 +257,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			else {
 			screen.Pause(true);
+			playermain.PauseLag();
 			}
 			
 
@@ -454,7 +458,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
 
 			//ポーズ描画
-			stopper.PauseDraw();
+			stopper.PauseDraw(inPauseGra, PauseSelectGra);
 
 			if (feedoutT >= 1 ) {
 				InitFeedout();
@@ -537,7 +541,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE)) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
 			break;
 		}
 	}

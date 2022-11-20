@@ -17,6 +17,7 @@ void PlayerMain::Init()
 	Gravity = 0;
 	FaceRight = true;
 	HitStop = 0;
+	HP = MaxHp;
 }
 
 void PlayerMain::Move()
@@ -236,7 +237,6 @@ void PlayerMain::Move()
 			
 		}
 		isAttack--;
-
 	}
 
 	if (attackstarttime == 0) {
@@ -534,4 +534,9 @@ void PlayerMain::Movie()
 	}
 
 	MovieTime++;
+}
+
+void PlayerMain::PauseLag()
+{
+	AttackCoolDown = 4;
 }

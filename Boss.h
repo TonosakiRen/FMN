@@ -370,7 +370,7 @@ class Boss {
 	ImageStruct Leg = {
 		{0,0},
 		{128,128},
-		{-12,-59},
+		{-4,-59},
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
 		{0,0},
