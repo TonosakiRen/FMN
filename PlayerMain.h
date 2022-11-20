@@ -129,6 +129,12 @@ class PlayerMain
 
 	int PlayerAnimeMode = 0;
 
+	int MovieTime = 0;
+
+	Vec2 MovieSpeed = { 0,0 };
+	bool CanMove = true;
+	float PulsScroll = 0;
+
 public:
 
 	Quad GetPlayerQuad()
@@ -183,5 +189,9 @@ public:
 	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack);
 	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
+
+	void Movie();
+
+	float ReturnPulsScroll() { return PulsScroll; }
 };
 

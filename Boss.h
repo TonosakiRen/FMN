@@ -109,10 +109,10 @@ class Boss {
 
 	};
 	struct ShockWave {
-		Quad QuadPos = { {0,0},{0,0},{0,0},{0,0} };
-		Quad Quad2Pos = { {0,0},{0,0},{0,0},{0,0} }; 
-		Quad QuadPosAnime = { {0,0},{0,0},{0,0},{0,0} };
-		Quad Quad2PosAnime = { {0,0},{0,0},{0,0},{0,0} };
+		Quad QuadPos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+		Quad Quad2Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+		Quad QuadPosAnime = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+		Quad Quad2PosAnime = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
 		/*Vec2 Pos = {};
 		Vec2 Pos2 = {};*/
 		float LifeTime = 0;
@@ -144,7 +144,7 @@ class Boss {
 	int Circleofdeath_flame;
 	int Circleofdeath_Expflame;
 	struct RainOfSword {
-		Vec2 Pos={0,0};
+		Vec2 Pos= { 9999,9999 };
 		Quad QuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
 		Quad ColQuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
 		bool Set = false;
@@ -299,6 +299,7 @@ class Boss {
 		Vec2 HitReaction;
 		int SrcX;
 		int AnimeFlame;
+		Vec2 MoviePulsPos;
 	};
 
 
@@ -319,6 +320,7 @@ class Boss {
 		{0,0},
 		0,
 		0,
+		{0,0}
 	};
 
 	ImageStruct Body = {
@@ -338,11 +340,12 @@ class Boss {
 		{0,0},
 		0,
 		0,
+		{0,0}
 	};
 
 	ImageStruct Leg = {
 		{0,0},
-		{130,130},
+		{128,128},
 		{-12,-59},
 		{ { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
@@ -357,6 +360,7 @@ class Boss {
 		{0,0},
 		0,
 		0,
+		{0,0}
 	};
 
 	ImageStruct RightArm = {
@@ -376,6 +380,7 @@ class Boss {
 		{0,0},
 		0,
 		0,
+		{0,0}
 	};
 
 	ImageStruct LeftArm = {
@@ -395,10 +400,17 @@ class Boss {
 		{0,0},
 		0,
 		0,
+		{0,0}
 	};
 
 	float ArmPosAngle = 2.8125;
 	float ArmPosAngleSpeed = 2.8125;
+
+
+	int MovieTime = 0;
+	bool CanMove = false;
+	bool isImageDead = true;
+	bool isRedBlackEffect = false;
 
 #pragma endregion
 
@@ -417,7 +429,7 @@ class Boss {
 public:
 	Boss();
 	void Set();
-	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm);
+	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm, int deadbody, int deadrightarm, int deadleftarm);
 	void UpDate();
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
@@ -485,5 +497,6 @@ public:
 
 	void BladeImageLink(Matrix2x2 mat);
 	
-
+	void Movie();
+	bool RedBlackEffectFlag();
 };
