@@ -133,6 +133,10 @@ void PlayerMain::Move()
 		}
 	}
 
+	if (OtherSpeed.x < 0) {
+		OtherSpeed.x+= 10;
+	}
+
 	DashCoolTime--;
 
 	if (JumpFlag == true) {
@@ -375,6 +379,17 @@ void PlayerMain::PlayerHit(Circle Target)
 				HitCoolDown = HITCOOLDOWNMAX;
 				HP--;
 			}
+		}
+	}
+}
+
+void PlayerMain::PlayerHitKnockBack(Quad Target)
+{
+	if (HitCoolDown == 0) {
+		if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
+
+			HitStop = 5;
+			OtherSpeed.x = -100;
 		}
 	}
 }

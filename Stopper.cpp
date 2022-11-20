@@ -3,71 +3,74 @@
 
 bool Stopper::Pause()
 {
-	if (Key::IsTrigger(DIK_P)) {
-		if (isPause == true) {
-			isPause = false;
-		}
-		else {
-			isPause = true;
-		}
-	}
-
-	if (isPause == true) {
-		if (Key::IsTrigger(DIK_S)) {
-			Selected++;
-			if (Selected > 4) {
-				Selected = 0;
-			}
-		}
-		if (Key::IsTrigger(DIK_W)) {
-			Selected--;
-			if (Selected < 0) {
-				Selected = 4;
-			}
-		}
-
-		if (BackGame.LINE == Selected) {
-			BackGame.Color = 0x20d6c7FF;
-			if (Key::IsTrigger(DIK_K)) {
+	if (canselect == true) {
+		if (Key::IsTrigger(DIK_P)) {
+			if (isPause == true) {
 				isPause = false;
 			}
-		}
-		else {
-			BackGame.Color = WHITE;
-		}
-
-		if (Restart.LINE == Selected) {
-			Restart.Color = 0x20d6c7FF;
-			if (Key::IsTrigger(DIK_K)) {
-				RestartFlag = true;
+			else {
+				isPause = true;
 			}
 		}
-		else {
-			Restart.Color = WHITE;
-		}
 
-		if (BGM.LINE == Selected) {
-			BGM.Color = 0x20d6c7FF;
-		}
-		else {
-			BGM.Color = WHITE;
-		}
-
-		if (SE.LINE == Selected) {
-			SE.Color = 0x20d6c7FF;
-		}
-		else {
-			SE.Color = WHITE;
-		}
-
-		if (Quit.LINE == Selected) {
-			Quit.Color = 0x20d6c7FF;
-			if (Key::IsTrigger(DIK_K)) {
-				QuitFlag = true;
+		if (isPause == true) {
+			if (Key::IsTrigger(DIK_S)) {
+				Selected++;
+				if (Selected > 4) {
+					Selected = 0;
+				}
 			}
-		}
-		else {
-			Quit.Color = WHITE;
+			if (Key::IsTrigger(DIK_W)) {
+				Selected--;
+				if (Selected < 0) {
+					Selected = 4;
+				}
+			}
+
+			if (BackGame.LINE == Selected) {
+				BackGame.Color = 0x20d6c7FF;
+				if (Key::IsTrigger(DIK_K)) {
+					isPause = false;
+				}
+			}
+			else {
+				BackGame.Color = WHITE;
+			}
+
+			if (Restart.LINE == Selected) {
+				Restart.Color = 0x20d6c7FF;
+				if (Key::IsTrigger(DIK_K)) {
+					RestartFlag = true;
+					canselect = false;
+				}
+			}
+			else {
+				Restart.Color = WHITE;
+			}
+
+			if (BGM.LINE == Selected) {
+				BGM.Color = 0x20d6c7FF;
+			}
+			else {
+				BGM.Color = WHITE;
+			}
+
+			if (SE.LINE == Selected) {
+				SE.Color = 0x20d6c7FF;
+			}
+			else {
+				SE.Color = WHITE;
+			}
+
+			if (Quit.LINE == Selected) {
+				Quit.Color = 0x20d6c7FF;
+				if (Key::IsTrigger(DIK_K)) {
+					QuitFlag = true;
+				}
+			}
+			else {
+				Quit.Color = WHITE;
+			}
 		}
 	}
 

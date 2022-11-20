@@ -80,5 +80,9 @@ public:
 
 	Quad GetLetAttackQuad(int num) { return LetAttack[num].ColQuad; };
 
+	Quad GetLetJumpQuad() { return LetJump.ColQuad; };
+
+	Quad GetLetDashQuad() { return LetDash.ColQuad; };
+
 };
 

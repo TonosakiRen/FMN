@@ -14,6 +14,7 @@ private:
 
 	int Selected = 0;
 
+
 	bool RestartFlag = false;
 	int BGMnum = false;
 	int SEnum = false;
@@ -74,6 +75,8 @@ private:
 
 public:
 
+	bool canselect = true;
+
 	int HitStopTimeStart = 0;
 	
 	bool Pause();
@@ -90,6 +93,9 @@ public:
 	int ReturnSEnum() { return SEnum; }
 
 	bool ReturnQuitFlag() { return QuitFlag; }
+
+	void RestartFlaggFalse() { RestartFlag = false;};
+	void isPauseFalse() { isPause = false; };
 
 };
 

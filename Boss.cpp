@@ -165,7 +165,7 @@ void Boss::Set()
 void Boss::Init()
 {
 	
-	Pos = { 1500,Size.y / 2 };
+	Pos = { 1700,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
 	RightTop = Vec2(Pos + (Size / 2));

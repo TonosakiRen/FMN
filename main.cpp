@@ -131,6 +131,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
 			}
 
+			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+
 			tutorial.Update();
 
 			break;
@@ -258,20 +261,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 			screen.Pause(true);
 			playermain.PauseLag();
+
+				
+			}
+
+			if (isStageStart == false) {
+				isFeedin = true;
+				if (feedinT >= 1) {
+					InitFeedin();
+					isStageStart = true;
+					stopper.canselect = true;
+				}
+
 			}
 			
 
 			 stopper.HitStopMake(playermain.HitStopOver());
 
+			 if (stopper.ReturnRestartFlag() && isFeedout == false && isFeedin == false) {
+				 stopper.RestartFlaggFalse();
+				 isFeedout = true;
+				 isRestart = true;
+			 }
+
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameover = true;
-				boss.Init();
 			}
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameclear = true;
 			}
+
 			
 			break;
 		case stage2:
@@ -284,6 +305,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			isGameover = false;
 			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				boss.Init();
+				playermain.Init();
 			}
 			break;
 		case gameclear:
@@ -327,14 +350,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break;
 		case stage:
-			if (isStageStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1) {
-					InitFeedin();
-					isStageStart = true;
-				}
-				
-			}
+			
 			//ステージ描画処理
 			//背景d
 
@@ -471,11 +487,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					scene = gameclear;
 					isFeedin = true;
 				}
+				if (isRestart == true) {
+					isRestart = false;
+					isFeedin = true;
+					boss.Init();
+					playermain.Init();
+					stopper.isPauseFalse();
+				}
 			}
 			else {
 				break;
 			}
-			
+			break;
 		case gameover:
 			if (isGameoverStart == false) {
 				isFeedin = true;
@@ -498,7 +521,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 				break;
 			}
-
+			break;
 		case gameclear:
 			if (isGameclearStart == false) {
 				isFeedin = true;
@@ -519,6 +542,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 				break;
 			}
+			break;
 		default:
 			break;
 		}
