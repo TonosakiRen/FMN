@@ -46,63 +46,65 @@ void PlayerMain::Move()
 
 	PlayerAnimeMode = stand;
 
-	if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
-		Speed.x = 8;
-		if (attackstarttime == -1) {
-			FaceRight = true;
+	if (CanMove == true) {
+		if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
+			Speed.x = 8;
+			if (attackstarttime == -1) {
+				FaceRight = true;
+			}
+			PlayerAnimeMode = walk;
 		}
-		PlayerAnimeMode = walk;
-	}
 
-	if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
-		Speed.x = -8;
-		if (attackstarttime == -1) {
-			FaceRight = false;
+		if (Controller::IsStickDirection(0, Controller::lsdLEFT) || Key::IsPressed(DIK_A)) {
+			Speed.x = -8;
+			if (attackstarttime == -1) {
+				FaceRight = false;
+			}
+			PlayerAnimeMode = walk;
 		}
-		PlayerAnimeMode = walk;
-	}
 
-	if (Controller::IsStickDirection(0, Controller::lsdUP) || Key::IsPressed(DIK_W)) {
-		if (attackstarttime == -1) {
-			FaceUp = true;
+		if (Controller::IsStickDirection(0, Controller::lsdUP) || Key::IsPressed(DIK_W)) {
+			if (attackstarttime == -1) {
+				FaceUp = true;
+			}
+			//Speed.y = 1;
 		}
-		//Speed.y = 1;
-	}
-	else {
-		if (attackstarttime == -1) {
-			FaceUp = false;
+		else {
+			if (attackstarttime == -1) {
+				FaceUp = false;
+			}
 		}
-	}
 
 
-	if (Controller::IsStickDirection(0, Controller::lsdDOWN) || Key::IsPressed(DIK_S)) {
-		//Speed.y = -1;
-		if (attackstarttime == -1) {
-			FaceDown = true;
+		if (Controller::IsStickDirection(0, Controller::lsdDOWN) || Key::IsPressed(DIK_S)) {
+			//Speed.y = -1;
+			if (attackstarttime == -1) {
+				FaceDown = true;
+			}
 		}
-	}
-	else {
-		if (attackstarttime == -1) {
-			FaceDown = false;
+		else {
+			if (attackstarttime == -1) {
+				FaceDown = false;
+			}
 		}
-	}
 
-	if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
-		if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
-			JumpFlag = true;
+		if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
+			if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
+				JumpFlag = true;
+			}
 		}
-	}
 
-	if (Controller::IsReleaseButton(0, Controller::bA) == 1 || Key::IsRelease(DIK_SPACE)) {
-		JumpFlag = false;
-	}
+		if (Controller::IsReleaseButton(0, Controller::bA) == 1 || Key::IsRelease(DIK_SPACE)) {
+			JumpFlag = false;
+		}
 
-	if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
-		DashFlag = true;
-		JumpFlag = false;
-		DashFaseRight = FaceRight;
-		if (FaceDown == true || FaceUp == true) {
-			DashAvoid = true;
+		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+			DashFlag = true;
+			JumpFlag = false;
+			DashFaseRight = FaceRight;
+			if (FaceDown == true || FaceUp == true) {
+				DashAvoid = true;
+			}
 		}
 	}
 
@@ -150,8 +152,8 @@ void PlayerMain::Move()
 
 	
 
-	Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x;
-	Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y + Gravity) * G;
+	Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x + MovieSpeed.x;
+	Player.Pos.y += (Speed.y + OtherSpeed.y + HitBack.y + Gravity + MovieSpeed.y) * G;
 
 	Player.Pos.y = Clamp::clamp(Player.Pos.y, FLOOR + Player.HitBoxSize.y / 2, 9999);
 	Player.Pos.x = Clamp::clamp(Player.Pos.x, Player.HitBoxSize.x / 2, (1920*1.25) - Player.HitBoxSize.x / 2);
@@ -196,6 +198,10 @@ void PlayerMain::Move()
 		CanJump = false;
 	}
 
+	if (MovieSpeed.x > 0) {
+		PlayerAnimeMode = walk;
+	}
+
 	if ((Speed.y + Gravity) * G > 0) {
 		PlayerAnimeMode = jump;
 	}
@@ -218,9 +224,10 @@ void PlayerMain::Move()
 	PreJumpKey = Controller::IsPressedButton(0, Controller::bA) || Key::IsPressed(DIK_SPACE);
 
 
-
-	if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
-		isAttack = 4;
+	if (CanMove == true) {
+		if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
+			isAttack = 4;
+		}
 	}
 
 	if (isAttack > 0) {
@@ -239,6 +246,8 @@ void PlayerMain::Move()
 		isSwordAppear = true;
 		PlayerAnimeMode = attack;
 	}
+
+	
 
 	if (attackstarttime > 0) {
 		attackstarttime--;
@@ -504,4 +513,25 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg,
 Vec2 PlayerMain::Translation()
 {
 	return Vec2(Player.Pos);
+}
+
+void PlayerMain::Movie()
+{
+	if (MovieTime == 0) {
+		Player.Pos = { 0,0 };
+		CanMove = false;
+		MovieSpeed.x = 8;
+	}else if (MovieTime == 135) {
+		MovieSpeed.x = 0;
+	}
+	else if (MovieTime > 180 && MovieTime <= 360) {
+		float t = (float(MovieTime - 180)) / (360 - 180);
+		PulsScroll = 400 * t;
+	}
+	else if (MovieTime == 760) {
+		CanMove = true;
+		PulsScroll = 0;
+	}
+
+	MovieTime++;
 }
