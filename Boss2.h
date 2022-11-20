@@ -318,6 +318,8 @@ class Boss2 {
 	float AsgoreReturnTy = 0.0f;
 	bool setWhich = false;
 
+
+
 public:
 	Boss2();
 	void Set();
@@ -337,6 +339,7 @@ public:
 	void UndertaleAttack(PlayerMain& player);
 	void nyokkiAttack(PlayerMain& player);
 	void AsgoreAttack(PlayerMain& player);
+	void MoveAttack(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	
