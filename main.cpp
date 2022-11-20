@@ -60,6 +60,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
 
+	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
+	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
+
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
@@ -134,7 +137,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -372,6 +375,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
+			//nyokkiAttack
+			if (boss2.isNyokki == true) {
+				for (int i = 0; i < nyokkiNum/2; i++) {
+					if (boss2.nyokkistats == boss2.Up) {
+						screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
+						if (screen.isPause == false) {
+							boss2.nyokkiUpAnimationFrame--;
+						}
+						screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
+						if (screen.isPause == false) {
+							boss2.nyokkiUpAnimationFrame--;
+						}
+					}
+					if (boss2.nyokkistats == boss2.Keep) {
+						if (boss2.isFeedNyokki == false) {
+							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							if (screen.isPause == false) {
+								boss2.nyokkiKeepAnimationFrame--;
+							}
+							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							if (screen.isPause == false) {
+								boss2.nyokkiKeepAnimationFrame--;
+							}
+						}
+						if (boss2.isFeedNyokki == true) {
+							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.01f,WHITE), false);
+							if (screen.isPause == false) {
+								boss2.nyokkiKeepAnimationFrame--;
+							}
+							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.01f, WHITE), false);
+							if (screen.isPause == false) {
+								boss2.nyokkiKeepAnimationFrame--;
+							}
+						}
+					}
+				}
+			}
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);

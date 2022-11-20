@@ -221,7 +221,6 @@ class Boss2 {
 	int undertaleFrame = saveUndertaleFrame;
 
 	//nyokki
-	Quad nyokkiQuad[nyokkiNum];
 	float  saveBossY;
 	float  saveBossY2;
 	float  saveUnderBossY;
@@ -239,6 +238,45 @@ class Boss2 {
 	float upDropMove = 70;
 	bool isNyokki = false;
 	bool isreturn = false;
+	int leftNyokkiUpSrcX[nyokkiNum / 2];
+	int leftNyokkiKeepSrcX[nyokkiNum / 2];
+	int rightNyokkiUpSrcX[nyokkiNum / 2];
+	int rightNyokkiKeepSrcX[nyokkiNum / 2];
+	int nyokkiUpSheets = 5;
+	int nyokkiKeepSheets = 2;
+	int nyokkiUpAnimationFrame = 0;
+	int nyokkiKeepAnimationFrame = 0;
+	int nyokkiSwitchAnimationFrame = 3;
+	int CollisionHeight = 0;
+	float space = 162;
+	float leftInitial = Pos.x - 54 - 108;
+	float rightInitial = Pos.x + 54;
+	int nyokkiWidth = 108;
+	int nyokkiHeight = SCREEN_HEIGHT - Floor;
+	bool isNyokkiCollsion = false;
+
+	bool isFeedNyokki = false;
+
+	float leftNyokkiT[nyokkiNum / 2];
+	float rightNyokkiT[nyokkiNum / 2];
+
+	bool isGetNyokkiPos = false;
+
+	enum NyokkiStats {
+		Up,
+		Keep
+	};
+
+	NyokkiStats nyokkistats = Up;
+	
+	struct Nyokki {
+		Quad Quad;
+	};
+
+	Nyokki leftNyokki[nyokkiNum / 2];
+	Nyokki rightNyokki[nyokkiNum / 2];
+
+
 
 public:
 	Boss2();

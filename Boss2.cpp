@@ -33,7 +33,15 @@ Boss2::Boss2() :
 		isRotateBullet[i] = false;
 		rotateBulletT[i] = 0.0f;
 	}
-	
+	for (int i = 0; i < nyokkiNum / 2; i++) {
+		leftNyokkiUpSrcX[i] = 0;
+		leftNyokkiKeepSrcX[i] = 0;
+		rightNyokkiUpSrcX[i] = 0;
+		rightNyokkiKeepSrcX[i] = 0;
+		leftNyokkiT[i] = 0.0f;
+		rightNyokkiT[i] = 0.0f;
+
+	}
 }
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
@@ -887,8 +895,36 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 	}
 	if (isNyokki == true ) {
 		//nyokkiˆ—
-		isNyokki = false;
-		isreturn = true;
+
+		if (isGetNyokkiPos == false) {
+			for (int i = 0; i < nyokkiNum / 2; i++) {
+				leftNyokki[i].Quad = Quad({ Pos.x - 54 - nyokkiWidth - i * nyokkiWidth - i * space , nyokkiHeight * 1.0f }, nyokkiWidth, nyokkiHeight);
+				rightNyokki[i].Quad = Quad({ Pos.x + 54 + i * nyokkiWidth + i * space , nyokkiHeight * 1.0f }, nyokkiWidth, nyokkiHeight);
+			}
+			isNyokki = true;
+			isGetNyokkiPos = true;
+		}
+		if (nyokkistats == Up) {
+			nyokkiUpAnimationFrame++;
+		}
+
+		if (nyokkiUpAnimationFrame >= nyokkiSwitchAnimationFrame * nyokkiUpSheets) {
+			nyokkistats = Keep;
+			isNyokkiCollsion = true;
+
+		}
+		if (nyokkistats == Keep) {
+			nyokkiKeepAnimationFrame++;
+		}
+		if (nyokkiKeepAnimationFrame >= 20) {
+			isFeedNyokki = true;
+			isNyokkiCollsion = false;
+		}
+		if (leftNyokkiT[nyokkiNum / 2 - 1] >= 1.0f) {
+			isreturn = true;
+			isNyokki = false;
+		}
+		
 	}
 
 	if (isNyokki == false && isreturn == true) {
@@ -909,6 +945,22 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 			Action = false;
 			isNyokki = false;
 			isreturn = false;
+			isGetNyokkiPos = false;
+			nyokkistats = Up;
+			nyokkiUpAnimationFrame = 0;
+			nyokkiKeepAnimationFrame = 0;
+			isNyokkiCollsion = false;
+			isFeedNyokki = false;
+			for (int i = 0; i < nyokkiNum / 2; i++) {
+				leftNyokkiUpSrcX[i] = 0;
+				leftNyokkiKeepSrcX[i] = 0;
+				rightNyokkiUpSrcX[i] = 0;
+				rightNyokkiKeepSrcX[i] = 0;
+				leftNyokkiT[i] = 0.0f;
+				rightNyokkiT[i] = 0.0f;
+				
+
+			}
 		}
 	}
 
