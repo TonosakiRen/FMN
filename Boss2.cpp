@@ -42,6 +42,14 @@ Boss2::Boss2() :
 		rightNyokkiT[i] = 0.0f;
 
 	}
+	for (int i = 0; i < BulletOriginNum; i++) {
+
+		distance[i] = { 1.0f,0.0f };
+		distance[i] = distance[i].Rotation(i * AsgoreTheta).Normalized();
+	}
+	for (int i = 0; i < allBulletNum; i++) {
+		AsgoreBullet[i].t = 0.0f;
+	}
 }
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
@@ -163,19 +171,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -964,6 +972,108 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		}
 	}
 
+}
+
+void Boss2::AsgoreAttack(PlayerMain& player) {
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	if (setWhich == false) {
+		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
+			EmitPos = { 60.0f,SCREEN_HEIGHT - Floor };
+			distanceSpeed = 6.0f;
+			allSpeed = { 2.0f,-1.0f };
+		}
+		else {
+			EmitPos = { 2400.0f - 60,SCREEN_HEIGHT - Floor };
+			distanceSpeed = -6.0f;
+			allSpeed = { -2.0f,-1.0f };
+		}
+		setWhich = true;
+	}
+
+	if (isMoveCenter == false) {
+		if (isGetAsgore == false) {
+			savePosAsgore = Pos;
+			isGetAsgore = true;
+		}
+		Pos.x = Easing::easing(AsgoreMoveTx, savePosAsgore.x, EmitPos.x , 0.01f, Easing::easeInOutQuint);
+		Pos.y = Easing::easing(AsgoreMoveTy, savePosAsgore.y, EmitPos.y - 192 / 2, 0.01f, Easing::easeInOutQuint);
+	}
+	if (AsgoreMoveTx >= 1.0f) {
+		isMoveCenter = true;
+		isAsgoreAttack = true;
+	}
+	if (isAsgoreAttack == true) {
+		coolTime--;
+		EmitPos.x += distanceSpeed;
+		if (emitActionNum >= 0) {
+			if (coolTime <= 0) {
+				for (int i = 0; i < BulletOriginNum; i++) {
+					AsgoreBullet[emitNum].quad = { EmitPos,Asgorewidth,Asgorewidth };
+					AsgoreBullet[emitNum].isBullet = true;
+					AsgoreBullet[emitNum].distance = distance[i];
+					emitNum++;
+				}
+				coolTime = EmitCoolTime;
+				emitActionNum--;
+			}
+		}
+		for (int i = 0; i < emitNum; i++) {
+			AsgoreBullet[i].quad = AsgoreBullet[i].quad + AsgoreBullet[i].distance * distanceSpeed;
+			AsgoreBullet[i].quad = AsgoreBullet[i].quad + allSpeed;
+			if (AsgoreBullet[i].quad.GetCenter().y >= SCREEN_HEIGHT - Floor + Asgorewidth || AsgoreBullet[i].quad.GetCenter().y <= -Asgorewidth - Floor || AsgoreBullet[i].quad.GetCenter().x <= -Asgorewidth || AsgoreBullet[i].quad.GetCenter().x >= 2400 + Asgorewidth) {
+				AsgoreBullet[i].isBullet = false;
+			}
+		}
+		if (emitActionNum <= 0) {
+			if (isGetPosRetrun == false) {
+				savePosreturn = Pos;
+				isGetPosRetrun = true;
+			}
+			Pos.x = Easing::easing(AsgoreReturnTx, savePosreturn.x, 1200.0f, 0.01f, Easing::easeInOutQuint);
+			Pos.y = Easing::easing(AsgoreReturnTy, savePosreturn.y, savePosAsgore.y, 0.01f, Easing::easeInOutQuint);
+			isWait = true;
+		}
+		else {
+			Pos.x = EmitPos.x;
+		}
+		if (isWait == true) {
+			waitTime--;
+		}
+		if (waitTime <= 0) {
+			isAsgoreFeed = true;
+		}
+		if (isAsgoreFeed) {
+			for (int i = 0; i < emitNum; i++) {
+				if (AsgoreBullet[i].t >= 1.0f) {
+					EmitPos = { 0.0f,SCREEN_HEIGHT - Floor };
+					coolTime = 0;
+					for (int i = 0; i < emitNum; i++) {
+						AsgoreBullet[i].isBullet = false;
+						AsgoreBullet[i].t = 0.0f;
+					}
+					emitNum = 0;
+					emitActionNum = saveEmitActionNum;
+					isMoveCenter = false;
+					isGetAsgore = false;
+					AsgoreMoveTx = 0.0f;
+					AsgoreMoveTy = 0.0f;
+					isAsgoreAttack = false;
+					isWait = false;
+					waitTime = saveWaitTime;
+					isAsgoreFeed = false;
+					isGetPosRetrun = false;
+					AsgoreReturnTx = 0.0f;
+					AsgoreReturnTy = 0.0f;
+					setWhich = false;
+					Action = false;
+					break;
+				}
+			}
+		}			
+		
+	}
 }
 
 void Boss2::UpDate()

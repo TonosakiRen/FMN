@@ -22,6 +22,13 @@ const int savechaseframe = 3;
 const int rotateBulletNum = 20;
 const int saveUndertaleFrame = 1000;
 const int nyokkiNum = 30;
+const int allBulletNum = 1000;
+const int BulletOriginNum = 20;
+const int EmitNum = 20;
+const int EmitCoolTime = 20;
+const int saveEmitActionNum = 16;
+
+
 class Boss2 {
 
 	//画像の宣言
@@ -276,7 +283,40 @@ class Boss2 {
 	Nyokki leftNyokki[nyokkiNum / 2];
 	Nyokki rightNyokki[nyokkiNum / 2];
 
+	//AsgoreAttack
+	Vec2 EmitPos = { 0.0f,SCREEN_HEIGHT - Floor };
+	float distanceSpeed = 6.0f;
+	Vec2 allSpeed = { 2.0f,-1.0f };
+	Vec2 distance[BulletOriginNum];
+	struct Bullet {
+		Quad quad;
+		bool isBullet;
+		Vec2 distance;
+		float t;
+	};
+	Bullet AsgoreBullet[allBulletNum];
+	int coolTime = 0;
+	float AsgoreTheta = 2 * M_PI / BulletOriginNum;
+	int emitNum = 0;
+	int Asgorewidth = 30;
+	int emitActionNum = saveEmitActionNum;
 
+	bool isMoveCenter = false;
+	bool isGetAsgore = false;
+	Vec2 savePosAsgore;
+	float AsgoreMoveTx = 0.0f;
+	float AsgoreMoveTy = 0.0f;
+
+	bool isAsgoreAttack = false;
+	int saveWaitTime = 100;
+	bool isWait = false;
+	int waitTime = saveWaitTime;
+	bool isAsgoreFeed = false;
+	bool isGetPosRetrun = false;
+	Vec2 savePosreturn;
+	float AsgoreReturnTx = 0.0f;
+	float AsgoreReturnTy = 0.0f;
+	bool setWhich = false;
 
 public:
 	Boss2();
@@ -296,6 +336,7 @@ public:
 	void BulletAttack(PlayerMain& player);
 	void UndertaleAttack(PlayerMain& player);
 	void nyokkiAttack(PlayerMain& player);
+	void AsgoreAttack(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	
