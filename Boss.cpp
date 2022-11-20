@@ -10,7 +10,7 @@ Boss::Boss()
 {
 	Size = { 150,300 };
 
-	Pos = { 1000,Size.y/2};
+	Pos = { 1500,Size.y/2};
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2)};
 	LeftBottom = Vec2(Pos - (Size/2));
 	RightTop= Vec2(Pos + (Size/2));
@@ -162,6 +162,174 @@ void Boss::Set()
 	CoolTime = 200;
 }
 
+void Boss::Init()
+{
+	
+	Pos = { 1500,Size.y / 2 };
+	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
+	LeftBottom = Vec2(Pos - (Size / 2));
+	RightTop = Vec2(Pos + (Size / 2));
+	RightBottom = { Pos.x + (Size.x / 2),Pos.y - (Size.y / 2) };
+	Quad_Pos = { LeftTop,RightTop,LeftBottom,RightBottom };
+	
+	
+	HP = 2000;
+	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
+
+
+	keep.rand = 0;
+	keep.Time = 0;
+	//ステート管理初期化
+	hppattarn = NORMAL;
+	pattarn = MIDDLE;
+	//攻撃パラメータ初期化
+	CoolTime = 200;
+	Action = false;
+	Attack = false;
+	AttackStartTime = 0;
+	reload = 0;
+	isBossHit = false;
+	BossMotionTime = 0;
+	StepT = 0;
+	StepFPos = 0;
+	bStep = 0;
+
+	//技の初期化
+
+	blade.Init();
+	for (int i = 0; i < kMAX_WAVE; i++) {
+		Wave[i].Init();
+	}
+	for (int i = 0; i < kMAX_CIR; i++) {
+		Circleofdeath[i].Init();
+	}
+	Circleofdeath_flame = 0;
+	Circleofdeath_Expflame = 0;
+
+	for (int i = 0; i < kMAX_RAINSWORD; i++) {
+		Rainofsword[i].Init();
+	}
+	Rainofsword_flame = 0;
+
+	jumpattack.Init();
+
+	 CircleOfDeathMotionT;
+	 CircleOfDeathMotionT2;
+	 RainofswordMotionT;
+	 RainofswordMotionT2;
+	 bJumpAttack2 = false;
+
+	 bNomalSwordAttack = false;
+	 bNomalRotedSwordAttack = false;
+	 bJumpAttack = false;
+	 bShockWaveAttack = false;
+	 bCircleOfDeathAttack = false;
+
+	 IsLife = true; //生きてるかどうか
+
+	 //モーションの初期化
+#pragma region Parts
+	  Head = {
+		{0,0},
+		{176,160},
+		{10,155},
+		{ { Head.ImagePos.x - Head.ImageSize.x / 2, Head.ImagePos.y + Head.ImageSize.y / 2},
+		int(Head.ImageSize.x),int(Head.ImageSize.y) },
+		{0,-2},
+		{0,0.5},
+		1,
+		{0,0},
+		{64,70},
+		{2,-5},
+		{ { Head.ImagePos.x - Head.ColMisal.x - Head.ColSize.x / 2, Head.ImagePos.y + Head.ColMisal.y + Head.ColSize.y / 2},
+		int(Head.ColSize.x),int(Head.ColSize.y) },
+		{0,0},
+		0,
+		0,
+	 };
+
+	 Body = {
+		 {0,0},
+		 {144,164},
+		 {2,52},
+		 { { Body.ImagePos.x - Body.ImageSize.x / 2, Body.ImagePos.y + Body.ImageSize.y / 2},
+		 int(Body.ImageSize.x),int(Body.ImageSize.y) },
+		 {0,0},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {132,144},
+		 {5,-4},
+		 { { Body.ImagePos.x - Body.ColMisal.x - Body.ColSize.x / 2, Body.ImagePos.y + Body.ColMisal.y + Body.ColSize.y / 2},
+		 int(Body.ColSize.x),int(Body.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	 Leg = {
+		 {0,0},
+		 {130,130},
+		 {-12,-59},
+		 { { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
+		 int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
+		 {0,0},
+		 {0,0},
+		 1,
+		 {0,0},
+		 {96,106},
+		 {1,11},
+		 { { Leg.ImagePos.x - Leg.ColMisal.x - Leg.ColSize.x / 2, Leg.ImagePos.y + Leg.ColMisal.y + Leg.ColSize.y / 2},
+		 int(Leg.ColSize.x),int(Leg.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  RightArm = {
+		 {0,0},
+		 {52,116},
+		 {-94,-4},
+		 { { RightArm.ImagePos.x - RightArm.ImageSize.x / 2, RightArm.ImagePos.y + RightArm.ImageSize.y / 2},
+		 int(RightArm.ImageSize.x),int(RightArm.ImageSize.y) },
+		 {0,-5},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {38,74},
+		 {-3,-11},
+		 { { RightArm.ImagePos.x - RightArm.ColMisal.x - RightArm.ColSize.x / 2, RightArm.ImagePos.y + RightArm.ColMisal.y + RightArm.ColSize.y / 2},
+		 int(RightArm.ColSize.x),int(RightArm.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  LeftArm = {
+		 {0,0},
+		 {52,116},
+		 {86,-4},
+		 { { LeftArm.ImagePos.x - LeftArm.ImageSize.x / 2, LeftArm.ImagePos.y + LeftArm.ImageSize.y / 2},
+		 int(LeftArm.ImageSize.x),int(LeftArm.ImageSize.y) },
+		 {0,-5},
+		 {0,0.5},
+		 1,
+		 {0,0},
+		 {38,74},
+		 {3,-11},
+		 { { LeftArm.ImagePos.x - LeftArm.ColMisal.x - LeftArm.ColSize.x / 2, LeftArm.ImagePos.y + LeftArm.ColMisal.y + LeftArm.ColSize.y / 2},
+		 int(LeftArm.ColSize.x),int(LeftArm.ColSize.y) },
+		 {0,0},
+		 0,
+		 0,
+	 };
+
+	  ArmPosAngle = 2.8125;
+	  ArmPosAngleSpeed = 2.8125;
+#pragma endregion
+	  BladeImageQuad = { {9999,9999},{9999,9999}, {9999,9999}, {9999,9999} };
+}
+
 
 
 void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex, int rightarm,int leftarm)
@@ -221,7 +389,7 @@ void Boss::Draw(Screen& screen, int texsture,int headtex,int bodytex,int legtex,
 	
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
-		screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
+		//screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
 	//Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
 	//Novice::ScreenPrintf(960, 400, "O");

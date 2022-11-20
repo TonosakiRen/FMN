@@ -239,6 +239,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameover = true;
+				boss.Init();
 			}
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;

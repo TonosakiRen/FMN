@@ -120,6 +120,12 @@ class Boss {
 		bool Reserve = true;
 		int SrcX = 0;
 		int AnimeFlame = 0;
+		void Init() {
+			LifeTime = 0;
+			WaveKeep = false;
+			Reserve = false;
+
+		}
 
 	}Wave[kMAX_WAVE];
 	struct CircleOfDeath {
@@ -417,6 +423,7 @@ class Boss {
 public:
 	Boss();
 	void Set();
+	void Init();
 	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm);
 	void UpDate();
 	void State(PlayerMain& player);

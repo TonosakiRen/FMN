@@ -422,7 +422,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 	/*Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
 	Novice::ScreenPrintf(0, 20, "%d", HP);*/
 	Clamp::clamp(HP, 0, 200);
-	Novice::DrawBox(113, 920, 210*HP/MaxHp, 30, 0, GREEN, kFillModeSolid);
+	Novice::DrawBox(113, 915, 210*HP/MaxHp, 33, 0, GREEN, kFillModeSolid);
 	Novice::DrawSprite(50, 900, PlayerHpBar_gra, 1, 1, 0, WHITE);
 
 }
