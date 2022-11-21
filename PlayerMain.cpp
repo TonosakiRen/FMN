@@ -1,4 +1,5 @@
 #include "PlayerMain.h"
+#include "Easing.h"
 
 
 void PlayerMain::Init()
@@ -17,7 +18,10 @@ void PlayerMain::Init()
 	Gravity = 0;
 	FaceRight = true;
 	HitStop = 0;
+	CanMove = true;
 	HP = MaxHp;
+	GameOverTX = 0;
+	GameOverTY = 0;
 }
 
 void PlayerMain::Move()
@@ -46,6 +50,8 @@ void PlayerMain::Move()
 	//Speed.y = 0;
 
 	PlayerAnimeMode = stand;
+
+
 
 	if (CanMove == true) {
 		if (Controller::IsStickDirection(0, Controller::lsdRIGHT) || Key::IsPressed(DIK_D)) {
@@ -153,8 +159,13 @@ void PlayerMain::Move()
 		}
 	}
 	
-	//Gravity = 0;
-
+	if (HP <= 0) {
+		Gravity = 0;
+		Speed = { 0,0 };
+		OtherSpeed = { 0,0 };
+		HitBack = { 0,0 };
+		HitCoolDown = 0;
+	}
 	
 
 	Player.Pos.x += Speed.x + OtherSpeed.x + HitBack.x + MovieSpeed.x;
@@ -176,7 +187,7 @@ void PlayerMain::Move()
 	if (HitBack.y > 0) {
 		HitBack.y -= 1;
 	}
-
+	
 	/*if (OtherSpeed.x > 1) {
 		OtherSpeed.x -= 1;
 	}
@@ -217,6 +228,10 @@ void PlayerMain::Move()
 
 	if (DashFlag == true) {
 		PlayerAnimeMode = dash;
+	}
+
+	if (HP <= 0) {
+		PlayerAnimeMode = death;
 	}
 
 
@@ -348,19 +363,27 @@ void PlayerMain::SwordHit(Quad Target)
 
 void PlayerMain::PlayerHit(Quad Target)
 {
-
-	if (HitCoolDown == 0 ) {
-		if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
-			//Novice::ScreenPrintf(0, 300, "chinchin");
-
-
-			Vec2 TargetPos = { Target.LeftTop.x + (Target.RightBottom.x - Target.LeftTop.x) / 2,
-							Target.LeftTop.y + (Target.RightBottom.y - Target.LeftTop.y) / 2 };
+	if (HP > 0) {
+		if (HitCoolDown == 0) {
+			if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
+				//Novice::ScreenPrintf(0, 300, "chinchin");
 
 
-			HitStop = 5;
-			HitCoolDown = HITCOOLDOWNMAX;
-			HP--;
+				Vec2 TargetPos = { Target.LeftTop.x + (Target.RightBottom.x - Target.LeftTop.x) / 2,
+								Target.LeftTop.y + (Target.RightBottom.y - Target.LeftTop.y) / 2 };
+
+
+				HitStop = 5;
+				HitCoolDown = HITCOOLDOWNMAX;
+				if (HP > 0) {
+					HP--;
+				}
+				if (HP <= 0) {
+					HitStop = 30;
+					CanMove = false;
+					gameoverflag = true;
+				}
+			}
 		}
 	}
 }
@@ -368,16 +391,25 @@ void PlayerMain::PlayerHit(Quad Target)
 
 void PlayerMain::PlayerHit(Circle Target)
 {
-	if (Target.radius != 0) {
-		if (HitCoolDown == 0 ) {
-			if (Collision::CircleToQuad(Target, Player.Quad)) {
-				//Novice::ScreenPrintf(0, 300, "chinchin");
+	if (HP > 0) {
+		if (Target.radius != 0) {
+			if (HitCoolDown == 0) {
+				if (Collision::CircleToQuad(Target, Player.Quad)) {
+					//Novice::ScreenPrintf(0, 300, "chinchin");
 
 
 
-				HitStop = 5;
-				HitCoolDown = HITCOOLDOWNMAX;
-				HP--;
+					HitStop = 5;
+					HitCoolDown = HITCOOLDOWNMAX;
+					if (HP > 0) {
+						HP--;
+					}
+					if (HP <= 0) {
+						HitStop = 30;
+						CanMove = false;
+						gameoverflag = true;
+					}
+				}
 			}
 		}
 	}
@@ -396,11 +428,12 @@ void PlayerMain::PlayerHitKnockBack(Quad Target)
 
 
 
-void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, int fall, int attack)
+void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, int fall, int attack,int death)
 {
 	int player_gra = stand;
 	int flame = 1;
 	int sheets = 1;
+	int isloop = false;
 
 	if (Load == 0) {
 		Load = 1;
@@ -412,6 +445,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 		player_gra = walk;
 		flame = 5;
 		sheets = 4;
+		isloop = true;
 		break;
 	case 2:
 		player_gra = dash;
@@ -425,6 +459,11 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 	case 5:
 		player_gra = attack;
 		break;
+	case 6:
+		player_gra = death;
+		flame = 60;
+		sheets = 3;
+		break;
 	}
 
 
@@ -434,7 +473,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 		int(Player.ImageSize.x),int(Player.ImageSize.y) };
 
 	if (HitCoolDown % 2 == 0 || HitCoolDown == 0) {
-			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, Player.ImageSize.x, Player.ImageSize.y, sheets, flame, Player.AnimeFlame, player_gra, Player.Color, FaceRight);
+			screen.DrawQuad2Renban(ImageQuad, Player.SrcX, 0, Player.ImageSize.x, Player.ImageSize.y, sheets, flame, Player.AnimeFlame, player_gra, Player.Color, FaceRight, isloop);
 			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
@@ -445,9 +484,13 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 	
 	/*Novice::ScreenPrintf(0, 0, "[O][L]keys JumpPower : %0.2f", JUMPPOWER);
 	Novice::ScreenPrintf(0, 20, "%d", HP);*/
+
 	Clamp::clamp(HP, 0, 200);
-	Novice::DrawBox(113, 915, 210*HP/MaxHp, 33, 0, GREEN, kFillModeSolid);
-	Novice::DrawSprite(50, 900, PlayerHpBar_gra, 1, 1, 0, WHITE);
+
+	if (HP > 0) {
+		Novice::DrawBox(113, 915, 210 * HP / MaxHp, 33, 0, GREEN, kFillModeSolid);
+		Novice::DrawSprite(50, 900, PlayerHpBar_gra, 1, 1, 0, WHITE);
+	}
 
 }
 
@@ -551,7 +594,30 @@ void PlayerMain::Movie()
 	MovieTime++;
 }
 
+bool PlayerMain::Returngameoverflag()
+{
+	if (gameoverflag == true) {
+		gameoverflag = false;
+		return true;
+	}
+	return false;
+}
+
 void PlayerMain::PauseLag()
 {
 	AttackCoolDown = 4;
+}
+
+void PlayerMain::GameOver(Screen& screen)
+{
+	if (HP <= 0) {
+		Gravity = 0;
+		Speed = { 0,0 };
+		OtherSpeed = { 0,0 };
+		HitBack = { 0,0 };
+		HitCoolDown = 0;
+
+		Player.Pos.x = Easing::easing(GameOverTX, Player.Pos.x , 960 + screen.Scroll.x, 1.0f / 240, Easing::easeOutSine);
+		Player.Pos.y = Easing::easing(GameOverTY, Player.Pos.y, 200.0f, 1.0f / 240, Easing::easeOutSine);
+	}
 }

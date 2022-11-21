@@ -168,6 +168,7 @@ public:
 	/// <param name="textureHandle">テクスチャのハンドル</param>
 	/// <param name="color">描画するスプライトの色</param>
 	void DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH, int sheets, int frame, int& framehensuu, int textureHandle, unsigned int color, bool isFlip);
+	void DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH, int sheets, int frame, int& framehensuu, int textureHandle, unsigned int color, bool isFlip,bool isloop);
 	/// <summary>
 	/// 
 	/// </summary>
