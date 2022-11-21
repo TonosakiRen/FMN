@@ -127,6 +127,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			playermain.Move();
 
+			playerEffect.Update(true, playermain.GetPlayerQuad());
+			//swordのeffect
+			if (playermain.GetHitSword() == true) {
+				if (playermain.GetisFaceUp()) {
+					playerEffectSword.minDirection = { -0.4f , 0.1f };
+					playerEffectSword.maxDirection = { 0.4f , 0.9f };
+				}
+				else if (playermain.GetisFaceDown()) {
+					playerEffectSword.minDirection = { -0.4f , -0.1f };
+					playerEffectSword.maxDirection = { 0.4f , -0.9f };
+				}
+				else if (playermain.GetisFaceRigh()) {
+					playerEffectSword.minDirection = { 0.1f,-0.4f };
+					playerEffectSword.maxDirection = { 0.9f,0.4f };
+				}
+				else {
+					playerEffectSword.minDirection = { -0.9f,-0.4f };
+					playerEffectSword.maxDirection = { -0.1f,0.4f };
+				}
+
+			}
+			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+
 			//tutorial.HitLetAttack(playermain.GetSwordQuad());
 
 			for (int i = 0; i < 2; i++) {
@@ -196,11 +220,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss2.UpDate();
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
-						for (int i = 0; i < 20; i++) {
+						for (int i = 0; i < 30; i++) {
 							if (boss2.centerOfDarknessUnder.particles[i].isActive == true) {
-								playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2 });
-								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2 });
-								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2 });
+								playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2.0f });
+								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2.0f });
+								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2.0f });
 							}
 						}
 
@@ -252,9 +276,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					boss2.centerOfDarknessLeft.target = boss2.GetBossQuad().GetCenter();
 					boss2.centerOfDarknessRight.target = boss2.GetBossQuad().GetCenter();
 
-					boss2.centerOfDarknessUnder.deleteQuad = boss2.GetBossQuad();
-					boss2.centerOfDarknessLeft.deleteQuad = boss2.GetBossQuad();
-					boss2.centerOfDarknessRight.deleteQuad = boss2.GetBossQuad();
+					boss2.centerOfDarknessUnder.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
+					boss2.centerOfDarknessLeft.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
+					boss2.centerOfDarknessRight.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y+20},40,40 };
 
 					boss2.centerOfDarknessUnder.Update( boss2.isCenterOfDarkness, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
 					boss2.centerOfDarknessLeft.Update( boss2.isCenterOfDarkness, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
@@ -374,6 +398,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			tutorial.Draw(screen);
 			
+			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
+			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
+
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 
@@ -417,6 +444,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, RED, kBlendModeNormal);
 			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
+			boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra, playerdeath_gra);
 			
@@ -428,6 +456,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				boss2.Draw(screen);
+			}
+
+			//CenterofDarkness
+			if (boss2.iscenterNyokki == true) {
+				for (int i = 0; i < 3; i++) {
+					if (boss2.centerNyokkistats == boss2.Up) {
+						Quad tmp1({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp1, boss2.centerNyokkiUpSrcX[i], 0, 172, 952, boss2.centerNyokkiUpSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiUpAnimationFrame, uptorunedo, WHITE, false);
+						if (screen.isPause == false) {
+							boss2.centerNyokkiUpAnimationFrame--;
+						}
+				
+					}
+					if (boss2.centerNyokkistats == boss2.Keep) {
+						if (boss2.isFeedCenterNyokki == false) {
+							Quad tmp2({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp2, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							if (screen.isPause == false) {
+								boss2.centerNyokkiKeepAnimationFrame--;
+							}
+						
+						}
+						if (boss2.isFeedCenterNyokki == true) {
+							Quad tmp3({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp3, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.centerNyokkiT[i], 0.1f, WHITE), false);
+							if (screen.isPause == false) {
+								boss2.centerNyokkiKeepAnimationFrame--;
+							}
+							
+						}
+					}
+				}
 			}
 
 			//BulletAttack
@@ -449,7 +509,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
 				}
 				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == true) {
-					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.01f, WHITE));
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.1f, WHITE));
 				}
 			}
 
@@ -457,32 +517,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.isNyokki == true) {
 				for (int i = 0; i < nyokkiNum/2; i++) {
 					if (boss2.nyokkistats == boss2.Up) {
-						screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
+						Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp4, boss2.leftNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
 						if (screen.isPause == false) {
 							boss2.nyokkiUpAnimationFrame--;
 						}
-						screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
+						Quad tmp5({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp5, boss2.rightNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
 						if (screen.isPause == false) {
 							boss2.nyokkiUpAnimationFrame--;
 						}
 					}
 					if (boss2.nyokkistats == boss2.Keep) {
 						if (boss2.isFeedNyokki == false) {
-							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							Quad tmp6({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp6, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
-							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							Quad tmp7({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp7, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
 						}
 						if (boss2.isFeedNyokki == true) {
-							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.01f,WHITE), false);
+							Quad tmp8({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.1f,WHITE), false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
-							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.01f, WHITE), false);
+							Quad tmp9({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp9, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.1f, WHITE), false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
@@ -495,7 +561,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < boss2.emitNum; i++) {
 				if (boss2.AsgoreBullet[i].isBullet == true) {
 					if (boss2.isAsgoreFeed == true) {
-						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.AsgoreBullet[i].t,0.01,WHITE));
+						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.AsgoreBullet[i].t,0.1,WHITE));
 					}
 					else {
 						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, WHITE);
@@ -507,10 +573,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < 4; i++) {
 				if (boss2.ismoveBullet[i] == true) {
 					if (boss2.moveIsFeedout == false) {
-						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.moveAttackBulletFeedinT[i], 0.04f, WHITE));
+						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.moveAttackBulletFeedinT[i], 0.1f, WHITE));
 					}
 					else {
-						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.moveAttackBulletFeedoutT[i], 0.04f, WHITE));
+						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.moveAttackBulletFeedoutT[i], 0.1f, WHITE));
 					}
 
 
@@ -519,13 +585,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < 16; i++) {
 				if (boss2.ismovemoveBullet[i] == true) {
 					if (boss2.moveIsFeedout == false) {
-						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.movemoveAttackBulletFeedinT[i], 0.04f, WHITE));
+						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.movemoveAttackBulletFeedinT[i], 0.1f, WHITE));
 					}
 					else {
-						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.movemoveAttackBulletFeedoutT[i], 0.04f, WHITE));
+						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.movemoveAttackBulletFeedoutT[i], 0.1f, WHITE));
 					}
 				}
 			}
+
+			
 
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
@@ -603,6 +671,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 			//ゲームクリア描画
+
+			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+
 
 			if (feedoutT >= 1) {
 				InitFeedout();

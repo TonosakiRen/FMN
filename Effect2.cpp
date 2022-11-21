@@ -53,7 +53,7 @@ void Effect2::Emit(Quad pos, float theta) {
 			Vec2 side = (diagonalPos.RightTop - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, diagonalPos.LeftTop.DistanceFrom(diagonalPos.RightTop));
 			Vec2 vertical = (diagonalPos.LeftBottom - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, diagonalPos.LeftTop.DistanceFrom(diagonalPos.LeftBottom));
 			Vec2 center = { diagonalPos.LeftTop + side + vertical };
-			particles[i].quad = { {center.x - width / 2,center.y + width / 2 }, width ,width };
+			particles[i].quad = { {center.x - width / 2.0f,center.y + width / 2.0f }, width ,width };
 
 			//êiÇﬁï˚å¸
 			particles[i].direction = { target - center };
@@ -86,7 +86,7 @@ void Effect2::Emit(Quad pos) {
 			Vec2 side = (pos.RightTop - pos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, pos.LeftTop.DistanceFrom(pos.RightTop));
 			Vec2 vertical = (pos.LeftBottom - pos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, pos.LeftTop.DistanceFrom(pos.LeftBottom));
 			Vec2 center = { pos.LeftTop + side + vertical };
-			particles[i].quad = { {center.x - width / 2,center.y + width / 2 }, width ,width };
+			particles[i].quad = { {center.x - width / 2.0f,center.y + width / 2.0f }, width ,width };
 
 			//êiÇﬁï˚å¸
 			particles[i].direction = { target - center };
