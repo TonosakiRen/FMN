@@ -18,7 +18,9 @@
 #include "Tutorial.h"
 #include "GameOver.h"
 #include <time.h>
+#include "Sound.h"
 
+Sound sound;
 Screen screen;
 PlayerMain playermain;
 Boss boss;

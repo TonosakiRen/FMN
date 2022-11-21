@@ -71,6 +71,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
+	
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
@@ -141,6 +142,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
+			
 
 			if (isMovie == true) {
 				playermain.Movie();
@@ -150,6 +152,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (stopper.Pause() == false) {
 				screen.Pause(false);
 				if (stopper.HitStopUpdate() == false) {
+
+					
+					
 					playermain.Move();
 					if (boss.IsLife==false&&boss2.IsLife==false) {
 						//第二形態のセットここで
@@ -157,9 +162,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					//bossのアップデート
 					if(boss.IsLife==true) {
+						
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -185,6 +191,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
+						//サウンド
+						sound.BGMStop(&sound.StageBgm);
 						boss2.UpDate();
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
@@ -281,6 +289,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			 if (stopper.ReturnRestartFlag() && isFeedout == false && isFeedin == false) {
 				 stopper.RestartFlaggFalse();
+				
 				 isFeedout = true;
 				 isRestart = true;
 			 }
@@ -293,6 +302,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameclear = true;
+
 			}
 
 			
@@ -305,7 +315,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameover:
 			//ゲームオーバー処理
 			isGameover = false;
-
+			sound.BGMStop(&sound.StageBgm);
 			playermain.Move();
 
 			playermain.GameOver(screen);
@@ -314,9 +324,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
-				
+
 				gameoverclass.RestartFlag = false;
 			}
+			if (feedoutT >= 1) {
+				
+				sound.BGMStop(&sound.GameOver);
+
+
+			}
+			
+				
+
+			
 			break;
 		case gameclear:
 			//ゲームクリア処理
@@ -360,6 +380,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		case stage:
 			
+			//サウンド
+			sound.BGMStop(&sound.GameOver);
+			
+
 			//ステージ描画処理
 			//背景d
 
@@ -398,7 +422,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 			//ボス描画
 			if (boss.IsLife == true) {
-
+				//サウンド
+				sound.BGM(&sound.StageBgm, "./Resources/sounds/StageBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
@@ -513,6 +538,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitFeedout();
 				isStageStart = false;
 				if (isGameover == true) {
+					sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
+
 					scene = gameover;
 					isFeedin = true;
 				}
@@ -543,8 +570,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			//ゲームオーバー描画処理
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
-
-			
+			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
@@ -563,10 +589,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isGameoverStart = false;
 				scene = stage;
 				isFeedin = true;
+				//サウンド
+				sound.BGMStop(&sound.GameOver);
 			}
-			else {
-				break;
-			}
+			
 			break;
 		case gameclear:
 			if (isGameclearStart == false) {
