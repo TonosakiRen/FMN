@@ -54,6 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int playerjump_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerJump.png");
 	int playerfall_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerFall.png");
 	int playerattack_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerAttack.png");
+	int playerdeath_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerDeath.png");
 
 	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png"); //bg = background
 	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
@@ -284,9 +285,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				 isRestart = true;
 			 }
 
-			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
+			if (playermain.Returngameoverflag() && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameover = true;
+				stopper.canselect = false;
 			}
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
@@ -303,10 +305,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameover:
 			//ゲームオーバー処理
 			isGameover = false;
-			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+
+			playermain.Move();
+
+			playermain.GameOver(screen);
+
+			gameoverclass.Update();
+
+			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
-				boss.Init();
-				playermain.Init();
+				
+				gameoverclass.RestartFlag = false;
 			}
 			break;
 		case gameclear:
@@ -346,7 +355,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			tutorial.Draw(screen);
 			
 			
-			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra);
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 
 			break;
 		case stage:
@@ -386,7 +395,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
-			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra);
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra, playerdeath_gra);
 			
 			//ボス描画
 			if (boss.IsLife == true) {
@@ -561,15 +570,28 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (feedinT >= 1) {
 					InitFeedin();
 					isGameoverStart = true;
+					gameoverclass.canselect = true;
 				}
 			}
 			//ゲームオーバー描画処理
-			Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
+			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
+			
+
+			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+
+			gameoverclass.Draw(screen, PauseSelectGra);
+
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra,playerdeath_gra);
 
 			if (feedoutT >= 1) {
 				InitFeedout();
 				Init();
+				boss.Init();
+				playermain.Init();
+				playermain.Move();
+				boss.UpDate();
+				stopper.canselect = true;
 				isGameoverStart = false;
 				scene = stage;
 				isFeedin = true;
@@ -621,7 +643,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true || gameoverclass.QuitFlag == true) {
 			break;
 		}
 	}

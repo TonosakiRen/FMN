@@ -213,6 +213,48 @@ void Screen::DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH,
 	}
 }
 
+void Screen::DrawQuad2Renban(Quad quad, int& srcX, int srcY, int srcW, int srcH, int sheets, int frame, int& framehensuu, int textureHandle, unsigned int color, bool isFlip, bool isloop)
+{
+	float x1, y1, x2, y2, x3, y3, x4, y4;
+
+	Vec2 tmp1(quad.LeftTop.x - Scroll.x, quad.LeftTop.y - Scroll.y);
+	Vec2 tmp2(quad.RightTop.x - Scroll.x, quad.RightTop.y - Scroll.y);
+	Vec2 tmp3(quad.LeftBottom.x - Scroll.x, quad.LeftBottom.y - Scroll.y);
+	Vec2 tmp4(quad.RightBottom.x - Scroll.x, quad.RightBottom.y - Scroll.y);
+	x1 = tmp1.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	y1 = tmp1.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	x2 = tmp2.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	y2 = tmp2.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	x3 = tmp3.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	y3 = tmp3.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	x4 = tmp4.x * Zoom.x + Worldcenter.x + ScreenShake.x;
+	y4 = tmp4.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	if (framehensuu % frame == 0 && framehensuu != 0) {
+		if (isPause == false) {
+			srcX += srcW;
+		}
+	}
+
+	if (srcX >= srcW * sheets) {
+		if (isloop == true) {
+			srcX = 0;
+		}
+		else {
+			srcX = srcW * (sheets - 1);
+		}
+
+	}
+	if (isFlip == true) {
+		Novice::DrawQuad(x2, y2, x1, y1, x4, y4, x3, y3, srcX, srcY, srcW, srcH, textureHandle, color);
+	}
+	else if (isFlip == false) {
+		Novice::DrawQuad(x1, y1, x2, y2, x3, y3, x4, y4, srcX, srcY, srcW, srcH, textureHandle, color);
+	}
+	if (isPause == false) {
+		framehensuu++;
+	}
+}
+
 void Screen::Background(int x1, int y1, int quadw, int quadh, float scrollkakeru, int srcX, int srcY, int srcW, int srcH, int textureHandle, unsigned int color) {
 	Novice::DrawQuad(
 		x1 + ScreenShake.x - Scroll.x * scrollkakeru, y1 - ScreenShake.y,

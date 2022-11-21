@@ -52,8 +52,9 @@ class PlayerMain
 		int(Player.HitBoxSize.y - Player.ImageSize.y) / 2,
 	};
 
-	int HP = 10;
-	int MaxHp = HP;
+	int MaxHp = 10;
+	int HP = MaxHp;
+	
 
 	//Speed プレイヤーが動かすときに使う
 	Vec2 Speed = { 0,0 };
@@ -118,6 +119,8 @@ class PlayerMain
 	int CurrentSubSwordDrawNum = 0;
 	int isSwordHitFace = 0;
 
+	bool gameoverflag = false;
+
 	enum {
 		stand,
 		walk,
@@ -125,6 +128,7 @@ class PlayerMain
 		jump,
 		fall,
 		attack,
+		death,
 	};
 
 	int PlayerAnimeMode = 0;
@@ -134,6 +138,9 @@ class PlayerMain
 	Vec2 MovieSpeed = { 0,0 };
 	bool CanMove = true;
 	float PulsScroll = 0;
+
+	float GameOverTX = 0;
+	float GameOverTY = 0;
 
 public:
 
@@ -187,14 +194,17 @@ public:
 	bool GetisFaceUp() { return FaceUp; }
 	bool GetisFaceDown() { return FaceDown; }
 
-	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack);
+	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack, int death);
 	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
 
 	void Movie();
 
 	float ReturnPulsScroll() { return PulsScroll; }
+	bool Returngameoverflag();
 
 	void PauseLag();
+
+	void GameOver(Screen& screen);
 };
 

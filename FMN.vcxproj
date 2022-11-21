@@ -110,6 +110,7 @@
     <ClCompile Include="Effect3.cpp" />
     <ClCompile Include="Effect4.cpp" />
     <ClCompile Include="Feed.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerMain.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Effect3.h" />
     <ClInclude Include="Effect4.h" />
     <ClInclude Include="Feed.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PlayerMain.h" />
