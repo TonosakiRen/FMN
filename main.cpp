@@ -424,16 +424,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//プレイヤー描画
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra, playerdeath_gra);
 			
-			//ボス描画
-			if (boss.IsLife == true) {
-
-				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
-			}
-			if (boss2.IsLife == true) {
-				boss2.Draw(screen);
-			}
-
-			//CenterofDarkness
+			//nyokki描画
 			if (boss2.iscenterNyokki == true) {
 				for (int i = 0; i < 3; i++) {
 					if (boss2.centerNyokkistats == boss2.Up) {
@@ -442,7 +433,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						if (screen.isPause == false) {
 							boss2.centerNyokkiUpAnimationFrame--;
 						}
-				
+
 					}
 					if (boss2.centerNyokkistats == boss2.Keep) {
 						if (boss2.isFeedCenterNyokki == false) {
@@ -451,7 +442,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							if (screen.isPause == false) {
 								boss2.centerNyokkiKeepAnimationFrame--;
 							}
-						
+
 						}
 						if (boss2.isFeedCenterNyokki == true) {
 							Quad tmp3({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
@@ -459,41 +450,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							if (screen.isPause == false) {
 								boss2.centerNyokkiKeepAnimationFrame--;
 							}
-							
+
 						}
 					}
 				}
 			}
 
-			//BulletAttack
-			boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			for (int i = 0; i < swordNum; i++) {
-
-				if (boss2.isRelease == true && boss2.swordT[i] >= 0.0f) {
-
-					/*screen.DrawQuad2(boss2.effectSword[i], 0, 0, 128, 128, orbitImg, boss2.orbitColor[i]);*/
-				}
-				if (boss2.isSword[i] == true) {
-					screen.DrawQuad2(boss2.sword[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
-				}
-			}
-
-			//rotatebullet
-			for (int i = 0; i < rotateBulletNum; i++) {
-				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == false) {
-					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
-				}
-				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == true) {
-					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.1f, WHITE));
-				}
-			}
-
 			//nyokkiAttack
 			if (boss2.isNyokki == true) {
-				for (int i = 0; i < nyokkiNum/2; i++) {
+				for (int i = 0; i < nyokkiNum / 2; i++) {
 					if (boss2.nyokkistats == boss2.Up) {
 						Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-						screen.DrawQuad2Renban(tmp4, boss2.leftNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
+						screen.DrawQuad2Renban(tmp4, boss2.leftNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
 						if (screen.isPause == false) {
 							boss2.nyokkiUpAnimationFrame--;
 						}
@@ -518,7 +486,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						}
 						if (boss2.isFeedNyokki == true) {
 							Quad tmp8({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-							screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.1f,WHITE), false);
+							screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i], 0.1f, WHITE), false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
@@ -531,6 +499,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
+
+			//ボス描画
+			if (boss.IsLife == true) {
+
+				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
+			}
+			if (boss2.IsLife == true) {
+				boss2.Draw(screen);
+			}
+
+			//CenterofDarkness
+			
+
+			//BulletAttack
+			boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			for (int i = 0; i < swordNum; i++) {
+
+				if (boss2.isRelease == true && boss2.swordT[i] >= 0.0f) {
+
+					/*screen.DrawQuad2(boss2.effectSword[i], 0, 0, 128, 128, orbitImg, boss2.orbitColor[i]);*/
+				}
+				if (boss2.isSword[i] == true) {
+					screen.DrawQuad2(boss2.sword[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+			}
+
+			//rotatebullet
+			for (int i = 0; i < rotateBulletNum; i++) {
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == false) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, WHITE);
+				}
+				if (boss2.isRotateBullet[i] == true && boss2.isFeedrotateBullet == true) {
+					screen.DrawQuad2(boss2.rotateBullet[i], 0, 0, 128, 128, quadRedEffectImg, Feed::Feedout(boss2.rotateBulletT[i], 0.1f, WHITE));
+				}
+			}
+
+			
 
 			//AsgoreAttack
 			for (int i = 0; i < boss2.emitNum; i++) {

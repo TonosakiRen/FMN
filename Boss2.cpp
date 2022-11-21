@@ -1045,7 +1045,6 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 				leftNyokkiT[i] = 0.0f;
 				rightNyokkiT[i] = 0.0f;
 				
-
 			}
 		}
 	}
@@ -1058,12 +1057,12 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 	Pos.y += keep.YMove;
 	if (setWhich == false) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
-			EmitPos = { 60.0f,SCREEN_HEIGHT - Floor };
+			EmitPos = { 240.0f,SCREEN_HEIGHT - Floor };
 			distanceSpeed = 6.0f;
 			allSpeed = { 2.0f,-1.0f };
 		}
 		else {
-			EmitPos = { 2400.0f - 60,SCREEN_HEIGHT - Floor };
+			EmitPos = { 2400.0f - 240,SCREEN_HEIGHT - Floor };
 			distanceSpeed = -6.0f;
 			allSpeed = { -2.0f,-1.0f };
 		}
