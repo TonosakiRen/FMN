@@ -158,7 +158,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if(boss.IsLife==true) {
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -465,6 +465,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					else {
 						screen.DrawQuad2(boss2.AsgoreBullet[i].quad, 0, 0, 128, 128, circleRedEffectImg, WHITE);
+					}
+				}
+			}
+
+			//moveAttack
+			for (int i = 0; i < 4; i++) {
+				if (boss2.ismoveBullet[i] == true) {
+					if (boss2.moveIsFeedout == false) {
+						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.moveAttackBulletFeedinT[i], 0.04f, WHITE));
+					}
+					else {
+						screen.DrawQuad2(boss2.moveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.moveAttackBulletFeedoutT[i], 0.04f, WHITE));
+					}
+
+
+				}
+			}
+			for (int i = 0; i < 16; i++) {
+				if (boss2.ismovemoveBullet[i] == true) {
+					if (boss2.moveIsFeedout == false) {
+						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedin(boss2.movemoveAttackBulletFeedinT[i], 0.04f, WHITE));
+					}
+					else {
+						screen.DrawQuad2(boss2.movemoveBullet[i], 0, 0, 128, 128, circleRedEffectImg, Feed::Feedout(boss2.movemoveAttackBulletFeedoutT[i], 0.04f, WHITE));
 					}
 				}
 			}

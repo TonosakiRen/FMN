@@ -50,6 +50,34 @@ Boss2::Boss2() :
 	for (int i = 0; i < allBulletNum; i++) {
 		AsgoreBullet[i].t = 0.0f;
 	}
+
+	initialmoveBullet = Quad({ 0,moveradius },50, 50,0);
+	initialmovemoveBullet = Quad({ 0,movemoveradius },20, 20, 0);
+
+	for (int i = 0; i < 4; i++) {
+		movetheta[i] = -(2 * M_PI / 4.0f) * i;
+		moveAttackBulletFeedinT[i] = 0.0f;
+		moveAttackBulletFeedoutT[i] = 0.0f;
+		moveBullet[i] = initialmoveBullet;
+	}
+
+	for (int i = 0; i < 16; i++) {
+		if (i < 4) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * i + 1;
+		}
+		else if (i < 8) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 4 + 1);
+		}
+		else if (i < 12) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 8 + 1);
+		}
+		else if (i < 16) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 12 + 1);
+		}
+		movemoveAttackBulletFeedinT[i] = 0.0f;
+		movemoveAttackBulletFeedoutT[i] = 0.0f;
+		movemoveBullet[i] = initialmovemoveBullet;
+	}
 }
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
@@ -117,34 +145,34 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction01;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction04;
 				
 					
@@ -152,7 +180,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction05;
 
 					
@@ -171,19 +199,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					AsgoreAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					MoveAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -1076,8 +1104,124 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 	}
 }
 
-void Boss2::
+void Boss2::MoveAttack(PlayerMain& player) {
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	if (setWhich == false) {
+		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
+			LastPosx = 2100.0f;
+			startPosx = 300.0f;
+			moveAttackSpeed = 4.0f;
+			iswhichlr = false;
+		}
+		else {
+			LastPosx = 300.0f;
+			startPosx = 2100.0f;
+			moveAttackSpeed = -4.0f;
+			iswhichlr = true;
+		}
+		setWhich = true;
+	}
+	if (issavePosMoveAttack == false) {
+		savePosMoveAttack = Pos;
+		issavePosMoveAttack = true;
+	}
+	if (ismoveMoveAttack == false) {
+		Pos.x = Easing::easing(moveMoveAttackTx, savePosMoveAttack.x, startPosx, 0.01f, Easing::easeInOutQuint);
+		if (moveMoveAttackTx >= 1.0f) {
+			ismoveMoveAttack = true;
+		}
+	}
+	if (ismoveMoveAttack == true) {
+		if (ismovexMoveAttack == false) {
+			Pos.x += moveAttackSpeed;
+		}
+		for (int i = 0; i < 4; i++) {
+			
+			movetheta[i] += movethetaSpeed;
+			moveBullet[i] = initialmoveBullet.Rotate(initialmoveBullet, movetheta[i]) + Pos;
+			if (movetheta[i] >= 0.0f) {
+				ismoveBullet[i] = true;
+			}
+		}
+		for (int i = 0; i < 16; i++) {
 
+			if (i < 4) {
+				if (ismoveBullet[0] == true) {
+					movemovetheta[i] += movemovethetaSpeed;
+					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[0].GetCenter();
+				}
+			}
+			else if (i < 8) {
+				if (ismoveBullet[1] == true) {
+					movemovetheta[i] += movemovethetaSpeed;
+					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[1].GetCenter();
+				}
+			}
+			else if (i < 12) {
+				if (ismoveBullet[2] == true) {
+					movemovetheta[i] += movemovethetaSpeed;
+					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[2].GetCenter();
+				}
+			}
+			else if (i < 16) {
+				if (ismoveBullet[3] == true) {
+					movemovetheta[i] += movemovethetaSpeed;
+					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[3].GetCenter();
+				}
+			}
+
+			if (movemovetheta[i] >= 0.0f) {
+				ismovemoveBullet[i] = true;
+			}
+		}
+	}
+	if (Pos.x <= LastPosx && iswhichlr == true) {
+		ismovexMoveAttack = true;
+		moveIsFeedout = true;
+	}
+	if (Pos.x >= LastPosx && iswhichlr == false) {
+		ismovexMoveAttack = true;
+		moveIsFeedout = true;
+	}
+	if (moveAttackBulletFeedoutT[0] >= 1.0f) {
+		for (int i = 0; i < 4; i++) {
+			ismoveBullet[i] = false;
+			movetheta[i] = -(2 * M_PI / 4.0f) * i;
+			moveBullet[i] = initialmoveBullet;
+			moveAttackBulletFeedinT[i] = 0.0f;
+			moveAttackBulletFeedoutT[i] = 0.0f;
+		}
+		for (int i = 0; i < 16; i++) {
+			if (i < 4) {
+				movemovetheta[i] = -(2 * M_PI / 4.0f) * i + 1;
+			}
+			else if (i < 8) {
+				movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 4 + 1);
+			}
+			else if (i < 12) {
+				movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 8 + 1);
+			}
+			else if (i < 16) {
+				movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 12 + 1);
+			}
+			movemoveAttackBulletFeedinT[i] = 0.0f;
+			movemoveAttackBulletFeedoutT[i] = 0.0f;
+			movemoveBullet[i] = initialmovemoveBullet;
+			ismovemoveBullet[i] = false;
+		}
+		issavePosMoveAttack = false;
+		moveIsFeedout = false;
+		ismoveMoveAttack = false;
+		moveMoveAttackTx = 0.0f;
+		ismovexMoveAttack = false;
+		setWhich = false;
+		Action = false;
+	}
+
+
+}
 
 void Boss2::UpDate()
 {

@@ -318,7 +318,41 @@ class Boss2 {
 	float AsgoreReturnTy = 0.0f;
 	bool setWhich = false;
 
+	//moveAttack
+	Quad moveBullet[4];
+	Quad movemoveBullet[16];
+	bool ismoveBullet[4];
+	bool ismovemoveBullet[16];
+	float movetheta[4];
+	float movemovetheta[16];
+	float moveradius = 450.0f;
+	float movemoveradius = 80.0f;
 
+	float moveAttackBulletFeedinT[16];
+	float movemoveAttackBulletFeedinT[16];
+
+
+	
+	float moveAttackBulletFeedoutT[4];
+	float movemoveAttackBulletFeedoutT[16];
+	bool moveIsFeedout = false;
+
+	float movethetaSpeed = 1.7f * M_PI / 180.0f;
+	float movemovethetaSpeed = 8.0f * M_PI / 180.0f;
+
+	Quad initialmoveBullet;
+	Quad initialmovemoveBullet;
+
+	bool ismoveMoveAttack = false;
+	bool issavePosMoveAttack;
+	Vec2 savePosMoveAttack;
+	float moveMoveAttackTx = 0.0f;
+	float moveAttackSpeed = 3.0f;
+	bool ismovexMoveAttack = false;
+
+	float LastPosx = 2100.0f;
+	float startPosx;
+	bool iswhichlr = false;
 
 public:
 	Boss2();
