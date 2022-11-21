@@ -1231,7 +1231,7 @@ void Boss2::UpDate()
 
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
-	Pos.x = Clamp::clamp(Pos.x, Size.x / 2, (1920 * 1.25) - Size.x / 2);
+	Pos.x = Clamp::clamp(Pos.x, Size.x / 2+200, (1920 * 1.25) - Size.x / 2-200);
 	Zanzou();
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
 
@@ -1330,28 +1330,27 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		keep.bMove = true;
 	}
 	if (keep.bMove == true) {
-		if (0 <= keep.rand && keep.rand <= 50) {
+		if (0 <= keep.rand && keep.rand <= 40) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x += vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 500, 0.01, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 700, 0.02, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}
 		}
-		if (51 <= keep.rand && keep.rand <= 100) {
+		if (41 <= keep.rand && keep.rand <= 80) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x -= vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 500, 0.01, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 700, 0.02, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}
 		}
-		/*if (41 <= keep.rand && keep.rand <= 100) {
-			keep.Ease_T += 0.01f;
-			if (keep.Ease_T == 1) {
+		if (81 <= keep.rand && keep.rand <= 100) {
+			
 				keep.bMove = false;
-			}
-		}*/
+			
+		}
 	}
 }
 
