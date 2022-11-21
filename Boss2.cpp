@@ -1220,6 +1220,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		Action = false;
 	}
 
+//void Boss2::
 
 }
 

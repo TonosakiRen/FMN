@@ -3134,9 +3134,9 @@ void Boss::CirPar()
 	for (int k = 0; k < kMAX_CIR; k++) {
 		for (int i = 0; i < kMAX_CIR_Par; i++) {
 
-			if (CirParFlame % 10 == 0 && Cirparticle[k][i].Set == false&&Circleofdeath[k].Set==true) {
+			if (CirParFlame % 20 == 0 && Cirparticle[k][i].Set == false&&Circleofdeath[k].Set==true) {
 				Cirparticle[k][i].LifeTime = 1;
-				Cirparticle[k][i].Pos = { Circleofdeath[k].circle.pos.x + Randam::RAND(-80,80),Circleofdeath[k].circle.pos.y + Randam::RAND(-80,80) };
+				Cirparticle[k][i].Pos = { Circleofdeath[k].circle.pos.x + Randam::RAND(-120,120),Circleofdeath[k].circle.pos.y + Randam::RAND(-120,120) };
 				Cirparticle[k][i].QuadPos.Quad::Quad(Cirparticle[k][i].Pos, 48, 48, 0);
 				Cirparticle[k][i].Size = { 30,30 };
 				Cirparticle[k][i].Set = true;
@@ -3144,6 +3144,10 @@ void Boss::CirPar()
 				break;
 			}
 			if (Cirparticle[k][i].Set == true) {
+				Vec2 vel = (Circleofdeath[k].circle.pos - Cirparticle[k][i].Pos).Normalized();
+				Cirparticle[k][i].Pos+= vel * 0.5;
+				Cirparticle[k][i].QuadPos.Quad::Quad(Cirparticle[k][i].Pos, 48, 48, 0);
+
 				Cirparticle[k][i].LifeTime-=0.002;
 				Cirparticle[k][i].color= 0xFFFFFF00 | static_cast<int>((1.0f - Cirparticle[k][i].LifeTime) * 0x00 + Cirparticle[k][i].LifeTime * 0xFF);
 				if (Cirparticle[k][i].LifeTime == 0) {
