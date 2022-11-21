@@ -62,6 +62,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
 	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
 
+	int inPauseGra = Novice::LoadTexture("./Resources/images/UI/InPause.png");
+	int PauseSelectGra = Novice::LoadTexture("./Resources/images/UI/PauseSelect.png");
+
 	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
 
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
@@ -127,6 +130,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			for (int i = 0; i < 2; i++) {
 				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
 			}
+
+			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
 
 			tutorial.Update();
 
@@ -254,20 +260,39 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			else {
 			screen.Pause(true);
+			playermain.PauseLag();
+
+				
+			}
+
+			if (isStageStart == false) {
+				isFeedin = true;
+				if (feedinT >= 1) {
+					InitFeedin();
+					isStageStart = true;
+					stopper.canselect = true;
+				}
+
 			}
 			
 
 			 stopper.HitStopMake(playermain.HitStopOver());
 
+			 if (stopper.ReturnRestartFlag() && isFeedout == false && isFeedin == false) {
+				 stopper.RestartFlaggFalse();
+				 isFeedout = true;
+				 isRestart = true;
+			 }
+
 			if (Key::IsTrigger(DIK_O) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameover = true;
-				boss.Init();
 			}
 			if (Key::IsTrigger(DIK_C) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				isGameclear = true;
 			}
+
 			
 			break;
 		case stage2:
@@ -280,6 +305,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			isGameover = false;
 			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				boss.Init();
+				playermain.Init();
 			}
 			break;
 		case gameclear:
@@ -323,14 +350,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			break;
 		case stage:
-			if (isStageStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1) {
-					InitFeedin();
-					isStageStart = true;
-				}
-				
-			}
+			
 			//ステージ描画処理
 			//背景d
 
@@ -454,7 +474,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
 
 			//ポーズ描画
-			stopper.PauseDraw();
+			stopper.PauseDraw(inPauseGra, PauseSelectGra);
 
 			if (feedoutT >= 1 ) {
 				InitFeedout();
@@ -467,11 +487,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					scene = gameclear;
 					isFeedin = true;
 				}
+				if (isRestart == true) {
+					isRestart = false;
+					isFeedin = true;
+					boss.Init();
+					playermain.Init();
+					stopper.isPauseFalse();
+				}
 			}
 			else {
 				break;
 			}
-			
+			break;
 		case gameover:
 			if (isGameoverStart == false) {
 				isFeedin = true;
@@ -494,7 +521,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 				break;
 			}
-
+			break;
 		case gameclear:
 			if (isGameclearStart == false) {
 				isFeedin = true;
@@ -515,6 +542,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 				break;
 			}
+			break;
 		default:
 			break;
 		}
@@ -537,7 +565,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE)) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
 			break;
 		}
 	}

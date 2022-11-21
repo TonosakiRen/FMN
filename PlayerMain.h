@@ -179,8 +179,9 @@ public:
 	bool GetHitSword() { return isSwordHit; }
 
 	void PlayerHit(Quad Target);
-
 	void PlayerHit(Circle Target);
+
+	void PlayerHitKnockBack(Quad Target);
 
 	bool GetisFaceRigh() { return FaceRight; }
 	bool GetisFaceUp() { return FaceUp; }
@@ -193,5 +194,7 @@ public:
 	void Movie();
 
 	float ReturnPulsScroll() { return PulsScroll; }
+
+	void PauseLag();
 };
 

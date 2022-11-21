@@ -17,6 +17,7 @@ void PlayerMain::Init()
 	Gravity = 0;
 	FaceRight = true;
 	HitStop = 0;
+	HP = MaxHp;
 }
 
 void PlayerMain::Move()
@@ -127,9 +128,13 @@ void PlayerMain::Move()
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
-			Gravity = 0.18;
+			Gravity = 0.14;
 			DashCoolTime = 20;
 		}
+	}
+
+	if (OtherSpeed.x < 0) {
+		OtherSpeed.x+= 10;
 	}
 
 	DashCoolTime--;
@@ -236,7 +241,6 @@ void PlayerMain::Move()
 			
 		}
 		isAttack--;
-
 	}
 
 	if (attackstarttime == 0) {
@@ -375,6 +379,17 @@ void PlayerMain::PlayerHit(Circle Target)
 				HitCoolDown = HITCOOLDOWNMAX;
 				HP--;
 			}
+		}
+	}
+}
+
+void PlayerMain::PlayerHitKnockBack(Quad Target)
+{
+	if (HitCoolDown == 0) {
+		if (Collision::DiagonalQuadToQuad(Player.Quad, Target)) {
+
+			HitStop = 5;
+			OtherSpeed.x = -100;
 		}
 	}
 }
@@ -534,4 +549,9 @@ void PlayerMain::Movie()
 	}
 
 	MovieTime++;
+}
+
+void PlayerMain::PauseLag()
+{
+	AttackCoolDown = 4;
 }
