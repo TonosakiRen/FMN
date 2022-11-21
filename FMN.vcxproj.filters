@@ -98,6 +98,9 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -202,5 +205,6 @@
     <ClInclude Include="Effect3.h" />
     <ClInclude Include="Effect4.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameClear.h" />
   </ItemGroup>
 </Project>
