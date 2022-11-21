@@ -69,7 +69,7 @@ class Boss2 {
 	int HP = 2000;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
-
+	unsigned int HpColor = 0x00FF44FF;
 	struct Keep {
 		int Time = 0;
 		int rand = 0;

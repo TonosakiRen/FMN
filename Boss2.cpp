@@ -1275,6 +1275,31 @@ void Boss2::Draw(Screen& screen)
 
 void Boss2::State(PlayerMain& player)
 {
+	Vec2 Distance = Pos - player.Translation();
+	if (Action == false) {
+		if (Distance.Length() < 500) {
+			pattarn = NEAR_1;
+		}
+		else
+			if (Distance.Length() < 900) {
+				pattarn = MIDDLE;
+			}
+			else {
+				pattarn = FAR_1;
+			}
+		if (HP < ThreeQuarterHP) {
+			hppattarn = THREEQUARTERS;
+			HpColor = 0xFFFF00FF;
+			if (HP < HalfHP) {
+				hppattarn = HALF;
+				HpColor = 0xFF4400FF;
+
+			}
+		}
+		else {
+			hppattarn = NORMAL;
+		}
+	}
 }
 
 void Boss2::KeepUP(PlayerMain& player)
