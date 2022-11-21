@@ -177,7 +177,7 @@ class Boss2 {
 	Effect2 centerOfDarknessRight;
 	Effect2 centerOfDarknessUnder;
 	float gravityPower = 6.0f;
-	const int saveCenterOfDarknessCooltime = 1000;
+	int saveCenterOfDarknessCooltime = 1000;
 	int centerOfDarknessCooltime = 1000;
 
 	bool isGetcenterNyokki = false;
@@ -185,11 +185,11 @@ class Boss2 {
 	int centerNyokkiUpSrcX[3];
 	int centerNyokkiKeepSrcX[3];
 	float centerNyokkiT[3];
-	int centerNyokkiUpSheets = 5;
-	int centerNyokkiKeepSheets = 2;
+	int centerNyokkiUpSheets = 13;
+	int centerNyokkiKeepSheets = 3;
 	int centerNyokkiUpAnimationFrame = 0;
 	int centerNyokkiKeepAnimationFrame = 0;
-	int centerNyokkiSwitchAnimationFrame = 3;
+	int centerNyokkiSwitchAnimationFrame = 6;
 	bool iscenterNyokki = false;
 	int centerNyokkiWidth = 108;
 	int centerNyokkiHeight = SCREEN_HEIGHT - Floor;
@@ -271,11 +271,11 @@ class Boss2 {
 	int leftNyokkiKeepSrcX[nyokkiNum / 2];
 	int rightNyokkiUpSrcX[nyokkiNum / 2];
 	int rightNyokkiKeepSrcX[nyokkiNum / 2];
-	int nyokkiUpSheets = 5;
-	int nyokkiKeepSheets = 2;
+	int nyokkiUpSheets = 13;
+	int nyokkiKeepSheets = 3;
 	int nyokkiUpAnimationFrame = 0;
 	int nyokkiKeepAnimationFrame = 0;
-	int nyokkiSwitchAnimationFrame = 3;
+	int nyokkiSwitchAnimationFrame = 6;
 	int CollisionHeight = 0;
 	float space = 162;
 	float leftInitial = Pos.x - 54 - 108;

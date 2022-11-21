@@ -410,7 +410,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.iscenterNyokki == true) {
 				for (int i = 0; i < 3; i++) {
 					if (boss2.centerNyokkistats == boss2.Up) {
-						screen.DrawQuad2Renban(boss2.centerNyokki[i], boss2.centerNyokkiUpSrcX[i], 0, 108, 890, boss2.centerNyokkiUpSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiUpAnimationFrame, uptorunedo, WHITE, false);
+						Quad tmp1({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp1, boss2.centerNyokkiUpSrcX[i], 0, 172, 952, boss2.centerNyokkiUpSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiUpAnimationFrame, uptorunedo, WHITE, false);
 						if (screen.isPause == false) {
 							boss2.centerNyokkiUpAnimationFrame--;
 						}
@@ -418,14 +419,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					if (boss2.centerNyokkistats == boss2.Keep) {
 						if (boss2.isFeedCenterNyokki == false) {
-							screen.DrawQuad2Renban(boss2.centerNyokki[i], boss2.centerNyokkiKeepSrcX[i], 0, 108, 890, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							Quad tmp2({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp2, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 							if (screen.isPause == false) {
 								boss2.centerNyokkiKeepAnimationFrame--;
 							}
 						
 						}
 						if (boss2.isFeedCenterNyokki == true) {
-							screen.DrawQuad2Renban(boss2.centerNyokki[i], boss2.centerNyokkiKeepSrcX[i], 0, 108, 890, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.centerNyokkiT[i], 0.1f, WHITE), false);
+							Quad tmp3({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp3, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.centerNyokkiT[i], 0.1f, WHITE), false);
 							if (screen.isPause == false) {
 								boss2.centerNyokkiKeepAnimationFrame--;
 							}
@@ -462,32 +465,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.isNyokki == true) {
 				for (int i = 0; i < nyokkiNum/2; i++) {
 					if (boss2.nyokkistats == boss2.Up) {
-						screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
+						Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp4, boss2.leftNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame,uptorunedo,WHITE,false );
 						if (screen.isPause == false) {
 							boss2.nyokkiUpAnimationFrame--;
 						}
-						screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiUpSrcX[i], 0, 108, 890, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
+						Quad tmp5({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+						screen.DrawQuad2Renban(tmp5, boss2.rightNyokkiUpSrcX[i], 0, 172, 952, boss2.nyokkiUpSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiUpAnimationFrame, uptorunedo, WHITE, false);
 						if (screen.isPause == false) {
 							boss2.nyokkiUpAnimationFrame--;
 						}
 					}
 					if (boss2.nyokkistats == boss2.Keep) {
 						if (boss2.isFeedNyokki == false) {
-							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							Quad tmp6({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp6, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
-							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+							Quad tmp7({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp7, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
 						}
 						if (boss2.isFeedNyokki == true) {
-							screen.DrawQuad2Renban(boss2.leftNyokki[i].Quad, boss2.leftNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.1f,WHITE), false);
+							Quad tmp8({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i],0.1f,WHITE), false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}
-							screen.DrawQuad2Renban(boss2.rightNyokki[i].Quad, boss2.rightNyokkiKeepSrcX[i], 0, 108, 890, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.1f, WHITE), false);
+							Quad tmp9({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
+							screen.DrawQuad2Renban(tmp9, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.1f, WHITE), false);
 							if (screen.isPause == false) {
 								boss2.nyokkiKeepAnimationFrame--;
 							}

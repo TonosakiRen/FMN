@@ -207,19 +207,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					Teleportation( player);
+					nyokkiAttack( player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					Teleportation(player);
+					nyokkiAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					Teleportation(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -227,20 +227,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					Teleportation(player);
+					nyokkiAttack(player);
 					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%ÇÃçUåÇ
-					Teleportation(player);
+					nyokkiAttack(player);
 					
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%ÇÃçUåÇ
-					
-					Teleportation(player);
+					nyokkiAttack(player);
 					
 					FMoveArray = array.AttackFunction05;
 				}
@@ -755,6 +754,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			iscenterNyokkiCollision = false;
 			isFeedCenterNyokki = false;
 			iscenterNyokki = false;
+			centerNyokkistats = Up;
 			for (int i = 0; i < 3; i++) {
 				centerNyokkiUpSrcX[i] = 0;
 				centerNyokkiKeepSrcX[i] = 0;
@@ -951,7 +951,6 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				isRotateBullet[i] = false;
 				rotateBulletT[i] = 0.0f;
 			}
-
 			Action = false;
 		}
 	
