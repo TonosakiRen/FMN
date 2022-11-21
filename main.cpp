@@ -124,9 +124,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
-				isMovie = true;
-				playermain.MovieInit();
-				boss.MovieInit();
+				//isMovie = true;
+				//playermain.MovieInit();
+				//boss.MovieInit();
 			}
 
 			playermain.Move();
@@ -202,7 +202,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -661,7 +661,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (isRestart == true) {
 					isRestart = false;
 					isFeedin = true;
-					boss.Init();
+					if (boss.IsLife == true) {
+						boss.Init();
+					}
+					else {
+						boss2.Set();
+					}
 					playermain.Init();
 					stopper.isPauseFalse();
 				}
@@ -702,10 +707,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (feedoutT >= 1) {
 				InitFeedout();
 				Init();
-				boss.Init();
+				if (boss.IsLife == true) {
+					boss.Init();
+				}
+				else {
+					boss2.Set();
+				}
 				playermain.Init();
 				playermain.Move();
 				boss.UpDate();
+				boss2.UpDate();
 				stopper.canselect = true;
 				isGameoverStart = false;
 				scene = stage;
