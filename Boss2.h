@@ -16,12 +16,16 @@
 //const int kMAX_WAVE = 2;
 const int MAX2_PATTERN = 100;
 const int Max_Zan = 20;
+//BulletAttck
 const int swordNum = 20;
+//UndertaleAttack
 const int chaseBulletNum = 5;
 const int savechaseframe = 3;
 const int rotateBulletNum = 20;
 const int saveUndertaleFrame = 1000;
+//nyokkiAttack
 const int nyokkiNum = 30;
+//Asgore
 const int allBulletNum = 1000;
 const int BulletOriginNum = 20;
 const int EmitNum = 20;
@@ -172,9 +176,27 @@ class Boss2 {
 	Effect2 centerOfDarknessLeft;
 	Effect2 centerOfDarknessRight;
 	Effect2 centerOfDarknessUnder;
-	float gravityPower = 5.0f;
+	float gravityPower = 6.0f;
 	const int saveCenterOfDarknessCooltime = 1000;
 	int centerOfDarknessCooltime = 1000;
+
+	bool isGetcenterNyokki = false;
+	Quad centerNyokki[3];
+	int centerNyokkiUpSrcX[3];
+	int centerNyokkiKeepSrcX[3];
+	float centerNyokkiT[3];
+	int centerNyokkiUpSheets = 5;
+	int centerNyokkiKeepSheets = 2;
+	int centerNyokkiUpAnimationFrame = 0;
+	int centerNyokkiKeepAnimationFrame = 0;
+	int centerNyokkiSwitchAnimationFrame = 3;
+	bool iscenterNyokki = false;
+	int centerNyokkiWidth = 108;
+	int centerNyokkiHeight = SCREEN_HEIGHT - Floor;
+	int centerNyokkispace = 50;
+	bool iscenterNyokkiCollision = false;
+	bool isFeedCenterNyokki = false;
+
 
 	//BulletAttack
 	
@@ -275,6 +297,7 @@ class Boss2 {
 	};
 
 	NyokkiStats nyokkistats = Up;
+	NyokkiStats centerNyokkistats = Up;
 	
 	struct Nyokki {
 		Quad Quad;
@@ -354,6 +377,26 @@ class Boss2 {
 	float startPosx;
 	bool iswhichlr = false;
 
+	//Teleportaitoni
+	Vec2 TeleSavePos;
+	Vec2 TeleportPos;
+	bool GetTeleportPos = false;
+	bool isTeleport = false;
+	float TeleportTx = 0.0f;
+	bool isTelechaseFeed = false;
+	Effect4 TelechaseEffect;
+	int Telechaseframe[chaseBulletNum];
+	Vec2 TeleleftVec[chaseBulletNum];
+	Vec2 TelerightVec[chaseBulletNum];
+	Vec2 TelechaseVec[chaseBulletNum];
+	float TelechaseTheta = 5.0f * M_PI / 180;
+	bool TeleisGet[chaseBulletNum];
+	Vec2 TeleplayerToEffect[chaseBulletNum];
+	bool TeleisFeedrotateBullet = false;
+	int TeleportNum = 3;
+	int TeleChaceFrame = 120;
+	
+
 public:
 	Boss2();
 	void Set();
@@ -374,6 +417,7 @@ public:
 	void nyokkiAttack(PlayerMain& player);
 	void AsgoreAttack(PlayerMain& player);
 	void MoveAttack(PlayerMain& player);
+	void Teleportation(PlayerMain& player);
 
 	//スキル出したかどうか：：次に出すやつを変えれる
 	

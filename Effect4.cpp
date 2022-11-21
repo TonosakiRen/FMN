@@ -54,7 +54,7 @@ void Effect4::Emit(Quad pos, float theta) {
 			Vec2 side = (diagonalPos.RightTop - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, diagonalPos.LeftTop.DistanceFrom(diagonalPos.RightTop));
 			Vec2 vertical = (diagonalPos.LeftBottom - diagonalPos.LeftTop).Normalized() * Easing::easing(Randam::RAND(0, 100) / 100.0f, 0.0f, diagonalPos.LeftTop.DistanceFrom(diagonalPos.LeftBottom));
 			Vec2 center = { diagonalPos.LeftTop + side + vertical };
-			particles[i].quad = { {center.x - width / 2,center.y + width / 2 }, width ,width };
+			particles[i].quad = { {center.x - width / 2.0f,center.y + width / 2.0f }, width ,width };
 
 			/*particles[i].quad = { {Randam::RAND(pos.LeftTop.x - width / 2,pos.RightTop.x - width / 2),Randam::RAND(pos.LeftBottom.y + width / 2,pos.LeftTop.y + width / 2) }, width ,width };*/
 			//スピードランダム

@@ -8,12 +8,20 @@
 #include "Feed.h"
 
 Boss2::Boss2() :
-	centerOfDarknessLeft(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessRight(20, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(150, 20, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 2),
+	centerOfDarknessLeft(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessRight(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnder(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 3),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
-	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1)
+	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
+	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
 {
+
+	for (int i = 0; i < 3; i++) {
+		centerNyokkiUpSrcX[i] = 0;
+		centerNyokkiKeepSrcX[i] = 0;
+		centerNyokkiT[i] = 0.0f;
+	}
+
 	for (int i = 0; i < swordNum; i++) {
 		orbitColor[i] = RED;
 		theta[i] = -(M_PI * 2.0f / swordNum) * i - 1.0f * M_PI / 180;
@@ -145,34 +153,34 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction01;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction04;
 				
 					
@@ -180,7 +188,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction05;
 
 					
@@ -199,19 +207,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					BulletAttack(player);
+					Teleportation( player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					MoveAttack(player);
+					Teleportation(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					MoveAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -219,20 +227,20 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					MoveAttack(player);
+					Teleportation(player);
 					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					UndertaleAttack(player);
+					Teleportation(player);
 					
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
 					
-					UndertaleAttack(player);
+					Teleportation(player);
 					
 					FMoveArray = array.AttackFunction05;
 				}
@@ -248,25 +256,25 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
 					
-					AsgoreAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					CenterOfDarknessAttack(player);
 					
 					FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					CenterOfDarknessAttack(player);
 					
 					FMoveArray = array.AttackFunction02;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction03;
 					
 				}
@@ -682,6 +690,9 @@ void Boss2::Zanzou()
 }
 
 void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
 	if (isCenteroOfDarknessMove == true) {
 		if (isGetPos == false) {
 			saveBoss2x = Pos.x;
@@ -697,11 +708,39 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		--centerOfDarknessCooltime;
 		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
 		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
+
 		if (centerOfDarknessCooltime >= 200) {
+			if (isGetNyokkiPos == false) {
+				for (int i = 0; i < 3; i++) {
+					
+					centerNyokki[i] = { {(Pos.x - 54.0f - centerNyokkispace - centerNyokkiWidth + (centerNyokkispace + centerNyokkiWidth) * i) * 1.0f ,centerNyokkiHeight * 1.0f},centerNyokkiWidth, centerNyokkiHeight};
+				}
+				isGetNyokkiPos = true;
+				iscenterNyokki = true;
+			}
+
+			if (centerNyokkistats == Up) {
+				centerNyokkiUpAnimationFrame++;
+			}
+
+			if (centerNyokkiUpAnimationFrame >= centerNyokkiSwitchAnimationFrame * centerNyokkiUpSheets) {
+				centerNyokkistats = Keep;
+				iscenterNyokkiCollision = true;
+
+			}
+			if (centerNyokkistats == Keep) {
+				centerNyokkiKeepAnimationFrame++;
+			}
+			
 			isCenterOfDarkness = true;
 		}
 		else if (centerOfDarknessCooltime >= 0) {
+			isFeedCenterNyokki = true;
+			iscenterNyokkiCollision = false;
 			isCenterOfDarkness = false;
+			if (centerNyokkiT[0] >= 1.0f) {
+				iscenterNyokki = false;
+			}
 		}
 		else {
 			Action = false;
@@ -709,6 +748,18 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			centerOfDarknessMoveT = 0.0f;
 			isCenteroOfDarknessMove = true;
 			isGetPos = false;
+			isGetNyokkiPos = false;
+			isGetcenterNyokki = false;
+			centerNyokkiUpAnimationFrame = 0;
+			centerNyokkiKeepAnimationFrame = 0;
+			iscenterNyokkiCollision = false;
+			isFeedCenterNyokki = false;
+			iscenterNyokki = false;
+			for (int i = 0; i < 3; i++) {
+				centerNyokkiUpSrcX[i] = 0;
+				centerNyokkiKeepSrcX[i] = 0;
+				centerNyokkiT[i] = 0.0f;
+			}
 		}
 	}
 	
@@ -1220,8 +1271,112 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		Action = false;
 	}
 
-//void Boss2::
+}
 
+void Boss2::Teleportation(PlayerMain& player) {
+	keep.theta += M_PI / 60;
+	keep.YMove = sinf(keep.theta) * 1;
+	Pos.y += keep.YMove;
+	if (GetTeleportPos == false) {
+		int num = Randam::RAND(0, 4);
+		if (num == 0) {
+			TeleportPos = { player.GetPlayerPos().x - 600.0f,Pos.y };
+		}
+		if (num == 1) {
+			TeleportPos = { player.GetPlayerPos().x - 300.0f,Pos.y };
+		}
+		if (num == 2) {
+			TeleportPos = { player.GetPlayerPos().x - 0.0f,Pos.y };
+		}
+		if (num == 3) {
+			TeleportPos = { player.GetPlayerPos().x + 300.0f,Pos.y };
+		}
+		if (num == 4) {
+			TeleportPos = { player.GetPlayerPos().x + 600.0f,Pos.y };
+		}
+		TeleSavePos = Pos;
+		GetTeleportPos = true;
+	}
+	if (isTeleport == false) {
+		Pos.x = Easing::easing(TeleportTx, TeleSavePos.x, TeleportPos.x, 0.1f, Easing::easeInOutQuint);
+		
+		if (TeleportTx >= 1.0f) {
+			isTeleport = true;
+		}
+	}
+	if (isTeleport == true) {
+		TelechaseEffect.Update(isTeleport, { Pos,30,30 });
+		for (int i = 0; i < 1; i++) {
+			Telechaseframe[0]--;
+			
+			if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
+				Telechaseframe[0]--;
+				if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
+					TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
+					TeleisGet[0] = true;
+				}
+			}
+			if (TelechaseEffect.particles[0].isActive == true) {
+				TeleChaceFrame--;
+				if (chaseframe[0] <= 0) {
+					TeleplayerToEffect[0] = player.GetPlayerPos() - TelechaseEffect.particles[i].quad.GetCenter();
+					TeleleftVec[0] = TelechaseVec[0].Rotation(TelechaseTheta);
+					TelerightVec[0] = TelechaseVec[0].Rotation(-TelechaseTheta);
+
+					float rightCross = TelerightVec[0].Cross(TeleplayerToEffect[0]);
+					float leftCross = TeleleftVec[0].Cross(TeleplayerToEffect[0]);
+
+					if (rightCross >= 0.0f && leftCross <= 0.0f) {
+						TelechaseVec[0] = TeleplayerToEffect[0];
+					}
+
+					if (rightCross <= 0.0f && leftCross >= 0.0f) {
+						if (-rightCross > leftCross) {
+							TelechaseVec[0] = TelerightVec[0];
+						}
+						else {
+							TelechaseVec[0] = TeleleftVec[0];
+						}
+					}
+
+					if (rightCross > 0.0f && leftCross > 0.0f) {
+						TelechaseVec[0] = TeleleftVec[0];
+					}
+
+					if (rightCross < 0.0f && leftCross < 0.0f) {
+						TelechaseVec[0] = TelerightVec[0];
+					}
+
+					TelechaseEffect.particles[0].maxDirection = TelechaseVec[0];
+					TelechaseEffect.particles[0].minDirection = TelechaseVec[0];
+					Telechaseframe[0] = savechaseframe;
+				}
+			}
+			if (TeleChaceFrame <= 0) {
+				TelechaseEffect.feedSpeed = 0.1;
+				isTelechaseFeed = true;
+				TeleChaceFrame = 120;
+			}
+			if (TelechaseEffect.particles[0].t >= 1.0f) {
+				TelechaseEffect.feedSpeed = 0;
+				TelechaseEffect.particles[0].t = 0.0f;
+				TelechaseEffect.particles[0].isActive = false;
+				GetTeleportPos = false;
+				isTeleport = false;
+				TeleportTx = 0.0f;
+				isTelechaseFeed = false;
+				Telechaseframe[0] = 0;
+				TeleisGet[0] = false;
+				TeleisFeedrotateBullet = false;
+				TeleportNum--;
+			}
+		}
+	}
+	if (TeleportNum <= 0) {
+		TeleportNum = 3;
+		Action = false;
+	}
+	
 }
 
 void Boss2::UpDate()
