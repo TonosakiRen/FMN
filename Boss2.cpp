@@ -1277,11 +1277,11 @@ void Boss2::State(PlayerMain& player)
 {
 	Vec2 Distance = Pos - player.Translation();
 	if (Action == false) {
-		if (Distance.Length() < 500) {
+		if (Distance.Length() < 300) {
 			pattarn = NEAR_1;
 		}
 		else
-			if (Distance.Length() < 900) {
+			if (Distance.Length() < 800) {
 				pattarn = MIDDLE;
 			}
 			else {
