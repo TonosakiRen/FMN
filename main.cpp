@@ -126,6 +126,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			playermain.Move();
 
+			playerEffect.Update(true, playermain.GetPlayerQuad());
+			//swordのeffect
+			if (playermain.GetHitSword() == true) {
+				if (playermain.GetisFaceUp()) {
+					playerEffectSword.minDirection = { -0.4f , 0.1f };
+					playerEffectSword.maxDirection = { 0.4f , 0.9f };
+				}
+				else if (playermain.GetisFaceDown()) {
+					playerEffectSword.minDirection = { -0.4f , -0.1f };
+					playerEffectSword.maxDirection = { 0.4f , -0.9f };
+				}
+				else if (playermain.GetisFaceRigh()) {
+					playerEffectSword.minDirection = { 0.1f,-0.4f };
+					playerEffectSword.maxDirection = { 0.9f,0.4f };
+				}
+				else {
+					playerEffectSword.minDirection = { -0.9f,-0.4f };
+					playerEffectSword.maxDirection = { -0.1f,0.4f };
+				}
+
+			}
+			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+
 			//tutorial.HitLetAttack(playermain.GetSwordQuad());
 
 			for (int i = 0; i < 2; i++) {
@@ -354,6 +378,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			tutorial.Draw(screen);
 			
+			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
+			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
+
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 
@@ -609,6 +636,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 			//ゲームクリア描画
+
+			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+
 
 			if (feedoutT >= 1) {
 				InitFeedout();
