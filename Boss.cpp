@@ -658,9 +658,9 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//通常攻撃のコードはここ
 						//BackStep(player);
 
-						//NomalSwordAttack(player);
+						NomalSwordAttack(player);
 						//RainOfSwordAttack();
-						CircleOfDeathAttack(player);
+						//CircleOfDeathAttack(player);
 						//ShockWaveAttack(player, screen);
 						//ShockWaveAttack2(player, screen);
 						FMoveArray = array.NormalAttack;

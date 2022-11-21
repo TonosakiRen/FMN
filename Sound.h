@@ -11,6 +11,7 @@ public:
 		bool load=false;
 	};
 	Bgm StageBgm;
+	Bgm StageBgm2;
 	Bgm GameOver;
 	Bgm GameClear;
 	Bgm Title;

@@ -339,7 +339,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameover:
 			//ゲームオーバー処理
 			isGameover = false;
-			sound.BGMStop(&sound.StageBgm);
+		
 			playermain.Move();
 
 			playermain.GameOver(screen);
@@ -390,6 +390,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case title:
 			
+			sound.BGM(&sound.Title, "./Resources/sounds/TitleBgm.mp3");
+
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
 
@@ -408,6 +410,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
+			sound.BGMStop(&sound.Title);
 			sound.BGMStop(&sound.GameOver);
 			
 
@@ -451,10 +454,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				sound.BGM(&sound.StageBgm, "./Resources/sounds/StageBgm.mp3");
+				sound.BGM(&sound.StageBgm, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
+				sound.BGMStop(&sound.StageBgm);
+				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");
+
 				boss2.Draw(screen);
 			}
 
@@ -640,6 +646,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
+			//サウンド
+			sound.BGMStop(&sound.StageBgm);
+			sound.BGMStop(&sound.StageBgm2);
+
+
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
@@ -673,8 +684,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ゲームクリア描画
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+			//サウンド
+			sound.BGMStop(&sound.StageBgm);
+			sound.BGMStop(&sound.StageBgm2);
 
-
+			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1) {
 				InitFeedout();
 				Init();
