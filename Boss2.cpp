@@ -1076,7 +1076,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 	}
 }
 
-void Boss2::
+//void Boss2::
 
 
 void Boss2::UpDate()
