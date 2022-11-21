@@ -47,6 +47,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int deadbossbodyImg = Novice::LoadTexture("./Resources/Images/BossDead/Body.png");
 	int deadbossrightarmImg = Novice::LoadTexture("./Resources/Images/BossDead/RightArm.png");
 	int deadbossleftarmImg = Novice::LoadTexture("./Resources/Images/BossDead/LeftArm.png");
+	int StyleChangeTornadoImg = Novice::LoadTexture("./Resources/Images/Boss/StyleChangeTornado.png");
 
 	int playerstand_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
 	int playerwalk_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerWalk.png");
@@ -113,6 +114,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (feedinT >= 1) {
 					InitFeedin();
 					isTitleStart = true;
+					stopper.canselect = true;
 				}
 			}
 
@@ -122,7 +124,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
-				//isMovie = true;
+				isMovie = true;
+				playermain.MovieInit();
+				boss.MovieInit();
 			}
 
 			playermain.Move();
@@ -168,9 +172,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//if(boss.IsLife==false&&boss2.IsLife==false)
 			
 
+			if (boss.MovieEnded() == true) {
+				isMovie = false;
+			}
+
 			if (isMovie == true) {
 				playermain.Movie();
 				boss.Movie();
+				stopper.canselect = false;
+			}
+			else {
+				stopper.canselect = true;
 			}
 			
 			if (stopper.Pause() == false) {
@@ -183,6 +195,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss.IsLife==false&&boss2.IsLife==false) {
 						//第二形態のセットここで
 						boss2.Set();
+						boss2.PosLink(boss.GetBossX());
 					}
 					//bossのアップデート
 					if(boss.IsLife==true) {
@@ -211,6 +224,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//boss自体の当たり判定
 						boss.BossHit(playermain.GetHitSword());
 						boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
+						
 						
 					}
 					//boss2のアップデート
@@ -291,12 +305,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 				}
 			}
+
 			else {
 			screen.Pause(true);
 			playermain.PauseLag();
 
 				
 			}
+
+			boss.StyleChangeUpdate();
 
 			if (isStageStart == false) {
 				isFeedin = true;
@@ -316,6 +333,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 				 isFeedout = true;
 				 isRestart = true;
+			 }
+
+			 if (stopper.TitileBackFlag == true && isFeedout == false && isFeedin == false) {
+				 isFeedout = true;
+				 stopper.TitileBackFlag = false;
+				 isTitle = true;
 			 }
 
 			if (playermain.Returngameoverflag() && isFeedout == false && isFeedin == false) {
@@ -613,7 +636,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			
+			boss.DrawStyleChange(screen, StyleChangeTornadoImg);
 
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
@@ -641,6 +664,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					boss.Init();
 					playermain.Init();
 					stopper.isPauseFalse();
+				}
+				if (isTitle == true) {
+					scene = title;
+					isFeedin = true;
+					playermain.Init();
 				}
 			}
 			else {

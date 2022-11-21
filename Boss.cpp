@@ -35,10 +35,29 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 25;
+		HP -= 250;
+
+		if (HP <= 0) {
+			HP = 0;
+		}
 	};
 	if (HP <= 0) {
-		IsLife = false;
+
+		CanMove = false;
+
+		if (NextBossTime == 0) {
+			StyleChange.Flag = true;
+		}
+		NextBossTime++;
+
+		if (NextBossTime == 360) {
+			IsLife = false;
+			StyleChange.Flag = false;
+			NextBossTime = 0;
+		}
+			
+		
+		
 	}
 
 #pragma region Parts
@@ -419,6 +438,34 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	Clamp::clamp(HP, 0, 10000);
 	Novice::DrawBox(456, 20, HP * 0.51, 50, 0, HpColor, kFillModeSolid);
 	Novice::DrawSprite(350, 0, HpBar_gra, 1, 1, 0, WHITE);
+}
+
+void Boss::StyleChangeUpdate() {
+
+	StyleChange.Quad = { { Pos.x - StyleChange.ImageSize.x / 2, Pos.y + StyleChange.ImageSize.y - 240},
+		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) };
+
+	if (StyleChange.Flag == true) {
+		if (StyleChange.Alpha < 255) {
+			StyleChange.Alpha += 0.8;
+		}
+	}
+	else {
+		if (StyleChange.Alpha > 0) {
+			StyleChange.Alpha -= 5;
+		}
+	}
+
+	StyleChange.Alpha = Clamp::clamp(StyleChange.Alpha, 0, 255);
+}
+
+void Boss::DrawStyleChange(Screen& screen, int StyleChangeGra)
+{
+	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 1, 10, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
+	
+
+	Novice::ScreenPrintf(0, 380, "%f %f %d", Pos.x, Pos.y, StyleChange.Flag);
+
 }
 
 void Boss::State(PlayerMain& player)
@@ -3073,6 +3120,10 @@ void Boss::Movie()
 		RightArm.MoviePulsPos = { 0,-165 };
 		LeftArm.MoviePulsPos = { 0,-165 };
 	}
+	else if (MovieTime == 360) {
+		StyleChange.Alpha = 0;
+		StyleChange.Flag = true;
+	}
 	else if (MovieTime > 400 && MovieTime <= 700) {
 		/*isImageDead = false;
 		isRedBlackEffect = true;*/
@@ -3110,18 +3161,32 @@ void Boss::Movie()
 		Head.MoviePulsPos = { 0,0 };
 		Leg.MoviePulsPos = { 0,0 };
 		isImageDead = false;
-	}
-	else if (MovieTime == 760) {
+		StyleChange.Flag = false;
 		isRedBlackEffect = true;
-		CanMove = true;
 		RightArm.StandMotionFlag = 1;
 		LeftArm.StandMotionFlag = 1;
 		Body.StandMotionFlag = 1;
 		Head.StandMotionFlag = 1;
 		Leg.StandMotionFlag = 1;
 	}
+	else if (MovieTime == 940) {
+		CanMove = true;
+		MovieEnd = true;
+	}
 	
 	MovieTime++;
+
+	
+
+}
+
+bool Boss::MovieEnded()
+{
+	if (MovieEnd == true) {
+		MovieEnd = false;
+		return true;
+	}
+	return false;
 }
 
 bool Boss::RedBlackEffectFlag() {

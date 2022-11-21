@@ -583,10 +583,14 @@ void PlayerMain::Movie()
 		MovieSpeed.x = 0;
 	}
 	else if (MovieTime > 180 && MovieTime <= 360) {
-		float t = (float(MovieTime - 180)) / (360 - 180);
+		float t = (float(MovieTime - 180)) / 180;
 		PulsScroll = 400 * t;
 	}
-	else if (MovieTime == 760) {
+	else if (MovieTime > 810 && MovieTime <= 939) {
+		float t = (float(MovieTime - 810)) / 120;
+		PulsScroll = 400 - 400 * t;
+	}
+	else if (MovieTime == 940) {
 		CanMove = true;
 		PulsScroll = 0;
 	}
