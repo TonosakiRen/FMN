@@ -70,7 +70,7 @@ class Boss2 {
 	Quad Quad_Pos;
 	Vec2 Size;
 	
-	int HP = 2000;
+	int HP = 1200;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 	unsigned int HpColor = 0x00FF44FF;
@@ -402,6 +402,7 @@ class Boss2 {
 
 public:
 	Boss2();
+	void Init();
 	void Set();
 	void Draw(Screen& screen);
 	void UpDate();

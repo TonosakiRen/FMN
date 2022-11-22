@@ -74,6 +74,7 @@ bool isGameclear = false;
 bool isMovie = false;
 bool isRestart = false;
 bool isTitle = false;
+bool isPause = false;
 
 void InitFeedin() {
 	feedinT = 0;
