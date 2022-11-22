@@ -336,22 +336,26 @@ void PlayerMain::SwordHit(Quad Target)
 	
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
-		Speed.y = JUMPPOWER;
+		
 		isSwordHit = true;
 
 		 if(FaceDown == true){
 			 HitBack.y =3;
 			 Gravity = 0;
+			 Speed.y = JUMPPOWER;
 		 }
 		 else if (FaceUp == true) {
 			 HitBack.y = -3;
+			 Speed.y = 0;
 		 }
 		 else {
 			 if (FaceRight == true) {
 				 HitBack.x = -12;
+				 Speed.y = 0;
 			 }
 			 else {
 				 HitBack.x =  12;
+				 Speed.y = 0;
 			 }
 		 }
 
@@ -480,6 +484,12 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
+	if (DashFlag == true) {
+		Novice::DrawEllipse(100, 100, 100, 100, 0, RED, kFillModeSolid);
+	}
+
+	Novice::ScreenPrintf(0, 420, "%0.2f", Gravity);
+	Novice::ScreenPrintf(0, 440, "%0.2f", Speed.y);
 
 	//screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
