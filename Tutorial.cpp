@@ -72,8 +72,6 @@ void Tutorial::Draw(Screen& screen, int gra1, int gra2, int gra3)
 	screen.DrawQuad2Renban(type2.Quad, type2.SrcX, 0, type2.Size.x, type2.Size.y, type2.sheets, 30, type2.Anime, gra2, WHITE, false);
 
 	screen.DrawQuad2Renban(type3.Quad, type3.SrcX, 0, type3.Size.x, type3.Size.y, type3.sheets, 30, type3.Anime, gra3, WHITE, false);
-
-	Novice::ScreenPrintf(0, 700, "%0f,%0f", type3.Pos.x, type3.Pos.y);
 }
 
 void Tutorial::PlayDrawEx(int gra, int type)
