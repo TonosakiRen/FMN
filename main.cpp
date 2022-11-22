@@ -473,7 +473,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			 if (stopper.ReturnRestartFlag() && isFeedout == false && isFeedin == false) {
 				 stopper.RestartFlaggFalse();
-				
 				 isFeedout = true;
 				 isRestart = true;
 			 }
@@ -844,6 +843,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					scene = title;
 					isFeedin = true;
 					playermain.Init();
+					isTitle = false;
 				}
 			}
 			else {
