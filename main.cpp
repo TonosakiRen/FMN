@@ -142,6 +142,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			playermain.Move();
 
+			for (int i = 0; i < 2; i++) {
+				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+			}
+
+			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+
 			playerEffect.Update(true, playermain.GetPlayerQuad());
 			//swordのeffect
 			if (playermain.GetHitSword() == true) {
@@ -166,14 +173,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
 
 
+
 			//tutorial.HitLetAttack(playermain.GetSwordQuad());
 
-			for (int i = 0; i < 2; i++) {
-				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
-			}
-
-			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
-			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+			
 
 			tutorial.Update();
 
