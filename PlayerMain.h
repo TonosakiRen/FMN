@@ -8,7 +8,7 @@
 #include "Screen.h"
 #include "Quad.h"
 #include "Stopper.h"
-
+#include "Sound.h"
 class PlayerMain
 {
 	private:
@@ -17,7 +17,7 @@ class PlayerMain
 		int Load = 0;
 		int PlayerHpBar_gra = 0;
 
-
+		Sound sound;
 
 	//Pos ˆÊ’u(’†‰›‚¾‚º)
 	//HitBoxSize “–‚½‚è”»’è‚Ì‘å‚«‚³

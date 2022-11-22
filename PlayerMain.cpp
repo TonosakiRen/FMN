@@ -98,6 +98,7 @@ void PlayerMain::Move()
 		if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
 			if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
 				JumpFlag = true;
+				sound.SoundEffect(1.5f, "./Resources/sounds/Jump.mp3");
 			}
 		}
 
@@ -249,6 +250,7 @@ void PlayerMain::Move()
 	if (CanMove == true) {
 		if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
 			isAttack = 4;
+			
 		}
 	}
 
@@ -262,6 +264,7 @@ void PlayerMain::Move()
 
 	if (attackstarttime == 0) {
 		attackstarttime = -1;
+		sound.SoundEffect(1.0f,"./Resources/sounds/sword.mp3");
 		NormalAttack();
 		AttackCoolDown = ATTACKCOOLDOWNMAX;
 		isSwordAppear = true;
