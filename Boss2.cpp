@@ -301,7 +301,7 @@ void Boss2::BossHit(bool Hit)
 
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
-	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
+	/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
 	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
@@ -309,14 +309,14 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 	Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
 	Novice::ScreenPrintf(1000, 220, "boss:keep_bmove:%d", keep.bMove);
 
-	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);
+	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);*/
 
 	if (CoolTime <= 0 && Action == false) {
 		if (keep.bMove == false) {
 			MoveArray = rand;
 
 			if (MovePattern[MoveArray] == FMoveArray) {
-				Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
+				//Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
 				if (reload == 0) {
 
