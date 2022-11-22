@@ -808,6 +808,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					isFeedin = true;
 					if (boss.IsLife == true) {
 						boss.Init();
+						
 					}
 					else {
 						boss2.Set();
