@@ -35,7 +35,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 25;
+		HP -= 30;
 
 		if (HP <= 0) {
 			HP = 0;
@@ -3276,5 +3276,13 @@ bool Boss::MovieEnded()
 
 bool Boss::RedBlackEffectFlag() {
 	return isRedBlackEffect;
+}
+
+bool Boss::isBossDead()
+{
+	if (HP <= 0) {
+		return true;
+	}
+	return false;
 }
 

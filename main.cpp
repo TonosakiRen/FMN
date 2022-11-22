@@ -225,23 +225,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss.UpDate();
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 						//当たり判定とかいれて！！！
-						playermain.PlayerHit(boss.GetBossAttackQuad());
-						for (int i = 0; i < 5; i++) {
-							playermain.PlayerHit(boss.GetBossQuad(i));
-							playermain.SwordHit(boss.GetBossQuad(i));
+						if (boss.isBossDead() == false) {
+							playermain.PlayerHit(boss.GetBossAttackQuad());
+							for (int i = 0; i < 5; i++) {
+								playermain.PlayerHit(boss.GetBossQuad(i));
+								playermain.SwordHit(boss.GetBossQuad(i));
+							}
+							playermain.PlayerHit(boss.GetShockWave());
+							playermain.PlayerHit(boss.GetShockWave2());
+							for (int i = 0; i < kMAX_RAINSWORD; i++) {
+								playermain.PlayerHit(boss.GetRainOfSwordQuad(i));
+							}
+							for (int i = 0; i < kMAX_CIR; i++) {
+								playermain.PlayerHit(boss.GetCircleOfDeathQuad(i));
+							}
+							//boss自体の当たり判定
+							boss.BossHit(playermain.GetHitSword());
+							boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
 						}
-						playermain.PlayerHit(boss.GetShockWave());
-						playermain.PlayerHit(boss.GetShockWave2());
-						for (int i = 0; i < kMAX_RAINSWORD; i++) {
-							playermain.PlayerHit(boss.GetRainOfSwordQuad(i));
-						}
-						for (int i = 0; i < kMAX_CIR; i++) {
-							playermain.PlayerHit(boss.GetCircleOfDeathQuad(i));
-						}
-						//boss自体の当たり判定
-						boss.BossHit(playermain.GetHitSword());
-						boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
-
 					}
 					//boss2のアップデート
 					if (boss2.IsLife == true) {

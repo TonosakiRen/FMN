@@ -548,4 +548,6 @@ public:
 	bool MovieEnded();
 	bool RedBlackEffectFlag();
 	void StyleChangeFalse() { StyleChange.Flag = false; };
+
+	bool isBossDead();
 };
