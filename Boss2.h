@@ -70,7 +70,7 @@ class Boss2 {
 	Quad Quad_Pos;
 	Vec2 Size;
 	
-	int HP = 2000;
+	int HP = 1200;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 	unsigned int HpColor = 0x00FF44FF;
@@ -203,6 +203,7 @@ class Boss2 {
 	Quad initialSword = {Pos,30,30,};
 	Quad effectSword[swordNum];
 	Quad sword[swordNum];
+	bool isBulletAttack = false;
 	float radius = 200.0f;
 	float mostRadius = 2000.0f;
 	float theta[swordNum];
@@ -218,6 +219,7 @@ class Boss2 {
 
 	//undertale
 
+	bool isUndertaleAttack = false;
 	float xMove = 0;
 	float xSpeed = 1;
 	float yMove = 0;
@@ -246,6 +248,7 @@ class Boss2 {
 	bool isFeedrotateBullet = false;
 	float rotateBulletT[rotateBulletNum];
 	bool emitchaseEffect = true;
+	bool isUndertaleCollision = false;
 	
 	int undertaleFrame = saveUndertaleFrame;
 
@@ -399,6 +402,7 @@ class Boss2 {
 
 public:
 	Boss2();
+	void Init();
 	void Set();
 	void Draw(Screen& screen);
 	void UpDate();

@@ -130,7 +130,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				//isMovie = true;
-				//playermain.MovieInit();
+				playermain.MovieInit();
 				//boss.MovieInit();
 			}
 
@@ -196,17 +196,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				screen.Pause(false);
 				if (stopper.HitStopUpdate() == false) {
 
-					
-					
+
+
 					playermain.Move();
-					if (boss.IsLife==false&&boss2.IsLife==false) {
+					if (boss.IsLife == false && boss2.IsLife == false) {
 						//第二形態のセットここで
 						boss2.Set();
 						boss2.PosLink(boss.GetBossX());
 					}
 					//bossのアップデート
-					if(boss.IsLife==true) {
-						
+					if (boss.IsLife == true) {
+
 
 						///デバック用
 						boss.IsLife = false;
@@ -231,8 +231,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//boss自体の当たり判定
 						boss.BossHit(playermain.GetHitSword());
 						boss.BossHitReaction(playermain.GetSwordQuad(), playermain.GetisFaceUp(), playermain.GetisFaceDown(), playermain.GetisFaceRigh());
-						
-						
+
 					}
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
@@ -247,6 +246,62 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2.0f });
 								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2.0f });
 							}
+						}
+						if (boss2.iscenterNyokkiCollision == true) {
+							for (int i = 0; i < 3; i++) {
+								playermain.PlayerHit(boss2.centerNyokki[i]);
+							}
+						}
+						if (boss2.isBulletAttack == true) {
+							for (int i = 0; i < swordNum; i++) {
+								if (boss2.isSword[i] == true) {
+									playermain.PlayerHit({ boss2.sword[i].GetCenter(), boss2.sword[i].GetWidth() / 2.0f });
+								}
+							}
+						}
+						if (boss2.isUndertaleAttack == true) {
+							if (boss2.isUndertaleCollision == false) {
+								for (int i = 0; i < rotateBulletNum; i++) {
+									if (boss2.isRotateBullet[i] == true) {
+										playermain.PlayerHit({ boss2.rotateBullet[i].GetCenter(),boss2.rotateBullet[i].GetWidth() / 2.0f });
+									}
+								}
+								for (int i = 0; i < chaseBulletNum; i++) {
+									if (boss2.chaseEffect.particles[i].isActive == true) {
+										playermain.PlayerHit({ boss2.chaseEffect.particles[i].quad.GetCenter(),boss2.chaseEffect.particles[i].quad.GetWidth() / 2.0f });
+									}
+								}
+							}
+						}
+
+						if (boss2.isNyokkiCollsion == true) {
+							for (int i = 0; i < nyokkiNum / 2; i++) {
+								playermain.PlayerHit(boss2.leftNyokki[i].Quad);
+								playermain.PlayerHit(boss2.rightNyokki[i].Quad);
+							}
+						}
+
+						if (boss2.isAsgoreAttack == true) {
+							for (int i = 0; i < boss2.emitNum; i++) {
+								playermain.PlayerHit({ boss2.AsgoreBullet[i].quad.GetCenter(),boss2.AsgoreBullet[i].quad.GetWidth() });
+							}
+						}
+
+						if (boss2.ismoveMoveAttack == true) {
+							for (int i = 0; i < 4; i++) {
+								if (boss2.ismoveBullet[i] == true) {
+									playermain.PlayerHit({ boss2.moveBullet[i].GetCenter(),boss2.moveBullet[i].GetWidth() / 2.0f });
+								}
+							}
+							for (int i = 0; i < 16; i++) {
+								if (boss2.ismovemoveBullet[i] == true) {
+									playermain.PlayerHit({ boss2.movemoveBullet[i].GetCenter(),boss2.movemoveBullet[i].GetWidth() / 2.0f });
+								}
+							}
+						}
+
+						if (boss2.TelechaseEffect.particles[0].isActive == true) {
+							playermain.PlayerHit({ boss2.TelechaseEffect.particles[0].quad.GetCenter(),boss2.TelechaseEffect.particles[0].quad.GetWidth() / 2.0f });
 						}
 
 					}
@@ -291,8 +346,71 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						bossLeftArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leftarm));
 						bossLegEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leg));
 					}
-					
+
+					for (int i = 0; i < kMAX_CIR; i++) {
+						if (i == 0) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white0.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white0.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 1) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white1.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white1.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 2) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white2.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white2.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 3) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white3.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white3.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 4) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white4.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white4.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 5) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white5.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white5.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						if (i == 6) {
+							if (boss.Circleofdeath[i].Set == true) {
+								white6.Update(boss.isEmitwhite, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+							else {
+								white6.Update(false, boss.isWhiteFeedout, boss.Circleofdeath[i].Quad_Pos, boss.Circleofdeath[i].Quad_Pos.GetCenter());
+							}
+						}
+						
+					}
+
 					//boss2のエフェクト
+
+					boss2Effect.Update(boss2.IsLife, boss2.GetBossQuad());
+
 					boss2.centerOfDarknessUnder.target = boss2.GetBossQuad().GetCenter();
 					boss2.centerOfDarknessLeft.target = boss2.GetBossQuad().GetCenter();
 					boss2.centerOfDarknessRight.target = boss2.GetBossQuad().GetCenter();
@@ -456,6 +574,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//エフェクト描画
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
+			boss2Effect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
 			enemySwordEffect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
 			if (boss.RedBlackEffectFlag()) {
 				stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
@@ -469,6 +588,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				bossLeftArmEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 				bossLegEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 				bossLegEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+				white0.Draw(screen, 128, circleEffectImg, WHITE);
+				white1.Draw(screen, 128, circleEffectImg, WHITE);
+				white2.Draw(screen, 128, circleEffectImg, WHITE);
+				white3.Draw(screen, 128, circleEffectImg, WHITE);
+				white4.Draw(screen, 128, circleEffectImg, WHITE);
+				white5.Draw(screen, 128, circleEffectImg, WHITE);
+				white6.Draw(screen, 128, circleEffectImg, WHITE);
+
+			}
+			if (white0.particles[0].t >= 1.0f) {
+				boss.isWhiteFeedout = false;
 			}
 			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);

@@ -87,6 +87,163 @@ Boss2::Boss2() :
 		movemoveBullet[i] = initialmovemoveBullet;
 	}
 }
+
+void Boss2::Init() {
+
+	HP = 1200;
+	HpColor = 0x00FF44FF;//HPBar‚ÌF‰Šú‰»iƒOƒŠ[ƒ“j
+
+
+	keep.rand = 0;
+	keep.Time = 0;
+	keep.bMove = 0;
+	keep.Ease_T = 0;
+	keep.FPos = 0;
+	keep.theta = 0;
+	keep.YMove = 0;
+
+	Zanflame = 0;
+
+	//ƒXƒe[ƒgŠÇ—‰Šú‰»
+	hppattarn = NORMAL;
+	pattarn = MIDDLE;
+	//UŒ‚ƒpƒ‰ƒ[ƒ^‰Šú‰»
+	CoolTime = 200;
+	Action = false;
+	Attack = false;
+	AttackStartTime = 0;
+	reload = 0;
+	isBossHit = false;
+	BossMotionTime = 0;
+	
+	//waza
+	Action = false;
+	centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
+	centerOfDarknessMoveT = 0.0f;
+	isCenteroOfDarknessMove = true;
+	isGetPos = false;
+	isGetNyokkiPos = false;
+	isGetcenterNyokki = false;
+	centerNyokkiUpAnimationFrame = 0;
+	centerNyokkiKeepAnimationFrame = 0;
+	iscenterNyokkiCollision = false;
+	isFeedCenterNyokki = false;
+	iscenterNyokki = false;
+	centerNyokkistats = Up;
+	for (int i = 0; i < 3; i++) {
+		centerNyokkiUpSrcX[i] = 0;
+		centerNyokkiKeepSrcX[i] = 0;
+		centerNyokkiT[i] = 0.0f;
+	}
+
+	isRelease = false;
+	bulletAttackCoolTime = saveBulletAttackCoolTime;
+	radius = 200.0f;
+	for (int i = 0; i < swordNum; i++) {
+		orbitColor[i] = RED;
+		theta[i] = -(M_PI * 2.0f / swordNum) * i - 1.0f * M_PI / 180;
+		isSword[i] = false;
+		getFrag[i] = false;
+		swordT[i] = 0.0f;
+		isOrbit[i] = false;
+		isBulletAttack = false;
+	}
+
+	chaseEffect.feedSpeed = 0.0f;
+	xMove = 0.0f;
+	yMove = 0;
+	ytheta = 0.0f;
+	rotateT = 0.0f;
+	isFeedrotateBullet = false;
+	emitchaseEffect = true;
+	undertaleFrame = saveUndertaleFrame;
+	isUndertaleCollision = false;
+	for (int i = 0; i < chaseBulletNum; i++) {
+		chaseframe[i] = 0.0f;
+		isGet[i] = false;
+	}
+
+	for (int i = 0; i < rotateBulletNum; i++) {
+		rotatetheta[i] = -(M_PI * 2.0f / rotateBulletNum) * i;
+		isSword[i] = false;
+		isRotateBullet[i] = false;
+		rotateBulletT[i] = 0.0f;
+	}
+	isUndertaleAttack = false;
+
+	dropT = 0.0f;
+	isSaveBossY = false;
+	isSaveBossY2 = false;
+	isSaveBossY3 = false;
+	isdropMove = false;
+	dropMoveT = 0.0f;
+	returnMoveT = 0.0f;
+	isdrop = false;
+	Action = false;
+	isNyokki = false;
+	isreturn = false;
+	isGetNyokkiPos = false;
+	nyokkistats = Up;
+	nyokkiUpAnimationFrame = 0;
+	nyokkiKeepAnimationFrame = 0;
+	isNyokkiCollsion = false;
+	isFeedNyokki = false;
+	for (int i = 0; i < nyokkiNum / 2; i++) {
+		leftNyokkiUpSrcX[i] = 0;
+		leftNyokkiKeepSrcX[i] = 0;
+		rightNyokkiUpSrcX[i] = 0;
+		rightNyokkiKeepSrcX[i] = 0;
+		leftNyokkiT[i] = 0.0f;
+		rightNyokkiT[i] = 0.0f;
+
+	}
+
+	for (int i = 0; i < 4; i++) {
+		ismoveBullet[i] = false;
+		movetheta[i] = -(2 * M_PI / 4.0f) * i;
+		moveBullet[i] = initialmoveBullet;
+		moveAttackBulletFeedinT[i] = 0.0f;
+		moveAttackBulletFeedoutT[i] = 0.0f;
+	}
+	for (int i = 0; i < 16; i++) {
+		if (i < 4) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * i + 1;
+		}
+		else if (i < 8) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 4 + 1);
+		}
+		else if (i < 12) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 8 + 1);
+		}
+		else if (i < 16) {
+			movemovetheta[i] = -(2 * M_PI / 4.0f) * (i - 12 + 1);
+		}
+		movemoveAttackBulletFeedinT[i] = 0.0f;
+		movemoveAttackBulletFeedoutT[i] = 0.0f;
+		movemoveBullet[i] = initialmovemoveBullet;
+		ismovemoveBullet[i] = false;
+	}
+	issavePosMoveAttack = false;
+	moveIsFeedout = false;
+	ismoveMoveAttack = false;
+	moveMoveAttackTx = 0.0f;
+	ismovexMoveAttack = false;
+	setWhich = false;
+
+	TelechaseEffect.feedSpeed = 0;
+	TelechaseEffect.particles[0].t = 0.0f;
+	TelechaseEffect.particles[0].isActive = false;
+	GetTeleportPos = false;
+	isTeleport = false;
+	TeleportTx = 0.0f;
+	isTelechaseFeed = false;
+	Telechaseframe[0] = 0;
+	TeleisGet[0] = false;
+	TeleisFeedrotateBullet = false;
+	TeleportNum = 3;
+	
+}
+
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
 	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
@@ -153,34 +310,34 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction01;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction04;
 				
 					
@@ -188,7 +345,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction05;
 
 					
@@ -207,19 +364,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					nyokkiAttack( player);
+					Teleportation(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -227,19 +384,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					
 					FMoveArray = array.AttackFunction05;
 				}
@@ -255,38 +412,38 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
 					
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					
 					FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					
 					FMoveArray = array.AttackFunction02;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction03;
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction04;
 					
 					//CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction05;
 					
 					
@@ -772,6 +929,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
 	bulletAttackCoolTime--;
+	isBulletAttack = true;
 	for (int i = 0; i < swordNum; i++) {
 		//theta‚ğ‰ÁZ
 		if (theta[swordNum - 1] <= 0) {
@@ -834,6 +992,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			getFrag[i] = false;
 			swordT[i] = 0.0f;
 			isOrbit[i] = false;
+			isBulletAttack = false;
 		}
 		Action = false;
 	}
@@ -843,9 +1002,11 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
+	isUndertaleAttack = true;
 	undertaleFrame--;
 	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
 		chaseEffect.feedSpeed = 0.01;
+		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
 		emitchaseEffect = false;
 	}
@@ -940,6 +1101,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			isFeedrotateBullet = false;
 			emitchaseEffect = true;
 			undertaleFrame = saveUndertaleFrame;
+			isUndertaleCollision = false;
 			for (int i = 0; i < chaseBulletNum; i++) {
 				chaseframe[i] = 0.0f;
 				isGet[i] = false;
@@ -951,6 +1113,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				isRotateBullet[i] = false;
 				rotateBulletT[i] = 0.0f;
 			}
+			isUndertaleAttack =false;
 			Action = false;
 		}
 	
