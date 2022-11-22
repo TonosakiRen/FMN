@@ -205,6 +205,7 @@ void Boss::Init()
 	}
 	Circleofdeath_flame = 0;
 	Circleofdeath_Expflame = 0;
+	isEmitwhite = false;
 
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		Rainofsword[i].Init();
