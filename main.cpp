@@ -67,6 +67,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int inPauseGra = Novice::LoadTexture("./Resources/images/UI/InPause.png");
 	int PauseSelectGra = Novice::LoadTexture("./Resources/images/UI/PauseSelect.png");
 
+	int Tutorial1 = Novice::LoadTexture("./Resources/images/Tutorial/1.png");
+	int Tutorial2 = Novice::LoadTexture("./Resources/images/Tutorial/2.png");
+	int Tutorial3 = Novice::LoadTexture("./Resources/images/Tutorial/3.png");
+	int TutorialEx = Novice::LoadTexture("./Resources/images/Tutorial/PlayBoss.png");
+		
 	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
 
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
@@ -185,7 +190,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				stopper.canselect = true;
 			}
 			
-			if (stopper.Pause() == false) {
+			isPause = stopper.Pause();
+
+			if (isPause == false) {
 				screen.Pause(false);
 				if (stopper.HitStopUpdate() == false) {
 
@@ -196,6 +203,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//第二形態のセットここで
 						boss2.Set();
 						boss2.PosLink(boss.GetBossX());
+						boss.StyleChangeFalse();
 					}
 					//bossのアップデート
 					if (boss.IsLife == true) {
@@ -542,7 +550,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
-			tutorial.Draw(screen);
+			tutorial.Draw(screen, Tutorial1, Tutorial2, Tutorial3);
 			
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
@@ -776,7 +784,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
 
 			//ポーズ描画
+
 			stopper.PauseDraw(inPauseGra, PauseSelectGra);
+
+			if (isPause == true) {
+				tutorial.PlayDrawEx(TutorialEx, 1);
+			}
+			else {
+				tutorial.PlayDrawEx(TutorialEx, 0);
+			}
 
 			if (feedoutT >= 1 ) {
 				InitFeedout();
@@ -812,6 +828,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			else {
 				break;
 			}
+
 			break;
 		case gameover:
 			if (isGameoverStart == false) {
@@ -836,6 +853,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			gameoverclass.Draw(screen, PauseSelectGra);
 
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra,playerdeath_gra);
+
+			tutorial.PlayDrawEx(TutorialEx, 1);
 
 			if (feedoutT >= 1) {
 				InitFeedout();
@@ -870,6 +889,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ゲームクリア描画
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+			
+			tutorial.PlayDrawEx(TutorialEx, 1);
 			//サウンド
 			sound.BGMStop(&sound.StageBgm);
 			sound.BGMStop(&sound.StageBgm2);
