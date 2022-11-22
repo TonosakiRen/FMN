@@ -3,6 +3,7 @@
 #include"Vec2.h"
 #include"Quad.h"
 #include "Collision.h"
+#include <Novice.h>
 
 
 class Tutorial
@@ -66,13 +67,54 @@ private:
 		0,
 	};
 
+	struct TutorialImageStruct {
+		Vec2 Pos;
+		Vec2 Size;
+		Quad Quad;
+		int sheets;
+		int SrcX;
+		int Anime;
+	};
+
+	TutorialImageStruct type1 = {
+		{472,316},
+		{496,240},
+		{ { type1.Pos.x - type1.Size.x / 2 , type1.Pos.y + type1.Size.y / 2},
+		int(type1.Size.x),int(type1.Size.y) },
+		2,
+		0,
+		1,
+	};
+
+	TutorialImageStruct type2 = {
+		{1304,652},
+		{784,428},
+		{ { type2.Pos.x - type2.Size.x / 2 , type2.Pos.y + type2.Size.y / 2},
+		int(type2.Size.x),int(type2.Size.y) },
+		2,
+		0,
+		1,
+	};
+
+	TutorialImageStruct type3 = {
+		{1916,480},
+		{420,128},
+		{ { type3.Pos.x - type3.Size.x / 2 , type3.Pos.y + type3.Size.y / 2},
+		int(type3.Size.x),int(type3.Size.y) },
+		2,
+		0,
+		1,
+	};
+
 public:
 
 	Tutorial();
 
 	void Update();
 
-	void Draw(Screen& screen);
+	void Draw(Screen& screen,int gra1,int gra2,int gra3);
+
+	void PlayDrawEx(int gra,int type);
 
 	void HitLetAttack(Quad Target);
 

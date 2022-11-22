@@ -1,5 +1,5 @@
 #include "Tutorial.h"
-
+#include "Key.h"
 Tutorial::Tutorial()
 {
 	for (int i = 0; i < 2; i++) {
@@ -31,7 +31,21 @@ Tutorial::Tutorial()
 
 void Tutorial::Update()
 {
+	/*if (Key::IsPressed(DIK_G)) {
+		type3.Pos.y += 4;
+	}
+	if (Key::IsPressed(DIK_B)) {
+		type3.Pos.y -= 4;
+	}
+	if (Key::IsPressed(DIK_V)) {
+		type3.Pos.x -= 4;
+	}
+	if (Key::IsPressed(DIK_N)) {
+		type3.Pos.x += 4;
+	}
 
+	type3.Quad = { { type3.Pos.x - type3.Size.x / 2 , type3.Pos.y + type3.Size.y / 2},
+		int(type3.Size.x),int(type3.Size.y) };*/
 
 
 	for (int i = 0; i < 2; i++) {
@@ -43,7 +57,7 @@ void Tutorial::Update()
 	}
 }
 
-void Tutorial::Draw(Screen& screen)
+void Tutorial::Draw(Screen& screen, int gra1, int gra2, int gra3)
 {
 	screen.DrawQuad2Renban(LetJump.ColQuad, LetJump.srcX,0, 1,1,1,1,LetJump.Anime,0,WHITE,false);
 
@@ -53,6 +67,18 @@ void Tutorial::Draw(Screen& screen)
 
 	screen.DrawQuad2Renban(LetDash.ColQuad, LetDash.srcX, 0, 1, 1, 1, 1, LetDash.Anime, 0, WHITE, false);
 
+	screen.DrawQuad2Renban(type1.Quad, type1.SrcX, 0, type1.Size.x, type1.Size.y, type1.sheets, 30, type1.Anime, gra1, WHITE, false);
+
+	screen.DrawQuad2Renban(type2.Quad, type2.SrcX, 0, type2.Size.x, type2.Size.y, type2.sheets, 30, type2.Anime, gra2, WHITE, false);
+
+	screen.DrawQuad2Renban(type3.Quad, type3.SrcX, 0, type3.Size.x, type3.Size.y, type3.sheets, 30, type3.Anime, gra3, WHITE, false);
+
+	Novice::ScreenPrintf(0, 700, "%0f,%0f", type3.Pos.x, type3.Pos.y);
+}
+
+void Tutorial::PlayDrawEx(int gra, int type)
+{
+	Novice::DrawQuad(0, 952, 1920, 952, 0, 1080, 1920, 1080, 0, 128 * type, 1920, 128, gra, WHITE);
 }
 
 void Tutorial::HitLetAttack(Quad Target)
