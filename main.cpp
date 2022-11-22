@@ -47,6 +47,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int deadbossbodyImg = Novice::LoadTexture("./Resources/Images/BossDead/Body.png");
 	int deadbossrightarmImg = Novice::LoadTexture("./Resources/Images/BossDead/RightArm.png");
 	int deadbossleftarmImg = Novice::LoadTexture("./Resources/Images/BossDead/LeftArm.png");
+	int StyleChangeTornadoImg = Novice::LoadTexture("./Resources/Images/Boss/StyleChangeTornado.png");
 
 	int playerstand_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerStand.png");
 	int playerwalk_gra = Novice::LoadTexture("./Resources/Images/Player/PlayerWalk.png");
@@ -113,6 +114,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (feedinT >= 1) {
 					InitFeedin();
 					isTitleStart = true;
+					stopper.canselect = true;
 				}
 			}
 
@@ -123,6 +125,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				//isMovie = true;
+				//playermain.MovieInit();
+				//boss.MovieInit();
 			}
 
 			playermain.Move();
@@ -168,9 +172,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//if(boss.IsLife==false&&boss2.IsLife==false)
 			
 
+			if (boss.MovieEnded() == true) {
+				isMovie = false;
+			}
+
 			if (isMovie == true) {
 				playermain.Movie();
 				boss.Movie();
+				stopper.canselect = false;
+			}
+			else {
+				stopper.canselect = true;
 			}
 			
 			if (stopper.Pause() == false) {
@@ -183,13 +195,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss.IsLife == false && boss2.IsLife == false) {
 						//第二形態のセットここで
 						boss2.Set();
+						boss2.PosLink(boss.GetBossX());
 					}
 					//bossのアップデート
 					if (boss.IsLife == true) {
 
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -410,12 +423,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 				}
 			}
+
 			else {
 			screen.Pause(true);
 			playermain.PauseLag();
 
 				
 			}
+
+			boss.StyleChangeUpdate();
 
 			if (isStageStart == false) {
 				isFeedin = true;
@@ -435,6 +451,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 				 isFeedout = true;
 				 isRestart = true;
+			 }
+
+			 if (stopper.TitileBackFlag == true && isFeedout == false && isFeedin == false) {
+				 isFeedout = true;
+				 stopper.TitileBackFlag = false;
+				 isTitle = true;
 			 }
 
 			if (playermain.Returngameoverflag() && isFeedout == false && isFeedin == false) {
@@ -458,7 +480,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameover:
 			//ゲームオーバー処理
 			isGameover = false;
-			sound.BGMStop(&sound.StageBgm);
+		
 			playermain.Move();
 
 			playermain.GameOver(screen);
@@ -509,6 +531,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case title:
 			
+			sound.BGM(&sound.Title, "./Resources/sounds/TitleBgm.mp3");
+
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
 
@@ -527,6 +551,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
+			sound.BGMStop(&sound.Title);
 			sound.BGMStop(&sound.GameOver);
 			
 
@@ -582,10 +607,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				sound.BGM(&sound.StageBgm, "./Resources/sounds/StageBgm.mp3");
+				sound.BGM(&sound.StageBgm, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
+				sound.BGMStop(&sound.StageBgm);
+				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");
+
 				boss2.Draw(screen);
 			}
 
@@ -738,7 +766,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			
+			boss.DrawStyleChange(screen, StyleChangeTornadoImg);
 
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
@@ -763,9 +791,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (isRestart == true) {
 					isRestart = false;
 					isFeedin = true;
-					boss.Init();
+					if (boss.IsLife == true) {
+						boss.Init();
+					}
+					else {
+						boss2.Set();
+					}
 					playermain.Init();
 					stopper.isPauseFalse();
+				}
+				if (isTitle == true) {
+					scene = title;
+					isFeedin = true;
+					playermain.Init();
 				}
 			}
 			else {
@@ -785,6 +823,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
+			//サウンド
+			sound.BGMStop(&sound.StageBgm);
+			sound.BGMStop(&sound.StageBgm2);
+
+
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
@@ -794,10 +837,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (feedoutT >= 1) {
 				InitFeedout();
 				Init();
-				boss.Init();
+				if (boss.IsLife == true) {
+					boss.Init();
+				}
+				else {
+					boss2.Set();
+				}
 				playermain.Init();
 				playermain.Move();
 				boss.UpDate();
+				boss2.UpDate();
 				stopper.canselect = true;
 				isGameoverStart = false;
 				scene = stage;
@@ -818,8 +867,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ゲームクリア描画
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+			//サウンド
+			sound.BGMStop(&sound.StageBgm);
+			sound.BGMStop(&sound.StageBgm2);
 
-
+			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1) {
 				InitFeedout();
 				Init();

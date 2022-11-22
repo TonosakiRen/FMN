@@ -21,6 +21,7 @@ private:
 	bool QuitFlag = false;
 
 	struct PauseStruct {
+		const int IMAGELINE;
 		const int LINE;
 		Vec2 Pos;
 		Vec2 Size;
@@ -29,6 +30,7 @@ private:
 
 	PauseStruct InPause = {
 		-1,
+		-1,
 		{1920 / 2,250},
 		{752,200},
 		WHITE,
@@ -36,20 +38,23 @@ private:
 
 	PauseStruct BackGame = {
 		0,
-		{1920 / 2,470},
+		0,
+		{1920 / 2,570},
 		{508,80},
 		WHITE,
 	};
 
 	PauseStruct Restart = {
 		1,
-		{1920 / 2,590},
+		1,
+		{1920 / 2,690},
 		{352,80},
 		WHITE,
 	};
 
 	PauseStruct BGM = {
 		2,
+		98,
 		{1920 / 2,710},
 		{260,80},
 		WHITE,
@@ -57,6 +62,7 @@ private:
 
 	PauseStruct SE = {
 		3,
+		99,
 		{1920 / 2,830},
 		{224,80},
 		WHITE,
@@ -64,8 +70,17 @@ private:
 
 	PauseStruct Quit = {
 		4,
-		{1920 / 2,950},
+		3,
+		{1920 / 2,930},
 		{508,80},
+		WHITE,
+	};
+
+	PauseStruct Title = {
+		5,
+		2,
+		{1920 / 2,810},
+		{568,80},
 		WHITE,
 	};
 
@@ -76,6 +91,8 @@ private:
 public:
 
 	bool canselect = true;
+
+	bool TitileBackFlag = false;
 
 	int HitStopTimeStart = 0;
 	

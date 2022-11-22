@@ -426,8 +426,29 @@ class Boss {
 
 	int MovieTime = 0;
 	bool CanMove = true;
+	bool MovieEnd = false;
 	bool isImageDead = false;
 	bool isRedBlackEffect = true;
+
+	struct StyleChangeStruct {
+		bool Flag = false;
+		float Alpha = 0;
+		int ScrX = 0;
+		Vec2 ImageSize = { 256,1080 };
+		Quad Quad;
+		int Anime;
+	};
+
+	StyleChangeStruct StyleChange = {
+		false,
+		0,0,
+		{256,1080},
+		{ { Pos.x - StyleChange.ImageSize.x / 2, Pos.y - StyleChange.ImageSize.y + 190},
+		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) },
+		0
+	};
+
+	int NextBossTime = 0;
 
 #pragma endregion
 
@@ -448,6 +469,7 @@ public:
 	void Set();
 	void Init();
 	void Draw(Screen& screen,int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm, int deadbody, int deadrightarm, int deadleftarm);
+	void DrawStyleChange(Screen& screen, int StyleChangeGra);
 	void UpDate();
 	void State(PlayerMain& player);
 	void KeepUP(PlayerMain& player);
@@ -494,6 +516,7 @@ public:
 	Quad GetShockWave2();
 
 	int GetBossHP();
+	float GetBossX() { return Pos.x; };
 	Quad GetBossAttackQuad();
 	Quad GetBossBladeQuad();
 	Quad GetRainOfSwordQuad(int i);
@@ -515,6 +538,10 @@ public:
 
 	void BladeImageLink(Matrix2x2 mat);
 	
+	void StyleChangeUpdate();
+
+	void MovieInit() { MovieTime = 0; };
 	void Movie();
+	bool MovieEnded();
 	bool RedBlackEffectFlag();
 };

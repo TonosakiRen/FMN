@@ -455,4 +455,6 @@ public:
 
 	void BladeImageLink(Matrix2x2 mat);
 
+	void PosLink(float posx);
+
 };

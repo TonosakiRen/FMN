@@ -16,14 +16,14 @@ bool Stopper::Pause()
 		if (isPause == true) {
 			if (Key::IsTrigger(DIK_S)) {
 				Selected++;
-				if (Selected > 4) {
+				if (Selected > 3) {
 					Selected = 0;
 				}
 			}
 			if (Key::IsTrigger(DIK_W)) {
 				Selected--;
 				if (Selected < 0) {
-					Selected = 4;
+					Selected = 3;
 				}
 			}
 
@@ -42,13 +42,14 @@ bool Stopper::Pause()
 				if (Key::IsTrigger(DIK_K)) {
 					RestartFlag = true;
 					canselect = false;
+					isPause = false;
 				}
 			}
 			else {
 				Restart.Color = WHITE;
 			}
 
-			if (BGM.LINE == Selected) {
+			/*if (BGM.LINE == Selected) {
 				BGM.Color = 0x20d6c7FF;
 			}
 			else {
@@ -60,6 +61,18 @@ bool Stopper::Pause()
 			}
 			else {
 				SE.Color = WHITE;
+			}*/
+
+			if (Title.LINE == Selected) {
+				Title.Color = 0x20d6c7FF;
+				if (Key::IsTrigger(DIK_K)) {
+					TitileBackFlag = true;
+					canselect = false;
+					isPause = false;
+				}
+			}
+			else {
+				Title.Color = WHITE;
 			}
 
 			if (Quit.LINE == Selected) {
@@ -112,9 +125,11 @@ void Stopper::PauseDraw(int inPause_Gra, int PauseSelect_Gra)
 
 		PauseQuadDraw(Restart, PauseSelect_Gra);
 
-		PauseQuadDraw(BGM, PauseSelect_Gra);
+	/*	PauseQuadDraw(BGM, PauseSelect_Gra);
 
-		PauseQuadDraw(SE, PauseSelect_Gra);
+		PauseQuadDraw(SE, PauseSelect_Gra);*/
+
+		PauseQuadDraw(Title, PauseSelect_Gra);
 
 		PauseQuadDraw(Quit, PauseSelect_Gra);
 
@@ -128,7 +143,7 @@ void Stopper::PauseQuadDraw(PauseStruct select,int tex) {
 			select.Pos.x + select.Size.x / 2, select.Pos.y - select.Size.y / 2,
 			select.Pos.x - select.Size.x / 2, select.Pos.y + select.Size.y / 2,
 			select.Pos.x + select.Size.x / 2, select.Pos.y + select.Size.y / 2,
-			0, select.LINE * 80,
+			0, select.IMAGELINE * 80,
 			select.Size.x, select.Size.y,
 			tex, select.Color);
 	}

@@ -1521,3 +1521,8 @@ void Boss2::DirectionGet(PlayerMain& player)
 	}
 	else Direction = 1;
 }
+
+void Boss2::PosLink(float posx)
+{
+	Pos.x = posx;
+}
