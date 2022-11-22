@@ -125,7 +125,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				//isMovie = true;
-				//playermain.MovieInit();
+				playermain.MovieInit();
 				//boss.MovieInit();
 			}
 
