@@ -495,7 +495,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.Move();
 
 			playermain.GameOver(screen);
-
+			boss.Init();
+			boss2.Init();
 			gameoverclass.Update();
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {

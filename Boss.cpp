@@ -348,6 +348,8 @@ void Boss::Init()
 	  ArmPosAngleSpeed = 2.8125;
 #pragma endregion
 	  BladeImageQuad = { {9999,9999},{9999,9999}, {9999,9999}, {9999,9999} };
+
+	  StyleChange.Flag = false;
 }
 
 
