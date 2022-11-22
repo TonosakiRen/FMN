@@ -10,6 +10,11 @@ public:
 		int Handle=-1;
 		bool load=false;
 	};
+	struct Effect {
+		int Sound;
+		int Handle = -1;
+		bool load = false;
+	};
 	Bgm StageBgm;
 	Bgm StageBgm2;
 	Bgm GameOver;
@@ -17,13 +22,26 @@ public:
 	Bgm Title;
 
 	Bgm Rotate;
+
+	Effect swing1;
+	Effect swing2;
+	Effect swing3;
+	Effect rotate;
+	Effect jumpstart;
+	Effect jumpattack;
+	Effect circledeath;
+
+	Effect playerattack;
+	Effect playerjump;
+
+
 	void BGM(Bgm *bgm,const char* fileName);
 	void BGM(Bgm* bgm, float Volume, const char* fileName);
 	void BGMStop(Bgm *bgm);
-	void GameOverBGM(const char* fileName);
+	
 
-	void SoundEffect(const char* filename);
+	void SoundEffect(Effect *effect,const char* filename);
 
-	void SoundEffect(float volume, const char* fileName);
+	void SoundEffect(Effect *effect, float volume, const char* fileName);
 	
 };

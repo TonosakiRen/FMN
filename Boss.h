@@ -29,6 +29,7 @@ class Boss {
 	int CirPar_gra = 0;
 	//‰¹
 	Sound sound;
+	Sound::Effect effect;
 	static struct Matrix2x2
 	{
 		float m[2][2];

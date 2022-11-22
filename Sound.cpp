@@ -31,34 +31,28 @@ void Sound::BGMStop(Bgm* bgm) {
 	Novice::StopAudio(bgm->Handle);
 }
 
-void Sound::SoundEffect(const char* fileName) {
+void Sound::SoundEffect(Effect* effect, const char* fileName) {
 
-	bool Load = false;
-	int Handle = -1;
-	int Sound;
-	if (Load == false) {
-		Load = true;
-		Sound = Novice::LoadAudio(fileName);
+	if (effect->load == false) {
+		effect->load = true;
+		effect->Sound = Novice::LoadAudio(fileName);
 	}
 
-	if (Novice::IsPlayingAudio(Handle) == 0 || Handle == -1) {
-		Handle = Novice::PlayAudio(Sound, 0, 0.2f);
+	if (Novice::IsPlayingAudio(effect->Handle) == 0 || effect->Handle == -1) {
+		effect->Handle = Novice::PlayAudio(effect->Sound, 0, 0.4f);
 	}
-
 }
 
-void Sound::SoundEffect(float volume,const char* fileName) {
+void Sound::SoundEffect(Effect* effect, float volume,const char* fileName) {
 
-	bool Load = false;
-	int Handle = -1;
-	int Sound;
-	if (Load == false) {
-		Load = true;
-		Sound = Novice::LoadAudio(fileName);
+	
+	if (effect->load == false) {
+		effect->load = true;
+		effect->Sound = Novice::LoadAudio(fileName);
 	}
 
-	if (Novice::IsPlayingAudio(Handle) == 0 || Handle == -1) {
-		Handle = Novice::PlayAudio(Sound, 0, volume);
-	}
+	
+		effect->Handle = Novice::PlayAudio(effect->Sound, 0, volume);
+	
 
 }

@@ -1451,7 +1451,9 @@ void Boss::NomalSwordAttack(PlayerMain& player)
 
 				blade.Quad_Pos = { blade.LeftTop,blade.RightTop,blade.LeftBottom,blade.RightBottom };
 				if (BossMotionTime == 42) {
-					sound.SoundEffect(2.0f, "./Resources/sounds/swing3.mp3");
+					sound.SoundEffect(&sound.swing3,2.0f, "./Resources/sounds/swing3.mp3");
+					
+					
 				}
 				
 
@@ -1543,7 +1545,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 			if (AttackStartTime <= 0) {
 				blade.angle = Easing::easing(blade.t, 0, 200, 0.035f, Easing::easeInBack) * -Direction;
 				if (BossMotionTime == 42) {
-					sound.SoundEffect(2.0f, "./Resources/sounds/swing3.mp3");
+					
+					sound.SoundEffect(&sound.swing3, 2.0f, "./Resources/sounds/swing3.mp3");
 				}
 				blade.theta = blade.angle / 180.0f * M_PI;
 				if (blade.t == 1) {
@@ -1552,7 +1555,8 @@ void Boss::NomalSwordAttack2(PlayerMain& player)
 					}
 					blade.angle = Easing::easing(blade.t_back, 200, 0, 0.025f, Easing::easeInOutBack) * -Direction;
 					if (BossMotionTime == 70) {
-						sound.SoundEffect(2.0f, "./Resources/sounds/swing2.mp3");
+						
+						sound.SoundEffect(&sound.swing2, 2.0f, "./Resources/sounds/swing2.mp3");
 					}
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
@@ -1667,7 +1671,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 		if (Attack == true) {
 			if (AttackStartTime <= 0) {
 				if (blade.t == 0.035f) {
-					sound.SoundEffect(2.0f, "./Resources/sounds/swing3.mp3");
+			
+					sound.SoundEffect(&sound.swing3, 2.0f, "./Resources/sounds/swing3.mp3");
 
 				}
 				blade.angle = Easing::easing(blade.t, 0, 200, 0.035f, Easing::easeInBack) * -Direction;
@@ -1681,7 +1686,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 					}
 					blade.angle = Easing::easing(blade.t_back, 200, 0, 0.025f, Easing::easeInOutBack) * -Direction;
 					if (blade.t_back == 0.025f) {
-						sound.SoundEffect(2.0f, "./Resources/sounds/swing3.mp3");
+						
+						sound.SoundEffect(&sound.swing3, 2.0f, "./Resources/sounds/swing3.mp3");
 					}
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
@@ -1694,7 +1700,8 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 						else {
 							if (blade.t_back == 1 && blade.t_back2 == 0) {
 								DirectionGet(player);
-								sound.SoundEffect(2.0f, "./Resources/sounds/swing3.mp3");
+								
+								sound.SoundEffect(&sound.swing3, 2.0f, "./Resources/sounds/swing3.mp3");
 								blade.FPosBoss.x = player.Translation().x + (350 * Direction);
 							}
 							
@@ -1845,7 +1852,7 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 
 		if (blade.Roted_t != 1) {
 			if (blade.Roted_t == 0) {
-				sound.SoundEffect(1.0f, "./Resources/sounds/SwordRotate.mp3");
+				sound.SoundEffect(&sound.rotate,1.0f, "./Resources/sounds/SwordRotate.mp3");
 				//sound.BGM(&sound.Rotate,1.0f, "./Resources/sounds/SwordRotate.mp3");
 			}
 			SwordAttack = true;
@@ -1853,7 +1860,8 @@ void Boss::NomalRotedSwordAttack(PlayerMain& player) {
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 			if (blade.Roted_tback == 0) {
-				sound.SoundEffect(1.0f, "./Resources/sounds/SwordRotate.mp3");
+				sound.SoundEffect(&sound.rotate, 1.0f, "./Resources/sounds/SwordRotate.mp3");
+				
 			}
 			blade.Vec_RotedPos.x = Easing::easing(blade.Roted_tback, 600 * Direction, 0, 0.02f, Easing::easeInCubic);
 		}
@@ -1970,14 +1978,18 @@ void Boss::NomalRotedSwordAttack2(PlayerMain& player)
 		if (blade.Roted_t != 1) {
 			SwordAttack = true;
 			if (blade.Roted_t == 0) {
-				sound.SoundEffect(1.0f, "./Resources/sounds/SwordRotate.mp3");
+				
+				sound.SoundEffect(&sound.rotate, 1.0f, "./Resources/sounds/SwordRotate.mp3");
+
 				//sound.BGM(&sound.Rotate,1.0f, "./Resources/sounds/SwordRotate.mp3");
 			}
 			blade.Vec_RotedPos = { Easing::easing(blade.Roted_t, 0, 600 * Direction, 0.03f, Easing::easeOutCubic), -100 };
 		}
 		else if (blade.Roted_t == 1 && blade.Roted_tback != 1) {
 			if (blade.Roted_tback == 0) {
-				sound.SoundEffect(1.0f, "./Resources/sounds/SwordRotate.mp3");
+				
+				sound.SoundEffect(&sound.rotate, 1.0f, "./Resources/sounds/SwordRotate.mp3");
+
 				//sound.BGM(&sound.Rotate,1.0f, "./Resources/sounds/SwordRotate.mp3");
 			}
 			blade.Vec_RotedPos = { Easing::easing(blade.Roted_tback, 600 * Direction, 0, 0.02f, Easing::easeInCubic), -100 };
@@ -2060,7 +2072,7 @@ void Boss::JumpAttack(PlayerMain& player,Screen& screen)
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.03f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 				if (jumpattack.EaseT == 0.03f) {
-					sound.SoundEffect(1.0f, "./Resources/sounds/JumpStart.mp3");
+					sound.SoundEffect(&sound.jumpstart,1.0f, "./Resources/sounds/JumpStart.mp3");
 				}
 				if (jumpattack.EaseT == 1) {
 
@@ -2156,7 +2168,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
 				if (jumpattack.EaseT == 0.02f) {
-					sound.SoundEffect(1.0f, "./Resources/sounds/JumpStart.mp3");
+					sound.SoundEffect(&sound.jumpstart,1.0f, "./Resources/sounds/JumpStart.mp3");
 				}
 				if (jumpattack.EaseT == 1) {
 
@@ -2169,7 +2181,7 @@ void Boss::ShockWaveAttack(PlayerMain& player, Screen& screen)
 				//下に落ちる
 				if (Pos.y == Size.y / 2) {
 					if (Wave[0].WaveKeep == false) {
-						sound.SoundEffect(0.6f, "./Resources/sounds/JumpAttack.mp3");
+						sound.SoundEffect(&sound.jumpattack,0.6f, "./Resources/sounds/JumpAttack.mp3");
 
 					}
 					Wave[0].WaveKeep = true;
@@ -2269,7 +2281,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 					//上に上がり切った
 				}
 				if (jumpattack.EaseT == 0.03f) {
-					sound.SoundEffect(1.0f, "./Resources/sounds/JumpStart.mp3");
+					sound.SoundEffect(&sound.jumpstart,1.0f, "./Resources/sounds/JumpStart.mp3");
 				}
 			}
 			else
@@ -2283,7 +2295,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 						//下に落ちる
 						if (Pos.y == Size.y / 2) {
 							if (Wave[0].WaveKeep == false) {
-								sound.SoundEffect(1.0f, "./Resources/sounds/JumpAttack.mp3");
+								sound.SoundEffect(&sound.jumpattack,1.0f, "./Resources/sounds/JumpAttack.mp3");
 							}
 							Wave[0].WaveKeep = true;
 						}
@@ -2295,7 +2307,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 
 						//Pos.x = jumpattack.PlayerPosF2.x + (Direction * 200);
 						if (jumpattack.EaseT == 0.03f) {
-							sound.SoundEffect(1.0f, "./Resources/sounds/JumpStart.mp3");
+							sound.SoundEffect(&sound.jumpstart,1.0f, "./Resources/sounds/JumpStart.mp3");
 						}
 						
 
@@ -2303,7 +2315,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 							Pos.y = Easing::easing(jumpattack.EaseDownT2, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
 							if (Pos.y == Size.y / 2 && jumpattack.EaseDownT2 == 1) {
 								if (Wave[0].WaveKeep == false) {
-									sound.SoundEffect(0.6f, "./Resources/sounds/JumpAttack.mp3");
+									sound.SoundEffect(&sound.jumpattack,0.6f, "./Resources/sounds/JumpAttack.mp3");
 
 								}
 								Wave[1].WaveKeep = true;
@@ -2414,7 +2426,7 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 				//下に落ちる
 				if (Pos.y == Size.y / 2) {
 					if (Wave[0].WaveKeep == false) {
-						sound.SoundEffect(0.6f, "./Resources/sounds/JumpAttack.mp3");
+						sound.SoundEffect(&sound.jumpattack,0.6f, "./Resources/sounds/JumpAttack.mp3");
 
 					}
 					Wave[0].WaveKeep = true;
@@ -2511,7 +2523,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 					if (Circleofdeath[i].Reserve_t == 1.0f) {
 						isWhiteFeedout = true;
 						//Circleofdeath[i].Init();
-						sound.SoundEffect(0.7f, "./Resources/sounds/Circleofdeath.mp3");
+						sound.SoundEffect(&sound.circledeath,0.7f, "./Resources/sounds/Circleofdeath.mp3");
 
 					}
 				}
