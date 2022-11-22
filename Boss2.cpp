@@ -153,34 +153,34 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction01;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction04;
 				
 					
@@ -188,7 +188,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					Teleportation(player);
 					FMoveArray = array.AttackFunction05;
 
 					
@@ -207,19 +207,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
-					nyokkiAttack( player);
+					Teleportation(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					//Action = false;
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//Action = false;
 					
@@ -227,19 +227,19 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					nyokkiAttack(player);
+					UndertaleAttack(player);
 					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%ÇÃçUåÇ
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%ÇÃçUåÇ
-					nyokkiAttack(player);
+					AsgoreAttack(player);
 					
 					FMoveArray = array.AttackFunction05;
 				}
@@ -255,38 +255,38 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
 					
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					
 					FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					
 					FMoveArray = array.AttackFunction02;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
-					CenterOfDarknessAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction03;
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%ÇÃçUåÇ
-					AsgoreAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction04;
 					
 					//CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%ÇÃçUåÇ
-					AsgoreAttack(player);
+					BulletAttack(player);
 					FMoveArray = array.AttackFunction05;
 					
 					
@@ -772,6 +772,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
 	bulletAttackCoolTime--;
+	isBulletAttack = true;
 	for (int i = 0; i < swordNum; i++) {
 		//thetaÇâ¡éZ
 		if (theta[swordNum - 1] <= 0) {
@@ -834,6 +835,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			getFrag[i] = false;
 			swordT[i] = 0.0f;
 			isOrbit[i] = false;
+			isBulletAttack = false;
 		}
 		Action = false;
 	}
@@ -843,9 +845,11 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
+	isUndertaleAttack = true;
 	undertaleFrame--;
 	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
 		chaseEffect.feedSpeed = 0.01;
+		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
 		emitchaseEffect = false;
 	}
@@ -940,6 +944,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			isFeedrotateBullet = false;
 			emitchaseEffect = true;
 			undertaleFrame = saveUndertaleFrame;
+			isUndertaleCollision = false;
 			for (int i = 0; i < chaseBulletNum; i++) {
 				chaseframe[i] = 0.0f;
 				isGet[i] = false;
@@ -951,6 +956,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				isRotateBullet[i] = false;
 				rotateBulletT[i] = 0.0f;
 			}
+			isUndertaleAttack =false;
 			Action = false;
 		}
 	

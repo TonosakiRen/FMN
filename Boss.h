@@ -4,12 +4,14 @@
 #include"Screen.h"
 #include"PlayerMain.h"
 #include"Circle.h"
+#include "Effect5.h"
+
 #include"Sound.h"
 #define kMAX_RAINSWORD 30
 #define kMAX_CIR 7
 
 const int MAX_PATTERN = 100;
-const int kMAX_CIR_Par = 30;
+const int kMAX_CIR_Par = 15;
 //const int kMAX_CIR = 7;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
@@ -131,6 +133,9 @@ class Boss {
 		}
 
 	}Wave[kMAX_WAVE];
+
+	public:
+
 	struct CircleOfDeath {
 		Circle circle = { {0,0},0 };
 		Quad Quad_Pos = {};
@@ -153,6 +158,11 @@ class Boss {
 	int Circleofdeath_flame;
 	int Circleofdeath_flame2;
 	int Circleofdeath_Expflame;
+	bool isEmitwhite = false;
+	bool isWhiteFeedout = false;
+
+	private:
+
 	struct RainOfSword {
 		Vec2 Pos= { 9999,9999 };
 		Quad QuadPos = { {9999,9999},{10000,9999},{9999,10000},{10000,10000} };
@@ -291,23 +301,7 @@ class Boss {
 	Vec2 BladeCenterPos;
 
 	float BossMotionTime = 0;
-	struct CirParticle {
-		Vec2 Pos;
-		Quad QuadPos;
-		Vec2 Size;
-		float LifeTime = 0;
-		bool Set = false;
-		unsigned int color = 0xFFFFFFFF;
-		void Init() {
-			Pos = { 9999,9999 };
-			QuadPos = { { 9999,9999 } ,{ 9999,9999 } ,{ 9999,9999 } ,{ 9999,9999 } };
-			Size = { 0,0 };
-			LifeTime = 0;
-			Set = false;
-			color = 0xFFFFFFFF;
-		}
-	}Cirparticle[kMAX_CIR][kMAX_CIR_Par];
-	int CirParFlame = 0;
+	
 #pragma region Parts
 	struct ImageStruct {
 		Vec2 ImagePos; //ボスの座標 + パーツの位置 +パーツ位置のズレ 初期設定は{0,0}でおｋ
@@ -552,5 +546,4 @@ public:
 	void Movie();
 	bool MovieEnded();
 	bool RedBlackEffectFlag();
-	void CirPar();
 };

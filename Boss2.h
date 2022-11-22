@@ -203,6 +203,7 @@ class Boss2 {
 	Quad initialSword = {Pos,30,30,};
 	Quad effectSword[swordNum];
 	Quad sword[swordNum];
+	bool isBulletAttack = false;
 	float radius = 200.0f;
 	float mostRadius = 2000.0f;
 	float theta[swordNum];
@@ -218,6 +219,7 @@ class Boss2 {
 
 	//undertale
 
+	bool isUndertaleAttack = false;
 	float xMove = 0;
 	float xSpeed = 1;
 	float yMove = 0;
@@ -246,6 +248,7 @@ class Boss2 {
 	bool isFeedrotateBullet = false;
 	float rotateBulletT[rotateBulletNum];
 	bool emitchaseEffect = true;
+	bool isUndertaleCollision = false;
 	
 	int undertaleFrame = saveUndertaleFrame;
 

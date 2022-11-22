@@ -224,6 +224,7 @@ void Boss::Init()
 	}
 	Circleofdeath_flame = 0;
 	Circleofdeath_Expflame = 0;
+	isEmitwhite = false;
 
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		Rainofsword[i].Init();
@@ -417,12 +418,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
-		for (int k = 0; k < kMAX_CIR_Par; k++) {
-			if (Circleofdeath[i].Set == true) {
-				//screen.DrawSprite(Cirparticle[i][k].Pos.x, Cirparticle[i][k].Pos.y, CirPar_gra, 1, 1, 0, Cirparticle[i][k].color);
-				screen.DrawQuad2(Cirparticle[i][k].QuadPos, 0, 0, 64, 64, CirPar_gra, Cirparticle[i][k].color);
-			}
-		}
+		
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFF000066, kFillModeSolid);
 		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
 		screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
@@ -2495,8 +2491,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 				break;
 			}
 			if (Circleofdeath[i].Set == true) {
-				CirPar();
-
+				isEmitwhite = true;
 			}
 			if (/*Circleofdeath[i].Set == true*/Circleofdeath[kMAX_CIR - 1].Set == true && CircleOfDeathMotionT == 1 && Circleofdeath_Expflame >= 45) {				
 				if (CircleOfDeathMotionT2 >= 1 ) {
@@ -2504,6 +2499,8 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 					Circleofdeath[i].circle.radius = Easing::easing(Circleofdeath[i].Reserve_t, 0, Circleofdeath[i].fRad, 0.04f, Easing::easeInBack);
 					Circleofdeath[i].Quad_Pos.Quad::Quad(Circleofdeath[i].circle.pos, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, Circleofdeath[i].fRad * 2 + Circleofdeath[i].circle.radius, 0);
 					if (Circleofdeath[i].Reserve_t == 1.0f) {
+						isWhiteFeedout = true;
+						//Circleofdeath[i].Init();
 						sound.SoundEffect(0.7f, "./Resources/sounds/Circleofdeath.mp3");
 
 					}
@@ -2514,12 +2511,12 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 			for (int k = 0; k < kMAX_CIR_Par; k++) {
 
 				if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
+					isEmitwhite = false;
 					Action = false;
 					Circleofdeath_flame = 0;
 					Circleofdeath_flame2 = 0;
 					Circleofdeath_Expflame = 0;
 					Circleofdeath[i].Init();
-					Cirparticle[i][k].Init();
 					CoolTime = 30;
 					CircleOfDeathMotion(2);
 				}
@@ -3259,33 +3256,3 @@ bool Boss::RedBlackEffectFlag() {
 	return isRedBlackEffect;
 }
 
-void Boss::CirPar()
-{
-	CirParFlame++;
-	for (int k = 0; k < kMAX_CIR; k++) {
-		for (int i = 0; i < kMAX_CIR_Par; i++) {
-
-			if (CirParFlame % 20 == 0 && Cirparticle[k][i].Set == false&&Circleofdeath[k].Set==true) {
-				Cirparticle[k][i].LifeTime = 1;
-				Cirparticle[k][i].Pos = { Circleofdeath[k].circle.pos.x + Randam::RAND(-120,120),Circleofdeath[k].circle.pos.y + Randam::RAND(-120,120) };
-				Cirparticle[k][i].QuadPos.Quad::Quad(Cirparticle[k][i].Pos, 48, 48, 0);
-				Cirparticle[k][i].Size = { 30,30 };
-				Cirparticle[k][i].Set = true;
-				Cirparticle[k][i].color = 0xFFFFFFFF;
-				break;
-			}
-			if (Cirparticle[k][i].Set == true) {
-				Vec2 vel = (Circleofdeath[k].circle.pos - Cirparticle[k][i].Pos).Normalized();
-				Cirparticle[k][i].Pos+= vel * 0.5;
-				Cirparticle[k][i].QuadPos.Quad::Quad(Cirparticle[k][i].Pos, 48, 48, 0);
-
-				Cirparticle[k][i].LifeTime-=0.002;
-				Cirparticle[k][i].color= 0xFFFFFF00 | static_cast<int>((1.0f - Cirparticle[k][i].LifeTime) * 0x00 + Cirparticle[k][i].LifeTime * 0xFF);
-				if (Cirparticle[k][i].LifeTime == 0) {
-					CirParFlame = 0;
-					Cirparticle[k][i].Init();
-				}
-			}
-		}
-	}
-}
