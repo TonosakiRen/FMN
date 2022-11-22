@@ -202,7 +202,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -413,7 +413,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 		case title:
 			
-			sound.BGM(&sound.Title, "./Resources/sounds/TitleBgm.mp3");
+			sound.BGM(&sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");
 
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
@@ -477,7 +477,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				sound.BGM(&sound.StageBgm, "./Resources/sounds/BossBgm.mp3");
+				sound.BGM(&sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
