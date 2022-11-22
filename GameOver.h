@@ -3,6 +3,7 @@
 #include"Vec2.h"
 #include"Quad.h"
 #include "Collision.h"
+#include "ControllerInput.h"
 
 class GameOver
 {

@@ -35,7 +35,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 30;
+		HP -= 300;
 
 		if (HP <= 0) {
 			HP = 0;

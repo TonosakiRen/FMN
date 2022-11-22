@@ -4,13 +4,13 @@
 void GameOver::Update()
 {
 	if (canselect == true) {
-		if (Key::IsTrigger(DIK_S)) {
+		if (Key::IsTrigger(DIK_S) || Controller::IsStickDirection(0, Controller::lsdDOWN)) {
 			Selected++;
 			if (Selected > 1) {
 				Selected = 0;
 			}
 		}
-		if (Key::IsTrigger(DIK_W)) {
+		if (Key::IsTrigger(DIK_W) || Controller::IsStickDirection(0, Controller::lsdUP)) {
 			Selected--;
 			if (Selected < 0) {
 				Selected = 1;
@@ -19,7 +19,7 @@ void GameOver::Update()
 
 		if (Restart.LINE == Selected) {
 			Restart.Color = 0x20d6c7FF;
-			if (Key::IsTrigger(DIK_K)) {
+			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 				RestartFlag = true;
 				canselect = false;
 			}
@@ -30,7 +30,7 @@ void GameOver::Update()
 
 		if (Quit.LINE == Selected) {
 			Quit.Color = 0x20d6c7FF;
-			if (Key::IsTrigger(DIK_K)) {
+			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 				QuitFlag = true;
 				canselect = false;
 			}

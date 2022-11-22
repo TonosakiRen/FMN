@@ -2,7 +2,7 @@
 #include <Novice.h>
 #include "Key.h"
 #include "Vec2.h"
-
+#include "ControllerInput.h"
 class Stopper
 {
 private:
