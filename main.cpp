@@ -308,6 +308,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							playermain.PlayerHit({ boss2.TelechaseEffect.particles[0].quad.GetCenter(),boss2.TelechaseEffect.particles[0].quad.GetWidth() / 2.0f });
 						}
 
+						//boss自体の当たり判定
+						boss2.BossHit(playermain.GetHitSword());
+						playermain.PlayerHit(boss2.GetBossQuad());
+						playermain.SwordHit(boss2.GetBossQuad());
+
 					}
 
 
