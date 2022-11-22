@@ -35,7 +35,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 300;
+		HP -= 25;
 
 		if (HP <= 0) {
 			HP = 0;
@@ -442,7 +442,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	//Novice::ScreenPrintf(960, 400, "O");
 
 	Clamp::clamp(HP, 0, 10000);
-	Novice::DrawBox(456, 20, HP * 0.51, 50, 0, HpColor, kFillModeSolid);
+	Novice::DrawBox(456, 20, HP * 0.51, 54, 0, HpColor, kFillModeSolid);
 	Novice::DrawSprite(350, 0, HpBar_gra, 1, 1, 0, WHITE);
 }
 

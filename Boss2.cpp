@@ -1610,7 +1610,7 @@ void Boss2::UpDate()
 
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
 	if (isBossHit == true) {
-		HP -= 25;
+		HP -= 27;
 	};
 }
 
