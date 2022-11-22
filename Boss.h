@@ -546,4 +546,5 @@ public:
 	void Movie();
 	bool MovieEnded();
 	bool RedBlackEffectFlag();
+	void StyleChangeFalse() { StyleChange.Flag = false; };
 };

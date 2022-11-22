@@ -203,6 +203,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//第二形態のセットここで
 						boss2.Set();
 						boss2.PosLink(boss.GetBossX());
+						boss.StyleChangeFalse();
 					}
 					//bossのアップデート
 					if (boss.IsLife == true) {
