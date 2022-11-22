@@ -71,6 +71,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int Tutorial2 = Novice::LoadTexture("./Resources/images/Tutorial/2.png");
 	int Tutorial3 = Novice::LoadTexture("./Resources/images/Tutorial/3.png");
 	int TutorialEx = Novice::LoadTexture("./Resources/images/Tutorial/PlayBoss.png");
+
+	int LetJumpGra = Novice::LoadTexture("./Resources/images/Tutorial/LetJump.png");
+	int LetAttackGra = Novice::LoadTexture("./Resources/images/Tutorial/LetAttack.png");
+	int LetDashGra = Novice::LoadTexture("./Resources/images/Tutorial/LetDash.png");
 		
 	int orbitImg = Novice::LoadTexture("./Resources/Images/kidou.png");
 
@@ -562,11 +566,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
-			tutorial.Draw(screen, Tutorial1, Tutorial2, Tutorial3);
+			tutorial.Draw(screen, Tutorial1, Tutorial2, Tutorial3, LetJumpGra, LetAttackGra, LetDashGra);
 			
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
-
+			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 

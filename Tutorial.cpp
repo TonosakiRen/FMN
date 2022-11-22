@@ -8,7 +8,7 @@ Tutorial::Tutorial()
 		{ 160,160 },
 		{ { LetAttack[i].Pos.x - LetAttack[i].ColSize.x / 2 , LetAttack[i].Pos.y + LetAttack[i].ColSize.y / 2},
 		int(LetAttack[i].ColSize.x),int(LetAttack[i].ColSize.y) },
-		{ 48,48 },
+		{ 160,160 },
 		{ { LetAttack[i].Pos.x - LetAttack[i].ImageSize.x / 2 , LetAttack[i].Pos.y + LetAttack[i].ImageSize.y / 2},
 		int(LetAttack[i].ImageSize.x),int(LetAttack[i].ImageSize.y) },
 			0,
@@ -57,15 +57,21 @@ void Tutorial::Update()
 	}
 }
 
-void Tutorial::Draw(Screen& screen, int gra1, int gra2, int gra3)
+void Tutorial::Draw(Screen& screen, int gra1, int gra2, int gra3,int LetJumpGra, int LetAttackGra, int LetDashGra)
 {
-	screen.DrawQuad2Renban(LetJump.ColQuad, LetJump.srcX,0, 1,1,1,1,LetJump.Anime,0,WHITE,false);
+	//screen.DrawQuad2Renban(LetJump.ColQuad, LetJump.srcX,0, 1,1,1,1,LetJump.Anime,0,WHITE,false);
+	screen.DrawQuad2Renban(LetJump.ImageQuad, LetJump.srcX, 0, LetJump.ImageSize.x, LetJump.ImageSize.y, 4, 5, LetJump.Anime, LetJumpGra, WHITE, false);
 
 	for (int i = 0; i < 2; i++) {
-		screen.DrawQuad2Renban(LetAttack[i].ColQuad, LetAttack[i].srcX, 0, 1, 1, 1, 1, LetAttack[i].Anime, 0, WHITE, false);
+		//screen.DrawQuad2Renban(LetAttack[i].ColQuad, LetAttack[i].srcX, 0, 1, 1, 1, 1, LetAttack[i].Anime, 0, WHITE, false);
+		screen.DrawQuad2Renban(LetAttack[i].ImageQuad, LetAttack[i].srcX, 0, LetAttack[i].ImageSize.x, LetAttack[i].ImageSize.y, 1, 1, LetAttack[i].Anime, LetAttackGra, WHITE, false);
+
 	}
 
-	screen.DrawQuad2Renban(LetDash.ColQuad, LetDash.srcX, 0, 1, 1, 1, 1, LetDash.Anime, 0, WHITE, false);
+	//screen.DrawQuad2Renban(LetDash.ColQuad, LetDash.srcX, 0, 1, 1, 1, 1, LetDash.Anime, 0, WHITE, false);
+	screen.DrawQuad2Renban(LetDash.ImageQuad, LetDash.srcX, 0, LetDash.ImageSize.x, LetDash.ImageSize.y, 4, 5, LetDash.Anime, LetDashGra, WHITE, false);
+
+
 
 	screen.DrawQuad2Renban(type1.Quad, type1.SrcX, 0, type1.Size.x, type1.Size.y, type1.sheets, 30, type1.Anime, gra1, WHITE, false);
 
