@@ -106,7 +106,7 @@ void PlayerMain::Move()
 			JumpFlag = false;
 		}
 
-		if ((Controller::IsTriggerButton(0, Controller::bSTART) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
 			DashFlag = true;
 			JumpFlag = false;
 			DashFaseRight = FaceRight;
