@@ -6,6 +6,7 @@
 #include"Circle.h"
 #include "Effect5.h"
 
+#include"Sound.h"
 #define kMAX_RAINSWORD 30
 #define kMAX_CIR 7
 
@@ -26,7 +27,8 @@ class Boss {
 	int ShockWave_gra=0;
 	int HpBar_gra = 0;
 	int CirPar_gra = 0;
-
+	//‰¹
+	Sound sound;
 	static struct Matrix2x2
 	{
 		float m[2][2];

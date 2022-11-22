@@ -16,10 +16,14 @@ public:
 	Bgm GameClear;
 	Bgm Title;
 
+	Bgm Rotate;
 	void BGM(Bgm *bgm,const char* fileName);
+	void BGM(Bgm* bgm, float Volume, const char* fileName);
 	void BGMStop(Bgm *bgm);
 	void GameOverBGM(const char* fileName);
 
 	void SoundEffect(const char* filename);
+
+	void SoundEffect(float volume, const char* fileName);
 	
 };

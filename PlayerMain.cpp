@@ -98,6 +98,7 @@ void PlayerMain::Move()
 		if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
 			if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
 				JumpFlag = true;
+				sound.SoundEffect(1.5f, "./Resources/sounds/Jump.mp3");
 			}
 		}
 
@@ -249,6 +250,7 @@ void PlayerMain::Move()
 	if (CanMove == true) {
 		if (Controller::IsTriggerButton(0, Controller::bX) == 1 || Key::IsTrigger(DIK_K)) {
 			isAttack = 4;
+			
 		}
 	}
 
@@ -262,6 +264,7 @@ void PlayerMain::Move()
 
 	if (attackstarttime == 0) {
 		attackstarttime = -1;
+		sound.SoundEffect(1.0f,"./Resources/sounds/sword.mp3");
 		NormalAttack();
 		AttackCoolDown = ATTACKCOOLDOWNMAX;
 		isSwordAppear = true;
@@ -336,15 +339,17 @@ void PlayerMain::SwordHit(Quad Target)
 	
 	if (Collision::QuadToQuad(Sword.Quad , Target))
 	{
-		Speed.y = JUMPPOWER;
+		
 		isSwordHit = true;
 
 		 if(FaceDown == true){
 			 HitBack.y =3;
 			 Gravity = 0;
+			 Speed.y = JUMPPOWER;
 		 }
 		 else if (FaceUp == true) {
 			 HitBack.y = -3;
+			 Speed.y = 0;
 		 }
 		 else {
 			 if (FaceRight == true) {
@@ -480,7 +485,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
-
+	
 	//screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
 	//screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
