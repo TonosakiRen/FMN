@@ -1610,7 +1610,7 @@ void Boss2::UpDate()
 
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
 	if (isBossHit == true) {
-		HP -= 27;
+		HP -= 25;
 	};
 }
 
@@ -1636,7 +1636,7 @@ void Boss2::Draw(Screen& screen)
 		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FFFF66);
 
 	};
-	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
+	screen.DrawQuad2Renban(Quad_Pos, SrcX, 0, 120, 192, sheets,6,AnimeFlame, Boss_gra, WHITE,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
 
 	

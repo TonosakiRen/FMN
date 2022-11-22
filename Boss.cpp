@@ -35,7 +35,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 30;
+		HP -= 300;
 
 		if (HP <= 0) {
 			HP = 0;
@@ -423,9 +423,9 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
 	//screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
-	screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
-	screen.DrawEllipse(RightArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
-	screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(RightArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
 		
@@ -467,7 +467,7 @@ void Boss::StyleChangeUpdate() {
 
 void Boss::DrawStyleChange(Screen& screen, int StyleChangeGra)
 {
-	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 1, 10, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
+	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 3, 5, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
 	
 
 	Novice::ScreenPrintf(0, 380, "%f %f %d", Pos.x, Pos.y, StyleChange.Flag);

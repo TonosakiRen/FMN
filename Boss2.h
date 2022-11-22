@@ -140,8 +140,6 @@ class Boss2 {
 	
 
 	int Direction = -1;
-	int AnimeFlame = 9;
-	int SrcX;
 
 	int MovePattern[MAX2_PATTERN];
 	int MoveArray;
@@ -399,6 +397,9 @@ class Boss2 {
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
 	
+	int sheets = 4;
+	int SrcX = 0;
+	int AnimeFlame = 0;
 
 public:
 	Boss2();
