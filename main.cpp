@@ -212,7 +212,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -311,9 +311,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						}
 
 						//boss自体の当たり判定
-						boss2.BossHit(playermain.GetHitSword());
 						playermain.PlayerHit(boss2.GetBossQuad());
 						playermain.SwordHit(boss2.GetBossQuad());
+						boss2.BossHit(playermain.GetHitSword());
 
 					}
 
