@@ -4,13 +4,17 @@
 void GameOver::Update()
 {
 	if (canselect == true) {
-		if (Key::IsTrigger(DIK_S) || Controller::IsStickDirection(0, Controller::lsdDOWN)) {
+
+		stickup = Controller::IsStickDirection(0, Controller::lsdUP);
+		stickdown = Controller::IsStickDirection(0, Controller::lsdDOWN);
+
+		if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
 			Selected++;
 			if (Selected > 1) {
 				Selected = 0;
 			}
 		}
-		if (Key::IsTrigger(DIK_W) || Controller::IsStickDirection(0, Controller::lsdUP)) {
+		if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 			Selected--;
 			if (Selected < 0) {
 				Selected = 1;
@@ -38,6 +42,9 @@ void GameOver::Update()
 		else {
 			Quit.Color = WHITE;
 		}
+
+		prestickup = stickup;
+		prestickdown = stickdown;
 	}
 }
 

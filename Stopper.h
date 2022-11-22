@@ -84,7 +84,10 @@ private:
 		WHITE,
 	};
 
-
+	bool stickup = false;
+	bool prestickup = false;
+	bool stickdown = false;
+	bool prestickdown = false;
 
 	void PauseQuadDraw(PauseStruct select, int tex);
 

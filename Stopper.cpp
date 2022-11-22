@@ -13,14 +13,17 @@ bool Stopper::Pause()
 			}
 		}
 
+		stickup = Controller::IsStickDirection(0, Controller::lsdUP);
+		stickdown = Controller::IsStickDirection(0, Controller::lsdDOWN);
+
 		if (isPause == true) {
-			if (Key::IsTrigger(DIK_S) || Controller::IsStickDirection(0, Controller::lsdDOWN)) {
+			if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
 				Selected++;
 				if (Selected > 3) {
 					Selected = 0;
 				}
 			}
-			if (Key::IsTrigger(DIK_W) || Controller::IsStickDirection(0, Controller::lsdUP)) {
+			if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 				Selected--;
 				if (Selected < 0) {
 					Selected = 3;
@@ -85,6 +88,9 @@ bool Stopper::Pause()
 				Quit.Color = WHITE;
 			}
 		}
+
+		prestickup = stickup;
+		prestickdown = stickdown;
 	}
 
 	return isPause;
