@@ -236,6 +236,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
+						//bossのエフェクト
+						boss.isWhiteFeedout = true;
+
 						//サウンド
 						sound.BGMStop(&sound.StageBgm);
 						boss2.UpDate();
