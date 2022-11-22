@@ -195,6 +195,7 @@ void Boss::Init()
 	HP = 2000;
 	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
 
+	IsLife = true; //生きてるかどうか
 
 	keep.rand = 0;
 	keep.Time = 0;
@@ -244,9 +245,8 @@ void Boss::Init()
 	 bJumpAttack = false;
 	 bShockWaveAttack = false;
 	 bCircleOfDeathAttack = false;
-
-	 IsLife = true; //生きてるかどうか
-
+	
+	 
 	 //モーションの初期化
 #pragma region Parts
 	  Head = {
@@ -348,8 +348,16 @@ void Boss::Init()
 	  ArmPosAngleSpeed = 2.8125;
 #pragma endregion
 	  BladeImageQuad = { {9999,9999},{9999,9999}, {9999,9999}, {9999,9999} };
-
+	  NextBossTime = 0;
 	  StyleChange.Flag = false;
+	  MovieTime = 0;
+	  CanMove = true;
+	  MovieEnd = false;
+	  isImageDead = false;
+	  isRedBlackEffect = true;
+	  BossMotionTime = 0;
+
+	  
 }
 
 

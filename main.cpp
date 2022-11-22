@@ -131,6 +131,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedin = true;
 				//isMovie = true;
 				playermain.MovieInit();
+				boss.Init();
+				boss2.Init();
 				//boss.MovieInit();
 			}
 
@@ -542,6 +544,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case title:
+			sound.BGMStop(&sound.StageBgm);
+			sound.BGMStop(&sound.StageBgm2);
+			sound.BGMStop(&sound.GameClear);
+			sound.BGMStop(&sound.GameOver);
 			
 			sound.BGM(&sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");
 
@@ -564,8 +570,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 			//サウンド
 			sound.BGMStop(&sound.Title);
-			sound.BGMStop(&sound.GameOver);
 			
+			sound.BGMStop(&sound.GameClear);
+			sound.BGMStop(&sound.GameOver);
 
 			//ステージ描画処理
 			//背景d
@@ -848,7 +855,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//サウンド
 			sound.BGMStop(&sound.StageBgm);
 			sound.BGMStop(&sound.StageBgm2);
-
+			sound.BGMStop(&sound.GameClear);
+			sound.BGMStop(&sound.Title);
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
@@ -896,7 +904,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//サウンド
 			sound.BGMStop(&sound.StageBgm);
 			sound.BGMStop(&sound.StageBgm2);
-
+			sound.BGMStop(&sound.Title);
+			sound.BGMStop(&sound.GameOver);
 			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1) {
 				InitFeedout();
