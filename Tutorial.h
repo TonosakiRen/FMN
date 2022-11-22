@@ -46,11 +46,11 @@ private:
 		{136,136},
 		{ { LetJump.Pos.x - LetJump.ColSize.x / 2 , LetJump.Pos.y + LetJump.ColSize.y / 2},
 		int(LetJump.ColSize.x),int(LetJump.ColSize.y) },
-		{48,48},
+		{168,168},
 		{ { LetJump.Pos.x - LetJump.ImageSize.x / 2 , LetJump.Pos.y + LetJump.ImageSize.y / 2},
 		int(LetJump.ImageSize.x),int(LetJump.ImageSize.y) },
 		0,
-		0,
+		1,
 	};
 
 	LetAttackStruct LetAttack[2];
@@ -60,7 +60,7 @@ private:
 		{72,320},
 		{ { LetDash.Pos.x - LetDash.ColSize.x / 2 , LetDash.Pos.y + LetDash.ColSize.y / 2},
 		int(LetDash.ColSize.x),int(LetDash.ColSize.y) },
-		{48,48},
+		{120,368},
 		{ { LetDash.Pos.x - LetDash.ImageSize.x / 2 , LetDash.Pos.y + LetDash.ImageSize.y / 2},
 		int(LetDash.ImageSize.x),int(LetDash.ImageSize.y) },
 		0,
@@ -112,7 +112,7 @@ public:
 
 	void Update();
 
-	void Draw(Screen& screen,int gra1,int gra2,int gra3);
+	void Draw(Screen& screen,int gra1,int gra2,int gra3,int LetJumpGra,int LetAttackGra,int LetDashGra);
 
 	void PlayDrawEx(int gra,int type);
 
