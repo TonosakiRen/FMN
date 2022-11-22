@@ -101,7 +101,7 @@ void Boss2::Init() {
 	keep.FPos = 0;
 	keep.theta = 0;
 	keep.YMove = 0;
-
+	IsLife = false;
 	Zanflame = 0;
 
 	//ステート管理初期化
