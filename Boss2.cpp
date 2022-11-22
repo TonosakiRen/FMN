@@ -16,6 +16,8 @@ Boss2::Boss2() :
 	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
 {
 
+	
+
 	for (int i = 0; i < 3; i++) {
 		centerNyokkiUpSrcX[i] = 0;
 		centerNyokkiKeepSrcX[i] = 0;
@@ -117,6 +119,23 @@ void Boss2::Init() {
 	BossMotionTime = 0;
 	
 	//waza
+
+	for (int i = 0; i < 30; i++) {
+		centerOfDarknessLeft.particles[i].isActive = false;
+		centerOfDarknessRight.particles[i].isActive = false;
+		centerOfDarknessUnder.particles[i].isActive = false;
+	}
+	for (int i = 0; i < 500; i++) {
+		swordEffect.particles[i].isActive = false;
+	}
+	for (int i = 0; i < chaseBulletNum; i++) {
+		chaseEffect.particles[i].isActive = false;
+	}
+
+	TelechaseEffect.particles[0].isActive = false;
+
+
+
 	Action = false;
 	centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
 	centerOfDarknessMoveT = 0.0f;
@@ -242,6 +261,42 @@ void Boss2::Init() {
 	TeleisFeedrotateBullet = false;
 	TeleportNum = 3;
 	
+
+	for (int i = 0; i < emitNum; i++) {
+		if (AsgoreBullet[i].t >= 1.0f) {
+			EmitPos = { 0.0f,SCREEN_HEIGHT - Floor };
+			coolTime = 0;
+			for (int i = 0; i < emitNum; i++) {
+				AsgoreBullet[i].isBullet = false;
+				AsgoreBullet[i].t = 0.0f;
+			}
+			emitNum = 0;
+			emitActionNum = saveEmitActionNum;
+			isMoveCenter = false;
+			isGetAsgore = false;
+			AsgoreMoveTx = 0.0f;
+			AsgoreMoveTy = 0.0f;
+			isAsgoreAttack = false;
+			isWait = false;
+			waitTime = saveWaitTime;
+			isAsgoreFeed = false;
+			isGetPosRetrun = false;
+			AsgoreReturnTx = 0.0f;
+			AsgoreReturnTy = 0.0f;
+			setWhich = false;
+			Action = false;
+			break;
+		}
+	}
+}
+
+void Boss2::BossHit(bool Hit)
+{
+	isBossHit = false;
+	if (Hit == true) {
+		isBossHit = true;
+
+	}
 }
 
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)

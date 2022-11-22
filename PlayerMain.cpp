@@ -354,11 +354,9 @@ void PlayerMain::SwordHit(Quad Target)
 		 else {
 			 if (FaceRight == true) {
 				 HitBack.x = -12;
-				 Speed.y = 0;
 			 }
 			 else {
 				 HitBack.x =  12;
-				 Speed.y = 0;
 			 }
 		 }
 
@@ -487,7 +485,7 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 			//screen.DrawQuad2Renban(Player.Quad, Player.SrcX, 0, Player.HitBoxSize.x, Player.HitBoxSize.y, 1, 60, Player.AnimeFlame, 0, Player.Color, FaceRight);
 	}
 
-
+	
 	//screen.DrawBox(Sword.Quad.LeftTop.x, Sword.Quad.LeftTop.y, Sword.HitBoxSize.x, Sword.HitBoxSize.y, 0, 0x0000FF7F, kFillModeSolid);
 
 	//screen.DrawLine(0, FLOOR, SCREEN_WIDTH * 1.25, FLOOR, RED);
