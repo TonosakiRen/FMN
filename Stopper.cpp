@@ -5,6 +5,8 @@ bool Stopper::Pause()
 {
 	if (canselect == true) {
 		if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+			sound.SoundEffect(sound.Pozu, 0.3f, "./Resources/sounds/pozu.wav", false);
+
 			if (isPause == true) {
 				isPause = false;
 			}
@@ -18,6 +20,7 @@ bool Stopper::Pause()
 
 		if (isPause == true) {
 			if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
+				sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
 				Selected++;
 				if (Selected > 3) {
 					Selected = 0;
@@ -25,6 +28,8 @@ bool Stopper::Pause()
 			}
 			if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 				Selected--;
+				sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
+
 				if (Selected < 0) {
 					Selected = 3;
 				}
@@ -33,6 +38,8 @@ bool Stopper::Pause()
 			if (BackGame.LINE == Selected) {
 				BackGame.Color = 0x20d6c7FF;
 				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
 					isPause = false;
 				}
 			}
@@ -43,6 +50,8 @@ bool Stopper::Pause()
 			if (Restart.LINE == Selected) {
 				Restart.Color = 0x20d6c7FF;
 				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
 					RestartFlag = true;
 					canselect = false;
 					isPause = false;
@@ -69,6 +78,7 @@ bool Stopper::Pause()
 			if (Title.LINE == Selected) {
 				Title.Color = 0x20d6c7FF;
 				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
 					TitileBackFlag = true;
 					canselect = false;
 					isPause = false;
@@ -81,6 +91,7 @@ bool Stopper::Pause()
 			if (Quit.LINE == Selected) {
 				Quit.Color = 0x20d6c7FF;
 				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
 					QuitFlag = true;
 				}
 			}
