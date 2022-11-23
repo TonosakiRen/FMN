@@ -19,6 +19,13 @@ private:
 		unsigned int Color;
 	};
 
+	GameClearStruct GameClearText = {
+		-1,
+		{1920 / 2,200},
+		{1208,224},
+		WHITE,
+	};
+
 	GameClearStruct TitleBack = {
 		5,
 		{1920 / 2,950},
@@ -35,6 +42,6 @@ public:
 
 	void Update();
 
-	void Draw(Screen& screen, int Ending_Gra);
+	void Draw(Screen& screen, int Ending_Gra, int gamecleargra);
 
 };

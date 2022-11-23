@@ -81,6 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
+	int ClearGra = Novice::LoadTexture("./Resources/Images/UI/GameClear.png");
 
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
@@ -1057,9 +1058,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 			
-			tutorial.PlayDrawEx(TutorialEx, 1);
+			tutorial.PlayDrawEx(TutorialEx, 2);
 
-			GameClearClass.Draw(screen,PauseSelectGra);
+			GameClearClass.Draw(screen,PauseSelectGra, ClearGra);
 
 			//サウンド
 			/*Novice::StopAudio(sound.StageBgm.Handle);
