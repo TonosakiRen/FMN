@@ -16,6 +16,7 @@ const int kMAX_CIR_Par = 15;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
 class Boss {
+	int bossAttackHP = 250;//ƒ{ƒX‚ÉUŒ‚“–‚Ä‚½‚Ì‚Ö‚éHP 
 
 	//‰æ‘œ‚ÌéŒ¾
 	int Rainsword_gra = 0;

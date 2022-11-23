@@ -34,7 +34,7 @@ const int saveEmitActionNum = 16;
 
 
 class Boss2 {
-
+	int bossAttackHP = 27;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
