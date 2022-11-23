@@ -479,6 +479,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 					//í èÌçUåÇÇÃÉRÅ[ÉhÇÕÇ±Ç±
 					
 					BulletAttack(player);
+					//nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
@@ -1024,7 +1025,6 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	
 }
 
-
 void Boss2::BulletAttack(PlayerMain& player) {
 
 	keep.theta += M_PI / 60;
@@ -1224,6 +1224,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 
 void Boss2::nyokkiAttack(PlayerMain& player) {
 	if (isdropMove == false) {
+		AnimeSelect = Nyokki1;
 		if (isSaveBossY == false) {
 			saveBossY = Pos.y;
 			isSaveBossY = true;
@@ -1239,14 +1240,21 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		isdrop = true;
 	}
 	if (isdrop == true) {
+		AnimeSelect = Nyokki2;
 		Pos.y  = Easing::easing(dropT, saveBossY2, underPos, dropSpeed, Easing::easeInOutQuint);
 		if (dropT >= 1.0f) {
 			isdrop = false;
 			isNyokki = true;
+			
+		}
+
+		if (dropT > 0.8) {
+			AnimeSelect = Nyokki3;
 		}
 	}
 	if (isNyokki == true ) {
 		//nyokkièàóù
+		AnimeSelect = Nyokki3;
 
 		if (isGetNyokkiPos == false) {
 			for (int i = 0; i < nyokkiNum / 2; i++) {
@@ -1284,6 +1292,7 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 			saveUnderBossY = Pos.y;
 			isSaveBossY3 = true;
 		}
+		AnimeSelect = Normal;
 		Pos.y = Easing::easing(returnMoveT, saveUnderBossY, saveBossY, upSpeed, Easing::easeInOutQuint);
 		if (returnMoveT >= 1.0f) {
 			dropT = 0.0f;
@@ -1665,7 +1674,6 @@ void Boss2::UpDate()
 		}
 	};
 
-	Animation();
 }
 
 
@@ -1675,15 +1683,48 @@ void Boss2::Set()
 	Size = { 64,160 };
 	Pos = { 1000,500 };
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
-	ImageSize = { 120,192 };
+	ImageSize = { 120,196 };
 	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 	IsLife = true;
 }
 
 void Boss2::Animation()
 {
-	ImageSize = { 120,192 };
-	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+	int PreSheets = 0;
+	if (SrcX != 0) {
+		PreSheets = SrcX / ImageSize.x;
+	}
+
+	switch (AnimeSelect)
+	{
+	case Normal:
+		ImageSize = { 120,196 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNormal_gra;
+		break;
+	case Nyokki1:
+		ImageSize = { 88,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki1_gra;
+		break;
+	case Nyokki2:
+		ImageSize = { 120,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki2_gra;
+		break;
+	case Nyokki3:
+		ImageSize = { 120,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki3_gra;
+		break;
+	}
+
+	if (Bosspregra != BossNormal_gra) {
+		SrcX = PreSheets * ImageSize.x;
+	}
+
+	Bosspregra = BossNormal_gra;
+	
 }
 
 void Boss2::Draw(Screen& screen)
