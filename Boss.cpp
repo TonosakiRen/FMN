@@ -168,7 +168,7 @@ void Boss::UpDate() {
 }
 void Boss::Set()
 {
-	Size = { 150,400 };
+	Size = { 150,300 };
 
 	Pos = { 1000,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
