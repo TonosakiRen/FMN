@@ -1719,11 +1719,11 @@ void Boss2::Animation()
 		break;
 	}
 
-	if (Bosspregra != BossNormal_gra) {
+	if (Bosspregra != AnimeSelect) {
 		SrcX = PreSheets * ImageSize.x;
 	}
 
-	Bosspregra = BossNormal_gra;
+	Bosspregra = AnimeSelect;
 	
 }
 
