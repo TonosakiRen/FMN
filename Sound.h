@@ -38,9 +38,11 @@ public:
 	Effect playerdame;
 
 
-	void BGM(Bgm *bgm,const char* fileName);
-	void BGM(Bgm* bgm, float Volume, const char* fileName);
-	void BGMStop(Bgm *bgm);
+	void BGM(Bgm& bgm,const char* fileName);
+	void BGM(Bgm& bgm, float Volume, const char* fileName);
+	void BGM_F(Bgm& bgm, float Volume, const char* fileName);
+
+	void BGMStop(Bgm& bgm);
 	
 
 	void SoundEffect(Effect *effect,const char* filename);

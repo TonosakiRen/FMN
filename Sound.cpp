@@ -1,37 +1,55 @@
 #include "Sound.h"
 
-void Sound::BGM(Bgm *bgm,float Volume,const char* fileName) {
+void Sound::BGM(Bgm &bgm,float Volume,const char* fileName) {
 
-	if (bgm->load == false) {
-		bgm->load = true;
-		bgm->Sound = Novice::LoadAudio(fileName);
+	if (bgm.load == false) {
+		bgm.load = true;
+		bgm.Sound = Novice::LoadAudio(fileName);
 	}
 
-	if (Novice::IsPlayingAudio(bgm->Handle) == 0 || bgm->Handle == -1) {
-		bgm->Handle = Novice::PlayAudio(bgm->Sound, 1, Volume);
+	if (Novice::IsPlayingAudio(bgm.Handle) == 0 || bgm.Handle == -1) {
+		bgm.Handle = Novice::PlayAudio(bgm.Sound, 1, Volume);
+	}
+	
+
+}
+
+void Sound::BGM(Bgm& bgm, const char* fileName) {
+
+	if (bgm.load == false) {
+		bgm.load = true;
+		bgm.Sound = Novice::LoadAudio(fileName);
+	}
+
+	if (Novice::IsPlayingAudio(bgm.Handle) == 0 || bgm.Handle == -1) {
+		bgm.Handle = Novice::PlayAudio(bgm.Sound, 1, 0.3f);
 	}
 
 }
 
-void Sound::BGM(Bgm* bgm, const char* fileName) {
+//void Sound::BGM_F(Bgm& bgm,float Volume, const char* fileName) {
+//	
+//	if (bgm.load == false) {
+//		bgm.load = true;
+//		bgm.Sound = Novice::LoadAudio(fileName);
+//	}
+//
+//	/*if (Novice::IsPlayingAudio(bgm.Handle) == 0 || bgm.Handle == -1) {
+//		bgm.Handle = Novice::PlayAudio(bgm.Sound, 1, Volume);
+//	}*/
+//
+//	
+//}
 
-	if (bgm->load == false) {
-		bgm->load = true;
-		bgm->Sound = Novice::LoadAudio(fileName);
-	}
-
-	if (Novice::IsPlayingAudio(bgm->Handle) == 0 || bgm->Handle == -1) {
-		bgm->Handle = Novice::PlayAudio(bgm->Sound, 1, 0.3f);
-	}
-
-}
-
-void Sound::BGMStop(Bgm* bgm) {
+void Sound::BGMStop(Bgm& bgm) {
 	
-	Novice::StopAudio(bgm->Handle);
-	Novice::StopAudio(bgm->Sound);
-	Novice::PauseAudio(bgm->Handle);
+	if (Novice::IsPlayingAudio(bgm.Handle) == 1 || bgm.Handle == -1) {
+		Novice::StopAudio(bgm.Handle);
+		Novice::StopAudio(bgm.Sound);
+	}
 	
+	//Novice::PauseAudio(bgm.Handle);
+	//bgm.play = false;
 	
 }
 

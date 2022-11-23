@@ -541,7 +541,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (feedoutT >= 1.0f) {
 				
-				sound.BGMStop(&sound.GameOver);
+				sound.BGMStop(sound.GameOver);
 
 
 			}
@@ -581,12 +581,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case title:
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.GameOver);
+			sound.BGMStop(sound.StageBgm);
+			sound.BGMStop(sound.StageBgm2);
+			sound.BGMStop(sound.GameClear);
+			sound.BGMStop(sound.GameOver);
 			
-			sound.BGM(&sound.Title,0.1f, "./Resources/sounds/TitleBgm.mp3");
+			sound.BGM(sound.Title,0.1f, "./Resources/sounds/TitleBgm.mp3");
 
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
@@ -606,9 +606,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
-			sound.BGMStop(&sound.Title);			
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.GameOver);
+			sound.BGMStop(sound.Title);			
+			sound.BGMStop(sound.GameClear);
+			sound.BGMStop(sound.GameOver);
 
 			//ステージ描画処理
 			//背景d
@@ -661,13 +661,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				sound.BGMStop(&sound.StageBgm2);
-				sound.BGM(&sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
+				sound.BGMStop(sound.StageBgm2);
+				sound.BGM(sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
-				sound.BGMStop(&sound.StageBgm);
-				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
+				sound.BGMStop(sound.StageBgm);
+				sound.BGM(sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
 				boss2.Animation();
 				boss2.Draw(screen);
 			}
@@ -846,22 +846,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isStageStart = false;
 				if (isGameover == true) {
 					
-					sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
+					sound.BGM(sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 					scene = gameover;
 					isFeedin = true;
-					sound.BGMStop(&sound.StageBgm);
-					sound.BGMStop(&sound.StageBgm2);
+					sound.BGMStop(sound.StageBgm);
+					sound.BGMStop(sound.StageBgm2);
 				}
 				if (isGameclear == true) {
-					sound.BGMStop(&sound.StageBgm);
-					sound.BGMStop(&sound.StageBgm2);
+					sound.BGMStop(sound.StageBgm);
+					sound.BGMStop(sound.StageBgm2);
 					scene = gameclear;
 					isFeedin = true;
 				}
 				if (isRestart == true) {
-					sound.BGMStop(&sound.StageBgm);
-					sound.BGMStop(&sound.StageBgm2);
+					sound.BGMStop(sound.StageBgm);
+					sound.BGMStop(sound.StageBgm2);
 					isRestart = false;
 					isFeedin = true;
 					if (boss.IsLife == true) {
@@ -900,10 +900,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 			//サウンド
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.Title);
+			sound.BGMStop(sound.StageBgm);
+			sound.BGMStop(sound.StageBgm2);
+			sound.BGMStop(sound.GameClear);
+			sound.BGMStop(sound.Title);
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 			Novice::DrawSprite(0, 0, GAMEOVER_gra, 2, 2, 0, WHITE);
@@ -932,7 +932,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				//サウンド
-				sound.BGMStop(&sound.GameOver);
+				sound.BGMStop(sound.GameOver);
 			}
 			
 			break;
@@ -953,11 +953,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Draw(screen,PauseSelectGra);
 
 			//サウンド
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.Title);
-			sound.BGMStop(&sound.GameOver);
-			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
+			sound.BGMStop(sound.StageBgm);
+			sound.BGMStop(sound.StageBgm2);
+			sound.BGMStop(sound.Title);
+			sound.BGMStop(sound.GameOver);
+			sound.BGM(sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();
