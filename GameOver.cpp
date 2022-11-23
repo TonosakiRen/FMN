@@ -1,6 +1,7 @@
 #include "GameOver.h"
 #include "Key.h"
 #include "ControllerInput.h"
+
 void GameOver::Update()
 {
 	if (canselect == true) {
@@ -12,12 +13,15 @@ void GameOver::Update()
 			Selected++;
 			if (Selected > 1) {
 				Selected = 0;
+				sound.SoundEffect(sound.Pick, 1.0f, "./Resources/sounds/sentaku.wav");
 			}
 		}
 		if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 			Selected--;
 			if (Selected < 0) {
 				Selected = 1;
+				sound.SoundEffect(sound.Pick, 1.0f, "./Resources/sounds/sentaku.wav");
+
 			}
 		}
 

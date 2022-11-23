@@ -38,6 +38,7 @@ public:
 	Effect playerdame;
 	Effect tatumaki;
 
+	Effect Pick;
 
 	void BGM(Bgm &bgm,const char* fileName);
 	void BGM(Bgm& bgm, float Volume, const char* fileName);

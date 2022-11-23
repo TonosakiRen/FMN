@@ -3,11 +3,11 @@
 #include"Vec2.h"
 #include"Quad.h"
 #include "Collision.h"
-
+#include"Sound.h"
 class GameOver
 {
 private:
-
+	Sound sound;
 	int Selected = 0;
 
 	struct GameOverStruct {
