@@ -942,8 +942,13 @@ void Boss2::LoadGra()
 {
 	if (load == 0) {
 		load = 1;
-		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
 		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
+		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
+		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
+		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
+
+		Boss_gra = BossNormal_gra;
 	}
 }
 

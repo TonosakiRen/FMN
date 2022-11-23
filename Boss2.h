@@ -421,7 +421,7 @@ class Boss2 {
 
 	int AnimeSelect = Normal;
 
-	//�摜
+	//�摜
 	int Boss_gra = 0;
 	int BossNormal_gra = 0;
 	int BossNyokki1_gra = 0;
