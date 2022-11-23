@@ -642,7 +642,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			
 			if (Novice::IsPlayingAudio(BGMHandle) == 0 && boss.IsLife == true) {
-				BGMHandle = Novice::PlayAudio(BossBGM, 1, 0.1f);
+				BGMHandle = Novice::PlayAudio(BossBGM, 1, 0.3f);
 			}
 			if (switchBGM == true) {
 				BGMstop();
