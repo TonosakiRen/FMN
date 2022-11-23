@@ -124,14 +124,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (isTitleStart == false) {
 				isFeedin = true;
-				if (feedinT >= 1) {
+				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isTitleStart = true;
 					stopper.canselect = true;
 				}
 			}
 
-			if (feedoutT >= 1) {
+			if (feedoutT >= 1.0f) {
 				playermain.Init();
 				InitFeedout();
 				isTitleStart = false;
@@ -237,7 +237,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -667,11 +667,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				sound.BGMStop(&sound.StageBgm);
-				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");				
+				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
+				boss2.Animation();
+				boss2.Draw(screen);
 			}
-
-			boss2.Animation();
-			boss2.Draw(screen);
 
 			//CenterofDarkness
 			if (boss2.IsLife == true) {
