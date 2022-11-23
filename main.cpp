@@ -225,6 +225,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						boss.UpDate();
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
+						//boss.ShockWaveAttack2(playermain, screen);
 						//当たり判定とかいれて！！！
 						if (boss.isBossDead() == false) {
 							playermain.PlayerHit(boss.GetBossAttackQuad());
@@ -251,9 +252,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss.isWhiteFeedout = true;
 
 						//サウンド
-						sound.BGMStop(&sound.StageBgm);
-						boss2.UpDate();
+						//sound.BGMStop(&sound.StageBgm);
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 30; i++) {
@@ -537,6 +538,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 			}
+			boss.Init();
+			boss2.Init();
 			break;
 		default:
 			break;
@@ -640,6 +643,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
+				sound.BGMStop(&sound.StageBgm2);
 				sound.BGM(&sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
