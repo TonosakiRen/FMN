@@ -32,6 +32,19 @@ public:
 	Effect circledeath;
 	Effect BackStep;
 
+	Effect Bulletattack;
+	Effect Bulletattackgo;
+	Effect asgore;
+	Effect moveattack;
+	Effect telepo;
+	Effect telepodan;
+	Effect tatsumaki;
+	Effect under;
+	Effect underdan;
+	Effect jisin;
+
+
+
 	Effect playerattack;
 	Effect playerattackhit;
 	Effect playerjump;
