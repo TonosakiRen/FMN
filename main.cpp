@@ -665,11 +665,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				sound.BGMStop(&sound.StageBgm);
-				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");				
+				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
+				boss2.Animation();
+				boss2.Draw(screen);
 			}
-
-			boss2.Animation();
-			boss2.Draw(screen);
 
 			//CenterofDarkness
 			if (boss2.IsLife == true) {
