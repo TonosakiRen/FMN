@@ -10,6 +10,7 @@ void Sound::BGM(Bgm& bgm,float Volume,const char* fileName) {
 	if (Novice::IsPlayingAudio(bgm.Handle) == 0 || bgm.Handle == -1) {
 		bgm.Handle = Novice::PlayAudio(bgm.Sound, 1, Volume);
 	}
+	
 
 }
 

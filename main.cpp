@@ -81,6 +81,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
+
+	int GAMEOVER_gra= Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
+
 	boss.LoadGra();
 	boss2.LoadGra();
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
@@ -897,6 +900,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(sound.Title.Handle);
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+			Novice::DrawSprite(0, 0, GAMEOVER_gra, 2, 2, 0, WHITE);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
 
