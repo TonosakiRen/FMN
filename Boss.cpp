@@ -37,7 +37,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= bossAttackHP;
+		HP -= bossAttackHP * 100;
 		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav",false);
 		if (HP <= 0) {
 			HP = 0;
@@ -465,7 +465,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	Novice::DrawSprite(350, 0, HpBar_gra, 1, 1, 0, WHITE);
 }
 
-void Boss::StyleChangeUpdate() {
+void Boss::StyleChangeUpdate(Screen& screen) {
 
 	StyleChange.Quad = { { Pos.x - StyleChange.ImageSize.x / 2, Pos.y + StyleChange.ImageSize.y - 240},
 		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) };
@@ -476,6 +476,7 @@ void Boss::StyleChangeUpdate() {
 		bossendT += 0.005f;
 		endT = Clamp::clamp(endT, 0.0f, 1.0f);
 		bossendT = Clamp::clamp(bossendT, 0.0f, 1.0f);
+		screen.Shake(-2, 2, -2, 2, true);
 		if (StyleChange.Alpha < 255) {
 			StyleChange.Alpha += 0.8;
 		}

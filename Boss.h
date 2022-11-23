@@ -549,7 +549,7 @@ public:
 
 	void BladeImageLink(Matrix2x2 mat);
 	
-	void StyleChangeUpdate();
+	void StyleChangeUpdate(Screen& screen);
 
 	void MovieInit() { MovieTime = 0; };
 	void Movie();

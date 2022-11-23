@@ -510,7 +510,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 			}
 
-			boss.StyleChangeUpdate();
+			boss.StyleChangeUpdate(screen);
 
 			if (isStageStart == false) {
 				isFeedin = true;
@@ -762,7 +762,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (boss2.iscenterNyokki == true) {
 
 					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav",true);
-
+					screen.Shake(-2, 2, -2, 2, true);
 					for (int i = 0; i < 3; i++) {
 						if (boss2.centerNyokkistats == boss2.Up) {
 							Quad tmp1({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
@@ -796,6 +796,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				//nyokkiAttack
 				if (boss2.isNyokki == true) {
 					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav", true);
+					screen.Shake(-2, 2, -2, 2, true);
 					for (int i = 0; i < nyokkiNum / 2; i++) {
 						if (boss2.nyokkistats == boss2.Up) {
 							Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);

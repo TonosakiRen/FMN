@@ -14,7 +14,7 @@ Screen::Screen() {
 };
 
 void Screen::Scroll_update(float playerX, float playerY,float map_sheets_number) {
-
+	ScreenShake.setZero();
 	if (playerX >= Scroll_Fixed_Value_X && playerX <= Width * map_sheets_number - (Width - Scroll_Fixed_Value_X)) {
 
 		Scroll.x = playerX - Scroll_Fixed_Value_X;
@@ -105,6 +105,13 @@ void Screen::DrawSprite(int x, int y, int textureHandle, int scaleX, int scaleY,
 	Vec2 tmp(x - Scroll.x, y - Scroll.y);
 	x = tmp.x * Zoom.x + Worldcenter.x + ScreenShake.x;
 	y = tmp.y * Zoom.y * -1 + Worldcenter.y - ScreenShake.y;
+	Novice::DrawSprite(x, y, textureHandle, scaleX, scaleY, angle, color);
+}
+
+void Screen::DrawSpriteNormal(int x, int y, int textureHandle, int scaleX, int scaleY, int angle, unsigned int color) {
+	Vec2 tmp(x , y );
+	x = tmp.x * Zoom.x + ScreenShake.x;
+	y = tmp.y * Zoom.y - ScreenShake.y;
 	Novice::DrawSprite(x, y, textureHandle, scaleX, scaleY, angle, color);
 }
 

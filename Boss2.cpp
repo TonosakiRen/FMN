@@ -6,14 +6,15 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "Feed.h"
+#include "Boss2.h"
 
 
 Boss2::Boss2() :
-	centerOfDarknessLeft(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessRight(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessRight(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderRight(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
 	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
 	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
@@ -1097,6 +1098,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 				}
 				//ï˙èoÇµÇƒç≈èâÇÃÉtÉåÅ[ÉÄÇæÇØ
 				if (getFrag[i] == false) {
+					sound.SoundEffect(sound.EmitBullet, 0.3f, "./Resources/sounds/Emitbullet.wav");
 					swordT[i] = 0.0f;
 					effectSword[i] = sword[i];
 					effectSword[i].LeftBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).LeftBottom;
@@ -1161,10 +1163,10 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	
 	if (undertaleMoveT < 1.0f) {
 		if (savePlayerPos.x <= 1200) {
-			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x + 700.0f, 0.1, Easing::easeInOutQuart);
+			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x + 700.0f, 0.02, Easing::easeInOutQuart);
 		}
 		else {
-			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x - 700.0f, 0.1, Easing::easeInOutQuart);
+			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x - 700.0f, 0.02, Easing::easeInOutQuart);
 
 		}
 	}
@@ -1414,6 +1416,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					AsgoreBullet[emitNum].distance = distance[i];
 					emitNum++;
 				}
+				sound.SoundEffect(sound.EmitBullet, 0.3f, "./Resources/sounds/Emitbullet.wav");
 				coolTime = EmitCoolTime;
 				emitActionNum--;
 			}
@@ -1430,8 +1433,8 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 				savePosreturn = Pos;
 				isGetPosRetrun = true;
 			}
-			Pos.x = Easing::easing(AsgoreReturnTx, savePosreturn.x, 1200.0f, 0.01f, Easing::easeInOutQuint);
-			Pos.y = Easing::easing(AsgoreReturnTy, savePosreturn.y, savePosAsgore.y, 0.01f, Easing::easeInOutQuint);
+			Pos.x = Easing::easing(AsgoreReturnTx, savePosreturn.x, 1200.0f, 0.02f, Easing::easeInOutQuint);
+			Pos.y = Easing::easing(AsgoreReturnTy, savePosreturn.y, savePosAsgore.y, 0.02f, Easing::easeInOutQuint);
 			isWait = true;
 		}
 		else {
@@ -1485,13 +1488,13 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			LastPosx = 2100.0f;
 			startPosx = 300.0f;
- 			moveAttackSpeed = 5.0f;
+ 			moveAttackSpeed = 6.0f;
 			iswhichlr = false;
 		}
 		else {
 			LastPosx = 300.0f;
 			startPosx = 2100.0f;
-			moveAttackSpeed = -5.0f;
+			moveAttackSpeed = -6.0f;
 			iswhichlr = true;
 		}
 		setWhich = true;
@@ -1854,6 +1857,12 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 			keep.rand = Randam::RAND(25, 100);
 		}else if(keep.rand >= 50 && Pos.x <= 1200) {
 			keep.rand = Randam::RAND(0, 75);
+		}
+		if (Pos.x >= 2000) {
+			keep.rand = 70;
+		}
+		if (Pos.x <= 400) {
+			keep.rand = 20;
 		}
 		keep.FPos = Pos.x;
 		DirectionGet(player);

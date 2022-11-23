@@ -34,6 +34,9 @@ const int saveEmitActionNum = 16;
 
 
 class Boss2 {
+
+	bool isCollisionWall = false;
+
 	int bossAttackHP = 27;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
@@ -378,7 +381,7 @@ class Boss2 {
 	float movemoveAttackBulletFeedoutT[16];
 	bool moveIsFeedout = false;
 
-	float movethetaSpeed = 1.7f * M_PI / 180.0f;
+	float movethetaSpeed = 1.75f * M_PI / 180.0f;
 	float movemovethetaSpeed = 8.0f * M_PI / 180.0f;
 
 	Quad initialmoveBullet;
@@ -388,7 +391,7 @@ class Boss2 {
 	bool issavePosMoveAttack;
 	Vec2 savePosMoveAttack;
 	float moveMoveAttackTx = 0.0f;
-	float moveAttackSpeed = 3.0f;
+	float moveAttackSpeed = 5.0f;
 	bool ismovexMoveAttack = false;
 
 	float LastPosx = 2100.0f;
