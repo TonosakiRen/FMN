@@ -1712,7 +1712,7 @@ void Boss2::UpDate()
 	//UŒ‚‚ğ“–‚Ä‚ç‚ê‚½‚Ìˆ—
 	if (isBossHit == true) {
 		HP -= 27;
-		sound.SoundEffect(&sound.playerattackhit, "./Resources/sounds/PlayerAttackHit.wav");
+		sound.SoundEffect(sound.playerattackhit, "./Resources/sounds/PlayerAttackHit.wav");
 		if (HP <= 0) {
 			HP = 0;
 			IsLife = false;

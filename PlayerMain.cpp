@@ -103,7 +103,7 @@ void PlayerMain::Move()
 		if (Controller::IsPressedButton(0, Controller::bA) == 1 || Key::IsPressed(DIK_SPACE)) {
 			if (CanJump == true && PreJumpKey == 1 && DashFlag == false) {
 				JumpFlag = true;
-				sound.SoundEffect(&sound.playerjump,1.5f, "./Resources/sounds/Jump.mp3");
+				sound.SoundEffect(sound.playerjump,1.5f, "./Resources/sounds/Jump.mp3");
 			}
 		}
 
@@ -270,7 +270,7 @@ void PlayerMain::Move()
 
 	if (attackstarttime == 0) {
 		attackstarttime = -1;
-		sound.SoundEffect(&sound.playerattack,1.0f,"./Resources/sounds/sword.mp3");
+		sound.SoundEffect(sound.playerattack,1.0f,"./Resources/sounds/sword.mp3");
 		NormalAttack();
 		AttackCoolDown = ATTACKCOOLDOWNMAX;
 		isSwordAppear = true;
@@ -393,7 +393,7 @@ void PlayerMain::PlayerHit(Quad Target)
 				HitCoolDown = HITCOOLDOWNMAX;
 				if (HP > 0) {
 					HP--;
-					sound.SoundEffect(&sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
+					sound.SoundEffect(sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
 					
 
 				}
@@ -422,7 +422,7 @@ void PlayerMain::PlayerHit(Circle Target)
 					HitCoolDown = HITCOOLDOWNMAX;
 					if (HP > 0) {
 						HP--;
-						sound.SoundEffect(&sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
+						sound.SoundEffect(sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
 					
 
 

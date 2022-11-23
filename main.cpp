@@ -538,7 +538,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (feedoutT >= 1.0f) {
 				
-				sound.BGMStop(&sound.GameOver);
+				Novice::StopAudio(sound.GameOver.Handle);
 
 
 			}
@@ -578,12 +578,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		switch (scene)
 		{
 		case title:
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.GameOver);
+			Novice::StopAudio(sound.StageBgm.Handle);
+			Novice::StopAudio(sound.StageBgm2.Handle);
+			Novice::StopAudio(sound.GameClear.Handle);
+			Novice::StopAudio(sound.GameOver.Handle);
 			
-			sound.BGM(&sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");
+			sound.BGM(sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");
 
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
@@ -603,10 +603,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
-			sound.BGMStop(&sound.Title);
+			Novice::StopAudio(sound.Title.Handle);
 			
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.GameOver);
+			Novice::StopAudio(sound.GameClear.Handle);
+			Novice::StopAudio(sound.GameOver.Handle);
 
 			//ステージ描画処理
 			//背景d
@@ -659,13 +659,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				sound.BGMStop(&sound.StageBgm2);
-				sound.BGM(&sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
+				Novice::StopAudio(sound.StageBgm2.Handle);
+				sound.BGM(sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
-				sound.BGMStop(&sound.StageBgm);
-				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
+				Novice::StopAudio(sound.StageBgm.Handle);
+				sound.BGM(sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
 				boss2.Animation();
 				boss2.Draw(screen);
 			}
@@ -843,7 +843,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitFeedout();
 				isStageStart = false;
 				if (isGameover == true) {
-					sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
+					sound.BGM(sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 					scene = gameover;
 					isFeedin = true;
@@ -891,10 +891,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 			//サウンド
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.GameClear);
-			sound.BGMStop(&sound.Title);
+			Novice::StopAudio(sound.StageBgm.Handle);
+			Novice::StopAudio(sound.StageBgm2.Handle);
+			Novice::StopAudio(sound.GameClear.Handle);
+			Novice::StopAudio(sound.Title.Handle);
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 
@@ -922,7 +922,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				//サウンド
-				sound.BGMStop(&sound.GameOver);
+				Novice::StopAudio(sound.GameOver.Handle);
 			}
 			
 			break;
@@ -943,11 +943,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Draw(screen,PauseSelectGra);
 
 			//サウンド
-			sound.BGMStop(&sound.StageBgm);
-			sound.BGMStop(&sound.StageBgm2);
-			sound.BGMStop(&sound.Title);
-			sound.BGMStop(&sound.GameOver);
-			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
+			Novice::StopAudio(sound.StageBgm.Handle);
+			Novice::StopAudio(sound.StageBgm2.Handle);
+			Novice::StopAudio(sound.Title.Handle);
+			Novice::StopAudio(sound.GameOver.Handle);
+			sound.BGM(sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();
