@@ -40,6 +40,7 @@ public:
 
 	Effect Pick;
 	Effect PickUp;
+	Effect Pozu;
 
 	void BGM(Bgm &bgm,const char* fileName);
 	void BGM(Bgm& bgm, float Volume, const char* fileName);

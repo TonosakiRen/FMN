@@ -5,6 +5,8 @@ bool Stopper::Pause()
 {
 	if (canselect == true) {
 		if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+			sound.SoundEffect(sound.Pozu, 0.3f, "./Resources/sounds/pozu.wav", false);
+
 			if (isPause == true) {
 				isPause = false;
 			}

@@ -1798,7 +1798,7 @@ void Boss2::Draw(Screen& screen)
 	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
 	screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
-	Novice::DrawBox(456, 20, 1025*tmp, 54, 0, HpColor, kFillModeSolid);
+	Novice::DrawBox(456, 20, 1020*tmp, 54, 0, HpColor, kFillModeSolid);
 	Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
 	Novice::ScreenPrintf(500, 500, "HP::%d", HP);
 }

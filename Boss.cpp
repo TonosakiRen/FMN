@@ -1726,7 +1726,7 @@ void Boss::NomalSwordAttack3(PlayerMain& player)
 					blade.angle = Easing::easing(blade.t_back, 200, 0, 0.025f, Easing::easeInOutBack) * -Direction;
 					if (blade.t_back == 0.025f) {
 						
-						sound.SoundEffect(sound.swing3, 2.0f, "./Resources/sounds/swing3.mp3");
+						sound.SoundEffect(sound.swing2, 2.0f, "./Resources/sounds/swing2.mp3");
 					}
 					blade.theta = blade.angle / 180.0f * M_PI;
 					Pos.x = Easing::easing(blade.Boss_t, blade.FPosBoss.x, blade.FPosBoss.x + (150 * Direction), 0.05, Easing::easeInQuart);
