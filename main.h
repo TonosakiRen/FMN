@@ -39,13 +39,13 @@ Effect bossHeadEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0
 Effect bossRightArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect bossLeftArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect bossLegEffect(15, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
-Effect5 white0(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white1(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white2(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white3(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white4(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white5(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
-Effect5 white6(10, 1, { 500,500 }, 20, 20, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white0(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white1(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white2(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white3(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white4(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white5(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
+Effect5 white6(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 
 
 
@@ -100,6 +100,13 @@ void InitEffect() {
 		bossRightArmEffect.particles[i].isActive = false;
 		bossLeftArmEffect.particles[i].isActive = false;
 		bossLegEffect.particles[i].isActive = false;
+		white0.particles[i].isActive = false;
+		white1.particles[i].isActive = false;
+		white2.particles[i].isActive = false;
+		white3.particles[i].isActive = false;
+		white4.particles[i].isActive = false;
+		white5.particles[i].isActive = false;
+		white6.particles[i].isActive = false;
 	}
 }
 	void InitbossEffect() {
@@ -109,5 +116,12 @@ void InitEffect() {
 			bossRightArmEffect.particles[i].isActive = false;
 			bossLeftArmEffect.particles[i].isActive = false;
 			bossLegEffect.particles[i].isActive = false;
+			white0.particles[i].isActive = false;
+			white1.particles[i].isActive = false;
+			white2.particles[i].isActive = false;
+			white3.particles[i].isActive = false;
+			white4.particles[i].isActive = false;
+			white5.particles[i].isActive = false;
+			white6.particles[i].isActive = false;
 		}
 	}
