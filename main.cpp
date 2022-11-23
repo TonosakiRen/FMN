@@ -121,14 +121,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (isTitleStart == false) {
 				isFeedin = true;
-				if (feedinT >= 1) {
+				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isTitleStart = true;
 					stopper.canselect = true;
 				}
 			}
 
-			if (feedoutT >= 1) {
+			if (feedoutT >= 1.0f) {
 				playermain.Init();
 				InitFeedout();
 				isTitleStart = false;
@@ -234,7 +234,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
