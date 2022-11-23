@@ -218,6 +218,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//bossのエフェクト
 						boss.isWhiteFeedout = true;
 						boss.isEmitwhite = false;
+						for (int i = 0; i < 10; i++) {
+							white0.particles[i].isActive = false;
+							white1.particles[i].isActive = false;
+							white2.particles[i].isActive = false;
+							white3.particles[i].isActive = false;
+							white4.particles[i].isActive = false;
+							white5.particles[i].isActive = false;
+							white6.particles[i].isActive = false;
+						}
 					}
 					//bossのアップデート
 					if (boss.IsLife == true) {

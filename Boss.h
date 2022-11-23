@@ -144,15 +144,12 @@ class Boss {
 		bool Set = false;
 		bool Reserve = true;
 		float Reserve_t = 0;
-		
+		float Feedt = 0.0f;
 		void Init() {
-			circle = { {99999,9990},0 };
-			Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
 			Set = false;
 			Reserve = true;
 			Reserve_t = 0;
 			fRad = 0;
-
 		}
 
 	}Circleofdeath[kMAX_CIR];
@@ -161,6 +158,7 @@ class Boss {
 	int Circleofdeath_Expflame;
 	bool isEmitwhite = false;
 	bool isWhiteFeedout = false;
+	bool isFeedCircelOfDeath = false;
 
 	private:
 

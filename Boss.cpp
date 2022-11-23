@@ -4,6 +4,7 @@
 #include "Key.h"
 #include "Easing.h"
 #include "Randam.h"
+#include "Feed.h"
 
 
 Boss::Boss()
@@ -227,6 +228,13 @@ void Boss::Init()
 	Circleofdeath_Expflame = 0;
 	isEmitwhite = false;
 
+	isFeedCircelOfDeath = false;
+	for (int i = 0; i < kMAX_CIR; i++) {
+		Circleofdeath[i].Feedt = 0.0f;
+		Circleofdeath[i].circle = { {99999,9990},0 };
+		Circleofdeath[i].Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+	}
+
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
 		Rainofsword[i].Init();
 	}
@@ -391,8 +399,11 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 
 		//screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 256, 256, 0, 0x00FF0011);
 		//screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
-		screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
-		screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
+		
+			screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
+			screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
+		
+		
 		//screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
 		//screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, true);
 	}
@@ -418,10 +429,22 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	//screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
-		
-		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFF000066, kFillModeSolid);
-		screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
-		screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
+		if (isFeedCircelOfDeath == false) {
+			screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFFFFFF66, kFillModeSolid);
+			//screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
+			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
+		}
+		else {
+			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, Feed::Feedout(Circleofdeath[i].Feedt,0.1f,WHITE));
+			if (Circleofdeath[kMAX_CIR - 1].Feedt >= 1.0f) {
+				isFeedCircelOfDeath = false;
+				for (int i = 0; i < kMAX_CIR; i++) {
+					Circleofdeath[i].Feedt = 0.0f;
+					Circleofdeath[i].circle = { {99999,9990},0 };
+					Circleofdeath[i].Quad_Pos = { { 9999,9999 } , { 10000,9999 } , { 9999,10000 }, { 10000,10000 } };
+				}
+			}
+		}
 	}
 	
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
@@ -2544,6 +2567,7 @@ void Boss::CircleOfDeathAttack(PlayerMain& player)
 			for (int k = 0; k < kMAX_CIR_Par; k++) {
 
 				if (Circleofdeath[kMAX_CIR - 1].Reserve_t == 1) {
+					isFeedCircelOfDeath = true;
 					isEmitwhite = false;
 					Action = false;
 					Circleofdeath_flame = 0;
@@ -2597,7 +2621,7 @@ void Boss::RainOfSwordAttack() {
 			}
 		}
 		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true && RainofswordMotionT == 1) {
-			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, 0, 0.02f, Easing::easeInBack);
+			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, -Floor , 0.02f, Easing::easeInBack);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
 			Rainofsword[i].ColQuadPos = Quad::Quad(
 				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
