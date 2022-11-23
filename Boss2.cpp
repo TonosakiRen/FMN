@@ -933,27 +933,7 @@ int Boss2::ReloadMove(int Movearry)
 	}
 }
 
-void Boss2::Zanzou()
-{
-	Zanflame++;
-	if (Zanflame > 100) Zanflame = 1;
-	for (int i = 0; i < Max_Zan; i++) {
-		if (Zanflame % 2 == 0&&zanzou[i].bSet==false) {
 
-			zanzou[i].Pos = Quad_Pos;
-			zanzou[i].LifeTime = 3;
-			zanzou[i].bSet = true;
-			break;
-
-		}
-		if (zanzou[i].bSet == true) {
-			zanzou[i].LifeTime --;
-			if (zanzou[i].LifeTime == 0) {
-				zanzou[i].bSet = false;
-			}
-		}
-	}
-}
 
 void Boss2::LoadGra()
 {
@@ -1711,7 +1691,6 @@ void Boss2::UpDate()
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
 	Pos.x = Clamp::clamp(Pos.x, Size.x / 2+200, (1920 * 1.25) - Size.x / 2-200);
-	Zanzou();
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
 	//Novice::ScreenPrintf(500, 500, "HP:%d", HP);
 
@@ -1740,6 +1719,31 @@ void Boss2::Set()
 	ImageSize = { 120,196 };
 	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 	IsLife = true;
+}
+
+void Boss2::Zanzou()
+{
+	Zanflame++;
+	if (Zanflame > 100) Zanflame = 1;
+	for (int i = 0; i < Max_Zan; i++) {
+		if (Zanflame % 2 == 0 && zanzou[i].bSet == false) {
+
+			zanzou[i].Pos = ImageQuad;
+			zanzou[i].Gra = Boss_gra;
+			zanzou[i].Size = ImageSize;
+			zanzou[i].SrcX = SrcX;
+			zanzou[i].LifeTime = 3;
+			zanzou[i].bSet = true;
+			break;
+
+		}
+		if (zanzou[i].bSet == true) {
+			zanzou[i].LifeTime--;
+			if (zanzou[i].LifeTime == 0) {
+				zanzou[i].bSet = false;
+			}
+		}
+	}
 }
 
 void Boss2::Animation()
@@ -1784,6 +1788,7 @@ void Boss2::Animation()
 
 	Bosspregra = AnimeSelect;
 	
+	Zanzou();
 }
 
 void Boss2::Draw(Screen& screen)
@@ -1792,7 +1797,7 @@ void Boss2::Draw(Screen& screen)
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
 	for (int i = 0; i < Max_Zan; i++)
 	{
-		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FFFF66);
+		screen.DrawQuad2Renban(zanzou[i].Pos, zanzou[i].SrcX, 0, zanzou[i].Size.x, zanzou[i].Size.y, zanzou[i].sheets,99, zanzou[i].AnimeFlame, zanzou[i].Gra, 0x00FFFF66,false);
 
 	};
 	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);

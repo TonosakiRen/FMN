@@ -12,6 +12,7 @@ bool Stopper::Pause()
 			}
 			else {
 				isPause = true;
+				Selected = 0;
 			}
 		}
 

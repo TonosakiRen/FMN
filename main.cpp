@@ -254,7 +254,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -550,6 +550,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isGameclear = true;
 			}
 
+			GameOverType = boss.IsLife;
 			
 			break;
 		case stage2:
@@ -566,7 +567,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.GameOver(screen);
 			boss.Init();
 			boss2.Init();
-			gameoverclass.Update();
+			gameoverclass.Update(GameOverType);
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
@@ -916,7 +917,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.IsLife == true) {
 				/*Novice::StopAudio(sound.StageBgm.Handle);
 				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");*/
-				boss2.Animation();
+				if (isPause == false) {
+					boss2.Animation();
+				}
 				boss2.Draw(screen);
 			}
 
@@ -944,7 +947,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isStageStart = false;
 				if (isGameover == true) {
 					sound.BGM(sound.GameOver,0.3f, "./Resources/sounds/GameOverBgm.mp3");
-
+					gameoverclass.SelectReset();
 					scene = gameover;
 					isFeedin = true;
 				}
@@ -1000,7 +1003,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(sound.Title.Handle);*/
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
-			Novice::DrawSprite(-30, 0, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
+			Novice::DrawSprite(-30, -100, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
 			Novice::DrawSprite(0, -300, GAMEOVER_gra, 2, 2, 0, WHITE);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
@@ -1075,6 +1078,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (isFeedout) {
 			Feed::Feedout(feedoutT, 0.05f, SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
+
+
 		
 		
 		Novice::ScreenPrintf(0, 400, "FPS:%0.1f", 1.0f / ((double)(clock() - offset) / CLOCKS_PER_SEC));
