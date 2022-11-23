@@ -104,7 +104,12 @@ void Boss2::Init() {
 	keep.theta = 0;
 	keep.YMove = 0;
 	IsLife = false;
-	Zanflame = 0;
+	Zanflame = 2;
+	for (int i = 0; i < Max_Zan; i++) {
+		zanzou[i].Pos = { {9999,9999},{9999,9999},{9999,9999},{9999,9999} };
+		zanzou[i].LifeTime = 0;
+		zanzou[i].bSet = 0;
+	}
 
 	//ステート管理初期化
 	hppattarn = NORMAL;
@@ -133,7 +138,7 @@ void Boss2::Init() {
 	}
 
 	TelechaseEffect.particles[0].isActive = false;
-
+	isCenterOfDarkness = false;
 
 
 	Action = false;
@@ -177,6 +182,7 @@ void Boss2::Init() {
 	emitchaseEffect = true;
 	undertaleFrame = saveUndertaleFrame;
 	isUndertaleCollision = false;
+	undertaleMoveT = 0.0f;
 	for (int i = 0; i < chaseBulletNum; i++) {
 		chaseframe[i] = 0.0f;
 		isGet[i] = false;
@@ -262,8 +268,8 @@ void Boss2::Init() {
 	TeleportNum = 3;
 	
 
-	for (int i = 0; i < emitNum; i++) {
-		if (AsgoreBullet[i].t >= 1.0f) {
+	
+		
 			EmitPos = { 0.0f,SCREEN_HEIGHT - Floor };
 			coolTime = 0;
 			for (int i = 0; i < allBulletNum; i++) {
@@ -1119,6 +1125,9 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	Pos.y += keep.YMove;
 	isUndertaleAttack = true;
 	undertaleFrame--;
+
+	
+
 	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
 		chaseEffect.feedSpeed = 0.01;
 		isUndertaleCollision = true;
@@ -1127,6 +1136,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	}
 
 	if (rotatetheta[0] >= 0 && isRotateBullet[0] == false) {
+		saveUndertalePos = Pos;
 		initialRotateBullet = { {player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY},30,30,0 };
  		savePlayerPos = { player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY };
 	}
@@ -1143,6 +1153,19 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 		yMove = sinf(ytheta) * 30;
 		initialRotateBullet = { {savePlayerPos.x + xMove, savePlayerPos.y + yMove},30,30,0 };
 	}
+	
+	if (undertaleMoveT < 1.0f) {
+		if (savePlayerPos.x <= 1200) {
+			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x + 700.0f, 0.1, Easing::easeInOutQuart);
+		}
+		else {
+			Pos.x = Easing::easing(undertaleMoveT, saveUndertalePos.x, initialRotateBullet.GetCenter().x - 700.0f, 0.1, Easing::easeInOutQuart);
+
+		}
+	}
+		
+	
+
 	for (int i = 0; i < rotateBulletNum; i++) {
 		rotatetheta[i] += rotatethetaSpeed;
 		if (rotatetheta[i] >= 0 && isRotateBullet[i] == false) {
@@ -1213,6 +1236,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			yMove = 0;
 			ytheta = 0.0f;
 			rotateT = 0.0f;
+			undertaleMoveT = 0.0f;
 			isFeedrotateBullet = false;
 			emitchaseEffect = true;
 			undertaleFrame = saveUndertaleFrame;
@@ -1229,6 +1253,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				rotateBulletT[i] = 0.0f;
 			}
 			isUndertaleAttack =false;
+			
 			Action = false;
 			CoolTime = 120;
 		}
