@@ -1098,7 +1098,6 @@ void Boss2::BulletAttack(PlayerMain& player) {
 				}
 				//•úo‚µ‚ÄÅ‰‚ÌƒtƒŒ[ƒ€‚¾‚¯
 				if (getFrag[i] == false) {
-					sound.SoundEffect(sound.EmitBullet, 0.3f, "./Resources/sounds/Emitbullet.wav");
 					swordT[i] = 0.0f;
 					effectSword[i] = sword[i];
 					effectSword[i].LeftBottom = sword[i].Rotate(sword[i], mostRadius, theta[i]).LeftBottom;
@@ -1416,7 +1415,6 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					AsgoreBullet[emitNum].distance = distance[i];
 					emitNum++;
 				}
-				sound.SoundEffect(sound.EmitBullet, 0.3f, "./Resources/sounds/Emitbullet.wav");
 				coolTime = EmitCoolTime;
 				emitActionNum--;
 			}
