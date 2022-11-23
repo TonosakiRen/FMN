@@ -42,6 +42,7 @@ class Boss2 {
 	int HoldBlade_gra = 0;
 	int Boss_gra = 0;
 	int UseBladeGra = Blade_gra;
+	int Boss2HpBar_gra = 0;
 
 	static struct Matrix2x2
 	{
@@ -423,6 +424,7 @@ public:
 	void RandMoveSet();
 	int ReloadMove(int Movearry);
 	void Zanzou();
+	void LoadGra();
 	//スキル
 	void CenterOfDarknessAttack(PlayerMain& player);
 	void BulletAttack(PlayerMain& player);//自分の周りに出して放つ

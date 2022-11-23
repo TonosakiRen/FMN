@@ -937,6 +937,15 @@ void Boss2::Zanzou()
 	}
 }
 
+void Boss2::LoadGra()
+{
+	if (load == 0) {
+		load = 1;
+		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
+	}
+}
+
 void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
@@ -1679,10 +1688,7 @@ void Boss2::Animation()
 
 void Boss2::Draw(Screen& screen)
 {
-	if (load == 0) {
-		load = 1;
-		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
-	}
+	
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
 	for (int i = 0; i < Max_Zan; i++)
 	{
@@ -1692,8 +1698,9 @@ void Boss2::Draw(Screen& screen)
 	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
 	screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
-	Novice::DrawBox(456, 20, 1100*HP/MAXHP, 50, 0, HpColor, kFillModeSolid);
-	
+	Novice::DrawBox(456, 20, 1600*HP/MAXHP, 54, 0, HpColor, kFillModeSolid);
+	Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
+
 }
 
 

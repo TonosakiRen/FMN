@@ -482,6 +482,7 @@ public:
 	void RandamMoveSelect(int rand,PlayerMain& player, Screen& screen);
 	void RandMoveSet();
 	int ReloadMove(int Movearry);
+	void LoadGra();
 	//ÉXÉLÉã
 	void AttackFunction01(Screen& screen);
 	void NomalSwordAttack(PlayerMain& player);
