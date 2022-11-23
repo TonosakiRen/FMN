@@ -43,3 +43,10 @@ unsigned int Feed::Feedout(float& t, float feedspeed, unsigned int color) {
 	unsigned int tmp = color | static_cast<int>((1.0f - t) * 0xFF + t * 0x00);
 	return{ tmp };
 }
+
+unsigned int Feed::Feedout2(float t, float feedspeed, unsigned int color) {
+	color = color & 0xFFFFFF00;
+	t = Clamp::clamp(t, 0.0f, 1.0f);
+	unsigned int tmp = color | static_cast<int>((1.0f - t) * 0xFF + t * 0x00);
+	return{ tmp };
+}

@@ -270,17 +270,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
-						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
-						boss2.CenterOfDarknessAttack(playermain);
+						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
 						for (int i = 0; i < 30; i++) {
 							if (boss2.centerOfDarknessUnder.particles[i].isActive == true) {
 								playermain.PlayerHit({ boss2.centerOfDarknessUnder.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnder.particles[i].quad.GetWidth() / 2.0f });
+							}
+							if (boss2.centerOfDarknessUnderLeft.particles[i].isActive == true) {
+								playermain.PlayerHit({ boss2.centerOfDarknessUnderLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnderLeft.particles[i].quad.GetWidth() / 2.0f });
+							}
+							if (boss2.centerOfDarknessUnderRight.particles[i].isActive == true) {
+								playermain.PlayerHit({ boss2.centerOfDarknessUnderRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessUnderRight.particles[i].quad.GetWidth() / 2.0f });
+							}
+							if (boss2.centerOfDarknessLeft.particles[i].isActive == true) {
 								playermain.PlayerHit({ boss2.centerOfDarknessLeft.particles[i].quad.GetCenter(),boss2.centerOfDarknessLeft.particles[i].quad.GetWidth() / 2.0f });
+							}
+							if (boss2.centerOfDarknessRight.particles[i].isActive == true) {
 								playermain.PlayerHit({ boss2.centerOfDarknessRight.particles[i].quad.GetCenter(),boss2.centerOfDarknessRight.particles[i].quad.GetWidth() / 2.0f });
 							}
+							
 						}
 						if (boss2.iscenterNyokkiCollision == true) {
 							for (int i = 0; i < 3; i++) {
@@ -373,18 +383,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					//bossのエフェクト
 					if (boss.IsLife) {
-						enemySwordEffect.Update(boss.GetSwordAttack(), boss.GetBossBladeQuad());
+						enemySwordEffect.Update(boss.GetSwordAttack() && boss.EmitEffect, boss.GetBossBladeQuad());
 					}
 					else {
 						enemySwordEffect.Update(false, boss.GetBossBladeQuad());
 					}
 
 					if (boss.RedBlackEffectFlag()) {
-						bossBodyEffect.Update(boss.IsLife, boss.GetBossQuad(boss.body));
-						bossHeadEffect.Update(boss.IsLife, boss.GetBossQuad(boss.head));
-						bossRightArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.rightarm));
-						bossLeftArmEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leftarm));
-						bossLegEffect.Update(boss.IsLife, boss.GetBossQuad(boss.leg));
+						bossBodyEffect.Update(boss.IsLife&& boss.EmitEffect, boss.GetBossQuad(boss.body));
+						bossHeadEffect.Update(boss.IsLife&& boss.EmitEffect, boss.GetBossQuad(boss.head));
+						bossRightArmEffect.Update(boss.IsLife&& boss.EmitEffect, boss.GetBossQuad(boss.rightarm));
+						bossLeftArmEffect.Update(boss.IsLife&& boss.EmitEffect, boss.GetBossQuad(boss.leftarm));
+						bossLegEffect.Update(boss.IsLife && boss.EmitEffect, boss.GetBossQuad(boss.leg));
 					}
 
 					for (int i = 0; i < kMAX_CIR; i++) {
@@ -452,14 +462,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss2Effect.Update(boss2.IsLife, boss2.GetBossQuad());
 
 						boss2.centerOfDarknessUnder.target = boss2.GetBossQuad().GetCenter();
+						boss2.centerOfDarknessUnderLeft.target = boss2.GetBossQuad().GetCenter();
+						boss2.centerOfDarknessUnderRight.target = boss2.GetBossQuad().GetCenter();
 						boss2.centerOfDarknessLeft.target = boss2.GetBossQuad().GetCenter();
 						boss2.centerOfDarknessRight.target = boss2.GetBossQuad().GetCenter();
 
 						boss2.centerOfDarknessUnder.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
+						boss2.centerOfDarknessUnderLeft.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
+						boss2.centerOfDarknessUnderRight.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
 						boss2.centerOfDarknessLeft.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
 						boss2.centerOfDarknessRight.deleteQuad = Quad{ {boss2.GetBossQuad().GetCenter().x - 20,boss2.GetBossQuad().GetCenter().y + 20},40,40 };
 
-						boss2.centerOfDarknessUnder.Update(boss2.isCenterOfDarkness, { {0,-Floor},int(SCREEN_WIDTH * 1.25),30 });
+						boss2.centerOfDarknessUnder.Update(boss2.isCenterOfDarkness, { {0,-Floor},int(SCREEN_WIDTH * 1.25 / 3.0f),30 });
+						boss2.centerOfDarknessUnderLeft.Update(boss2.isCenterOfDarkness, { {SCREEN_WIDTH * 1.25 / 3.0f,-Floor},int(SCREEN_WIDTH * 1.25 / 3.0f),30 });
+						boss2.centerOfDarknessUnderRight.Update(boss2.isCenterOfDarkness, { {SCREEN_WIDTH * 1.25 / 3.0f * 2.0f,-Floor},int(SCREEN_WIDTH * 1.25 / 3.0f),30 });
 						boss2.centerOfDarknessLeft.Update(boss2.isCenterOfDarkness, { {-30,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
 						boss2.centerOfDarknessRight.Update(boss2.isCenterOfDarkness, { {SCREEN_WIDTH * 1.25,SCREEN_HEIGHT - Floor},30,SCREEN_HEIGHT + Floor });
 					}
@@ -656,6 +672,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
 				boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
 				boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
 				boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 				boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			}

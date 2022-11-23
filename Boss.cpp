@@ -169,7 +169,7 @@ void Boss::UpDate() {
 void Boss::Set()
 {
 	Size = { 150,300 };
-
+	EmitEffect = true;
 	Pos = { 1000,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
@@ -185,6 +185,9 @@ void Boss::Set()
 void Boss::Init()
 {
 	
+	EmitEffect = false;
+	endT = 0.0f;
+
 	Pos = { 1700,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
@@ -400,8 +403,8 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 		//screen.DrawQuad2(Wave[i].QuadPos, 0, 0, 256, 256, 0, 0x00FF0011);
 		//screen.DrawQuad2(Wave[i].Quad2Pos, 0, 0, 0, 0, 0, 0x00FF0011);
 		
-			screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, false);
-			screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, WHITE, true);
+			screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, Feed::Feedout2(endT, endTspeed, WHITE), false);
+			screen.DrawQuad2Renban(Wave[i].Quad2PosAnime, Wave[i].SrcX, 0, 256, 256, 5, 5, Wave[i].AnimeFlame, Tatsumaki_gra, Feed::Feedout2(endT, endTspeed, WHITE), true);
 		
 		
 		//screen.DrawQuad2Renban(Wave[i].QuadPosAnime, Wave[i].SrcX, 0, 150, 150, 3, 5, Wave[i].AnimeFlame, ShockWave_gra, WHITE, false);
@@ -409,11 +412,11 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	}
 
 	
-	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, BossSheets, 5, Leg.AnimeFlame, legtex, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, BossSheets, 5, Body.AnimeFlame, BodyGra, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(Head.ImageQuad, Head.SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, BossSheets, 5, Head.AnimeFlame, headtex, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, WHITE, BossisFlip);
-	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, WHITE, BossisFlip);
+	screen.DrawQuad2Renban(Leg.ImageQuad, Leg.SrcX, 0, Leg.ImageSize.x, Leg.ImageSize.y, BossSheets, 5, Leg.AnimeFlame, legtex, Feed::Feedout2(endT, endTspeed, WHITE), BossisFlip);
+	screen.DrawQuad2Renban(Body.ImageQuad, Body.SrcX, 0, Body.ImageSize.x, Body.ImageSize.y, BossSheets, 5, Body.AnimeFlame, BodyGra, Feed::Feedout2(endT, endTspeed, WHITE), BossisFlip);
+	screen.DrawQuad2Renban(Head.ImageQuad, Head.SrcX, 0, Head.ImageSize.x, Head.ImageSize.y, BossSheets, 5, Head.AnimeFlame, headtex, Feed::Feedout2(endT, endTspeed, WHITE), BossisFlip);
+	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, Feed::Feedout2(endT, endTspeed, WHITE), BossisFlip);
+	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, Feed::Feedout2(endT, endTspeed, WHITE), BossisFlip);
 	
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
@@ -421,7 +424,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	//screen.DrawQuad2(RightArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(LeftArm.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 
-	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
+	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, Feed::Feedout2(endT, endTspeed, WHITE));
 	//screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
 	//screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
@@ -432,10 +435,10 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 		if (isFeedCircelOfDeath == false) {
 			screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].circle.radius, Circleofdeath[i].circle.radius, 0, 0xFFFFFF66, kFillModeSolid);
 			//screen.DrawEllipse(Circleofdeath[i].circle.pos.x, Circleofdeath[i].circle.pos.y, Circleofdeath[i].fRad, Circleofdeath[i].fRad, 0, 0xFFFFFFFF, kFillModeWireFrame);
-			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, WHITE);
+			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, Feed::Feedout2(endT, endTspeed, WHITE));
 		}
 		else {
-			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, Feed::Feedout(Circleofdeath[i].Feedt,0.1f,WHITE));
+			screen.DrawQuad2(Circleofdeath[i].Quad_Pos, 0, 0, 600, 600, Mahoujin_gra, Feed::Feedout(Circleofdeath[i].Feedt,0.1f, Feed::Feedout2(endT, endTspeed, WHITE)));
 			if (Circleofdeath[kMAX_CIR - 1].Feedt >= 1.0f) {
 				isFeedCircelOfDeath = false;
 				for (int i = 0; i < kMAX_CIR; i++) {
@@ -448,7 +451,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	}
 	
 	for (int i = 0; i < kMAX_RAINSWORD; i++) {
-		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, RED);
+		screen.DrawQuad2(Rainofsword[i].QuadPos, 0, 0, 100, 200, Rainsword_gra, Feed::Feedout2(endT, endTspeed, RED));
 		//screen.DrawQuad2(Rainofsword[i].ColQuadPos, 0, 0, 0, 0, 0, 0x00FF0022);
 	}
 	//Novice::ScreenPrintf(0, 70, "Boss HitCount %d", HP);
@@ -465,6 +468,9 @@ void Boss::StyleChangeUpdate() {
 		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) };
 
 	if (StyleChange.Flag == true) {
+		EmitEffect = false;
+		endT += endTspeed;
+		endT = Clamp::clamp(endT, 0.0f, 1.0f);
 		if (StyleChange.Alpha < 255) {
 			StyleChange.Alpha += 0.8;
 		}

@@ -11,7 +11,9 @@
 Boss2::Boss2() :
 	centerOfDarknessLeft(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 3),
+	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnderLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessUnderRight(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
 	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
 	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
@@ -130,6 +132,8 @@ void Boss2::Init() {
 		centerOfDarknessLeft.particles[i].isActive = false;
 		centerOfDarknessRight.particles[i].isActive = false;
 		centerOfDarknessUnder.particles[i].isActive = false;
+		centerOfDarknessUnderLeft.particles[i].isActive = false;
+		centerOfDarknessUnderRight.particles[i].isActive = false;
 	}
 	for (int i = 0; i < 500; i++) {
 		swordEffect.particles[i].isActive = false;
@@ -1129,7 +1133,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
+	if (undertaleFrame <= 120 && undertaleFrame > 0) {
 		chaseEffect.feedSpeed = 0.01;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
@@ -1182,7 +1186,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			AnimeSelect = Normal;
 		}
 	}
-	if (undertaleFrame <= 940) {
+	if (undertaleFrame <= 870) {
 		chaseEffect.Update(emitchaseEffect, { Pos,30,30 });
 		for (int i = 0; i < chaseBulletNum; i++) {
 			chaseframe[i]--;
@@ -1282,13 +1286,15 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 	if (isdrop == true) {
 		AnimeSelect = Nyokki2;
 		Pos.y  = Easing::easing(dropT, saveBossY2, underPos, dropSpeed, Easing::easeInOutQuint);
+		if (dropT >= 0.4f) {
+			isNyokki = true;
+		}
 		if (dropT >= 1.0f) {
 			isdrop = false;
-			isNyokki = true;
 			
 		}
 
-		if (dropT > 0.8) {
+		if (dropT > 0.8f) {
 			AnimeSelect = Nyokki3;
 		}
 	}
