@@ -62,7 +62,16 @@ void Boss::UpDate() {
 		
 		
 	}
+	if (HP < ThreeQuarterHP) {
+		
+		HpColor = 0xFFFF00FF;
+		if (HP < HalfHP) {
+			
+			HpColor = 0xFF4400FF;
 
+		}
+	}
+	
 #pragma region Parts
 
 
@@ -172,7 +181,7 @@ void Boss::Set()
 {
 	Size = { 150,300 };
 	EmitEffect = true;
-	Pos = { 1000,Size.y / 2 };
+	Pos = { 1600,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
 	RightTop = Vec2(Pos + (Size / 2));
@@ -471,12 +480,14 @@ void Boss::StyleChangeUpdate(Screen& screen) {
 		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) };
 
 	if (StyleChange.Flag == true) {
-		EmitEffect = false;
-		endT += 0.01f;
-		bossendT += 0.005f;
-		endT = Clamp::clamp(endT, 0.0f, 1.0f);
-		bossendT = Clamp::clamp(bossendT, 0.0f, 1.0f);
-		screen.Shake(-2, 2, -2, 2, true);
+		if (HP <= 0) {
+			EmitEffect = false;
+			endT += 0.01f;
+			bossendT += 0.005f;
+			endT = Clamp::clamp(endT, 0.0f, 1.0f);
+			bossendT = Clamp::clamp(bossendT, 0.0f, 1.0f);
+			screen.Shake(-2, 2, -2, 2, true);
+		}
 		if (StyleChange.Alpha < 255) {
 			StyleChange.Alpha += 0.8;
 		}
@@ -515,10 +526,10 @@ void Boss::State(PlayerMain& player)
 			}
 		if (HP < ThreeQuarterHP) {
 			hppattarn = THREEQUARTERS;
-			HpColor =0xFFFF00FF;
+			
 			if (HP < HalfHP) {
 				hppattarn = HALF;
-				HpColor = 0xFF4400FF;
+				
 
 			}
 		}else {
@@ -980,7 +991,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 						/*NomalSwordAttack(player);
 						array.bAttackFunction01 = true;
 						array.InitNotThis(array.bAttackFunction01);*/
@@ -1066,7 +1077,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 						/*Action = false;
 						CoolTime = 0;*/
-						//FMoveArray = array.AttackFunction01;
+						FMoveArray = array.AttackFunction01;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {

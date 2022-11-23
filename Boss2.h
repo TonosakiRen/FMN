@@ -37,7 +37,7 @@ class Boss2 {
 
 	bool isCollisionWall = false;
 
-	int bossAttackHP = 27;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP = 33;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
@@ -253,6 +253,7 @@ class Boss2 {
 	float rotatetheta[rotateBulletNum];
 	float rotatethetaSpeed = M_PI / 35.0f;
 	bool isRotateBullet[rotateBulletNum];
+	bool isRotateBullet2[rotateBulletNum];
 	float rotateT;
 	float upCircleY = 0;
 	float wideMostMove = 100;
@@ -374,6 +375,7 @@ class Boss2 {
 	Quad moveBullet[4];
 	Quad movemoveBullet[16];
 	bool ismoveBullet[4];
+	bool ismoveBullet2[4];
 	bool ismovemoveBullet[16];
 	float movetheta[4];
 	float movemovetheta[16];

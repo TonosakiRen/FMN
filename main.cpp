@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int tex = Novice::LoadTexture("white1x1.png");
 	int quadRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect01n.png");
 	int circleRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect02n.png");
+	int WindAttackImg = Novice::LoadTexture("./Resources/Images/WindAttackI.png");
 	int circleEffectImg = Novice::LoadTexture("./Resources/Images/Effect03.png");
 	int quadBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect04n.png");
 	int CircleBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect05n.png");
@@ -82,6 +83,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
 	int ClearGra = Novice::LoadTexture("./Resources/Images/UI/GameClear.png");
+	int numgra = Novice::LoadTexture("./Resources/Images/UI/num.png");
+	int e = Novice::LoadTexture("./Resources/Images/UI/e.png");
 
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
@@ -147,12 +150,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
-				//isMovie = true;
+				isMovie = true;
 				playermain.MovieInit();
 				boss.Init();
 				boss2.Init();
 				boss.Set();
-				//boss.MovieInit();
+				RestartCount = 0;
+				GameClearClass.Init();
+				boss.MovieInit();
 			}
 
 			playermain.Move();
@@ -288,8 +293,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
-						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
-						boss2.CenterOfDarknessAttack(playermain);
+						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
@@ -551,6 +556,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss2.BossDeathFlag = false;
 				isFeedout = true;
 				isGameclear = true;
+
 			}
 
 			GameOverType = boss.IsLife;
@@ -575,6 +581,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
 				Restart2 = false;
+				RestartCount = 0;
 				gameoverclass.RestartFlag = false;
 			}
 
@@ -582,6 +589,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedout = true;
 				Restart2 = true;
 				gameoverclass.Restart2Flag = false;
+				RestartCount++;
 			}
 			if (feedoutT >= 1.0f) {
 				
@@ -597,11 +605,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameclear:
 			//ゲームクリア処理
 			isGameclear = false;
+			GameClearClass.Update(RestartCount);
 			if (GameClearClass.TitleFlag == true && isFeedout == false && isFeedin == false) {
 				GameClearClass.TitleFlag = false;
 				isFeedout = true;
 			}
-			GameClearClass.Update();
+			
 			boss.Init();
 			boss2.Init();
 			InitEffect();
@@ -971,13 +980,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					BGMstop();
 					isRestart = false;
 					isFeedin = true;
-					if (boss.IsLife == true) {
-						InitbossEffect();
-						boss.Init();
-					}
-					else {
-						boss2.Set();
-					}
+				
+					boss.Init();
+					boss2.Init();
+					InitbossEffect();
+					RestartCount = 0;
+					
 
 					
 					playermain.Init();
@@ -1057,6 +1065,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isGameclearStart = true;
+					playermain.Init();
+					boss2.isGameClear = false;
+					isFeedin = false;
 				}
 			}
 			//ゲームクリア描画
@@ -1065,7 +1076,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			
 			tutorial.PlayDrawEx(TutorialEx, 2);
 
-			GameClearClass.Draw(screen,PauseSelectGra, ClearGra);
+			GameClearClass.Draw(screen, numgra,PauseSelectGra, ClearGra,e);
 
 			//サウンド
 			/*Novice::StopAudio(sound.StageBgm.Handle);
@@ -1078,9 +1089,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitEffect();
 				scene = title;
 				isFeedin = true;
-				playermain.Init();
 				isTitleStart = false;
-				boss2.isGameClear = false;
+				isGameclearStart = false;
 			}
 			else {
 				break;
@@ -1096,12 +1106,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Feed::Feedout(feedoutT, 0.05f, SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 
-		if (Restart2 == true) {
-			Novice::DrawEllipse(200, 200, 30, 30, 0, BLUE, kFillModeSolid);
+		if (GameClearClass.TitleFlag == true) {
+			//Novice::DrawEllipse(200, 200, 30, 30, 0, BLUE, kFillModeSolid);
+		}
+		if (isFeedout == false) {
+			//Novice::DrawEllipse(300, 200, 30, 30, 0, BLUE, kFillModeSolid);
+
+		}
+		if (isFeedin == false) {
+			//Novice::DrawEllipse(400, 200, 30, 30, 0, BLUE, kFillModeSolid);
+
 		}
 		
 		
-		Novice::ScreenPrintf(0, 400, "FPS:%0.1f", 1.0f / ((double)(clock() - offset) / CLOCKS_PER_SEC));
+		//Novice::ScreenPrintf(0, 400, "FPS:%0.1f", 1.0f / ((double)(clock() - offset) / CLOCKS_PER_SEC));
 		offset = clock();
 
 		///

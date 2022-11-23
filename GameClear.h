@@ -8,9 +8,16 @@ class GameClear
 {
 private:
 
-	int Time;
+	int Time = 0;
 
 	bool TitleDrawFlag = false;
+	bool RestartTimeFlag = false;
+	bool pargectflag = false;
+
+	int RestartCountNum = 0;
+	int DrawNum = 0;
+
+	int Ealpha = 0;
 
 	struct GameClearStruct {
 		const int IMAGELINE;
@@ -21,10 +28,46 @@ private:
 
 	GameClearStruct GameClearText = {
 		-1,
-		{1920 / 2,200},
+		{1920 / 2,400},
 		{1208,224},
 		WHITE,
 	};
+
+	GameClearStruct RestartCount = {
+	    7,
+	{1920 / 2 - 100,840},
+	{580,80},
+	WHITE,
+	};
+
+	GameClearStruct Num = {
+	99,
+	{1920 / 2 + 300,840},
+	{68,64},
+	WHITE,
+	};
+
+	GameClearStruct Num10 = {
+	99,
+	{1920 / 2 + 300 - 40,840},
+	{68,64},
+	WHITE,
+	};
+
+	GameClearStruct E = {
+	999,
+	{1920 / 2,540},
+	{640,480},
+	WHITE,
+	};
+
+	GameClearStruct Parfect = {
+	8,
+	{1920 / 2,300},
+	{284,80},
+	WHITE,
+	};
+	
 
 	GameClearStruct TitleBack = {
 		5,
@@ -37,11 +80,13 @@ private:
 	void GameClearQuadDraw(GameClearStruct select, int tex);
 
 public:
+	void Init();
 
 	bool TitleFlag = false;
 
-	void Update();
+	void Update(int restartcount);
 
-	void Draw(Screen& screen, int Ending_Gra, int gamecleargra);
+	void Draw(Screen& screen, int numgra,int Ending_Gra, int gamecleargra, int e);
 
+	
 };

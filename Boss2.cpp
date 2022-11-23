@@ -424,10 +424,9 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					/*Teleportation(player);
-					FMoveArray = array.AttackFunction05;*/
-					Action = false;
-					CoolTime = 0;
+					//Teleportation(player);
+					BulletAttack(player);
+					FMoveArray = array.AttackFunction05;
 					
 					
 
@@ -479,11 +478,11 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					/*AsgoreAttack(player);
-					
-					FMoveArray = array.AttackFunction05;*/
-					Action = false;
-					CoolTime = 0;
+					//AsgoreAttack(player);
+					BulletAttack(player);
+					FMoveArray = array.AttackFunction05;
+					/*Action = false;
+					CoolTime = 0;*/
 				}
 				if (MovePattern[MoveArray] == 0) {
 					Action = false;
@@ -994,6 +993,8 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 
 			}
 			if (centerNyokkistats == Keep) {
+				sound.SoundEffect(sound.jisin, 1.0f, "./Resources/sounds/jisin.mp3", true);
+
 				centerNyokkiKeepAnimationFrame++;
 			}
 			
@@ -1007,12 +1008,14 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			isCenterOfDarkness = false;
 			if (centerNyokkiT[0] >= 1.0f) {
 				iscenterNyokki = false;
+				Novice::StopAudio(sound.jisin.Handle);
+
 			}
 		}
 		else {
 			gravityT = 0.0f;
 			Action = false;
-			CoolTime = 180;
+			CoolTime = 220;
 			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
 			centerOfDarknessMoveT = 0.0f;
 			isCenteroOfDarknessMove = true;
@@ -1041,8 +1044,11 @@ void Boss2::BulletAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
+	if (bulletAttackCoolTime == 2000) {
+	}
 	bulletAttackCoolTime--;
 	isBulletAttack = true;
+	
 	for (int i = 0; i < swordNum; i++) {
 		//theta‚ð‰ÁŽZ
 		if (theta[swordNum - 1] <= 0) {
@@ -1052,16 +1058,24 @@ void Boss2::BulletAttack(PlayerMain& player) {
 		//theta‚ª0ˆÈã‚É‚È‚Á‚½‚çoŒ»‚³‚¹‚é
 		if (theta[i] >= 0 && isSword[i] == false) {
 			isSword[i] = true;
+			
 		}
+		
+	
 		if (theta[swordNum - 1] <= 0) {
 			if (isSword[i] == true) {
 				//‰ñ“]
 				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
 			}
+				sound.SoundEffect(sound.Bulletattack, 0.03f, "./Resources/sounds/bulletattackgo.wav", true);
 
 		}
 		else {
+			if (isRelease == false) {
+				sound.SoundEffect(sound.Bulletattackgo, 0.4f, "./Resources/sounds/bulletattack.wav", false);
+			}
 			isRelease = true;
+
 		}
 	}
 	for (int i = 0; i < swordNum; i++) {
@@ -1164,6 +1178,10 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 		}
 
 		if (isRotateBullet[i] == true) {
+			if (isRotateBullet2[i] == false) {
+				sound.SoundEffect(sound.under, 0.1f, "./Resources/sounds/under.wav", false);
+				isRotateBullet2[i] = true;
+			}
 			//‰ñ“]
 			rotateBullet[i] = initialRotateBullet.Rotate(initialRotateBullet, bulletRadius, rotatetheta[i]);
 		}
@@ -1180,6 +1198,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				chaseframe[i]--;
 				if (isGet[i] == false && chaseEffect.particles[i].isActive == true) {
 					chaseVec[i] = player.GetPlayerPos() - chaseEffect.particles[i].quad.GetCenter();
+					sound.SoundEffect(sound.underdan, 0.5f, "./Resources/sounds/underdan.wav", false);
 					isGet[i] = true;
 				}
 			}
@@ -1243,12 +1262,13 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 				rotatetheta[i] = -(M_PI * 2.0f / rotateBulletNum) * i;
 				isSword[i] = false;
 				isRotateBullet[i] = false;
+				isRotateBullet2[i] = false;
 				rotateBulletT[i] = 0.0f;
 			}
 			isUndertaleAttack =false;
 			
 			Action = false;
-			CoolTime = 120;
+			CoolTime = 150;
 		}
 	
 }
@@ -1276,12 +1296,21 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		if (dropT >= 0.4f) {
 			isNyokki = true;
 		}
+		
 		if (dropT >= 1.0f) {
+			
 			isdrop = false;
+			
+		}
+		if (dropT > 0.6f) {
+			if (isdrop == true) {
+				sound.SoundEffect(sound.tatsumaki, 1.0f, "./Resources/sounds/JumpAttack.mp3", true);
+			}
 			
 		}
 
 		if (dropT > 0.8f) {
+			
 			AnimeSelect = Nyokki3;
 		}
 	}
@@ -1390,6 +1419,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 		isAsgoreAttack = true;
 	}
 	if (isAsgoreAttack == true) {
+		sound.SoundEffect(sound.asgore, 0.6f, "./Resources/sounds/asgore.wav", true);
 		AnimeSelect = Charge;
 		coolTime--;
 		EmitPos.x += distanceSpeed;
@@ -1454,7 +1484,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					AsgoreReturnTy = 0.0f;
 					setWhich = false;
 					Action = false;
-					CoolTime = 120;
+					CoolTime = 150;
 					AnimeSelect = Normal;
 					break;
 				}
@@ -1495,6 +1525,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 	}
 	if (ismoveMoveAttack == true) {
 		AnimeSelect = Charge;
+
 		if (ismovexMoveAttack == false) {
 			Pos.x += moveAttackSpeed;
 		}
@@ -1505,29 +1536,46 @@ void Boss2::MoveAttack(PlayerMain& player) {
 			if (movetheta[i] >= 0.0f) {
 				ismoveBullet[i] = true;
 			}
+			
 		}
 		for (int i = 0; i < 16; i++) {
-
+			
 			if (i < 4) {
 				if (ismoveBullet[0] == true) {
+					if (ismoveBullet2[0] == false) {
+						sound.SoundEffect(sound.moveattack, 0.5f, "./Resources/sounds/moveattack.wav",false);
+						ismoveBullet2[0] = true;
+					}
 					movemovetheta[i] += movemovethetaSpeed;
 					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[0].GetCenter();
 				}
 			}
 			else if (i < 8) {
 				if (ismoveBullet[1] == true) {
+					if (ismoveBullet2[1] == false) {
+						sound.SoundEffect(sound.moveattack, 0.5f, "./Resources/sounds/moveattack.wav", false);
+						ismoveBullet2[1] = true;
+					}
 					movemovetheta[i] += movemovethetaSpeed;
 					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[1].GetCenter();
 				}
 			}
 			else if (i < 12) {
 				if (ismoveBullet[2] == true) {
+					if (ismoveBullet2[2] == false) {
+						sound.SoundEffect(sound.moveattack, 0.5f, "./Resources/sounds/moveattack.wav", false);
+						ismoveBullet2[2] = true;
+					}
 					movemovetheta[i] += movemovethetaSpeed;
 					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[2].GetCenter();
 				}
 			}
 			else if (i < 16) {
 				if (ismoveBullet[3] == true) {
+					if (ismoveBullet2[3] == false) {
+						sound.SoundEffect(sound.moveattack, 0.5f, "./Resources/sounds/moveattack.wav", false);
+						ismoveBullet2[3] = true;
+					}
 					movemovetheta[i] += movemovethetaSpeed;
 					movemoveBullet[i] = initialmovemoveBullet.Rotate(initialmovemoveBullet, movemovetheta[i]) + moveBullet[3].GetCenter();
 				}
@@ -1549,6 +1597,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 	if (moveAttackBulletFeedoutT[0] >= 1.0f) {
 		for (int i = 0; i < 4; i++) {
 			ismoveBullet[i] = false;
+			ismoveBullet2[i] = false;
 			movetheta[i] = -(2 * M_PI / 4.0f) * i;
 			moveBullet[i] = initialmoveBullet;
 			moveAttackBulletFeedinT[i] = 0.0f;
@@ -1612,28 +1661,31 @@ void Boss2::Teleportation(PlayerMain& player) {
 		Pos.x = Easing::easing(TeleportTx, TeleSavePos.x, TeleportPos.x, 0.1f, Easing::easeInOutQuint);
 		
 		if (TeleportTx >= 1.0f) {
+			sound.SoundEffect(sound.telepo, 0.6f, "./Resources/sounds/telepo.wav",false);
 			isTeleport = true;
 		}
 	}
 	if (isTeleport == true) {
 		if (delayframe <= 0) {
-			TelechaseEffect.Update(isTeleport, { Pos,30,30 });
-			for (int i = 0; i < 1; i++) {
+		TelechaseEffect.Update(isTeleport, { Pos,30,30 });
+		for (int i = 0; i < 1; i++) {
+			Telechaseframe[0]--;
+			
+			if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
 				Telechaseframe[0]--;
-
 				if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
-					Telechaseframe[0]--;
-					if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
-						TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
-						TeleisGet[0] = true;
-					}
+					TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
+					sound.SoundEffect(sound.telepodan, 0.6f, "./Resources/sounds/telopodan.wav", false);
+
+					TeleisGet[0] = true;
 				}
-				if (TelechaseEffect.particles[0].isActive == true) {
-					TeleChaceFrame--;
-					if (chaseframe[0] <= 0) {
-						TeleplayerToEffect[0] = player.GetPlayerPos() - TelechaseEffect.particles[i].quad.GetCenter();
-						TeleleftVec[0] = TelechaseVec[0].Rotation(TelechaseTheta);
-						TelerightVec[0] = TelechaseVec[0].Rotation(-TelechaseTheta);
+			}
+			if (TelechaseEffect.particles[0].isActive == true) {
+				TeleChaceFrame--;
+				if (chaseframe[0] <= 0) {
+					TeleplayerToEffect[0] = player.GetPlayerPos() - TelechaseEffect.particles[i].quad.GetCenter();
+					TeleleftVec[0] = TelechaseVec[0].Rotation(TelechaseTheta);
+					TelerightVec[0] = TelechaseVec[0].Rotation(-TelechaseTheta);
 
 						float rightCross = TelerightVec[0].Cross(TeleplayerToEffect[0]);
 						float leftCross = TeleleftVec[0].Cross(TeleplayerToEffect[0]);
@@ -1691,6 +1743,7 @@ void Boss2::Teleportation(PlayerMain& player) {
 	if (TeleportNum <= 0) {
 		delayframe = savedelayframe;
 		TeleportNum = 3;
+		CoolTime = 120;
 		Action = false;
 	}
 	
@@ -1719,7 +1772,16 @@ void Boss2::UpDate()
 			isGameClear = true;
 		}
 	};
+	if (HP < ThreeQuarterHP) {
+		
+		HpColor = 0xFFFF00FF;
+		if (HP < HalfHP) {
+			
+			HpColor = 0xFF4400FF;
 
+		}
+	}
+	
 }
 
 
@@ -1814,11 +1876,11 @@ void Boss2::Draw(Screen& screen)
 
 	};
 	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
-	screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
+	//screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
 	Novice::DrawBox(456, 20, 1020*tmp, 54, 0, HpColor, kFillModeSolid);
 	Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
-	Novice::ScreenPrintf(500, 500, "HP::%d", HP);
+	//Novice::ScreenPrintf(500, 500, "HP::%d", HP);
 }
 
 
@@ -1839,10 +1901,10 @@ void Boss2::State(PlayerMain& player)
 			}
 		if (HP < ThreeQuarterHP) {
 			hppattarn = THREEQUARTERS;
-			HpColor = 0xFFFF00FF;
+			
 			if (HP < HalfHP) {
 				hppattarn = HALF;
-				HpColor = 0xFF4400FF;
+				
 
 			}
 		}
