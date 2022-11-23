@@ -89,7 +89,8 @@ void Tutorial::HitLetAttack(Quad Target)
 {
 	for (int i = 0; i < 2; i++){
 		if (Collision::QuadToQuad(Target, LetAttack[i].ColQuad)) {
-			LetAttack[i].Pos.x += 30;
+			/*LetAttack[i].Pos.x += 30;*/
+			sound.SoundEffect(sound.playerattackhit, 0.4f, "./Resources/sounds/PlayerAttackHit.wav", false);
 		}
 	}
 }

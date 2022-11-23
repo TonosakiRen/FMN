@@ -82,7 +82,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
 
-	int GAMEOVER_gra= Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
+	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
+	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
 
 	//BGM
 	int TitleBGM = Novice::LoadAudio("./Resources/sounds/TitleBgm.mp3");
@@ -995,7 +996,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(sound.Title.Handle);*/
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
-			Novice::DrawSprite(0, 0, GAMEOVER_gra, 2, 2, 0, WHITE);
+			Novice::DrawSprite(-30, 0, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
+			Novice::DrawSprite(0, -300, GAMEOVER_gra, 2, 2, 0, WHITE);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
 

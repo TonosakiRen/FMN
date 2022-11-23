@@ -37,7 +37,7 @@ void Boss::UpDate() {
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
 		HP -= bossAttackHP;
-		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav",true);
+		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav",false);
 		if (HP <= 0) {
 			HP = 0;
 			isBossHit = false;

@@ -4,12 +4,12 @@
 #include"Quad.h"
 #include "Collision.h"
 #include <Novice.h>
-
+#include "Sound.h"
 
 class Tutorial
 {
 private:
-
+	Sound sound;
 	struct LetJumpStruct {
 		Vec2 Pos;
 		Vec2 ColSize;
