@@ -626,12 +626,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (white0.particles[0].t >= 1.0f) {
 				boss.isWhiteFeedout = false;
 			}
-			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			boss2.centerOfDarknessRight.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
-			boss2.centerOfDarknessLeft.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
-			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, RED, kBlendModeNormal);
-			boss2.centerOfDarknessUnder.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
+			boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, RED, kBlendModeNormal);
+			boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, RED, kBlendModeNormal);
+			boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, BLACK, kBlendModeNormal);
 			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
