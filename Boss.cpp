@@ -1066,7 +1066,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 
 						/*Action = false;
 						CoolTime = 0;*/
-						//FMoveArray = array.AttackFunction01;
+						FMoveArray = array.AttackFunction01;
 
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction02) {
