@@ -19,6 +19,7 @@
 #include "GameOver.h"
 #include <time.h>
 #include "Sound.h"
+#include "GameClear.h"
 
 Sound sound;
 Screen screen;
@@ -29,6 +30,7 @@ Background background;
 Tutorial tutorial;
 Stopper stopper;
 GameOver gameoverclass;
+GameClear GameClearClass;
 Effect playerEffect(30, 2, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f, 1);
 Effect boss2Effect(30, 2, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 30.0f, -1.0f, 1);
 Effect enemySwordEffect(30, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 50, 0, 0, M_PI / 60.0f, -1.0f , 1);
@@ -75,6 +77,7 @@ bool isMovie = false;
 bool isRestart = false;
 bool isTitle = false;
 bool isPause = false;
+bool ClearFlag = false;
 
 void InitFeedin() {
 	feedinT = 0;

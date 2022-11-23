@@ -1,6 +1,6 @@
 #include "GameOver.h"
 #include "Key.h"
-
+#include "ControllerInput.h"
 void GameOver::Update()
 {
 	if (canselect == true) {
