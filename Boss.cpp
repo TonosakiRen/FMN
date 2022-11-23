@@ -35,7 +35,7 @@ void Boss::UpDate() {
 
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
-		HP -= 300;
+		HP -= 25;
 
 		if (HP <= 0) {
 			HP = 0;
@@ -364,17 +364,7 @@ void Boss::Init()
 
 void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legtex, int rightarm, int leftarm, int deadbody, int deadrightarm, int deadleftarm)
 {
-	if (load == 0) {
-		load = 1;
-		Rainsword_gra = Novice::LoadTexture("./Resources/images/RainSword.png");
-		Mahoujin_gra = Novice::LoadTexture("./Resources/images/mahoujin.png");
-		Blade_gra = Novice::LoadTexture("./Resources/images/Boss/Blade.png");
-		HoldBlade_gra = Novice::LoadTexture("./Resources/images/Boss/HoldBlade.png");
-		Tatsumaki_gra = Novice::LoadTexture("./Resources/images/Tatsumaki.png");
-		ShockWave_gra = Novice::LoadTexture("./Resources/images/ShockWave.png");
-		HpBar_gra=Novice::LoadTexture("./Resources/images/BossHpBar.png");
-		CirPar_gra= Novice::LoadTexture("./Resources/images/CirPar.png");
-	}
+	
 	bool BossisFlip = false;
 
 	if (Direction == 1) {
@@ -648,6 +638,21 @@ int Boss::ReloadMove(int Movearray)
 		else { return array.AttackFunction05; }
 	}
 	
+}
+
+void Boss::LoadGra()
+{
+	if (load == 0) {
+		load = 1;
+		Rainsword_gra = Novice::LoadTexture("./Resources/images/RainSword.png");
+		Mahoujin_gra = Novice::LoadTexture("./Resources/images/mahoujin.png");
+		Blade_gra = Novice::LoadTexture("./Resources/images/Boss/Blade.png");
+		HoldBlade_gra = Novice::LoadTexture("./Resources/images/Boss/HoldBlade.png");
+		Tatsumaki_gra = Novice::LoadTexture("./Resources/images/Tatsumaki.png");
+		ShockWave_gra = Novice::LoadTexture("./Resources/images/ShockWave.png");
+		HpBar_gra = Novice::LoadTexture("./Resources/images/BossHpBar.png");
+		CirPar_gra = Novice::LoadTexture("./Resources/images/CirPar.png");
+	}
 }
 
 void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)

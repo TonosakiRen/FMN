@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include<Novice.h>
 #include "Vec2.h"
 #include "Quad.h"
@@ -35,12 +35,13 @@ const int saveEmitActionNum = 16;
 
 class Boss2 {
 
-	//‰æ‘œ‚ÌéŒ¾
+	//ç”»åƒã®å®£è¨€
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
 	int Blade_gra = 0;
 	int HoldBlade_gra = 0;
 	int UseBladeGra = Blade_gra;
+	int Boss2HpBar_gra = 0;
 
 	static struct Matrix2x2
 	{
@@ -72,7 +73,8 @@ class Boss2 {
 	Vec2 ImageSize;
 	Quad ImageQuad;
 	
-	int HP = 1200;
+	int HP = 1800;
+	const int MAXHP = HP;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 	unsigned int HpColor = 0x00FF44FF;
@@ -97,10 +99,10 @@ class Boss2 {
 		bool bSet = 0;
 	}zanzou[Max_Zan];
 	int Zanflame = 0;
-	int load = 0;//‰æ‘œ“Ç‚İ—ˆ‚İ
+	int load = 0;//ç”»åƒèª­ã¿æ¥ã¿
 	
 	
-	//ƒXƒEƒBƒbƒ`
+	//ã‚¹ã‚¦ã‚£ãƒƒãƒ
 	enum Pattarn
 	{
 		NEAR_1,
@@ -113,7 +115,7 @@ class Boss2 {
 		HALF,
 	} hppattarn = NORMAL;
 	Pattarn pattarn = MIDDLE;
-	//”z—ñ‚Ì•Ï”
+	//é…åˆ—ã®å¤‰æ•°
 	struct  Array {
 		int Min;
 		int Max;
@@ -158,7 +160,7 @@ class Boss2 {
 	
 	
 
-	bool isBossHit = false; //UŒ‚‚ğ“–‚Ä‚ç‚ê‚½
+	bool isBossHit = false; //æ”»æ’ƒã‚’å½“ã¦ã‚‰ã‚ŒãŸ
 
 	Vec2 BladeCenterPos;
 
@@ -441,19 +443,20 @@ public:
 	void RandMoveSet();
 	int ReloadMove(int Movearry);
 	void Zanzou();
-	//ƒXƒLƒ‹
+	void LoadGra();
+	//ã‚¹ã‚­ãƒ«
 	void CenterOfDarknessAttack(PlayerMain& player);
-	void BulletAttack(PlayerMain& player);
-	void UndertaleAttack(PlayerMain& player);
-	void nyokkiAttack(PlayerMain& player);
-	void AsgoreAttack(PlayerMain& player);
-	void MoveAttack(PlayerMain& player);
+	void BulletAttack(PlayerMain& player);//è‡ªåˆ†ã®å‘¨ã‚Šã«å‡ºã—ã¦æ”¾ã¤
+	void UndertaleAttack(PlayerMain& player);//ãƒãƒ ã‚¹ã‚¿ãƒ¼ã®ã‚„ã¤
+	void nyokkiAttack(PlayerMain& player);//å°é¢¨ãŒä¸‹ã‹ã‚‰å‡ºã¦ãã‚‹ã‚„ã¤
+	void AsgoreAttack(PlayerMain& player);//ä¸Šã‹ã‚‰å††çŠ¶ã«ã„ã£ã±ã„ã‹æ”¾ã¤
+	void MoveAttack(PlayerMain& player);//å››ã¤ã®å¼¾ãŒå›ã‚ŠãªãŒã‚‰æ¨ªç§»å‹•ï¼ˆã‚½ã‚¦ãƒ«ã®ã‚„ã¤ï¼‰
 	void Teleportation(PlayerMain& player);
 
-	//ƒXƒLƒ‹o‚µ‚½‚©‚Ç‚¤‚©FFŸ‚Éo‚·‚â‚Â‚ğ•Ï‚¦‚ê‚é
+	//ã‚¹ã‚­ãƒ«å‡ºã—ãŸã‹ã©ã†ã‹ï¼šï¼šæ¬¡ã«å‡ºã™ã‚„ã¤ã‚’å¤‰ãˆã‚Œã‚‹
 	
 
-	//”h¶ƒXƒLƒ‹::s“®‚ªI‚í‚Á‚Ä‚ào‘±‚¯‚é“I‚È‚à‚Ì
+	//æ´¾ç”Ÿã‚¹ã‚­ãƒ«::è¡Œå‹•ãŒçµ‚ã‚ã£ã¦ã‚‚å‡ºç¶šã‘ã‚‹çš„ãªã‚‚ã®
 	
 
 	Quad GetBossQuad(){ return Quad_Pos; }

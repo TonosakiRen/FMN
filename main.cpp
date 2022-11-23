@@ -81,7 +81,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
-	
+	boss.LoadGra();
+	boss2.LoadGra();
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
 	Randam::SRAND();
 
@@ -321,9 +322,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						}
 
 						//boss自体の当たり判定
-						boss2.BossHit(playermain.GetHitSword());
 						playermain.PlayerHit(boss2.GetBossQuad());
 						playermain.SwordHit(boss2.GetBossQuad());
+						boss2.BossHit(playermain.GetHitSword());
 
 					}
 

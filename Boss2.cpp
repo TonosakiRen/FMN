@@ -301,7 +301,7 @@ void Boss2::BossHit(bool Hit)
 
 void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 {
-	Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
+	/*Novice::ScreenPrintf(1000, 0, "Cooltime::%d", CoolTime);
 	Novice::ScreenPrintf(1000, 20, "Action_Boss::%d", Action);
 	Novice::ScreenPrintf(1000, 40, "Movearray::%d", MoveArray);
 	Novice::ScreenPrintf(1000, 60, "MovePattarn::%d", MovePattern[MoveArray]);
@@ -309,14 +309,14 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 	Novice::ScreenPrintf(1000, 200, "boss:hpstate:%d", hppattarn);
 	Novice::ScreenPrintf(1000, 220, "boss:keep_bmove:%d", keep.bMove);
 
-	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);
+	Novice::ScreenPrintf(Pos.x, Pos.y - 200 + SCREEN_HEIGHT, "HP:%d", HP);*/
 
 	if (CoolTime <= 0 && Action == false) {
 		if (keep.bMove == false) {
 			MoveArray = rand;
 
 			if (MovePattern[MoveArray] == FMoveArray) {
-				Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
+				//Novice::ScreenPrintf(1000, 100, "Reload:%d", reload);
 
 				if (reload == 0) {
 
@@ -365,8 +365,9 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
+					//UndertaleAttack(player);
 					//Teleportation(player);
-					nyokkiAttack(player);
+					MoveAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
@@ -379,31 +380,35 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					UndertaleAttack(player);
+					//UndertaleAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction02;
 					
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					Teleportation(player);
-					FMoveArray = array.AttackFunction03;
-
+					/*Teleportation(player);
+					FMoveArray = array.AttackFunction03;*/
+					Action = false;
+					CoolTime = 0;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					Teleportation(player);
-					FMoveArray = array.AttackFunction04;
+					/*Teleportation(player);
+					FMoveArray = array.AttackFunction04;*/
 				
-					
+					Action = false;
+					CoolTime = 0;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					Teleportation(player);
-					FMoveArray = array.AttackFunction05;
-
+					/*Teleportation(player);
+					FMoveArray = array.AttackFunction05;*/
+					Action = false;
+					CoolTime = 0;
 					
 					
 
@@ -420,8 +425,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
+					MoveAttack(player);
 					//Teleportation(player);
-					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -433,28 +438,33 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					UndertaleAttack(player);
-					FMoveArray = array.AttackFunction02;
+					/*UndertaleAttack(player);
+					FMoveArray = array.AttackFunction02;*/
 					//Action = false;
 					
-
+					Action = false;
+					CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					UndertaleAttack(player);
-					
+					AsgoreAttack(player);					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
+					/*AsgoreAttack(player);
 					
-					FMoveArray = array.AttackFunction04;
+					FMoveArray = array.AttackFunction04;*/
+					Action = false;
+					CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					AsgoreAttack(player);
-					FMoveArray = array.AttackFunction05;
+					/*AsgoreAttack(player);
+					
+					FMoveArray = array.AttackFunction05;*/
+					Action = false;
+					CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == 0) {
 					Action = false;
@@ -468,41 +478,44 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
 					
-					//BulletAttack(player);
-					nyokkiAttack(player);
+					BulletAttack(player);
+					//nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
-					
+					//BulletAttack(player);
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
-					
+					//BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.AttackFunction02;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
-					FMoveArray = array.AttackFunction03;
-					
+					/*BulletAttack(player);
+					FMoveArray = array.AttackFunction03;*/
+					Action = false;
+					CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
-					FMoveArray = array.AttackFunction04;
-					
+					/*BulletAttack(player);
+					FMoveArray = array.AttackFunction04;*/
+					Action = false;
+					CoolTime = 0;
 					//CoolTime = 0;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					BulletAttack(player);
-					FMoveArray = array.AttackFunction05;
-					
+					/*BulletAttack(player);
+					FMoveArray = array.AttackFunction05;*/
+					Action = false;
+					CoolTime = 0;
 					
 				}
 				if (MovePattern[MoveArray] == 0) {
@@ -516,52 +529,52 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			break;
 
 		case THREEQUARTERS:
-			CoolTime = 50;
+			CoolTime = 40;
 
 			switch (pattarn) {
 			case NEAR_1:
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
-
+					//Teleportation(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					MoveAttack(player);
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
-					Action = false;
+					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
 					Action = false;
-					FMoveArray = array.AttackFunction03;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction03;
 
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
 					
+					Teleportation(player);
 					FMoveArray = array.AttackFunction04;
-
-					//CoolTime = 0;
-					Action = false;
+					/*CoolTime = 0;
+					Action = false;*/
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-				
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction05;
 
-					Action = false;
-					//CoolTime = 0;
+					
 
 				}
 				if (MovePattern[MoveArray] == 0) {
@@ -576,39 +589,43 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					MoveAttack(player);
+					/*Action = false;*/
 					FMoveArray = array.AttackFunction01;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					UndertaleAttack(player);
+					/*Action = false;*/
 					FMoveArray = array.AttackFunction02;
 					
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					Action = false;
-					
+					/*Action = false;*/
+					AsgoreAttack(player);
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
 					
 					Action = false;
-					FMoveArray = array.AttackFunction04;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
 					
 					Action = false;
-					FMoveArray = array.AttackFunction05;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction05;
 				}
 				if (MovePattern[MoveArray] == 0) {
 					Action = false;
@@ -621,35 +638,37 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					/*Action = false;*/
+					BulletAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
 					Action = false;
-					FMoveArray = array.AttackFunction01;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					Action = false;
-					/*Action = false;*/
+					UndertaleAttack(player);
 					FMoveArray = array.AttackFunction02;
 					//CoolTime = 20;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					AsgoreAttack(player);
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
 					Action = false;
-					FMoveArray = array.AttackFunction04;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					CenterOfDarknessAttack(player);
 					FMoveArray = array.AttackFunction05;
 				}
 				if (MovePattern[MoveArray] == 0) {
@@ -663,44 +682,51 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			break;
 
 		case HALF:
-			CoolTime = 5;
+			CoolTime = 20;
 			switch (pattarn) {
 			case NEAR_1:
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					Teleportation(player);
+					
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					nyokkiAttack(player);
+					
 					FMoveArray = array.AttackFunction01;
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					CenterOfDarknessAttack(player);
+					
 					FMoveArray = array.AttackFunction02;
 					/*Action = false;*/
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					BulletAttack(player);
+					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
 					
 					Action = false;
-					FMoveArray = array.AttackFunction04;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction04;
 					//CoolTime = 20;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
+					UndertaleAttack(player);
 					Action = false;
-					FMoveArray = array.AttackFunction05;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction05;
 				}
 				if (MovePattern[MoveArray] == 0) {
 					Action = false;
@@ -713,27 +739,31 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					Teleportation(player);
+					
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
 					Action = false;
-					FMoveArray = array.AttackFunction01;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction01;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					CenterOfDarknessAttack(player);
+					
 					FMoveArray = array.AttackFunction02;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					BulletAttack(player);
+					
 					FMoveArray = array.AttackFunction03;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					AsgoreAttack(player);
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
@@ -752,37 +782,43 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//’ÊíUŒ‚‚ÌƒR[ƒh‚Í‚±‚±
-					Action = false;
+					Teleportation(player);
+					
 					FMoveArray = array.NormalAttack;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
 					//5%‚ÌUŒ‚
 					Action = false;
-					FMoveArray = array.AttackFunction01;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction01;
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction02) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					CenterOfDarknessAttack(player);
+					
 					FMoveArray = array.AttackFunction02;
 					
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
-					
-					FMoveArray = array.AttackFunction03;
 					Action = false;
+					CoolTime = 0;
+					//FMoveArray = array.AttackFunction03;
+					//Action = false;
 
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction04) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					AsgoreAttack(player);
+					
 					FMoveArray = array.AttackFunction04;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%‚ÌUŒ‚
-					Action = false;
+					UndertaleAttack(player);
+					
 					FMoveArray = array.AttackFunction05;
 				}
 				if (MovePattern[MoveArray] == 0) {
@@ -902,6 +938,15 @@ void Boss2::Zanzou()
 	}
 }
 
+void Boss2::LoadGra()
+{
+	if (load == 0) {
+		load = 1;
+		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
+	}
+}
+
 void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
@@ -957,6 +1002,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		}
 		else {
 			Action = false;
+			CoolTime = 180;
 			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
 			centerOfDarknessMoveT = 0.0f;
 			isCenteroOfDarknessMove = true;
@@ -1069,7 +1115,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 
 	if (rotatetheta[0] >= 0 && isRotateBullet[0] == false) {
 		initialRotateBullet = { {player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY},30,30,0 };
-		savePlayerPos = { player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY };
+ 		savePlayerPos = { player.GetPlayerPos().x,player.GetPlayerPos().y + upCircleY };
 	}
 	else {
 		if (xMove >= wideMostMove && xSpeed) {
@@ -1171,6 +1217,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			}
 			isUndertaleAttack =false;
 			Action = false;
+			CoolTime = 120;
 		}
 	
 }
@@ -1373,6 +1420,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					AsgoreReturnTy = 0.0f;
 					setWhich = false;
 					Action = false;
+					CoolTime = 120;
 					break;
 				}
 			}
@@ -1389,7 +1437,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			LastPosx = 2100.0f;
 			startPosx = 300.0f;
-			moveAttackSpeed = 4.0f;
+ 			moveAttackSpeed = 4.0f;
 			iswhichlr = false;
 		}
 		else {
@@ -1615,12 +1663,15 @@ void Boss2::UpDate()
 	Pos.x = Clamp::clamp(Pos.x, Size.x / 2+200, (1920 * 1.25) - Size.x / 2-200);
 	Zanzou();
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
-
+	//Novice::ScreenPrintf(500, 500, "HP:%d", HP);
 
 
 	//UŒ‚‚ð“–‚Ä‚ç‚ê‚½Žž‚Ìˆ—
 	if (isBossHit == true) {
-		HP -= 25;
+		HP -= 27;
+		if (HP <= 0) {
+			HP = 0;
+		}
 	};
 
 }
@@ -1639,7 +1690,10 @@ void Boss2::Set()
 
 void Boss2::Animation()
 {
-	int PreSheets = SrcX / ImageSize.x;
+	int PreSheets = 0;
+	if (SrcX != 0) {
+		PreSheets = SrcX / ImageSize.x;
+	}
 
 	switch (AnimeSelect)
 	{
@@ -1675,15 +1729,7 @@ void Boss2::Animation()
 
 void Boss2::Draw(Screen& screen)
 {
-	if (load == 0) {
-		load = 1;
-		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
-		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
-		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
-		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
-
-		Boss_gra = BossNormal_gra;
-	}
+	
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
 	for (int i = 0; i < Max_Zan; i++)
 	{
@@ -1693,8 +1739,9 @@ void Boss2::Draw(Screen& screen)
 	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
 	screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
+	Novice::DrawBox(456, 20, 1600*HP/MAXHP, 54, 0, HpColor, kFillModeSolid);
+	Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
 
-	
 }
 
 
