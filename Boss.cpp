@@ -40,6 +40,7 @@ void Boss::UpDate() {
 		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav",true);
 		if (HP <= 0) {
 			HP = 0;
+			isBossHit = false;
 		}
 	};
 	if (HP <= 0) {

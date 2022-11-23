@@ -155,6 +155,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
 			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
 
+			for (int i = 0; i < 2; i++) {
+				tutorial.HitLetAttack(playermain.GetSwordQuad());
+			}
+
 			playerEffect.Update(true, playermain.GetPlayerQuad());
 			//swordのeffect
 			if (playermain.GetHitSword() == true) {
