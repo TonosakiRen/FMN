@@ -229,7 +229,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 						boss.UpDate();
-						//boss.ShockWaveAttack2(playermain, screen);
+						
 						//当たり判定とかいれて！！！
 						if (boss.isBossDead() == false) {
 							playermain.PlayerHit(boss.GetBossAttackQuad());
