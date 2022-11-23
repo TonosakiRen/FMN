@@ -1639,7 +1639,7 @@ void Boss2::Set()
 
 void Boss2::Animation()
 {
-	int PreSheets = SrcX / ImageSize.y;
+	int PreSheets = SrcX / ImageSize.x;
 
 	switch (AnimeSelect)
 	{
@@ -1666,7 +1666,7 @@ void Boss2::Animation()
 	}
 
 	if (Bosspregra != BossNormal_gra) {
-		SrcX = PreSheets * ImageSize.y;
+		SrcX = PreSheets * ImageSize.x;
 	}
 
 	Bosspregra = BossNormal_gra;
