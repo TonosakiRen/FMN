@@ -668,7 +668,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			if (boss2.IsLife == true) {
 				Novice::StopAudio(sound.StageBgm.Handle);
-				sound.BGM(sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");		
+				sound.BGM(sound.StageBgm2,0.3f, "./Resources/sounds/Boss2Bgm.mp3");		
 				boss2.Animation();
 				boss2.Draw(screen);
 			}
@@ -846,7 +846,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitFeedout();
 				isStageStart = false;
 				if (isGameover == true) {
-					sound.BGM(sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
+					sound.BGM(sound.GameOver,0.3f, "./Resources/sounds/GameOverBgm.mp3");
 
 					scene = gameover;
 					isFeedin = true;
@@ -951,7 +951,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(sound.StageBgm2.Handle);
 			Novice::StopAudio(sound.Title.Handle);
 			Novice::StopAudio(sound.GameOver.Handle);
-			sound.BGM(sound.GameClear, "./Resources/sounds/GameClear.mp3");
+			sound.BGM(sound.GameClear,0.3f, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();
