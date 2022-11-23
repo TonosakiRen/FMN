@@ -365,8 +365,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
-					//Teleportation(player);
-					nyokkiAttack(player);
+					Teleportation(player);
+					//nyokkiAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
@@ -420,8 +420,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
-					//Teleportation(player);
-					nyokkiAttack(player);
+					Teleportation(player);
+					//nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -468,8 +468,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
 					
-					//BulletAttack(player);
-					nyokkiAttack(player);
+					BulletAttack(player);
+					//nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
@@ -1639,7 +1639,10 @@ void Boss2::Set()
 
 void Boss2::Animation()
 {
-	int PreSheets = SrcX / ImageSize.x;
+	int PreSheets = 0;
+	if (SrcX != 0) {
+		PreSheets = SrcX / ImageSize.x;
+	}
 
 	switch (AnimeSelect)
 	{
