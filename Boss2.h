@@ -180,6 +180,9 @@ class Boss2 {
 	public:
 
 	//CenterofDarkness
+
+		float gravityT = 0.0f;
+
 	float centerOfDarknessMoveT = 0;
 	bool isCenteroOfDarknessMove = true;
 	bool isCenterOfDarkness = 0;
@@ -421,6 +424,8 @@ class Boss2 {
 	bool TeleisFeedrotateBullet = false;
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
+	int savedelayframe = 30;
+	int delayframe = savedelayframe;
 	
 
 	int sheets = 4;

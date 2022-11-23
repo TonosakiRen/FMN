@@ -14,7 +14,7 @@ Screen::Screen() {
 };
 
 void Screen::Scroll_update(float playerX, float playerY,float map_sheets_number) {
-	ScreenShake.setZero();
+	//ScreenShake.setZero();
 	if (playerX >= Scroll_Fixed_Value_X && playerX <= Width * map_sheets_number - (Width - Scroll_Fixed_Value_X)) {
 
 		Scroll.x = playerX - Scroll_Fixed_Value_X;
@@ -41,6 +41,10 @@ void Screen::Shake(int minX, int maxX, int minY, int maxY, bool is) {
 	else {
 		ScreenShake.setZero();
 	}
+}
+
+void Screen::ShakeSetZero() {
+	ScreenShake.setZero();
 }
 
 void Screen::Pause(bool pause)

@@ -30,7 +30,7 @@ public:
 	Vec2 Zoom;
 
 	void Scroll_update(float playerX, float playerY, float map_sheets_number);
-
+	void ShakeSetZero();
 
 	void Shake(int minX, int maxX, int minY, int maxY, bool is);
 

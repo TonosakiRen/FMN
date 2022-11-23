@@ -16,7 +16,7 @@ Boss2::Boss2() :
 	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
-	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
+	chaseEffect(chaseBulletNum, 40, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
 	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
 {
 
@@ -146,6 +146,7 @@ void Boss2::Init() {
 	TelechaseEffect.particles[0].isActive = false;
 	isCenterOfDarkness = false;
 
+	gravityT = 0.0f;
 
 	Action = false;
 	centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
@@ -178,7 +179,7 @@ void Boss2::Init() {
 		isOrbit[i] = false;
 		isBulletAttack = false;
 	}
-
+	chaseEffect.addEffectCooltime = 40;
 	chaseEffect.feedSpeed = 0.0f;
 	xMove = 0.0f;
 	yMove = 0;
@@ -272,7 +273,7 @@ void Boss2::Init() {
 	TeleisGet[0] = false;
 	TeleisFeedrotateBullet = false;
 	TeleportNum = 3;
-	
+	delayframe = savedelayframe;
 
 	
 		
@@ -969,10 +970,11 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	else {
 		AnimeSelect = Charge;
 		--centerOfDarknessCooltime;
-		
+		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower * (1.0 - gravityT);
+		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
 		if (centerOfDarknessCooltime >= 150) {
-			Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
-			player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
+			
+			
 			if (isGetNyokkiPos == false) {
 				for (int i = 0; i < 3; i++) {
 					
@@ -998,6 +1000,8 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			isCenterOfDarkness = true;
 		}
 		else if (centerOfDarknessCooltime >= 0) {
+			gravityT += 0.01;
+			gravityT = Clamp::clamp(gravityT, 0.0f, 1.0f);
 			isFeedCenterNyokki = true;
 			iscenterNyokkiCollision = false;
 			isCenterOfDarkness = false;
@@ -1006,6 +1010,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 			}
 		}
 		else {
+			gravityT = 0.0f;
 			Action = false;
 			CoolTime = 180;
 			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
@@ -1219,6 +1224,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 
 		if (undertaleFrame <= 0) {
 			chaseEffect.feedSpeed = 0.0f;
+			chaseEffect.addEffectCooltime = 40;
 			xMove = 0.0f;
 			yMove = 0;
 			ytheta = 0.0f;
@@ -1610,74 +1616,80 @@ void Boss2::Teleportation(PlayerMain& player) {
 		}
 	}
 	if (isTeleport == true) {
-		TelechaseEffect.Update(isTeleport, { Pos,30,30 });
-		for (int i = 0; i < 1; i++) {
-			Telechaseframe[0]--;
-			
-			if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
+		if (delayframe <= 0) {
+			TelechaseEffect.Update(isTeleport, { Pos,30,30 });
+			for (int i = 0; i < 1; i++) {
 				Telechaseframe[0]--;
+
 				if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
-					TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
-					TeleisGet[0] = true;
-				}
-			}
-			if (TelechaseEffect.particles[0].isActive == true) {
-				TeleChaceFrame--;
-				if (chaseframe[0] <= 0) {
-					TeleplayerToEffect[0] = player.GetPlayerPos() - TelechaseEffect.particles[i].quad.GetCenter();
-					TeleleftVec[0] = TelechaseVec[0].Rotation(TelechaseTheta);
-					TelerightVec[0] = TelechaseVec[0].Rotation(-TelechaseTheta);
-
-					float rightCross = TelerightVec[0].Cross(TeleplayerToEffect[0]);
-					float leftCross = TeleleftVec[0].Cross(TeleplayerToEffect[0]);
-
-					if (rightCross >= 0.0f && leftCross <= 0.0f) {
-						TelechaseVec[0] = TeleplayerToEffect[0];
+					Telechaseframe[0]--;
+					if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
+						TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
+						TeleisGet[0] = true;
 					}
+				}
+				if (TelechaseEffect.particles[0].isActive == true) {
+					TeleChaceFrame--;
+					if (chaseframe[0] <= 0) {
+						TeleplayerToEffect[0] = player.GetPlayerPos() - TelechaseEffect.particles[i].quad.GetCenter();
+						TeleleftVec[0] = TelechaseVec[0].Rotation(TelechaseTheta);
+						TelerightVec[0] = TelechaseVec[0].Rotation(-TelechaseTheta);
 
-					if (rightCross <= 0.0f && leftCross >= 0.0f) {
-						if (-rightCross > leftCross) {
-							TelechaseVec[0] = TelerightVec[0];
+						float rightCross = TelerightVec[0].Cross(TeleplayerToEffect[0]);
+						float leftCross = TeleleftVec[0].Cross(TeleplayerToEffect[0]);
+
+						if (rightCross >= 0.0f && leftCross <= 0.0f) {
+							TelechaseVec[0] = TeleplayerToEffect[0];
 						}
-						else {
+
+						if (rightCross <= 0.0f && leftCross >= 0.0f) {
+							if (-rightCross > leftCross) {
+								TelechaseVec[0] = TelerightVec[0];
+							}
+							else {
+								TelechaseVec[0] = TeleleftVec[0];
+							}
+						}
+
+						if (rightCross > 0.0f && leftCross > 0.0f) {
 							TelechaseVec[0] = TeleleftVec[0];
 						}
-					}
 
-					if (rightCross > 0.0f && leftCross > 0.0f) {
-						TelechaseVec[0] = TeleleftVec[0];
-					}
+						if (rightCross < 0.0f && leftCross < 0.0f) {
+							TelechaseVec[0] = TelerightVec[0];
+						}
 
-					if (rightCross < 0.0f && leftCross < 0.0f) {
-						TelechaseVec[0] = TelerightVec[0];
+						TelechaseEffect.particles[0].maxDirection = TelechaseVec[0];
+						TelechaseEffect.particles[0].minDirection = TelechaseVec[0];
+						Telechaseframe[0] = savechaseframe;
 					}
-
-					TelechaseEffect.particles[0].maxDirection = TelechaseVec[0];
-					TelechaseEffect.particles[0].minDirection = TelechaseVec[0];
-					Telechaseframe[0] = savechaseframe;
+				}
+				if (TeleChaceFrame <= 0) {
+					TelechaseEffect.feedSpeed = 0.1;
+					isTelechaseFeed = true;
+					TeleChaceFrame = 120;
+				}
+				if (TelechaseEffect.particles[0].t >= 1.0f) {
+					TelechaseEffect.feedSpeed = 0;
+					TelechaseEffect.particles[0].t = 0.0f;
+					TelechaseEffect.particles[0].isActive = false;
+					GetTeleportPos = false;
+					isTeleport = false;
+					TeleportTx = 0.0f;
+					isTelechaseFeed = false;
+					Telechaseframe[0] = 0;
+					TeleisGet[0] = false;
+					TeleisFeedrotateBullet = false;
+					TeleportNum--;
 				}
 			}
-			if (TeleChaceFrame <= 0) {
-				TelechaseEffect.feedSpeed = 0.1;
-				isTelechaseFeed = true;
-				TeleChaceFrame = 120;
-			}
-			if (TelechaseEffect.particles[0].t >= 1.0f) {
-				TelechaseEffect.feedSpeed = 0;
-				TelechaseEffect.particles[0].t = 0.0f;
-				TelechaseEffect.particles[0].isActive = false;
-				GetTeleportPos = false;
-				isTeleport = false;
-				TeleportTx = 0.0f;
-				isTelechaseFeed = false;
-				Telechaseframe[0] = 0;
-				TeleisGet[0] = false;
-				TeleisFeedrotateBullet = false;
-				TeleportNum--;
-			}
+		}
+		else {
+			delayframe--;
 		}
 	}
 	if (TeleportNum <= 0) {
+		delayframe = savedelayframe;
 		TeleportNum = 3;
 		Action = false;
 	}

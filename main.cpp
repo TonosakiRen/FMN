@@ -203,6 +203,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
+			
 			if (boss.GetstyleChange() == true) {
 				boss.isWhiteFeedout = true;
 				boss.isEmitwhite = false;
@@ -287,7 +288,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
-						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						boss2.CenterOfDarknessAttack(playermain);
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
@@ -718,7 +720,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//背景d
 
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra,bg5_gra,bg6_gra, bg7_gra);
-
+			screen.ShakeSetZero();
 			//Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 			//Novice::SetBlendMode(kBlendModeAdd);
 			//screen.DrawQuad2Normal(0 - screen.Scroll.x, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, background, WHITE);
@@ -938,7 +940,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//プレイヤー描画
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
-
+			//
+			// 
+			
 			//ポーズ描画
 
 			stopper.PauseDraw(inPauseGra, PauseSelectGra);
