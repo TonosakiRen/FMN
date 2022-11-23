@@ -3,6 +3,7 @@
 #include"Vec2.h"
 #include"Quad.h"
 #include "Collision.h"
+#include "ControllerInput.h"
 
 class GameOver
 {
@@ -34,6 +35,10 @@ private:
 		WHITE,
 	};
 
+	bool stickup = false;
+	bool prestickup = false;
+	bool stickdown = false;
+	bool prestickdown = false;
 
 	void GameOverQuadDraw(GameOverStruct select, int tex);
 

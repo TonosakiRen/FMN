@@ -1655,16 +1655,26 @@ void Boss2::UpDate()
 			HP = 0;
 		}
 	};
+
+	Animation();
 }
 
 
 
 void Boss2::Set()
 {
-	Size = { 120,192 };
+	Size = { 64,160 };
 	Pos = { 1000,500 };
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
+	ImageSize = { 120,192 };
+	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 	IsLife = true;
+}
+
+void Boss2::Animation()
+{
+	ImageSize = { 120,192 };
+	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 }
 
 void Boss2::Draw(Screen& screen)
@@ -1679,7 +1689,8 @@ void Boss2::Draw(Screen& screen)
 		screen.DrawQuad2(zanzou[i].Pos, 0, 0, 120, 192, Boss_gra, 0x00FFFF66);
 
 	};
-	screen.DrawQuad2(Quad_Pos, 0, 0, 120, 192, Boss_gra, WHITE);
+	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
+	screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
 	//screen.DrawQuad2Renban(Quad_Pos,)
 	Novice::DrawBox(456, 20, 1100*HP/MAXHP, 50, 0, HpColor, kFillModeSolid);
 	

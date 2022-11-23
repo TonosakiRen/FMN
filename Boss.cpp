@@ -423,9 +423,9 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawQuad2(BladeImageQuad, 0, 0, BladeImageSize.x, BladeImageSize.y + HoldPlusY, UseBladeGra, WHITE);
 	//screen.DrawQuad2(blade.Quad_Pos, 0, 0, 0, 0, 0, 0xFFFFFF11);
 
-	screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
-	screen.DrawEllipse(RightArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
-	screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(Body.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(RightArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
+	//screen.DrawEllipse(LeftArm.ColQuad.GetCenter(), 5, 5, 0, WHITE, kFillModeSolid);
 
 	for (int i = 0; i < kMAX_CIR; i++) {
 		
@@ -442,7 +442,7 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	//Novice::ScreenPrintf(960, 400, "O");
 
 	Clamp::clamp(HP, 0, 10000);
-	Novice::DrawBox(456, 20, HP * 0.51, 50, 0, HpColor, kFillModeSolid);
+	Novice::DrawBox(456, 20, HP * 0.51, 54, 0, HpColor, kFillModeSolid);
 	Novice::DrawSprite(350, 0, HpBar_gra, 1, 1, 0, WHITE);
 }
 
@@ -467,7 +467,7 @@ void Boss::StyleChangeUpdate() {
 
 void Boss::DrawStyleChange(Screen& screen, int StyleChangeGra)
 {
-	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 1, 10, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
+	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 3, 5, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
 	
 
 	Novice::ScreenPrintf(0, 380, "%f %f %d", Pos.x, Pos.y, StyleChange.Flag);
@@ -3276,5 +3276,13 @@ bool Boss::MovieEnded()
 
 bool Boss::RedBlackEffectFlag() {
 	return isRedBlackEffect;
+}
+
+bool Boss::isBossDead()
+{
+	if (HP <= 0) {
+		return true;
+	}
+	return false;
 }
 

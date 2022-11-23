@@ -2,7 +2,7 @@
 #include <Novice.h>
 #include "Key.h"
 #include "Vec2.h"
-
+#include "ControllerInput.h"
 class Stopper
 {
 private:
@@ -84,7 +84,10 @@ private:
 		WHITE,
 	};
 
-
+	bool stickup = false;
+	bool prestickup = false;
+	bool stickdown = false;
+	bool prestickdown = false;
 
 	void PauseQuadDraw(PauseStruct select, int tex);
 

@@ -69,6 +69,9 @@ class Boss2 {
 	Vec2 Pos;
 	Quad Quad_Pos;
 	Vec2 Size;
+
+	Vec2 ImageSize;
+	Quad ImageQuad;
 	
 	int HP = 1800;
 	const int MAXHP = HP;
@@ -141,8 +144,6 @@ class Boss2 {
 	
 
 	int Direction = -1;
-	int AnimeFlame = 9;
-	int SrcX;
 
 	int MovePattern[MAX2_PATTERN];
 	int MoveArray;
@@ -400,6 +401,13 @@ class Boss2 {
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
 	
+	int sheets = 4;
+	int SrcX = 0;
+	int AnimeFlame = 0;
+	int colanime = 0;
+	int colSrcX = 0;
+
+	void Animation();
 
 public:
 	Boss2();

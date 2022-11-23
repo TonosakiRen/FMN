@@ -4,7 +4,7 @@
 bool Stopper::Pause()
 {
 	if (canselect == true) {
-		if (Key::IsTrigger(DIK_P)) {
+		if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
 			if (isPause == true) {
 				isPause = false;
 			}
@@ -13,14 +13,17 @@ bool Stopper::Pause()
 			}
 		}
 
+		stickup = Controller::IsStickDirection(0, Controller::lsdUP);
+		stickdown = Controller::IsStickDirection(0, Controller::lsdDOWN);
+
 		if (isPause == true) {
-			if (Key::IsTrigger(DIK_S)) {
+			if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
 				Selected++;
 				if (Selected > 3) {
 					Selected = 0;
 				}
 			}
-			if (Key::IsTrigger(DIK_W)) {
+			if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 				Selected--;
 				if (Selected < 0) {
 					Selected = 3;
@@ -29,7 +32,7 @@ bool Stopper::Pause()
 
 			if (BackGame.LINE == Selected) {
 				BackGame.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K)) {
+				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 					isPause = false;
 				}
 			}
@@ -39,7 +42,7 @@ bool Stopper::Pause()
 
 			if (Restart.LINE == Selected) {
 				Restart.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K)) {
+				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 					RestartFlag = true;
 					canselect = false;
 					isPause = false;
@@ -65,7 +68,7 @@ bool Stopper::Pause()
 
 			if (Title.LINE == Selected) {
 				Title.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K)) {
+				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 					TitileBackFlag = true;
 					canselect = false;
 					isPause = false;
@@ -77,7 +80,7 @@ bool Stopper::Pause()
 
 			if (Quit.LINE == Selected) {
 				Quit.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K)) {
+				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 					QuitFlag = true;
 				}
 			}
@@ -85,6 +88,9 @@ bool Stopper::Pause()
 				Quit.Color = WHITE;
 			}
 		}
+
+		prestickup = stickup;
+		prestickdown = stickdown;
 	}
 
 	return isPause;

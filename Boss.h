@@ -445,7 +445,7 @@ class Boss {
 	StyleChangeStruct StyleChange = {
 		false,
 		0,0,
-		{256,1080},
+		{384,1080},
 		{ { Pos.x - StyleChange.ImageSize.x / 2, Pos.y - StyleChange.ImageSize.y + 190},
 		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) },
 		0
@@ -548,4 +548,6 @@ public:
 	bool MovieEnded();
 	bool RedBlackEffectFlag();
 	void StyleChangeFalse() { StyleChange.Flag = false; };
+
+	bool isBossDead();
 };
