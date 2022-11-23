@@ -3,10 +3,11 @@
 #include "Key.h"
 #include "Vec2.h"
 #include "ControllerInput.h"
+#include "Sound.h"
 class Stopper
 {
 private:
-
+	Sound sound;
 	bool isPause = false;
 
 	bool isHitStop = false;
