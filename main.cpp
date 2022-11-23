@@ -81,6 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
+	int ClearGra = Novice::LoadTexture("./Resources/Images/UI/GameClear.png");
 
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
@@ -202,6 +203,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
+			if (boss.GetstyleChange() == true) {
+				boss.isWhiteFeedout = true;
+				boss.isEmitwhite = false;
+			}
 			
 
 			if (boss.MovieEnded() == true) {
@@ -234,8 +239,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss.StyleChangeFalse();
 						InitbossEffect();
 						//bossのエフェクト
-						boss.isWhiteFeedout = true;
-						boss.isEmitwhite = false;
+						
 						for (int i = 0; i < 10; i++) {
 							white0.particles[i].isActive = false;
 							white1.particles[i].isActive = false;
@@ -508,7 +512,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 			}
 
-			boss.StyleChangeUpdate();
+			boss.StyleChangeUpdate(screen);
 
 			if (isStageStart == false) {
 				isFeedin = true;
@@ -548,6 +552,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isGameclear = true;
 			}
 
+			GameOverType = boss.IsLife;
 			
 			break;
 		case stage2:
@@ -564,12 +569,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.GameOver(screen);
 			boss.Init();
 			boss2.Init();
-			gameoverclass.Update();
+			gameoverclass.Update(GameOverType);
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
-
+				Restart2 = false;
 				gameoverclass.RestartFlag = false;
+			}
+
+			if (gameoverclass.Restart2Flag == true && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+				Restart2 = true;
+				gameoverclass.Restart2Flag = false;
 			}
 			if (feedoutT >= 1.0f) {
 				
@@ -640,7 +651,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			
 			if (Novice::IsPlayingAudio(BGMHandle) == 0 && boss.IsLife == true) {
-				BGMHandle = Novice::PlayAudio(BossBGM, 1, 0.1f);
+				BGMHandle = Novice::PlayAudio(BossBGM, 1, 0.3f);
 			}
 			if (switchBGM == true) {
 				BGMstop();
@@ -760,7 +771,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (boss2.iscenterNyokki == true) {
 
 					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav",true);
-
+					screen.Shake(-2, 2, -2, 2, true);
 					for (int i = 0; i < 3; i++) {
 						if (boss2.centerNyokkistats == boss2.Up) {
 							Quad tmp1({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
@@ -794,6 +805,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				//nyokkiAttack
 				if (boss2.isNyokki == true) {
 					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav", true);
+					screen.Shake(-2, 2, -2, 2, true);
 					for (int i = 0; i < nyokkiNum / 2; i++) {
 						if (boss2.nyokkistats == boss2.Up) {
 							Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
@@ -914,7 +926,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.IsLife == true) {
 				/*Novice::StopAudio(sound.StageBgm.Handle);
 				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");*/
-				boss2.Animation();
+				if (isPause == false) {
+					boss2.Animation();
+				}
 				boss2.Draw(screen);
 			}
 
@@ -942,7 +956,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isStageStart = false;
 				if (isGameover == true) {
 					sound.BGM(sound.GameOver,0.3f, "./Resources/sounds/GameOverBgm.mp3");
-
+					gameoverclass.SelectReset();
 					scene = gameover;
 					isFeedin = true;
 				}
@@ -951,16 +965,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					isFeedin = true;
 				}
 				if (isRestart == true) {
+					BGMstop();
 					isRestart = false;
 					isFeedin = true;
 					if (boss.IsLife == true) {
 						InitbossEffect();
 						boss.Init();
-						
 					}
 					else {
 						boss2.Set();
 					}
+
+					
 					playermain.Init();
 					stopper.isPauseFalse();
 				}
@@ -997,7 +1013,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(sound.Title.Handle);*/
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
-			Novice::DrawSprite(-30, 0, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
+			Novice::DrawSprite(-30, -100, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
 			Novice::DrawSprite(0, -300, GAMEOVER_gra, 2, 2, 0, WHITE);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
@@ -1013,6 +1029,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else {
 					boss2.Set();
+				}
+				if (Restart2 == true) {
+					boss.IsLife = false;
+					Restart2 = false;
 				}
 				InitEffect();
 				playermain.Init();
@@ -1040,9 +1060,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 			
-			tutorial.PlayDrawEx(TutorialEx, 1);
+			tutorial.PlayDrawEx(TutorialEx, 2);
 
-			GameClearClass.Draw(screen,PauseSelectGra);
+			GameClearClass.Draw(screen,PauseSelectGra, ClearGra);
 
 			//サウンド
 			/*Novice::StopAudio(sound.StageBgm.Handle);
@@ -1071,6 +1091,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		if (isFeedout) {
 			Feed::Feedout(feedoutT, 0.05f, SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		if (Restart2 == true) {
+			Novice::DrawEllipse(200, 200, 30, 30, 0, BLUE, kFillModeSolid);
 		}
 		
 		

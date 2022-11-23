@@ -19,7 +19,9 @@ class Boss {
 	int bossAttackHP = 25;//É{ÉXÇ…çUåÇìñÇƒÇΩéûÇÃÇ÷ÇÈHP 
 
 	float endT = 0.0f;
-	float endTspeed = 0.01f;
+	float bossendT = 0.0f;
+	float bossendTspeed ;
+	float endTspeed;
 public:
 	bool EmitEffect = false;;
 private:
@@ -547,13 +549,14 @@ public:
 
 	void BladeImageLink(Matrix2x2 mat);
 	
-	void StyleChangeUpdate();
+	void StyleChangeUpdate(Screen& screen);
 
 	void MovieInit() { MovieTime = 0; };
 	void Movie();
 	bool MovieEnded();
 	bool RedBlackEffectFlag();
 	void StyleChangeFalse() { StyleChange.Flag = false; };
+	bool GetstyleChange() { return StyleChange.Flag; }
 
 	bool isBossDead();
 };

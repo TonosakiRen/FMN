@@ -654,6 +654,6 @@ void PlayerMain::GameOver(Screen& screen)
 		HitCoolDown = 0;
 
 		Player.Pos.x = Easing::easing(GameOverTX, Player.Pos.x , 960 + screen.Scroll.x, 1.0f / 240, Easing::easeOutSine);
-		Player.Pos.y = Easing::easing(GameOverTY, Player.Pos.y, 200.0f, 1.0f / 240, Easing::easeOutSine);
+		Player.Pos.y = Easing::easing(GameOverTY, Player.Pos.y, 300.0f, 1.0f / 240, Easing::easeOutSine);
 	}
 }

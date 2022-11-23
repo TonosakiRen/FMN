@@ -78,6 +78,8 @@ bool isRestart = false;
 bool isTitle = false;
 bool isPause = false;
 bool ClearFlag = false;
+bool GameOverType = false;
+bool Restart2 = false;
 
 void InitFeedin() {
 	feedinT = 0;

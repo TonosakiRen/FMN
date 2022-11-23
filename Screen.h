@@ -92,6 +92,7 @@ public:
 	/// <param name="angle">描画するスプライトの回転角</param>
 	/// <param name="color">描画するスプライトの色</param>
 	void DrawSprite(int x, int y, int textureHandle, int scaleX, int scaleY, int angle, unsigned int color);
+	void DrawSpriteNormal(int x, int y, int textureHandle, int scaleX, int scaleY, int angle, unsigned int color);
 	/// <summary>
 	/// スプライトの指定矩形部分のみを描画を描画する
 	/// </summary>

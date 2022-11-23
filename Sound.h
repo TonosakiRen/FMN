@@ -50,6 +50,7 @@ public:
 	Effect playerjump;
 	Effect playerdame;
 	Effect tatumaki;
+	Effect EmitBullet;
 
 	Effect Pick;
 	Effect PickUp;
