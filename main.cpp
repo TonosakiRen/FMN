@@ -233,7 +233,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -476,7 +476,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (isStageStart == false) {
 				isFeedin = true;
-				if (feedinT >= 1) {
+				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isStageStart = true;
 					stopper.canselect = true;
@@ -533,7 +533,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				gameoverclass.RestartFlag = false;
 			}
-			if (feedoutT >= 1) {
+			if (feedoutT >= 1.0f) {
 				
 				sound.BGMStop(&sound.GameOver);
 
@@ -830,7 +830,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				tutorial.PlayDrawEx(TutorialEx, 0);
 			}
 
-			if (feedoutT >= 1 ) {
+			if (feedoutT >= 1.0f ) {
 				InitFeedout();
 				isStageStart = false;
 				if (isGameover == true) {
@@ -871,7 +871,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameover:
 			if (isGameoverStart == false) {
 				isFeedin = true;
-				if (feedinT >= 1) {
+				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isGameoverStart = true;
 					gameoverclass.canselect = true;
@@ -895,7 +895,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			tutorial.PlayDrawEx(TutorialEx, 1);
 
-			if (feedoutT >= 1) {
+			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();
 				if (boss.IsLife == true) {
@@ -920,7 +920,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case gameclear:
 			if (isGameclearStart == false) {
 				isFeedin = true;
-				if (feedinT >= 1) {
+				if (feedinT >= 1.0f) {
 					InitFeedin();
 					isGameclearStart = true;
 				}
@@ -936,7 +936,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			sound.BGMStop(&sound.Title);
 			sound.BGMStop(&sound.GameOver);
 			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
-			if (feedoutT >= 1) {
+			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();
 				isGameclearStart = false;

@@ -10,7 +10,7 @@
 Boss2::Boss2() :
 	centerOfDarknessLeft(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 3),
+	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 3),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
 	chaseEffect(chaseBulletNum, 100, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
 	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
@@ -983,10 +983,10 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	else {
 		AnimeSelect = Charge;
 		--centerOfDarknessCooltime;
-		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
-		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
-
-		if (centerOfDarknessCooltime >= 200) {
+		
+		if (centerOfDarknessCooltime >= 150) {
+			Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
+			player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
 			if (isGetNyokkiPos == false) {
 				for (int i = 0; i < 3; i++) {
 					
@@ -1478,13 +1478,13 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			LastPosx = 2100.0f;
 			startPosx = 300.0f;
- 			moveAttackSpeed = 4.0f;
+ 			moveAttackSpeed = 5.0f;
 			iswhichlr = false;
 		}
 		else {
 			LastPosx = 300.0f;
 			startPosx = 2100.0f;
-			moveAttackSpeed = -4.0f;
+			moveAttackSpeed = -5.0f;
 			iswhichlr = true;
 		}
 		setWhich = true;
