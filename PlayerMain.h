@@ -72,7 +72,7 @@ class PlayerMain
 	int JumpTime = 0;
 
 	//JUMPPOWER ジャンプ力ぅ...ですかねぇ...
-	float JUMPPOWER = 2.1;
+	float JUMPPOWER = 1.7;
 
 	//JumpFlag ジャンプさせるフラグ Trueの間はSpeedにジャンプ力が入る
 	bool JumpFlag = false;

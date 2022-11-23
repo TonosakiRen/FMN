@@ -85,10 +85,29 @@ void InitFeedout() {
 	isFeedout = false;
 }
 
-void Init() {
-
+void InitEffect() {
+	for (int i = 0; i < 30; i++) {
+		playerEffect.particles[i].isActive = false;
+		boss2Effect.particles[i].isActive = false;
+		enemySwordEffect.particles[i].isActive = false;
+	}
+	for (int i = 0; i < 160; i++) {
+		playerEffectSword.particles[i].isActive = false;
+	}
+	for (int i = 0; i < 10; i++) {
+		bossBodyEffect.particles[i].isActive = false;
+		bossHeadEffect.particles[i].isActive = false;
+		bossRightArmEffect.particles[i].isActive = false;
+		bossLeftArmEffect.particles[i].isActive = false;
+		bossLegEffect.particles[i].isActive = false;
+	}
 }
-
-
-
-
+	void InitbossEffect() {
+		for (int i = 0; i < 10; i++) {
+			bossBodyEffect.particles[i].isActive = false;
+			bossHeadEffect.particles[i].isActive = false;
+			bossRightArmEffect.particles[i].isActive = false;
+			bossLeftArmEffect.particles[i].isActive = false;
+			bossLegEffect.particles[i].isActive = false;
+		}
+	}
