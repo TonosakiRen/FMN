@@ -219,7 +219,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -248,6 +248,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss2.IsLife == true) {
 						//bossのエフェクト
 						boss.isWhiteFeedout = true;
+						boss.isEmitwhite = false;
 
 						//サウンド
 						sound.BGMStop(&sound.StageBgm);
