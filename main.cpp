@@ -224,7 +224,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
