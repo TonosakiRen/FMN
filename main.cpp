@@ -270,7 +270,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
-						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						boss2.CenterOfDarknessAttack(playermain);
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
@@ -658,28 +659,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 				boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			}
-			//プレイヤー描画
-			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra,playerattack_gra, playerdeath_gra);
 			
-			//ボス描画
-			if (boss.IsLife == true) {
-				//サウンド
-				Novice::StopAudio(sound.StageBgm2.Handle);
-				sound.BGM(sound.StageBgm,0.1f, "./Resources/sounds/BossBgm.mp3");
-				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
-			}
-			if (boss2.IsLife == true) {
-				Novice::StopAudio(sound.StageBgm.Handle);
-				sound.BGM(sound.StageBgm2,0.3f, "./Resources/sounds/Boss2Bgm.mp3");		
-				boss2.Animation();
-				boss2.Draw(screen);
-			}
+			
+			
 
 			//CenterofDarkness
 			if (boss2.IsLife == true) {
 				if (boss2.iscenterNyokki == true) {
 
-					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav");
+					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav",true);
 
 					for (int i = 0; i < 3; i++) {
 						if (boss2.centerNyokkistats == boss2.Up) {
@@ -713,6 +701,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				//nyokkiAttack
 				if (boss2.isNyokki == true) {
+					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav", true);
 					for (int i = 0; i < nyokkiNum / 2; i++) {
 						if (boss2.nyokkistats == boss2.Up) {
 							Quad tmp4({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
@@ -755,19 +744,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 
-
-				////ボス描画
-				//if (boss.IsLife == true) {
-
-				//	boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
-				//}
-				//if (boss2.IsLife == true) {
-				//	boss2.Animation();
-				//	boss2.Draw(screen);
-				//}
-
-				//CenterofDarkness
-
+				
+				
 
 				//BulletAttack
 				boss2.swordEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
@@ -830,11 +808,31 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
-			boss.DrawStyleChange(screen, StyleChangeTornadoImg);
+			
 
+			
+			
+			//ボス描画
+			if (boss.IsLife == true) {
+				//サウンド
+				Novice::StopAudio(sound.StageBgm2.Handle);
+				sound.BGM(sound.StageBgm, 0.1f, "./Resources/sounds/BossBgm.mp3");
+				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg, deadbossleftarmImg, deadbossrightarmImg);
+			}
+			if (boss2.IsLife == true) {
+				Novice::StopAudio(sound.StageBgm.Handle);
+				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");
+				boss2.Animation();
+				boss2.Draw(screen);
+			}
+
+			boss.DrawStyleChange(screen, StyleChangeTornadoImg);
 			//プレイヤーソード描画
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);
+
+			//プレイヤー描画
+			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 
 			//ポーズ描画
 
