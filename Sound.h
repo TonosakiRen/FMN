@@ -32,6 +32,7 @@ public:
 	Effect circledeath;
 
 	Effect playerattack;
+	Effect playerattackhit;
 	Effect playerjump;
 
 

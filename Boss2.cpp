@@ -291,7 +291,17 @@ void Boss2::Init() {
 			AsgoreReturnTy = 0.0f;
 			setWhich = false;
 			Action = false;
-	
+			break;
+		}
+	}
+
+	//anime
+
+	AnimeSelect = Normal;
+	sheets = 4;
+	SrcX = 0;
+	AnimeFlame = 0;
+
 }
 
 void Boss2::BossHit(bool Hit)

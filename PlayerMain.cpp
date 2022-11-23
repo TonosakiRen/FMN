@@ -156,12 +156,13 @@ void PlayerMain::Move()
 	if (JumpFlag == true) {
 		Speed.y = JUMPPOWER;
 		JumpTime++;
-		if (JumpTime >= 11) {
+		if (JumpTime >= 15) {
 			JumpFlag = false;
 			JumpTime = 0;
 		}
 	}
 	else {
+		
 		if (DashFlag == false) {
 			Gravity -= 0.14;
 		}
@@ -348,14 +349,15 @@ void PlayerMain::SwordHit(Quad Target)
 		isSwordHit = true;
 
 		 if(FaceDown == true){
-			 HitBack.y =3;
+			 HitBack.y = 4;
 			 Gravity = 0;
 			 Speed.y = JUMPPOWER;
 		 }
 		 else if (FaceUp == true) {
-			 HitBack.y = -3;
-			 //JumpFlag = false;
-			 //JumpTime = 0;
+			 //HitBack.y = -3;
+			 JumpFlag = false;
+			 JumpTime = 0;
+			 Speed.y = 0;
 		 }
 		 else {
 			 if (FaceRight == true) {

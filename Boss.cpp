@@ -36,7 +36,7 @@ void Boss::UpDate() {
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
 		HP -= 25;
-
+		sound.SoundEffect(&sound.playerattackhit, "./Resources/sounds/PlayerAttackHit.wav");
 		if (HP <= 0) {
 			HP = 0;
 		}
@@ -2319,7 +2319,7 @@ void Boss::ShockWaveAttack2(PlayerMain& player, Screen& screen)
 						if (jumpattack.EaseT2 == 1) {
 							Pos.y = Easing::easing(jumpattack.EaseDownT2, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
 							if (Pos.y == Size.y / 2 && jumpattack.EaseDownT2 == 1) {
-								if (Wave[0].WaveKeep == false) {
+								if (Wave[1].WaveKeep == false) {
 									sound.SoundEffect(&sound.jumpattack,0.6f, "./Resources/sounds/JumpAttack.mp3");
 
 								}
