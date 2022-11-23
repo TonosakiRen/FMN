@@ -32,15 +32,21 @@ void Sound::BGMStop(Bgm& bgm) {
 	Novice::StopAudio(bgm.Handle);
 }
 
-void Sound::SoundEffect(Effect& effect, const char* fileName) {
 
+
+void Sound::SoundEffect(Effect& effect, float volume, const char* filename, bool loop)
+{
 	if (effect.load == false) {
 		effect.load = true;
-		effect.Sound = Novice::LoadAudio(fileName);
+		effect.Sound = Novice::LoadAudio(filename);
 	}
-
-	if (Novice::IsPlayingAudio(effect.Handle) == 0 || effect.Handle == -1) {
-		effect.Handle = Novice::PlayAudio(effect.Sound, 0, 0.4f);
+	if (loop == true) {
+		if (Novice::IsPlayingAudio(effect.Handle) == 0 || effect.Handle == -1) {
+			effect.Handle = Novice::PlayAudio(effect.Sound, 0, volume);
+		}
+	}
+	if (loop == false) {
+		effect.Handle = Novice::PlayAudio(effect.Sound, 0, volume);
 	}
 }
 
