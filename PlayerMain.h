@@ -52,7 +52,7 @@ class PlayerMain
 		int(Player.HitBoxSize.y - Player.ImageSize.y) / 2,
 	};
 
-	int MaxHp = 10;
+	int MaxHp = 12;
 	int HP = MaxHp;
 	
 

@@ -370,7 +370,7 @@ void PlayerMain::SwordHit(Quad Target)
 
 		 hitAttackPos = Collision::GetCollisionQuad(Sword.Quad, Target);
 
-		 HitStop = 3;
+		 HitStop = 4;
 	}
 
 	

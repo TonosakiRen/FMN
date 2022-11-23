@@ -63,6 +63,8 @@ enum Scene {
 
 Scene scene = title;
 
+int RestartCount = 0;
+
 float feedoutT = 0;
 float feedinT = 0;
 bool isFeedout = false;

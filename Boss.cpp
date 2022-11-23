@@ -181,7 +181,7 @@ void Boss::Set()
 {
 	Size = { 150,300 };
 	EmitEffect = true;
-	Pos = { 1000,Size.y / 2 };
+	Pos = { 1600,Size.y / 2 };
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
 	RightTop = Vec2(Pos + (Size / 2));
@@ -480,12 +480,14 @@ void Boss::StyleChangeUpdate(Screen& screen) {
 		int(StyleChange.ImageSize.x),int(StyleChange.ImageSize.y) };
 
 	if (StyleChange.Flag == true) {
-		EmitEffect = false;
-		endT += 0.01f;
-		bossendT += 0.005f;
-		endT = Clamp::clamp(endT, 0.0f, 1.0f);
-		bossendT = Clamp::clamp(bossendT, 0.0f, 1.0f);
-		screen.Shake(-2, 2, -2, 2, true);
+		if (HP <= 0) {
+			EmitEffect = false;
+			endT += 0.01f;
+			bossendT += 0.005f;
+			endT = Clamp::clamp(endT, 0.0f, 1.0f);
+			bossendT = Clamp::clamp(bossendT, 0.0f, 1.0f);
+			screen.Shake(-2, 2, -2, 2, true);
+		}
 		if (StyleChange.Alpha < 255) {
 			StyleChange.Alpha += 0.8;
 		}
