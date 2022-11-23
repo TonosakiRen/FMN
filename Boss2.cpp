@@ -288,6 +288,14 @@ void Boss2::Init() {
 			break;
 		}
 	}
+
+	//anime
+
+	AnimeSelect = Normal;
+	sheets = 4;
+	SrcX = 0;
+	AnimeFlame = 0;
+
 }
 
 void Boss2::BossHit(bool Hit)
