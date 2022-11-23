@@ -214,6 +214,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss2.Set();
 						boss2.PosLink(boss.GetBossX());
 						boss.StyleChangeFalse();
+						InitbossEffect();
+						//bossのエフェクト
+						boss.isWhiteFeedout = true;
+						boss.isEmitwhite = false;
 					}
 					//bossのアップデート
 					if (boss.IsLife == true) {
@@ -247,9 +251,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					//boss2のアップデート
 					if (boss2.IsLife == true) {
-						//bossのエフェクト
-						boss.isWhiteFeedout = true;
-						boss.isEmitwhite = false;
+						
 
 						//サウンド
 						sound.BGMStop(&sound.StageBgm);
@@ -510,7 +512,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			isGameover = false;
 		
 			playermain.Move();
-
+			InitEffect();
 			playermain.GameOver(screen);
 			boss.Init();
 			boss2.Init();
@@ -882,7 +884,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (feedoutT >= 1) {
 				InitFeedout();
-				Init();
+				InitEffect();
 				if (boss.IsLife == true) {
 					boss.Init();
 				}
@@ -923,7 +925,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			sound.BGM(&sound.GameClear, "./Resources/sounds/GameClear.mp3");
 			if (feedoutT >= 1) {
 				InitFeedout();
-				Init();
+				InitEffect();
 				isGameclearStart = false;
 				scene = stage;
 				isFeedin = true;
