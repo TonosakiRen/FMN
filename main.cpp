@@ -20,7 +20,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int tex = Novice::LoadTexture("white1x1.png");
 	int quadRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect01n.png");
 	int circleRedEffectImg = Novice::LoadTexture("./Resources/Images/Effect02n.png");
-	int WindAttackImg = Novice::LoadTexture("./Resources/Images/WindAttackI.png");
 	int circleEffectImg = Novice::LoadTexture("./Resources/Images/Effect03.png");
 	int quadBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect04n.png");
 	int CircleBlueEffectImg = Novice::LoadTexture("./Resources/Images/Effect05n.png");
