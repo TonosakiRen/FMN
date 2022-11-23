@@ -980,7 +980,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 						/*NomalSwordAttack(player);
 						array.bAttackFunction01 = true;
 						array.InitNotThis(array.bAttackFunction01);*/

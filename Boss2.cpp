@@ -1010,7 +1010,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		}
 		else {
 			Action = false;
-			CoolTime = 180;
+			CoolTime = 220;
 			centerOfDarknessCooltime = saveCenterOfDarknessCooltime;
 			centerOfDarknessMoveT = 0.0f;
 			isCenteroOfDarknessMove = true;
@@ -1262,7 +1262,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			isUndertaleAttack =false;
 			
 			Action = false;
-			CoolTime = 120;
+			CoolTime = 150;
 		}
 	
 }
@@ -1478,7 +1478,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					AsgoreReturnTy = 0.0f;
 					setWhich = false;
 					Action = false;
-					CoolTime = 120;
+					CoolTime = 150;
 					AnimeSelect = Normal;
 					break;
 				}
@@ -1731,6 +1731,7 @@ void Boss2::Teleportation(PlayerMain& player) {
 	}
 	if (TeleportNum <= 0) {
 		TeleportNum = 3;
+		CoolTime = 120;
 		Action = false;
 	}
 	

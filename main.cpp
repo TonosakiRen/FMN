@@ -255,7 +255,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						boss.IsLife = false;
+						//boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
@@ -287,8 +287,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
-						//boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
-						boss2.CenterOfDarknessAttack(playermain);
+						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
+						
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
