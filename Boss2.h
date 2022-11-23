@@ -221,6 +221,8 @@ class Boss2 {
 
 	//undertale
 
+
+
 	bool isUndertaleAttack = false;
 	float xMove = 0;
 	float xSpeed = 1;
@@ -239,6 +241,9 @@ class Boss2 {
 	float upCircleY = 0;
 	float wideMostMove = 100;
 
+	float undertaleMoveT = 0.0f;
+	Vec2 saveUndertalePos;
+
 	Effect4 chaseEffect;
 	int chaseframe[chaseBulletNum];
 	Vec2 leftVec[chaseBulletNum];
@@ -252,6 +257,8 @@ class Boss2 {
 	bool emitchaseEffect = true;
 	bool isUndertaleCollision = false;
 	
+	Vec2 UndertalePos;
+
 	int undertaleFrame = saveUndertaleFrame;
 
 	//nyokki
@@ -334,9 +341,10 @@ class Boss2 {
 	Vec2 savePosAsgore;
 	float AsgoreMoveTx = 0.0f;
 	float AsgoreMoveTy = 0.0f;
+	bool isAsgoreCollision = false;
 
 	bool isAsgoreAttack = false;
-	int saveWaitTime = 100;
+	int saveWaitTime = 60;
 	bool isWait = false;
 	int waitTime = saveWaitTime;
 	bool isAsgoreFeed = false;

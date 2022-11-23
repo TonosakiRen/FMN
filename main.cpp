@@ -629,9 +629,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (white0.particles[0].t >= 1.0f) {
 				boss.isWhiteFeedout = false;
 			}
-			boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, RED, kBlendModeNormal);
-			boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, RED, kBlendModeNormal);
-			boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, BLACK, kBlendModeNormal);
+			boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
+			boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
+			boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
 			boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
 			//プレイヤー描画
@@ -646,7 +646,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (boss2.IsLife == true) {
 				sound.BGMStop(&sound.StageBgm);
 				sound.BGM(&sound.StageBgm2, "./Resources/sounds/Boss2Bgm.mp3");
-
+				boss2.Animation();
 				boss2.Draw(screen);
 			}
 
@@ -726,15 +726,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 
-			//ボス描画
-			if (boss.IsLife == true) {
+			////ボス描画
+			//if (boss.IsLife == true) {
 
-				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
-			}
-			if (boss2.IsLife == true) {
-				boss2.Animation();
-				boss2.Draw(screen);
-			}
+			//	boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg,deadbossleftarmImg, deadbossrightarmImg);
+			//}
+			//if (boss2.IsLife == true) {
+			//	boss2.Animation();
+			//	boss2.Draw(screen);
+			//}
 
 			//CenterofDarkness
 			
