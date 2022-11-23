@@ -5,7 +5,12 @@
 void PlayerMain::Init()
 {
 	Player.Pos = { 300,0 };
+	isSwordHit = false;
+	isGetSwordDirection = false;
 	DashFlag = false;
+	isSwordHitFace = 0;
+	swordAnimationFrame = 0;
+	swordsrcX = 0;
 	DashTime = 0;
 	attackstarttime = -1;
 	HitCoolDown = 0;

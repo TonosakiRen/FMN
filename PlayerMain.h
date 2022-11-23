@@ -119,7 +119,7 @@ class PlayerMain
 	int subSwordDrawNum[3];
 	int CurrentSubSwordDrawNum = 0;
 	int isSwordHitFace = 0;
-	int switchSwordFrame = 2;
+	int switchSwordFrame = 1;
 	int swordSheets = 5;
 	int swordsrcX = 0;
 	int swordAnimationFrame = 0;
