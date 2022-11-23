@@ -36,7 +36,7 @@ public:
 	Effect playerattackhit;
 	Effect playerjump;
 	Effect playerdame;
-
+	Effect tatumaki;
 
 
 	void BGM(Bgm &bgm,const char* fileName);
