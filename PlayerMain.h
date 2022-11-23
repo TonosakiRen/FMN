@@ -114,10 +114,15 @@ class PlayerMain
 	Quad hitAttackPos = { {0,0}, 0,0};
 	int attackstarttime = -1;
 	bool isSwordHit = false;
+	bool isGetSwordDirection = false;
 	int swordDrawFrame = 0;
 	int subSwordDrawNum[3];
 	int CurrentSubSwordDrawNum = 0;
 	int isSwordHitFace = 0;
+	int switchSwordFrame = 2;
+	int swordSheets = 5;
+	int swordsrcX = 0;
+	int swordAnimationFrame = 0;
 
 	bool gameoverflag = false;
 

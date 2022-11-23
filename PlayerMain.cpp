@@ -27,7 +27,7 @@ void PlayerMain::Init()
 void PlayerMain::Move()
 {
 	isSwordHit = false;
-	isSwordAppear = false;
+	
 
 	if (Key::IsTrigger(DIK_Y)) {
 
@@ -505,9 +505,9 @@ void PlayerMain::Draw(Screen& screen, int stand, int walk, int dash,int jump, in
 
 void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode) {
 	if (isSwordAppear == true) {
-		
-			swordDrawFrame = 3;
 
+		if (isGetSwordDirection == false) {
+			swordDrawFrame = switchSwordFrame * swordSheets;
 			if (FaceUp == true) {
 				isSwordHitFace = 0;
 			}
@@ -520,31 +520,35 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg,
 			else {
 				isSwordHitFace = 3;
 			}
+			isGetSwordDirection = true;
+		}
 
-			if (isSwordHit == true) {
-				isSaveSwordHit = true;
-				for (int i = 0; i < 3; i++) {
-					subSwordDrawNum[i] = CurrentSubSwordDrawNum;
-					CurrentSubSwordDrawNum++;
-				}
-				if (CurrentSubSwordDrawNum >= 7) {
-					CurrentSubSwordDrawNum = 0;
-				}
+		if (isSwordHit == true) {
+			isSaveSwordHit = true;
+			
+			
+			for (int i = 0; i < 3; i++) {
+				subSwordDrawNum[i] = CurrentSubSwordDrawNum;
+				CurrentSubSwordDrawNum++;
 			}
+			if (CurrentSubSwordDrawNum >= 7) {
+				CurrentSubSwordDrawNum = 0;
+			}
+		}
 		
 		if (swordDrawFrame > 0 && isSaveSwordHit == true) {
 			Novice::SetBlendMode(mode);
 			if (isSwordHitFace == 0) {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x - 66,Player.Quad.LeftTop.y + 360 }, 192, 456 }, 0.0f, 0.0f, 192.0f, 456.0f, upmainbladeImg, color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x - 66,Player.Quad.LeftTop.y + 360 }, 192, 456 }, swordsrcX, 0, 192, 456, swordSheets, switchSwordFrame, swordAnimationFrame, upmainbladeImg, color, true);
 			}
 			else if (isSwordHitFace == 1) {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftBottom.y + 100  }, 192, 456 }, 0.0f, 0.0f, 192.0f, 456.0f, downmainbladeImg, color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftBottom.y + 100  }, 192, 456 }, swordsrcX, 0, 192, 456, swordSheets, switchSwordFrame, swordAnimationFrame, downmainbladeImg, color, true);
 			}
 			else if (isSwordHitFace == 2) {
-				screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, mainbladeImg, color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, swordsrcX, 0, 456, 192, swordSheets, switchSwordFrame, swordAnimationFrame, mainbladeImg, color, true);
 			}
 			else {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x + 100 - 456,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, mainbladeImg, color, false);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x + 100 - 456,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, swordsrcX, 0, 456, 192, swordSheets, switchSwordFrame, swordAnimationFrame, mainbladeImg, color, false);
 			}
 
 			Novice::SetBlendMode(kBlendModeNormal);
@@ -554,16 +558,16 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg,
 		if (swordDrawFrame > 0 && isSaveSwordHit == false) {
 			Novice::SetBlendMode(mode);
 			if (isSwordHitFace == 0) {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftTop.y + 360  }, 192, 456 }, 0.0f, 0.0f, 192.0f, 456.0f, upsubbladeImg, color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftTop.y + 360  }, 192, 456 }, swordsrcX, 0, 192, 456, swordSheets, switchSwordFrame, swordAnimationFrame, upsubbladeImg, color, true);
 			}
 			else if (isSwordHitFace == 1) {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftBottom.y + 100 }, 192, 456 }, 0.0f, 0.0f, 192.0f, 456.0f, downsubbladeImg, color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x - 66 ,Player.Quad.LeftBottom.y + 100 }, 192, 456 }, swordsrcX, 0, 192, 456, swordSheets, switchSwordFrame, swordAnimationFrame, downsubbladeImg, color, true);
 			}
 			else if (isSwordHitFace == 2) {
-				screen.DrawQuad2({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, true);
+				screen.DrawQuad2Renban({ { Player.Quad.RightTop.x - 100,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, swordsrcX, 0, 456, 192, swordSheets, switchSwordFrame, swordAnimationFrame, subbladeImg[3], color, true);
 			}
 			else {
-				screen.DrawQuad2({ { Player.Quad.LeftTop.x + 100 - 456,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, 0.0f, 0.0f, 456.0f, 192.0f, subbladeImg[3], color, false);
+				screen.DrawQuad2Renban({ { Player.Quad.LeftTop.x + 100 - 456,Player.Quad.LeftBottom.y + 152.0f }, 456, 192 }, swordsrcX, 0, 456, 192,swordSheets,switchSwordFrame,swordAnimationFrame, subbladeImg[3], color, false);
 			}
 
 			Novice::SetBlendMode(kBlendModeNormal);
@@ -572,7 +576,11 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg,
 	}
 
 	if (swordDrawFrame <= 0) {
+		isGetSwordDirection = false;
+		isSwordAppear = false;
 		isSaveSwordHit = false;
+		swordAnimationFrame = 0;
+		swordsrcX = 0;
 	}
 	--swordDrawFrame;
 }
