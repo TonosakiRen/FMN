@@ -11,17 +11,19 @@ void GameOver::Update()
 
 		if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
 			Selected++;
+			sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
+
 			if (Selected > 1) {
 				Selected = 0;
-				sound.SoundEffect(sound.Pick, 1.0f, "./Resources/sounds/sentaku.wav");
 			}
 		}
 		if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 			Selected--;
+			sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
+
 			if (Selected < 0) {
 				Selected = 1;
-				sound.SoundEffect(sound.Pick, 1.0f, "./Resources/sounds/sentaku.wav");
-
+				
 			}
 		}
 
@@ -30,6 +32,8 @@ void GameOver::Update()
 			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 				RestartFlag = true;
 				canselect = false;
+				sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
 			}
 		}
 		else {
@@ -41,6 +45,8 @@ void GameOver::Update()
 			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
 				QuitFlag = true;
 				canselect = false;
+				sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
 			}
 		}
 		else {

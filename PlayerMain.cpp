@@ -392,7 +392,7 @@ void PlayerMain::PlayerHit(Quad Target)
 				HitStop = 5;
 				HitCoolDown = HITCOOLDOWNMAX;
 				if (HP > 0) {
-					HP--;
+					HP-=10;
 					sound.SoundEffect(sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
 					
 
