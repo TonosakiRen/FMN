@@ -81,6 +81,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int uptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/Uptorune-do.png");
 	int keeptorunedo = Novice::LoadTexture("./Resources/Images/Boss2/keeptorune-do.png");
 
+
+	int GAMEOVER_gra= Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
+
 	boss.LoadGra();
 	boss2.LoadGra();
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
@@ -569,7 +572,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			sound.BGMStop(&sound.GameClear);
 			sound.BGMStop(&sound.GameOver);
 			
-			sound.BGM(&sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");
+			sound.BGM(&sound.Title,0.1f, "./Resources/sounds/TitleBgm.mp3");
 
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
@@ -589,8 +592,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
-			sound.BGMStop(&sound.Title);
-			
+			sound.BGMStop(&sound.Title);			
 			sound.BGMStop(&sound.GameClear);
 			sound.BGMStop(&sound.GameOver);
 
@@ -825,16 +827,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				InitFeedout();
 				isStageStart = false;
 				if (isGameover == true) {
+					
 					sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 					scene = gameover;
 					isFeedin = true;
+					sound.BGMStop(&sound.StageBgm);
+					sound.BGMStop(&sound.StageBgm2);
 				}
 				if (isGameclear == true) {
+					sound.BGMStop(&sound.StageBgm);
+					sound.BGMStop(&sound.StageBgm2);
 					scene = gameclear;
 					isFeedin = true;
 				}
 				if (isRestart == true) {
+					sound.BGMStop(&sound.StageBgm);
+					sound.BGMStop(&sound.StageBgm2);
 					isRestart = false;
 					isFeedin = true;
 					if (boss.IsLife == true) {
@@ -879,6 +888,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			sound.BGMStop(&sound.Title);
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
+			Novice::DrawSprite(0, 0, GAMEOVER_gra, 2, 2, 0, WHITE);
 
 			gameoverclass.Draw(screen, PauseSelectGra);
 

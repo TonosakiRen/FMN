@@ -29,6 +29,10 @@ void Sound::BGM(Bgm* bgm, const char* fileName) {
 void Sound::BGMStop(Bgm* bgm) {
 	
 	Novice::StopAudio(bgm->Handle);
+	Novice::StopAudio(bgm->Sound);
+	Novice::PauseAudio(bgm->Handle);
+	
+	
 }
 
 void Sound::SoundEffect(Effect* effect, const char* fileName) {

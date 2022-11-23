@@ -92,7 +92,7 @@ Boss2::Boss2() :
 
 void Boss2::Init() {
 
-	HP = 1200;
+	HP = MAXHP;
 	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
 
 
