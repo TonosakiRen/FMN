@@ -133,11 +133,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isTitleStart = false;
 				scene = stage;
 				isFeedin = true;
-				isMovie = true;
+				//isMovie = true;
 				playermain.MovieInit();
 				boss.Init();
 				boss2.Init();
-				boss.MovieInit();
+				//boss.MovieInit();
 			}
 
 			playermain.Move();
@@ -219,7 +219,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 						///デバック用
-						//boss.IsLife = false;
+						boss.IsLife = false;
 						///デバック用
 
 						boss.UpDate();
