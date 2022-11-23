@@ -443,6 +443,10 @@ class Boss2 {
 	int Bosspregra = 0;
 
 public:
+
+	bool BossDeathFlag = false;
+	bool isGameClear = false;
+
 	Boss2();
 	void Init();
 	void Set();

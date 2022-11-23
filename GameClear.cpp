@@ -1,12 +1,30 @@
 #include "GameClear.h"
+#include "Key.h"
+#include "ControllerInput.h"
 
 void GameClear::Update()
 {
+
+	if (Time > 180) {
+		TitleDrawFlag = true;
+	}
+
+	Time++;
+
+	if (TitleDrawFlag == true) {
+		if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+			TitleDrawFlag = false;
+			TitleFlag = true;
+			Time = 0;
+		}
+	}
 }
 
-void GameClear::Draw(Screen& screen, int Ending_Gra)
+void GameClear::Draw(Screen& screen, int uigra)
 {
-
+	if (TitleDrawFlag == true) {
+		GameClearQuadDraw(TitleBack, uigra);
+	}
 }
 
 void GameClear::GameClearQuadDraw(GameClearStruct select, int tex) {

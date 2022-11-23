@@ -1715,6 +1715,9 @@ void Boss2::UpDate()
 		sound.SoundEffect(&sound.playerattackhit, "./Resources/sounds/PlayerAttackHit.wav");
 		if (HP <= 0) {
 			HP = 0;
+			IsLife = false;
+			BossDeathFlag = true;
+			isGameClear = true;
 		}
 	};
 
