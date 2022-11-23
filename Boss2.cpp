@@ -266,7 +266,7 @@ void Boss2::Init() {
 		if (AsgoreBullet[i].t >= 1.0f) {
 			EmitPos = { 0.0f,SCREEN_HEIGHT - Floor };
 			coolTime = 0;
-			for (int i = 0; i < emitNum; i++) {
+			for (int i = 0; i < allBulletNum; i++) {
 				AsgoreBullet[i].isBullet = false;
 				AsgoreBullet[i].t = 0.0f;
 			}
