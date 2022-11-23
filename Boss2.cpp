@@ -365,7 +365,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
-					Teleportation(player);
+					//Teleportation(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack; 
 					
 				}
@@ -419,7 +420,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			{
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
-					Teleportation(player);
+					//Teleportation(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction01) {
@@ -452,7 +454,6 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.AttackFunction05) {
 					//5%の攻撃
 					AsgoreAttack(player);
-					
 					FMoveArray = array.AttackFunction05;
 				}
 				if (MovePattern[MoveArray] == 0) {
@@ -467,7 +468,8 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 				if (MovePattern[MoveArray] == array.NormalAttack) {
 					//通常攻撃のコードはここ
 					
-					BulletAttack(player);
+					//BulletAttack(player);
+					nyokkiAttack(player);
 					FMoveArray = array.NormalAttack;
 
 				}
@@ -977,7 +979,6 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	
 }
 
-
 void Boss2::BulletAttack(PlayerMain& player) {
 
 	keep.theta += M_PI / 60;
@@ -1176,6 +1177,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 
 void Boss2::nyokkiAttack(PlayerMain& player) {
 	if (isdropMove == false) {
+		AnimeSelect = Nyokki1;
 		if (isSaveBossY == false) {
 			saveBossY = Pos.y;
 			isSaveBossY = true;
@@ -1191,14 +1193,21 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		isdrop = true;
 	}
 	if (isdrop == true) {
+		AnimeSelect = Nyokki2;
 		Pos.y  = Easing::easing(dropT, saveBossY2, underPos, dropSpeed, Easing::easeInOutQuint);
 		if (dropT >= 1.0f) {
 			isdrop = false;
 			isNyokki = true;
+			
+		}
+
+		if (dropT > 0.8) {
+			AnimeSelect = Nyokki3;
 		}
 	}
 	if (isNyokki == true ) {
 		//nyokki処理
+		AnimeSelect = Nyokki3;
 
 		if (isGetNyokkiPos == false) {
 			for (int i = 0; i < nyokkiNum / 2; i++) {
@@ -1236,6 +1245,7 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 			saveUnderBossY = Pos.y;
 			isSaveBossY3 = true;
 		}
+		AnimeSelect = Normal;
 		Pos.y = Easing::easing(returnMoveT, saveUnderBossY, saveBossY, upSpeed, Easing::easeInOutQuint);
 		if (returnMoveT >= 1.0f) {
 			dropT = 0.0f;
@@ -1613,7 +1623,6 @@ void Boss2::UpDate()
 		HP -= 25;
 	};
 
-	Animation();
 }
 
 
@@ -1623,22 +1632,57 @@ void Boss2::Set()
 	Size = { 64,160 };
 	Pos = { 1000,500 };
 	Quad_Pos.Quad::Quad(Pos, Size.x, Size.y, 0);
-	ImageSize = { 120,192 };
+	ImageSize = { 120,196 };
 	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 	IsLife = true;
 }
 
 void Boss2::Animation()
 {
-	ImageSize = { 120,192 };
-	ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+	int PreSheets = SrcX / ImageSize.x;
+
+	switch (AnimeSelect)
+	{
+	case Normal:
+		ImageSize = { 120,196 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNormal_gra;
+		break;
+	case Nyokki1:
+		ImageSize = { 88,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki1_gra;
+		break;
+	case Nyokki2:
+		ImageSize = { 120,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki2_gra;
+		break;
+	case Nyokki3:
+		ImageSize = { 120,200 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossNyokki3_gra;
+		break;
+	}
+
+	if (Bosspregra != BossNormal_gra) {
+		SrcX = PreSheets * ImageSize.x;
+	}
+
+	Bosspregra = BossNormal_gra;
+	
 }
 
 void Boss2::Draw(Screen& screen)
 {
 	if (load == 0) {
 		load = 1;
-		Boss_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
+		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
+		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
+
+		Boss_gra = BossNormal_gra;
 	}
 	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
 	for (int i = 0; i < Max_Zan; i++)

@@ -40,7 +40,6 @@ class Boss2 {
 	int Mahoujin_gra = 0;
 	int Blade_gra = 0;
 	int HoldBlade_gra = 0;
-	int Boss_gra = 0;
 	int UseBladeGra = Blade_gra;
 
 	static struct Matrix2x2
@@ -400,13 +399,33 @@ class Boss2 {
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
 	
+
 	int sheets = 4;
 	int SrcX = 0;
 	int AnimeFlame = 0;
 	int colanime = 0;
 	int colSrcX = 0;
 
-	void Animation();
+
+
+	
+
+	enum {
+		Normal,
+		Nyokki1,
+		Nyokki2,
+		Nyokki3
+	};
+
+	int AnimeSelect = Normal;
+
+	//‰æ‘œ
+	int Boss_gra = 0;
+	int BossNormal_gra = 0;
+	int BossNyokki1_gra = 0;
+	int BossNyokki2_gra = 0;
+	int BossNyokki3_gra = 0;
+	int Bosspregra = 0;
 
 public:
 	Boss2();
@@ -465,5 +484,7 @@ public:
 	void BladeImageLink(Matrix2x2 mat);
 
 	void PosLink(float posx);
+
+	void Animation();
 
 };
