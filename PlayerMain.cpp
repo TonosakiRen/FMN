@@ -353,7 +353,9 @@ void PlayerMain::SwordHit(Quad Target)
 			 Speed.y = JUMPPOWER;
 		 }
 		 else if (FaceUp == true) {
-			// HitBack.y = -3;
+			 HitBack.y = -3;
+			 //JumpFlag = false;
+			 //JumpTime = 0;
 		 }
 		 else {
 			 if (FaceRight == true) {
