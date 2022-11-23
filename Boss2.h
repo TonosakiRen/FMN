@@ -75,8 +75,9 @@ class Boss2 {
 	Vec2 ImageSize;
 	Quad ImageQuad;
 	
-	int HP = 1800;
-	const int MAXHP = HP;
+	float HP = 1800.0f;
+	
+	const int MAXHP = 1800;
 	const int HalfHP = HP * 0.3f;
 	const int ThreeQuarterHP = HP * 0.6f;
 	unsigned int HpColor = 0x00FF44FF;
