@@ -297,7 +297,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 						if (boss2.isAsgoreAttack == true) {
 							for (int i = 0; i < boss2.emitNum; i++) {
-								playermain.PlayerHit({ boss2.AsgoreBullet[i].quad.GetCenter(),boss2.AsgoreBullet[i].quad.GetWidth() });
+								playermain.PlayerHit({ boss2.AsgoreBullet[i].quad.GetCenter(),boss2.AsgoreBullet[i].quad.GetWidth() / 2.0f});
 							}
 						}
 
