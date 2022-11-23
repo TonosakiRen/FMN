@@ -291,9 +291,7 @@ void Boss2::Init() {
 			AsgoreReturnTy = 0.0f;
 			setWhich = false;
 			Action = false;
-			break;
-		}
-	}
+	
 
 	//anime
 
