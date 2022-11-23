@@ -227,8 +227,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//boss.IsLife = false;
 						///デバック用
 
-						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 						boss.UpDate();
+						boss.RandamMoveSelect(Randam::RAND(0, MAX_PATTERN - 1), playermain, screen);
 						
 						//当たり判定とかいれて！！！
 						if (boss.isBossDead() == false) {

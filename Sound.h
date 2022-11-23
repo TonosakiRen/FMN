@@ -30,10 +30,12 @@ public:
 	Effect jumpstart;
 	Effect jumpattack;
 	Effect circledeath;
+	Effect BackStep;
 
 	Effect playerattack;
 	Effect playerattackhit;
 	Effect playerjump;
+	Effect playerdame;
 
 
 	void BGM(Bgm *bgm,const char* fileName);

@@ -544,6 +544,10 @@ void Boss::BackStep(PlayerMain& player)
 	}
 	if (bStep == true) {
 		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
+		if (StepT == 0.02f) {
+			sound.SoundEffect(&sound.BackStep, "./Resources/sounds/BackStep.mp3");
+
+		}
 		if (StepT == 1) {
 			StepT = 0;
 			Action = false;
@@ -2417,7 +2421,9 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 			if (jumpattack.Matched == false) {
 				Pos.x = Easing::easing(jumpattack.EaseT, jumpattack.F_Pos.x, jumpattack.PlayerPosF.x, 0.02f, Easing::easeOutCubic);
 				Pos.y = Easing::easing(jumpattack.EaseT2, Size.y / 2, 600, 0.05f, Easing::easeOutCirc);
-
+				if (jumpattack.EaseT == 0.02f) {
+					sound.SoundEffect(&sound.jumpstart, 1.0f, "./Resources/sounds/JumpStart.mp3");
+				}
 				
 
 				if (jumpattack.EaseT == 1) {

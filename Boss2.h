@@ -8,7 +8,7 @@
 #include "Effect2.h"
 #include "Effect3.h"
 #include "Effect4.h"
-
+#include "Sound.h"
 
 //const int MAX_PATTERN= 100;
 //const int kMAX_CIR = 7;
@@ -42,6 +42,8 @@ class Boss2 {
 	int HoldBlade_gra = 0;
 	int UseBladeGra = Blade_gra;
 	int Boss2HpBar_gra = 0;
+
+	Sound sound;
 
 	static struct Matrix2x2
 	{

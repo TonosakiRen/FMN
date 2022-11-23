@@ -393,6 +393,9 @@ void PlayerMain::PlayerHit(Quad Target)
 				HitCoolDown = HITCOOLDOWNMAX;
 				if (HP > 0) {
 					HP--;
+					sound.SoundEffect(&sound.playerdame,1.0f, "./Resources/sounds/PlayerDame.wav");
+					
+
 				}
 				if (HP <= 0) {
 					HitStop = 30;
@@ -419,6 +422,10 @@ void PlayerMain::PlayerHit(Circle Target)
 					HitCoolDown = HITCOOLDOWNMAX;
 					if (HP > 0) {
 						HP--;
+						sound.SoundEffect(&sound.playerdame,1.0f, "./Resources/sounds/PlayerDame.wav");
+					
+
+
 					}
 					if (HP <= 0) {
 						HitStop = 30;
