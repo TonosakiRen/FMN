@@ -961,6 +961,7 @@ void Boss2::LoadGra()
 		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
 		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
 		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
+		BossCharge_gra = Novice::LoadTexture("./Resources/images/Boss2/Charge.png");
 
 		Boss_gra = BossNormal_gra;
 	}
@@ -982,6 +983,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		}
 	}
 	else {
+		AnimeSelect = Charge;
 		--centerOfDarknessCooltime;
 		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower;
 		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
@@ -1039,13 +1041,14 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 				centerNyokkiKeepSrcX[i] = 0;
 				centerNyokkiT[i] = 0.0f;
 			}
+			AnimeSelect = Normal;
 		}
 	}
 	
 }
 
 void Boss2::BulletAttack(PlayerMain& player) {
-
+	AnimeSelect = Charge;
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
@@ -1116,6 +1119,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			isBulletAttack = false;
 		}
 		Action = false;
+		AnimeSelect = Normal;
 	}
 }
 
@@ -1125,9 +1129,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	Pos.y += keep.YMove;
 	isUndertaleAttack = true;
 	undertaleFrame--;
-
-	
-
+	AnimeSelect = Charge;
 	if (undertaleFrame <= 120 && undertaleFrame > 0.0f) {
 		chaseEffect.feedSpeed = 0.01;
 		isUndertaleCollision = true;
@@ -1178,6 +1180,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 		}
 		if (rotateBulletT[i] >= 1.0f) {
 			isRotateBullet[i] = false;
+			AnimeSelect = Normal;
 		}
 	}
 	if (undertaleFrame <= 940) {
@@ -1395,6 +1398,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 		isAsgoreAttack = true;
 	}
 	if (isAsgoreAttack == true) {
+		AnimeSelect = Charge;
 		coolTime--;
 		EmitPos.x += distanceSpeed;
 		if (emitActionNum >= 0) {
@@ -1459,6 +1463,7 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 					setWhich = false;
 					Action = false;
 					CoolTime = 120;
+					AnimeSelect = Normal;
 					break;
 				}
 			}
@@ -1497,6 +1502,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		}
 	}
 	if (ismoveMoveAttack == true) {
+		AnimeSelect = Charge;
 		if (ismovexMoveAttack == false) {
 			Pos.x += moveAttackSpeed;
 		}
@@ -1581,6 +1587,7 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		ismovexMoveAttack = false;
 		setWhich = false;
 		Action = false;
+		AnimeSelect = Normal;
 	}
 
 }
@@ -1754,6 +1761,11 @@ void Boss2::Animation()
 		ImageSize = { 120,200 };
 		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 		Boss_gra = BossNyokki3_gra;
+		break;
+	case Charge:
+		ImageSize = { 88,184 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossCharge_gra;
 		break;
 	}
 
