@@ -62,7 +62,16 @@ void Boss::UpDate() {
 		
 		
 	}
+	if (HP < ThreeQuarterHP) {
+		
+		HpColor = 0xFFFF00FF;
+		if (HP < HalfHP) {
+			
+			HpColor = 0xFF4400FF;
 
+		}
+	}
+	
 #pragma region Parts
 
 
@@ -515,10 +524,10 @@ void Boss::State(PlayerMain& player)
 			}
 		if (HP < ThreeQuarterHP) {
 			hppattarn = THREEQUARTERS;
-			HpColor =0xFFFF00FF;
+			
 			if (HP < HalfHP) {
 				hppattarn = HALF;
-				HpColor = 0xFF4400FF;
+				
 
 			}
 		}else {
