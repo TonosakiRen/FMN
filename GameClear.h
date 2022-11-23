@@ -8,7 +8,9 @@ class GameClear
 {
 private:
 
-	int Selected = 0;
+	int Time;
+
+	bool TitleDrawFlag = false;
 
 	struct GameClearStruct {
 		const int IMAGELINE;
@@ -17,17 +19,10 @@ private:
 		unsigned int Color;
 	};
 
-	GameClearStruct Restart = {
-		1,
-		{1920 / 2,830},
-		{352,80},
-		WHITE,
-	};
-
-	GameClearStruct Quit = {
-		4,
+	GameClearStruct TitleBack = {
+		5,
 		{1920 / 2,950},
-		{508,80},
+		{568,80},
 		WHITE,
 	};
 
@@ -36,6 +31,7 @@ private:
 
 public:
 
+	bool TitleFlag = false;
 
 	void Update();
 
