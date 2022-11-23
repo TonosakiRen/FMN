@@ -40,7 +40,7 @@ Effect bossBodyEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0
 Effect bossHeadEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect bossRightArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect bossLeftArmEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
-Effect bossLegEffect(15, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
+Effect bossLegEffect(10, 1, { 0.0f,0.0f }, { 0.0f,0.0f }, 40, 80, 0.0f, 0.0f, 0.0f, -0.8f, 1);
 Effect5 white0(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 Effect5 white1(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 Effect5 white2(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);

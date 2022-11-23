@@ -132,6 +132,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 
 			if (feedoutT >= 1.0f) {
+				InitEffect();
 				playermain.Init();
 				InitFeedout();
 				isTitleStart = false;
@@ -560,6 +561,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Update();
 			boss.Init();
 			boss2.Init();
+			InitEffect();
 			break;
 		default:
 			break;
@@ -676,6 +678,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//CenterofDarkness
 			if (boss2.IsLife == true) {
 				if (boss2.iscenterNyokki == true) {
+
+					sound.SoundEffect(sound.tatumaki, 0.1f, "./Resources/sounds/tatsumaki.wav");
+
 					for (int i = 0; i < 3; i++) {
 						if (boss2.centerNyokkistats == boss2.Up) {
 							Quad tmp1({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
@@ -859,6 +864,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					isRestart = false;
 					isFeedin = true;
 					if (boss.IsLife == true) {
+						InitbossEffect();
 						boss.Init();
 						
 					}
@@ -910,13 +916,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
-				InitEffect();
 				if (boss.IsLife == true) {
 					boss.Init();
 				}
 				else {
 					boss2.Set();
 				}
+				InitEffect();
 				playermain.Init();
 				playermain.Move();
 				boss.UpDate();

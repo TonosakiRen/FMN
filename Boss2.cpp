@@ -7,6 +7,7 @@
 #include <math.h>
 #include "Feed.h"
 
+
 Boss2::Boss2() :
 	centerOfDarknessLeft(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
 	centerOfDarknessRight(30, 30, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
