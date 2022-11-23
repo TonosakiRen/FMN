@@ -571,8 +571,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
-
+				Restart2 = false;
 				gameoverclass.RestartFlag = false;
+			}
+
+			if (gameoverclass.Restart2Flag == true && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+				Restart2 = true;
+				gameoverclass.Restart2Flag = false;
 			}
 			if (feedoutT >= 1.0f) {
 				
@@ -962,11 +968,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss.IsLife == true) {
 						InitbossEffect();
 						boss.Init();
-						
 					}
 					else {
 						boss2.Set();
 					}
+
+					
 					playermain.Init();
 					stopper.isPauseFalse();
 				}
@@ -1019,6 +1026,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else {
 					boss2.Set();
+				}
+				if (Restart2 == true) {
+					boss.IsLife = false;
+					Restart2 = false;
 				}
 				InitEffect();
 				playermain.Init();
@@ -1079,7 +1090,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Feed::Feedout(feedoutT, 0.05f, SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 
-
+		if (Restart2 == true) {
+			Novice::DrawEllipse(200, 200, 30, 30, 0, BLUE, kFillModeSolid);
+		}
 		
 		
 		Novice::ScreenPrintf(0, 400, "FPS:%0.1f", 1.0f / ((double)(clock() - offset) / CLOCKS_PER_SEC));

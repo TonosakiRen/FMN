@@ -73,7 +73,7 @@ void GameOver::Update(bool type)
 		if (Restart2.LINE == Selected) {
 			Restart2.Color = 0x20d6c7FF;
 			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-
+				Restart2Flag = true;
 				canselect = false;
 			}
 		}

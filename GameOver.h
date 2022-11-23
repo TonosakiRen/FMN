@@ -57,6 +57,7 @@ public:
 	bool isDraw = false;
 
 	bool RestartFlag = false;
+	bool Restart2Flag = false;
 	bool QuitFlag = false;
 
 	void Update(bool type);
