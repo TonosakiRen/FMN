@@ -16,7 +16,7 @@ const int kMAX_CIR_Par = 15;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
 class Boss {
-	int bossAttackHP = 25;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP = 250;//ボスに攻撃当てた時のへるHP 
 
 	//画像の宣言
 	int Rainsword_gra = 0;

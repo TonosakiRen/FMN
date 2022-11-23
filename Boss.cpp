@@ -37,7 +37,7 @@ void Boss::UpDate() {
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
 		HP -= bossAttackHP;
-		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav");
+		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav",true);
 		if (HP <= 0) {
 			HP = 0;
 		}
@@ -3224,6 +3224,7 @@ void Boss::RainOfSwordMotion(int type) {
 
 void Boss::Movie()
 {
+
 	const int BODYMINUS = 190;
 	if (MovieTime == 0) {
 		CanMove = false;
