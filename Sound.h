@@ -47,7 +47,7 @@ public:
 	void BGMStop(Bgm& bgm);
 	
 
-	void SoundEffect(Effect& effect,const char* filename);
+	void SoundEffect(Effect& effect,float volume,const char* filename,bool loop);
 
 	void SoundEffect(Effect& effect, float volume, const char* fileName);
 	

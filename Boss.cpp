@@ -37,7 +37,7 @@ void Boss::UpDate() {
 	//攻撃を当てられた時の処理
 	if (isBossHit == true) {
 		HP -= 25;
-		sound.SoundEffect(sound.playerattackhit, "./Resources/sounds/PlayerAttackHit.wav");
+		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav");
 		if (HP <= 0) {
 			HP = 0;
 		}
@@ -568,7 +568,7 @@ void Boss::BackStep(PlayerMain& player)
 	if (bStep == true) {
 		Pos.x = Easing::easing(StepT, StepFPos, StepFPos + 600 * -Direction, 0.02f, Easing::easeInQuart);
 		if (StepT == 0.02f) {
-			sound.SoundEffect(sound.BackStep, "./Resources/sounds/BackStep.mp3");
+			sound.SoundEffect(sound.BackStep,0.4f, "./Resources/sounds/BackStep.mp3");
 
 		}
 		if (StepT == 1) {
