@@ -18,6 +18,12 @@ const int kMAX_WAVE = 2;
 class Boss {
 	int bossAttackHP = 250;//ƒ{ƒX‚ÉUŒ‚“–‚Ä‚½‚Ì‚Ö‚éHP 
 
+	float endT = 0.0f;
+	float endTspeed = 0.01f;
+public:
+	bool EmitEffect = false;;
+private:
+
 	//‰æ‘œ‚ÌéŒ¾
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;

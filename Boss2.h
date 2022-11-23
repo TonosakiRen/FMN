@@ -22,7 +22,7 @@ const int swordNum = 20;
 const int chaseBulletNum = 5;
 const int savechaseframe = 3;
 const int rotateBulletNum = 20;
-const int saveUndertaleFrame = 1000;
+const int saveUndertaleFrame = 900;
 //nyokkiAttack
 const int nyokkiNum = 30;
 //Asgore
@@ -181,6 +181,8 @@ class Boss2 {
 	Effect2 centerOfDarknessLeft;
 	Effect2 centerOfDarknessRight;
 	Effect2 centerOfDarknessUnder;
+	Effect2 centerOfDarknessUnderLeft;
+	Effect2 centerOfDarknessUnderRight;
 	float gravityPower = 6.0f;
 	int saveCenterOfDarknessCooltime = 1000;
 	int centerOfDarknessCooltime = 1000;
@@ -194,7 +196,7 @@ class Boss2 {
 	int centerNyokkiKeepSheets = 3;
 	int centerNyokkiUpAnimationFrame = 0;
 	int centerNyokkiKeepAnimationFrame = 0;
-	int centerNyokkiSwitchAnimationFrame = 6;
+	int centerNyokkiSwitchAnimationFrame = 4;
 	bool iscenterNyokki = false;
 	int centerNyokkiWidth = 108;
 	int centerNyokkiHeight = SCREEN_HEIGHT - Floor;
@@ -238,7 +240,7 @@ class Boss2 {
 	Quad bullet[rotateBulletNum];
 	float bulletRadius = 500;
 	float rotatetheta[rotateBulletNum];
-	float rotatethetaSpeed = M_PI / 40.0f;
+	float rotatethetaSpeed = M_PI / 35.0f;
 	bool isRotateBullet[rotateBulletNum];
 	float rotateT;
 	float upCircleY = 0;
@@ -290,9 +292,9 @@ class Boss2 {
 	int nyokkiKeepSheets = 3;
 	int nyokkiUpAnimationFrame = 0;
 	int nyokkiKeepAnimationFrame = 0;
-	int nyokkiSwitchAnimationFrame = 6;
+	int nyokkiSwitchAnimationFrame = 4;
 	int CollisionHeight = 0;
-	float space = 162;
+	float space = 80;
 	float leftInitial = Pos.x - 54 - 108;
 	float rightInitial = Pos.x + 54;
 	int nyokkiWidth = 108;

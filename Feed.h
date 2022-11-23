@@ -9,4 +9,5 @@ namespace Feed {
 
 	unsigned int Feedin(float& t, float feedspeed, unsigned  int color);
 	unsigned int Feedout(float& t, float feedspeed, unsigned  int color);
+	unsigned int Feedout2(float t, float feedspeed, unsigned  int color);
 }
