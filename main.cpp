@@ -85,6 +85,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
 
+	//BGM
+	int TitleBGM = Novice::LoadAudio("./Resources/sounds/TitleBgm.mp3");
+	int BossBGM = Novice::LoadAudio("./Resources/sounds/BossBgm.mp3");
+	int Boss2BGM = Novice::LoadAudio("./Resources/sounds/Boss2Bgm.mp3");
+	int ClearBGM = Novice::LoadAudio("./Resources/sounds/GameClear.mp3");
+	int GameoverBGM = Novice::LoadAudio("./Resources/sounds/GameOverBgm.mp3");
+
 	boss.LoadGra();
 	boss2.LoadGra();
 	//int background = Novice::LoadTexture("./Resources/Images/background.png");
@@ -222,6 +229,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss.IsLife == false && boss2.IsLife == false && boss2.isGameClear == false) {
 						//第二形態のセットここで
 						boss2.Set();
+						switchBGM = true;
 						boss2.PosLink(boss.GetBossX());
 						boss.StyleChangeFalse();
 						InitbossEffect();
@@ -602,15 +610,75 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		
+		if (scene != title) {
+			isTitleStopBGM = false;
+		}
+		if (scene != stage) {
+			isStageStopBGM = false;
+		}
+		if (scene != gameover) {
+			isGameoverStopBGM = false;
+		}
+		if (scene != gameclear) {
+			isClearStopBGM = false;
+		}
+		switch (scene) {
+		case title:
+			if (isTitleStopBGM == false) {
+				BGMstop();
+				isTitleStopBGM = true;
+			}
+			if (Novice::IsPlayingAudio(BGMHandle) == 0) {
+				BGMHandle = Novice::PlayAudio(TitleBGM, 1, 0.1f);
+			}
+			break;
+		case stage:
+			if (isStageStopBGM == false) {
+				BGMstop();
+				isStageStopBGM = true;
+			}
+			
+			if (Novice::IsPlayingAudio(BGMHandle) == 0 && boss.IsLife == true) {
+				BGMHandle = Novice::PlayAudio(BossBGM, 1, 0.1f);
+			}
+			if (switchBGM == true) {
+				BGMstop();
+				switchBGM = false;
+			}
+			if (Novice::IsPlayingAudio(BGMHandle) == 0 && boss2.IsLife == true) {
+				BGMHandle = Novice::PlayAudio(Boss2BGM, 1, 0.3f);
+			}
+			break;
+		case gameover:
+			if (isGameoverStopBGM == false) {
+				BGMstop();
+				isGameoverStopBGM = true;
+			}
+			if (Novice::IsPlayingAudio(BGMHandle) == 0 ) {
+				BGMHandle = Novice::PlayAudio(GameoverBGM, 1, 0.3f);
+			}
+			break;
+		case gameclear:
+			if (isClearStopBGM == false) {
+				BGMstop();
+				isClearStopBGM = true;
+			}
+			if (Novice::IsPlayingAudio(BGMHandle) == 0) {
+				BGMHandle = Novice::PlayAudio(ClearBGM, 1, 0.3f);
+			}
+			break;
+		}
+
+
 		switch (scene)
 		{
 		case title:
-			Novice::StopAudio(sound.StageBgm.Handle);
+			/*Novice::StopAudio(sound.StageBgm.Handle);
 			Novice::StopAudio(sound.StageBgm2.Handle);
 			Novice::StopAudio(sound.GameClear.Handle);
 			Novice::StopAudio(sound.GameOver.Handle);
 			
-			sound.BGM(sound.Title,0.1f, "./Resources/sounds/TitleBgm.mp3");
+			sound.BGM(sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");*/
 
 		//title描画処理1
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
@@ -630,10 +698,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			
 			//サウンド
-			Novice::StopAudio(sound.Title.Handle);
+			/*Novice::StopAudio(sound.Title.Handle);
 			
 			Novice::StopAudio(sound.GameClear.Handle);
-			Novice::StopAudio(sound.GameOver.Handle);
+			Novice::StopAudio(sound.GameOver.Handle);*/
 
 			//ステージ描画処理
 			//背景d
@@ -838,13 +906,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ボス描画
 			if (boss.IsLife == true) {
 				//サウンド
-				Novice::StopAudio(sound.StageBgm2.Handle);
-				sound.BGM(sound.StageBgm, 0.1f, "./Resources/sounds/BossBgm.mp3");
+				/*Novice::StopAudio(sound.StageBgm2.Handle);
+				sound.BGM(sound.StageBgm, 0.1f, "./Resources/sounds/BossBgm.mp3");*/
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg, deadbossleftarmImg, deadbossrightarmImg);
 			}
 			if (boss2.IsLife == true) {
-				Novice::StopAudio(sound.StageBgm.Handle);
-				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");
+				/*Novice::StopAudio(sound.StageBgm.Handle);
+				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");*/
 				boss2.Animation();
 				boss2.Draw(screen);
 			}
@@ -914,6 +982,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					InitFeedin();
 					isGameoverStart = true;
 					gameoverclass.canselect = true;
+					
 				}
 			}
 			//ゲームオーバー描画処理
@@ -921,10 +990,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//sound.BGM(&sound.GameOver, "./Resources/sounds/GameOverBgm.mp3");
 
 			//サウンド
-			Novice::StopAudio(sound.StageBgm.Handle);
+			/*Novice::StopAudio(sound.StageBgm.Handle);
 			Novice::StopAudio(sound.StageBgm2.Handle);
 			Novice::StopAudio(sound.GameClear.Handle);
-			Novice::StopAudio(sound.Title.Handle);
+			Novice::StopAudio(sound.Title.Handle);*/
 
 			Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, BLACK, kFillModeSolid);
 			Novice::DrawSprite(-30, 0, GAMEOVERLight_gra,2, 2, 0, 0xFFFFFF66);
@@ -975,11 +1044,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Draw(screen,PauseSelectGra);
 
 			//サウンド
-			Novice::StopAudio(sound.StageBgm.Handle);
+			/*Novice::StopAudio(sound.StageBgm.Handle);
 			Novice::StopAudio(sound.StageBgm2.Handle);
 			Novice::StopAudio(sound.Title.Handle);
 			Novice::StopAudio(sound.GameOver.Handle);
-			sound.BGM(sound.GameClear,0.3f, "./Resources/sounds/GameClear.mp3");
+			sound.BGM(sound.GameClear,0.3f, "./Resources/sounds/GameClear.mp3");*/
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				InitEffect();

@@ -128,3 +128,23 @@ void InitEffect() {
 			white6.particles[i].isActive = false;
 		}
 	}
+
+	//BGM
+
+	bool isTitleBGM = false;
+	bool isBossBGM = false;
+	bool isBoss2BGM = false;
+	bool isClearBGM = false;
+	bool isGameoverBGM = false;
+
+	bool isTitleStopBGM = false;
+	bool isStageStopBGM = false;
+	bool isClearStopBGM = false;
+	bool isGameoverStopBGM = false;
+
+	bool switchBGM = false;
+	int BGMHandle = 0;
+
+	void BGMstop() {
+		Novice::StopAudio(BGMHandle);
+	}
