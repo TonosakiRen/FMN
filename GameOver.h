@@ -18,9 +18,17 @@ private:
 		unsigned int Color;
 	};
 
+	GameOverStruct Restart2 = {
+		6,
+		0,
+		{1920 / 2,710},
+		{584,80},
+		WHITE,
+	};
+
 	GameOverStruct Restart = {
 		1,
-		0,
+		1,
 		{1920 / 2,830},
 		{352,80},
 		WHITE,
@@ -28,11 +36,13 @@ private:
 
 	GameOverStruct Quit = {
 		4,
-		1,
+		2,
 		{1920 / 2,950},
 		{508,80},
 		WHITE,
 	};
+
+	bool typee = false;
 
 	bool stickup = false;
 	bool prestickup = false;
@@ -47,11 +57,14 @@ public:
 	bool isDraw = false;
 
 	bool RestartFlag = false;
+	bool Restart2Flag = false;
 	bool QuitFlag = false;
 
-	void Update();
+	void Update(bool type);
 
 	void Draw(Screen& screen, int PauseSelect_Gra);
+
+	void SelectReset() { Selected = 1; };
 
 };
 

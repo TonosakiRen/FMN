@@ -495,7 +495,7 @@ void Boss::DrawStyleChange(Screen& screen, int StyleChangeGra)
 	screen.DrawQuad2Renban(StyleChange.Quad, StyleChange.ScrX, 0, StyleChange.ImageSize.x, StyleChange.ImageSize.y, 3, 5, StyleChange.Anime, StyleChangeGra, 0xFFFFFF00 + int(StyleChange.Alpha), false);
 	
 
-	Novice::ScreenPrintf(0, 380, "%f %f %d", Pos.x, Pos.y, StyleChange.Flag);
+	//Novice::ScreenPrintf(0, 380, "%f %f %d", Pos.x, Pos.y, StyleChange.Flag);
 
 }
 

@@ -20,11 +20,12 @@ void GameClear::Update()
 	}
 }
 
-void GameClear::Draw(Screen& screen, int uigra)
+void GameClear::Draw(Screen& screen, int Ending_Gra, int gamecleargra)
 {
 	if (TitleDrawFlag == true) {
-		GameClearQuadDraw(TitleBack, uigra);
+		GameClearQuadDraw(TitleBack, Ending_Gra);
 	}
+	GameClearQuadDraw(GameClearText, gamecleargra);
 }
 
 void GameClear::GameClearQuadDraw(GameClearStruct select, int tex) {

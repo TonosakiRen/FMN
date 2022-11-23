@@ -101,8 +101,13 @@ class Boss2 {
 	}keep;
 	struct Zanzou {
 		Quad Pos = { {9999,9999},{9999,9999},{9999,9999},{9999,9999} };
+		Vec2 Size = { 88,184 };
+		int sheets = 4;
 		int LifeTime = 0;
 		bool bSet = 0;
+		int Gra;
+		int SrcX;
+		int AnimeFlame = 0;
 	}zanzou[Max_Zan];
 	int Zanflame = 0;
 	int load = 0;//画像読み来み
