@@ -202,6 +202,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case stage:
 			//ステージ処理
 			//if(boss.IsLife==false&&boss2.IsLife==false)
+			if (boss.GetstyleChange() == true) {
+				boss.isWhiteFeedout = true;
+				boss.isEmitwhite = false;
+			}
 			
 
 			if (boss.MovieEnded() == true) {
@@ -234,8 +238,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						boss.StyleChangeFalse();
 						InitbossEffect();
 						//bossのエフェクト
-						boss.isWhiteFeedout = true;
-						boss.isEmitwhite = false;
+						
 						for (int i = 0; i < 10; i++) {
 							white0.particles[i].isActive = false;
 							white1.particles[i].isActive = false;
@@ -950,6 +953,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					isFeedin = true;
 				}
 				if (isRestart == true) {
+					BGMstop();
 					isRestart = false;
 					isFeedin = true;
 					if (boss.IsLife == true) {
