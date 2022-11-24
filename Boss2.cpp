@@ -1133,7 +1133,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 140 && undertaleFrame > 0) {
+	if (undertaleFrame <= 240 && undertaleFrame > 0) {
 		chaseEffect.feedSpeed = 0.01;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
@@ -1502,13 +1502,13 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			LastPosx = 2100.0f;
 			startPosx = 300.0f;
- 			moveAttackSpeed = 6.0f;
+ 			moveAttackSpeed = 4.0f;
 			iswhichlr = false;
 		}
 		else {
 			LastPosx = 300.0f;
 			startPosx = 2100.0f;
-			moveAttackSpeed = -6.0f;
+			moveAttackSpeed = -4.0f;
 			iswhichlr = true;
 		}
 		setWhich = true;

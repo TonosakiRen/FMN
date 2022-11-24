@@ -391,7 +391,7 @@ class Boss2 {
 	float movemoveAttackBulletFeedoutT[16];
 	bool moveIsFeedout = false;
 
-	float movethetaSpeed = 1.75f * M_PI / 180.0f;
+	float movethetaSpeed = 1.6f * M_PI / 180.0f;
 	float movemovethetaSpeed = 8.0f * M_PI / 180.0f;
 
 	Quad initialmoveBullet;
