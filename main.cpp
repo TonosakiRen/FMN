@@ -728,7 +728,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//背景d
 
 			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra,bg5_gra,bg6_gra, bg7_gra);
-			screen.ShakeSetZero();
+			
 			//Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 			//Novice::SetBlendMode(kBlendModeAdd);
 			//screen.DrawQuad2Normal(0 - screen.Scroll.x, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH * 1.25, SCREEN_HEIGHT, background, WHITE);
