@@ -2644,7 +2644,7 @@ void Boss::RainOfSwordAttack() {
 			}
 		}
 		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true && RainofswordMotionT == 1) {
-			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, -Floor , 0.02f, Easing::easeInBack);
+			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, -Floor , 0.015f, Easing::easeInBack);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
 			Rainofsword[i].ColQuadPos = Quad::Quad(
 				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
