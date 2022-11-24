@@ -37,7 +37,7 @@ class Boss2 {
 
 	bool isCollisionWall = false;
 
-	int bossAttackHP = 33;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP = 37;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
@@ -426,7 +426,7 @@ class Boss2 {
 	bool TeleisFeedrotateBullet = false;
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
-	int savedelayframe = 30;
+	int savedelayframe = 40;
 	int delayframe = savedelayframe;
 	
 

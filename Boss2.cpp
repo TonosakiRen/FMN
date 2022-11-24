@@ -1133,7 +1133,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 120 && undertaleFrame > 0) {
+	if (undertaleFrame <= 140 && undertaleFrame > 0) {
 		chaseEffect.feedSpeed = 0.01;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
