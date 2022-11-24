@@ -83,7 +83,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int ClearGra = Novice::LoadTexture("./Resources/Images/UI/GameClear.png");
 	int numgra = Novice::LoadTexture("./Resources/Images/UI/num.png");
-	int e = Novice::LoadTexture("./Resources/Images/UI/e.png");
+	int e = Novice::LoadTexture("./Resources/Images/UI/E.png");
 
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
@@ -129,9 +129,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedout = true;
 			}
 
-			if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+			/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
-			}
+			}*/
 
 			if (isTitleStart == false) {
 				isFeedin = true;

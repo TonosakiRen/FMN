@@ -77,7 +77,7 @@ void GameClear::Draw(Screen& screen, int numgra,int Ending_Gra, int gamecleargra
 		}
 
 		if (RestartCountNum <= 0) {
-			GameClearQuadDraw(E, gamecleargra);
+			GameClearQuadDraw(E, e);
 			if (pargectflag) {
 				GameClearQuadDraw(Parfect, Ending_Gra);
 			}
@@ -108,7 +108,7 @@ void GameClear::GameClearQuadDraw(GameClearStruct select, int tex) {
 			select.Pos.x + select.Size.x / 2, select.Pos.y + select.Size.y / 2,
 			0, 0,
 			select.Size.x, select.Size.y,
-			0, 0xFFFFFF00 + Ealpha);
+			tex, 0xFFFFFF00 + Ealpha);
 	}
 	else if (select.IMAGELINE != -1) {
 		Novice::DrawQuad(
