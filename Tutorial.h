@@ -56,7 +56,7 @@ private:
 	LetAttackStruct LetAttack[2];
 
 	LetDashStruct LetDash = {
-		{1920,320 / 2},
+		{1920,320 / 2 - 80},
 		{72,320},
 		{ { LetDash.Pos.x - LetDash.ColSize.x / 2 , LetDash.Pos.y + LetDash.ColSize.y / 2},
 		int(LetDash.ColSize.x),int(LetDash.ColSize.y) },
