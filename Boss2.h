@@ -426,7 +426,7 @@ class Boss2 {
 	bool TeleisFeedrotateBullet = false;
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
-	int savedelayframe = 30;
+	int savedelayframe = 40;
 	int delayframe = savedelayframe;
 	
 
