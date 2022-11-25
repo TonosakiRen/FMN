@@ -34,11 +34,11 @@ private:
 		WHITE,
 	};
 
-	GameOverStruct Quit = {
-		4,
+	GameOverStruct TitleBack = {
+		5,
 		2,
 		{1920 / 2,950},
-		{508,80},
+		{568,80},
 		WHITE,
 	};
 
@@ -58,7 +58,7 @@ public:
 
 	bool RestartFlag = false;
 	bool Restart2Flag = false;
-	bool QuitFlag = false;
+	bool TitleBackFlag = false;
 
 	void Update(bool type);
 

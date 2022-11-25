@@ -103,7 +103,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//test
 
 	//tutorial.unko();
-	Novice::SetWindowMode(kFullscreen);
+	//Novice::SetWindowMode(kFullscreen);
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -590,6 +590,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				gameoverclass.Restart2Flag = false;
 				RestartCount++;
 			}
+
+			if (gameoverclass.TitleBackFlag == true && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+				isTitle = true;
+				gameoverclass.TitleBackFlag = false;
+				RestartCount = 0;
+			}
+
 			if (feedoutT >= 1.0f) {
 				
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -1034,24 +1042,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
-				if (boss.IsLife == true) {
+				if (isRestart == true) {
+					if (boss.IsLife == true) {
+						boss.Init();
+					}
+					else {
+						boss2.Set();
+					}
+					if (Restart2 == true) {
+						boss.IsLife = false;
+						Restart2 = false;
+					}
+					InitEffect();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = stage;
+				}
+				else if (isTitle == true) {
 					boss.Init();
+					boss2.Init();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = title;
 				}
-				else {
-					boss2.Set();
-				}
-				if (Restart2 == true) {
-					boss.IsLife = false;
-					Restart2 = false;
-				}
-				InitEffect();
-				playermain.Init();
-				playermain.Move();
-				boss.UpDate();
-				boss2.UpDate();
-				stopper.canselect = true;
-				isGameoverStart = false;
-				scene = stage;
 				isFeedin = true;
 				//サウンド
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -1129,7 +1150,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true || gameoverclass.QuitFlag == true) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
 			break;
 		}
 	}
