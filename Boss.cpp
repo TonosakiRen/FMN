@@ -2,6 +2,7 @@
 #include "Degree.h"
 #include "Clamp.h"
 #include "Key.h"
+#include "ControllerInput.h"
 #include "Easing.h"
 #include "Randam.h"
 #include "Feed.h"
@@ -312,7 +313,7 @@ void Boss::Init()
 
 	 Leg = {
 		 {0,0},
-		 {130,130},
+		 {128,128},
 		 {-12,-59},
 		 { { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		 int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
@@ -430,6 +431,8 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	
+	//Novice::ScreenPrintf(500, 500, "%d", Leg.SrcX);
+
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
@@ -3247,6 +3250,26 @@ void Boss::RainOfSwordMotion(int type) {
 
 void Boss::Movie()
 {
+	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+		Body.MoviePulsPos = { 0,0 };
+		RightArm.MoviePulsPos = { 0,0 };
+		LeftArm.MoviePulsPos = { 0,0 };
+		Head.MoviePulsPos = { 0,0 };
+		Leg.MoviePulsPos = { 0,0 };
+		isImageDead = false;
+		StyleChange.Flag = false;
+		isRedBlackEffect = true;
+		RightArm.StandMotionFlag = 1;
+		LeftArm.StandMotionFlag = 1;
+		Body.StandMotionFlag = 1;
+		Head.StandMotionFlag = 1;
+		Leg.StandMotionFlag = 1;
+		CanMove = true;
+		MovieEnd = true;
+		StyleChange.Alpha = 0;
+		StyleChange.Flag = false;
+		MovieTime = 941;
+	}
 
 	const int BODYMINUS = 190;
 	if (MovieTime == 0) {

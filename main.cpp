@@ -103,7 +103,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//test
 
 	//tutorial.unko();
-	Novice::SetWindowMode(kFullscreen);
+	//Novice::SetWindowMode(kFullscreen);
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -120,88 +120,95 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		
 		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x + playermain.ReturnPulsScroll(), playermain.GetPlayerQuad().LeftTop.y, 1.25);
 		
+		stopper.SetScene(scene);
+
 		switch (scene)
 		{
 		case title:
 			//タイトル処理
 
-			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
-				isFeedout = true;
-			}
+			isPause = stopper.Pause();
 
-			/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
-				isFeedout = true;
-			}*/
-
-			if (isTitleStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1.0f) {
-					InitFeedin();
-					isTitleStart = true;
-					stopper.canselect = true;
-				}
-			}
-
-			if (feedoutT >= 1.0f) {
-				InitEffect();
-				playermain.Init();
-				InitFeedout();
-				isTitleStart = false;
-				scene = stage;
-				isFeedin = true;
-				isMovie = true;
-				playermain.MovieInit();
-				boss.Init();
-				boss2.Init();
-				boss.Set();
-				RestartCount = 0;
-				GameClearClass.Init();
-				boss.MovieInit();
-			}
-
-			playermain.Move();
-
-			for (int i = 0; i < 2; i++) {
-				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
-			}
-
-			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
-			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
-
-			for (int i = 0; i < 2; i++) {
-				tutorial.HitLetAttack(playermain.GetSwordQuad());
-			}
-
-			playerEffect.Update(true, playermain.GetPlayerQuad());
-			//swordのeffect
-			if (playermain.GetHitSword() == true) {
-				if (playermain.GetisFaceUp()) {
-					playerEffectSword.minDirection = { -0.4f , 0.1f };
-					playerEffectSword.maxDirection = { 0.4f , 0.9f };
-				}
-				else if (playermain.GetisFaceDown()) {
-					playerEffectSword.minDirection = { -0.4f , -0.1f };
-					playerEffectSword.maxDirection = { 0.4f , -0.9f };
-				}
-				else if (playermain.GetisFaceRigh()) {
-					playerEffectSword.minDirection = { 0.1f,-0.4f };
-					playerEffectSword.maxDirection = { 0.9f,0.4f };
-				}
-				else {
-					playerEffectSword.minDirection = { -0.9f,-0.4f };
-					playerEffectSword.maxDirection = { -0.1f,0.4f };
+			if (isPause == false) {
+				if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
+					isFeedout = true;
 				}
 
+				/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+					isFeedout = true;
+				}*/
+
+				if (isTitleStart == false) {
+					isFeedin = true;
+					if (feedinT >= 1.0f) {
+						InitFeedin();
+						isTitleStart = true;
+						stopper.canselect = true;
+					}
+				}
+
+				if (feedoutT >= 1.0f) {
+					InitEffect();
+					playermain.Init();
+					InitFeedout();
+					isTitleStart = false;
+					scene = stage;
+					isFeedin = true;
+					isMovie = true;
+					playermain.MovieInit();
+					boss.Init();
+					boss2.Init();
+					boss.Set();
+					RestartCount = 0;
+					GameClearClass.Init();
+					boss.MovieInit();
+					boss.UpDate();
+				}
+
+				playermain.Move();
+
+				for (int i = 0; i < 2; i++) {
+					playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+				}
+
+				playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+				playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+
+				for (int i = 0; i < 2; i++) {
+					tutorial.HitLetAttack(playermain.GetSwordQuad());
+				}
+
+				playerEffect.Update(true, playermain.GetPlayerQuad());
+				//swordのeffect
+				if (playermain.GetHitSword() == true) {
+					if (playermain.GetisFaceUp()) {
+						playerEffectSword.minDirection = { -0.4f , 0.1f };
+						playerEffectSword.maxDirection = { 0.4f , 0.9f };
+					}
+					else if (playermain.GetisFaceDown()) {
+						playerEffectSword.minDirection = { -0.4f , -0.1f };
+						playerEffectSword.maxDirection = { 0.4f , -0.9f };
+					}
+					else if (playermain.GetisFaceRigh()) {
+						playerEffectSword.minDirection = { 0.1f,-0.4f };
+						playerEffectSword.maxDirection = { 0.9f,0.4f };
+					}
+					else {
+						playerEffectSword.minDirection = { -0.9f,-0.4f };
+						playerEffectSword.maxDirection = { -0.1f,0.4f };
+					}
+
+				}
+				playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+
+
+				//tutorial.HitLetAttack(playermain.GetSwordQuad());
+
+				tutorial.Update(playermain.GetPlayerPos().x);
+
+				
 			}
-			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
-
-
-
-			//tutorial.HitLetAttack(playermain.GetSwordQuad());
-
-			
-
-			tutorial.Update();
 
 			break;
 		case stage:
@@ -579,6 +586,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = false;
 				RestartCount = 0;
 				gameoverclass.RestartFlag = false;
@@ -586,10 +594,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.Restart2Flag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = true;
 				gameoverclass.Restart2Flag = false;
 				RestartCount++;
 			}
+
+			if (gameoverclass.TitleBackFlag == true && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+				isTitle = true;
+				gameoverclass.TitleBackFlag = false;
+				tutorial.Init();
+				RestartCount = 0;
+			}
+
 			if (feedoutT >= 1.0f) {
 				
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -607,6 +625,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Update(RestartCount);
 			if (GameClearClass.TitleFlag == true && isFeedout == false && isFeedin == false) {
 				GameClearClass.TitleFlag = false;
+				tutorial.Init();
 				isFeedout = true;
 			}
 			
@@ -714,6 +733,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
+			stopper.PauseDraw(inPauseGra, PauseSelectGra);
+
+			if (isPause == true) {
+				tutorial.PlayDrawEx(TutorialEx, 1);
+			}
+			else {
+				tutorial.PlayDrawEx(TutorialEx, 0);
+			}
 
 			break;
 		case stage:
@@ -958,6 +985,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (isPause == true) {
 				tutorial.PlayDrawEx(TutorialEx, 1);
 			}
+			else if (isMovie == true) {
+				tutorial.PlayDrawEx(TutorialEx, 3);
+			}
 			else {
 				tutorial.PlayDrawEx(TutorialEx, 0);
 			}
@@ -1034,24 +1064,41 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
-				if (boss.IsLife == true) {
+				if (isRestart == true) {
+					isRestart = false;
+					if (boss.IsLife == true) {
+						boss.Init();
+					}
+					else {
+						boss2.Set();
+					}
+					if (Restart2 == true) {
+						boss.IsLife = false;
+						Restart2 = false;
+					}
+					InitEffect();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = stage;
+				}
+				else if (isTitle == true) {
+					isTitle = false;
+					InitEffect();
 					boss.Init();
+					boss2.Init();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = title;
 				}
-				else {
-					boss2.Set();
-				}
-				if (Restart2 == true) {
-					boss.IsLife = false;
-					Restart2 = false;
-				}
-				InitEffect();
-				playermain.Init();
-				playermain.Move();
-				boss.UpDate();
-				boss2.UpDate();
-				stopper.canselect = true;
-				isGameoverStart = false;
-				scene = stage;
+
 				isFeedin = true;
 				//サウンド
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -1129,7 +1176,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true || gameoverclass.QuitFlag == true) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
 			break;
 		}
 	}

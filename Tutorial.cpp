@@ -29,7 +29,14 @@ Tutorial::Tutorial()
 	}
 }
 
-void Tutorial::Update()
+void Tutorial::Init() {
+	LetAttackFlag = false;
+	LetDashFlag = false;
+	type2.Alpha = 0;
+	type3.Alpha = 0;
+}
+
+void Tutorial::Update(float PlayerX)
 {
 	/*if (Key::IsPressed(DIK_G)) {
 		type3.Pos.y += 4;
@@ -47,6 +54,13 @@ void Tutorial::Update()
 	type3.Quad = { { type3.Pos.x - type3.Size.x / 2 , type3.Pos.y + type3.Size.y / 2},
 		int(type3.Size.x),int(type3.Size.y) };*/
 
+	if (PlayerX > 600) {
+		LetAttackFlag = true;
+	}
+	if (PlayerX > 1600) {
+		LetDashFlag = true;
+	}
+
 
 	for (int i = 0; i < 2; i++) {
 		LetAttack[i].ColQuad = { { LetAttack[i].Pos.x - LetAttack[i].ColSize.x / 2 , LetAttack[i].Pos.y + LetAttack[i].ColSize.y / 2},
@@ -54,6 +68,24 @@ void Tutorial::Update()
 
 		LetAttack[i].ImageQuad = { { LetAttack[i].Pos.x - LetAttack[i].ImageSize.x / 2 , LetAttack[i].Pos.y + LetAttack[i].ImageSize.y / 2},
 		int(LetAttack[i].ImageSize.x),int(LetAttack[i].ImageSize.y) };
+	}
+
+	if (LetAttackFlag == true) {
+		if (type2.Alpha < 255) {
+			type2.Alpha += 2;
+		}
+		if (type2.Alpha >= 255) {
+			type2.Alpha = 255;
+		}
+	}
+
+	if (LetDashFlag == true) {
+		if (type3.Alpha < 255) {
+			type3.Alpha += 2;
+		}
+		if (type3.Alpha >= 255) {
+			type3.Alpha = 255;
+		}
 	}
 }
 
@@ -75,9 +107,11 @@ void Tutorial::Draw(Screen& screen, int gra1, int gra2, int gra3,int LetJumpGra,
 
 	screen.DrawQuad2Renban(type1.Quad, type1.SrcX, 0, type1.Size.x, type1.Size.y, type1.sheets, 30, type1.Anime, gra1, WHITE, false);
 
-	screen.DrawQuad2Renban(type2.Quad, type2.SrcX, 0, type2.Size.x, type2.Size.y, type2.sheets, 30, type2.Anime, gra2, WHITE, false);
+	screen.DrawQuad2Renban(type2.Quad, type2.SrcX, 0, type2.Size.x, type2.Size.y, type2.sheets, 30, type2.Anime, gra2, 0xFFFFFF00 + type2.Alpha, false);
 
-	screen.DrawQuad2Renban(type3.Quad, type3.SrcX, 0, type3.Size.x, type3.Size.y, type3.sheets, 30, type3.Anime, gra3, WHITE, false);
+	screen.DrawQuad2Renban(type3.Quad, type3.SrcX, 0, type3.Size.x, type3.Size.y, type3.sheets, 30, type3.Anime, gra3, 0xFFFFFF00 + type3.Alpha, false);
+
+	//Novice::ScreenPrintf(700, 700, "%0.1f", a);
 }
 
 void Tutorial::PlayDrawEx(int gra, int type)
