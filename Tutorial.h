@@ -78,8 +78,8 @@ private:
 	};
 
 	TutorialImageStruct type1 = {
-		{472,316},
-		{496,240},
+		{472,396},
+		{496,396},
 		{ { type1.Pos.x - type1.Size.x / 2 , type1.Pos.y + type1.Size.y / 2},
 		int(type1.Size.x),int(type1.Size.y) },
 		2,
