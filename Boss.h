@@ -16,7 +16,7 @@ const int kMAX_CIR_Par = 15;
 //const int kMAX_RAINSWORD = 30;
 const int kMAX_WAVE = 2;
 class Boss {
-	int bossAttackHP = 45;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP = 28;//ボスに攻撃当てた時のへるHP 
 
 	float endT = 0.0f;
 	float bossendT = 0.0f;

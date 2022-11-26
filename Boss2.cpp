@@ -1951,7 +1951,7 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		if (0 <= keep.rand && keep.rand <= 40) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x += vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 700, 0.02, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 700, 0.01, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}
@@ -1959,7 +1959,7 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		if (41 <= keep.rand && keep.rand <= 80) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x -= vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 700, 0.02, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 700, 0.01, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}
