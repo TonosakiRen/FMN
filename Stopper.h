@@ -20,10 +20,11 @@ private:
 	int BGMnum = false;
 	int SEnum = false;
 	bool QuitFlag = false;
+	int MAXLINE = 3;
 
 	struct PauseStruct {
 		const int IMAGELINE;
-		const int LINE;
+		int LINE;
 		Vec2 Pos;
 		Vec2 Size;
 		unsigned int Color;
@@ -92,7 +93,19 @@ private:
 
 	void PauseQuadDraw(PauseStruct select, int tex);
 
+	enum Scene {
+		title,
+		stage,
+		stage2,
+		gameover,
+		gameclear
+	};
+
+	int scene = title;
+
 public:
+
+	
 
 	bool canselect = true;
 
@@ -101,6 +114,8 @@ public:
 	int HitStopTimeStart = 0;
 	
 	bool Pause();
+
+	void SetScene(int mainscene);
 
 	void PauseDraw(int inPause_Gra, int PauseSelect_Gra);
 

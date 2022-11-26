@@ -120,88 +120,92 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		
 		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x + playermain.ReturnPulsScroll(), playermain.GetPlayerQuad().LeftTop.y, 1.25);
 		
+		stopper.SetScene(scene);
+
 		switch (scene)
 		{
 		case title:
 			//タイトル処理
 
-			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
-				isFeedout = true;
-			}
+			isPause = stopper.Pause();
 
-			/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
-				isFeedout = true;
-			}*/
-
-			if (isTitleStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1.0f) {
-					InitFeedin();
-					isTitleStart = true;
-					stopper.canselect = true;
-				}
-			}
-
-			if (feedoutT >= 1.0f) {
-				InitEffect();
-				playermain.Init();
-				InitFeedout();
-				isTitleStart = false;
-				scene = stage;
-				isFeedin = true;
-				isMovie = true;
-				playermain.MovieInit();
-				boss.Init();
-				boss2.Init();
-				boss.Set();
-				RestartCount = 0;
-				GameClearClass.Init();
-				boss.MovieInit();
-			}
-
-			playermain.Move();
-
-			for (int i = 0; i < 2; i++) {
-				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
-			}
-
-			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
-			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
-
-			for (int i = 0; i < 2; i++) {
-				tutorial.HitLetAttack(playermain.GetSwordQuad());
-			}
-
-			playerEffect.Update(true, playermain.GetPlayerQuad());
-			//swordのeffect
-			if (playermain.GetHitSword() == true) {
-				if (playermain.GetisFaceUp()) {
-					playerEffectSword.minDirection = { -0.4f , 0.1f };
-					playerEffectSword.maxDirection = { 0.4f , 0.9f };
-				}
-				else if (playermain.GetisFaceDown()) {
-					playerEffectSword.minDirection = { -0.4f , -0.1f };
-					playerEffectSword.maxDirection = { 0.4f , -0.9f };
-				}
-				else if (playermain.GetisFaceRigh()) {
-					playerEffectSword.minDirection = { 0.1f,-0.4f };
-					playerEffectSword.maxDirection = { 0.9f,0.4f };
-				}
-				else {
-					playerEffectSword.minDirection = { -0.9f,-0.4f };
-					playerEffectSword.maxDirection = { -0.1f,0.4f };
+			if (isPause == false) {
+				if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
+					isFeedout = true;
 				}
 
+				/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+					isFeedout = true;
+				}*/
+
+				if (isTitleStart == false) {
+					isFeedin = true;
+					if (feedinT >= 1.0f) {
+						InitFeedin();
+						isTitleStart = true;
+						stopper.canselect = true;
+					}
+				}
+
+				if (feedoutT >= 1.0f) {
+					InitEffect();
+					playermain.Init();
+					InitFeedout();
+					isTitleStart = false;
+					scene = stage;
+					isFeedin = true;
+					isMovie = true;
+					playermain.MovieInit();
+					boss.Init();
+					boss2.Init();
+					boss.Set();
+					RestartCount = 0;
+					GameClearClass.Init();
+					boss.MovieInit();
+				}
+
+				playermain.Move();
+
+				for (int i = 0; i < 2; i++) {
+					playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+				}
+
+				playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+				playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+
+				for (int i = 0; i < 2; i++) {
+					tutorial.HitLetAttack(playermain.GetSwordQuad());
+				}
+
+				playerEffect.Update(true, playermain.GetPlayerQuad());
+				//swordのeffect
+				if (playermain.GetHitSword() == true) {
+					if (playermain.GetisFaceUp()) {
+						playerEffectSword.minDirection = { -0.4f , 0.1f };
+						playerEffectSword.maxDirection = { 0.4f , 0.9f };
+					}
+					else if (playermain.GetisFaceDown()) {
+						playerEffectSword.minDirection = { -0.4f , -0.1f };
+						playerEffectSword.maxDirection = { 0.4f , -0.9f };
+					}
+					else if (playermain.GetisFaceRigh()) {
+						playerEffectSword.minDirection = { 0.1f,-0.4f };
+						playerEffectSword.maxDirection = { 0.9f,0.4f };
+					}
+					else {
+						playerEffectSword.minDirection = { -0.9f,-0.4f };
+						playerEffectSword.maxDirection = { -0.1f,0.4f };
+					}
+
+				}
+				playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+
+
+				//tutorial.HitLetAttack(playermain.GetSwordQuad());
+
+				tutorial.Update();
 			}
-			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
-
-
-
-			//tutorial.HitLetAttack(playermain.GetSwordQuad());
-
-			
-
-			tutorial.Update();
 
 			break;
 		case stage:
@@ -722,6 +726,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
+			stopper.PauseDraw(inPauseGra, PauseSelectGra);
+
+			if (isPause == true) {
+				tutorial.PlayDrawEx(TutorialEx, 1);
+			}
+			else {
+				tutorial.PlayDrawEx(TutorialEx, 0);
+			}
 
 			break;
 		case stage:

@@ -83,8 +83,9 @@ class PlayerMain
 
 	bool DashFlag = false;
 	int DashTime = 0;
-	const int DASHSPEED = 20;
-	int DashCoolTime = 60;
+	const int DASHSPEED = 24;
+	const int MAXDASHTIME = 7;
+	int DashCoolTime = 30;
 	bool DashFaseRight = true;
 	bool DashAvoid = false;
 	
@@ -102,7 +103,7 @@ class PlayerMain
 
 	//HitCoolDown —v‚Í–³“GŽžŠÔ‚¶‚á
 	int HitCoolDown = 0;
-	const int HITCOOLDOWNMAX = 180;
+	const int HITCOOLDOWNMAX = 90;
 
 	int AttackCoolDown = 0;
 	int ATTACKCOOLDOWNMAX = 20;

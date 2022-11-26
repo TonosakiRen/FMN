@@ -138,7 +138,7 @@ void PlayerMain::Move()
 			}
 		}
 		DashTime++;
-		if (DashTime > 6) {
+		if (DashTime > MAXDASHTIME) {
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
@@ -349,7 +349,7 @@ void PlayerMain::SwordHit(Quad Target)
 		isSwordHit = true;
 
 		 if(FaceDown == true){
-			 HitBack.y = 4;
+			 HitBack.y = 5;
 			 Gravity = 0;
 			 Speed.y = JUMPPOWER;
 		 }

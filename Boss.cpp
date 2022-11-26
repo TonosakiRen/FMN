@@ -312,7 +312,7 @@ void Boss::Init()
 
 	 Leg = {
 		 {0,0},
-		 {130,130},
+		 {128,128},
 		 {-12,-59},
 		 { { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		 int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
@@ -430,6 +430,8 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	
+	//Novice::ScreenPrintf(500, 500, "%d", Leg.SrcX);
+
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
