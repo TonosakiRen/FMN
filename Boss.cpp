@@ -2,6 +2,7 @@
 #include "Degree.h"
 #include "Clamp.h"
 #include "Key.h"
+#include "ControllerInput.h"
 #include "Easing.h"
 #include "Randam.h"
 #include "Feed.h"
@@ -3249,6 +3250,26 @@ void Boss::RainOfSwordMotion(int type) {
 
 void Boss::Movie()
 {
+	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+		Body.MoviePulsPos = { 0,0 };
+		RightArm.MoviePulsPos = { 0,0 };
+		LeftArm.MoviePulsPos = { 0,0 };
+		Head.MoviePulsPos = { 0,0 };
+		Leg.MoviePulsPos = { 0,0 };
+		isImageDead = false;
+		StyleChange.Flag = false;
+		isRedBlackEffect = true;
+		RightArm.StandMotionFlag = 1;
+		LeftArm.StandMotionFlag = 1;
+		Body.StandMotionFlag = 1;
+		Head.StandMotionFlag = 1;
+		Leg.StandMotionFlag = 1;
+		CanMove = true;
+		MovieEnd = true;
+		StyleChange.Alpha = 0;
+		StyleChange.Flag = false;
+		MovieTime = 941;
+	}
 
 	const int BODYMINUS = 190;
 	if (MovieTime == 0) {

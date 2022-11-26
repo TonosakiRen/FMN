@@ -162,6 +162,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					RestartCount = 0;
 					GameClearClass.Init();
 					boss.MovieInit();
+					boss.UpDate();
 				}
 
 				playermain.Move();
@@ -204,7 +205,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				//tutorial.HitLetAttack(playermain.GetSwordQuad());
 
-				tutorial.Update();
+				tutorial.Update(playermain.GetPlayerPos().x);
+
+				
 			}
 
 			break;
@@ -583,6 +586,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = false;
 				RestartCount = 0;
 				gameoverclass.RestartFlag = false;
@@ -590,6 +594,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.Restart2Flag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = true;
 				gameoverclass.Restart2Flag = false;
 				RestartCount++;
@@ -599,6 +604,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isFeedout = true;
 				isTitle = true;
 				gameoverclass.TitleBackFlag = false;
+				tutorial.Init();
 				RestartCount = 0;
 			}
 
@@ -619,6 +625,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Update(RestartCount);
 			if (GameClearClass.TitleFlag == true && isFeedout == false && isFeedin == false) {
 				GameClearClass.TitleFlag = false;
+				tutorial.Init();
 				isFeedout = true;
 			}
 			
@@ -978,6 +985,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (isPause == true) {
 				tutorial.PlayDrawEx(TutorialEx, 1);
 			}
+			else if (isMovie == true) {
+				tutorial.PlayDrawEx(TutorialEx, 3);
+			}
 			else {
 				tutorial.PlayDrawEx(TutorialEx, 0);
 			}
@@ -1055,6 +1065,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
 				if (isRestart == true) {
+					isRestart = false;
 					if (boss.IsLife == true) {
 						boss.Init();
 					}
@@ -1075,6 +1086,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					scene = stage;
 				}
 				else if (isTitle == true) {
+					isTitle = false;
+					InitEffect();
 					boss.Init();
 					boss2.Init();
 					playermain.Init();
@@ -1085,6 +1098,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					isGameoverStart = false;
 					scene = title;
 				}
+
 				isFeedin = true;
 				//サウンド
 				Novice::StopAudio(sound.GameOver.Handle);

@@ -111,7 +111,12 @@ void PlayerMain::Move()
 			JumpFlag = false;
 		}
 
-		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 ||
+			Controller::IsTriggerButton(0, Controller::lTrigger) == 1 ||
+			Controller::IsTriggerButton(0, Controller::rSHOULDER) == 1 ||
+			Controller::IsTriggerButton(0, Controller::rTrigger) == 1 ||
+			Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+
 			DashFlag = true;
 			JumpFlag = false;
 			DashFaseRight = FaceRight;
@@ -607,6 +612,15 @@ Vec2 PlayerMain::Translation()
 
 void PlayerMain::Movie()
 {
+	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+		CanMove = true;
+		PulsScroll = 0;
+		Player.Pos = { 1080,0 };
+		MovieSpeed.x = 0;
+		MovieTime = 941;
+	}
+
+
 	if (MovieTime == 0) {
 		Player.Pos = { 0,0 };
 		CanMove = false;
