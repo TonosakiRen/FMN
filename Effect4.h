@@ -17,7 +17,7 @@ public:
 	float minSpeed;
 	float maxSpeed;
 
-	float addTheta;
+	float addRotate;
 
 	float feedSpeed;
 
@@ -30,6 +30,7 @@ public:
 		float speed;
 		bool isActive = 0;
 		float t = 0.0f;
+		int rotate = 0;
 		float theta = 0.0f;
 		Vec2 minDirection;
 		Vec2 maxDirection;

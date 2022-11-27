@@ -2,7 +2,7 @@
 #include "Randam.h"
 #include "Easing.h"
 #include "Feed.h"
-Effect4::Effect4(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta, float feedspeed, int emitnum = 1) {
+Effect4::Effect4(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, int minwidth, int maxwidth, float minspeed, float maxspeed, float addrotate, float feedspeed, int emitnum = 1) {
 	EffectNum = num;
 	effectCooltime = cooltime;
 	addEffectCooltime = cooltime;
@@ -11,7 +11,7 @@ Effect4::Effect4(int num, int cooltime, Vec2 mindirection, Vec2 maxdirection, in
 	minSpeed = minspeed;
 	maxSpeed = maxspeed;
 	feedSpeed = feedspeed;
-	addTheta = addtheta;
+	addRotate = addrotate;
 	emitNum = emitnum;
 	addEmitNum = emitnum;
 	particles = new effect[EffectNum];
@@ -113,7 +113,9 @@ void Effect4::EffectUpdate() {
 			particles[i].direction = particles[i].direction.Normalized();
 			//çXêVèàóù
 			particles[i].quad = particles[i].quad + particles[i].direction * particles[i].speed;
-			particles[i].theta += addTheta;
+			
+			particles[i].rotate += addRotate;
+			particles[i].theta = particles[i].rotate / 180.0f * M_PI;;
 
 		}
 	}

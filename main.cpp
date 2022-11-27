@@ -792,13 +792,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss.isWhiteFeedout = false;
 			}
 			if (boss2.IsLife == true) {
-				boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnderLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnderRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
-				boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
+				boss2.centerOfDarknessRight.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessLeft.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnder.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderLeft.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderRight.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.chaseEffect.Draw(screen, 32, windAttackImg, WHITE);
+				boss2.TelechaseEffect.Draw(screen, 32, windAttackImg, WHITE);
 			}
 			
 			

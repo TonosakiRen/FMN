@@ -34,12 +34,14 @@ void Screen::Scroll_update(float playerX, float playerY,float map_sheets_number)
 };
 
 void Screen::Shake(int minX, int maxX, int minY, int maxY, bool is) {
-	if (is == true) {
-		ScreenShake.x = Randam::RAND(minX, maxX);
-		ScreenShake.y = Randam::RAND(minY, maxY);
-	}
-	else {
-		ScreenShake.setZero();
+	if (isPause == false) {
+		if (is == true) {
+			ScreenShake.x = Randam::RAND(minX, maxX);
+			ScreenShake.y = Randam::RAND(minY, maxY);
+		}
+		else {
+			ScreenShake.setZero();
+		}
 	}
 }
 

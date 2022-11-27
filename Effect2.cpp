@@ -2,7 +2,7 @@
 #include "Randam.h"
 #include "Easing.h"
 #include "Collision.h"
-Effect2::Effect2(int num, int cooltime, Vec2 target, Quad deleteQuad, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta, float smallspeed, int emitnum = 1) {
+Effect2::Effect2(int num, int cooltime, Vec2 target, Quad deleteQuad, int minwidth, int maxwidth, float minspeed, float maxspeed, float addrotate, float smallspeed, int emitnum = 1) {
 	EffectNum = num;
 	effectCooltime = cooltime;
 	addEffectCooltime = cooltime;
@@ -13,7 +13,7 @@ Effect2::Effect2(int num, int cooltime, Vec2 target, Quad deleteQuad, int minwid
 	minSpeed = minspeed;
 	maxSpeed = maxspeed;
 	smallSpeed = smallspeed;
-	addTheta = addtheta;
+	addRotate = addrotate;
 	emitNum = emitnum;
 	addEmitNum = emitnum;
 	particles = new effect[EffectNum];
@@ -113,7 +113,9 @@ void Effect2::EffectUpdate() {
 			//çXêVèàóù
 			particles[i].quad = particles[i].quad + particles[i].direction * particles[i].speed;
 			particles[i].quad.WidthAdd(particles[i].quad, smallSpeed);
-			particles[i].theta += addTheta;
+
+			particles[i].rotate += addRotate;
+			particles[i].theta = particles[i].rotate / 180.0f * M_PI;;
 
 		}
 	}

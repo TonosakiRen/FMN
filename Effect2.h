@@ -18,7 +18,7 @@ public:
 	float minSpeed;
 	float maxSpeed;
 
-	float addTheta;
+	float addRotate;
 
 	float smallSpeed;
 
@@ -30,6 +30,7 @@ public:
 		Vec2 direction;
 		float speed;
 		bool isActive = 0;
+		int rotate = 0;
 		float theta = 0.0f;
 	};
 
@@ -49,7 +50,7 @@ public:
 	/// <param name="addtheta">‰ÁŽZ‚·‚éŠp“x</param>
 	/// <param name="smallspeed">‚Ç‚Ì‚­‚ç‚¢‚Ì‘¬‚³‚Å’x‚­‚È‚é‚©</param>
 	/// <param name="emitnum">‚Ç‚Ì‚­‚ç‚¢‚Ì‘¬‚³‚Å’x‚­‚È‚é‚©</param>
-	Effect2(int num, int cooltime, Vec2 target, Quad deleteQuad, int minwidth, int maxwidth, float minspeed, float maxspeed, float addtheta, float smallspeed, int emitnum);
+	Effect2(int num, int cooltime, Vec2 target, Quad deleteQuad, int minwidth, int maxwidth, float minspeed, float maxspeed, float addrotate, float smallspeed, int emitnum);
 	~Effect2();
 	void Update(bool isEmit, Quad pos, float theta);
 	void Update(bool isEmit, Quad pos);

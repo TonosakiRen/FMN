@@ -10,14 +10,14 @@
 
 
 Boss2::Boss2() :
-	centerOfDarknessLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessRight(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessRight(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
-	chaseEffect(chaseBulletNum, 40, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
-	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
+	chaseEffect(chaseBulletNum, 40, { 0.0f,0.0f }, { 0.0f,0.0f }, 32, 32, 10.0f, 10.0f, 40.0f, 0.0f, 1),
+	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 40.0f, 0.0f, 1)
 {
 
 	
