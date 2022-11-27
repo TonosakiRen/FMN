@@ -25,6 +25,11 @@ Boss::Boss()
 	
 }
 void Boss::UpDate() {
+
+	if (Key::IsPressed(DIK_T) && Key::IsPressed(DIK_Y) && Key::IsPressed(DIK_1)) {
+		HP = 0;
+	}
+
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
 	RightTop = Vec2(Pos + (Size / 2));
@@ -44,7 +49,7 @@ void Boss::UpDate() {
 			HP = 0;
 			isBossHit = false;
 		}
-	};
+	}
 	if (HP <= 0) {
 
 		CanMove = false;

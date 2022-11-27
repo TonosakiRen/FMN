@@ -1300,7 +1300,7 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		if (dropT >= 1.0f) {
 			
 			isdrop = false;
-			
+			AnimeSelect = Nyokki3;
 		}
 		if (dropT > 0.6f) {
 			if (isdrop == true) {
@@ -1308,15 +1308,10 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 			}
 			
 		}
-
-		if (dropT > 0.8f) {
-			
-			AnimeSelect = Nyokki3;
-		}
 	}
 	if (isNyokki == true ) {
 		//nyokkièàóù
-		AnimeSelect = Nyokki3;
+		
 
 		if (isGetNyokkiPos == false) {
 			for (int i = 0; i < nyokkiNum / 2; i++) {

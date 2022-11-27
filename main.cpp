@@ -37,6 +37,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	subBladeImg[5] = Novice::LoadTexture("./Resources/Images/sabblade06.png");
 	subBladeImg[6] = Novice::LoadTexture("./Resources/Images/sabblade07.png");
 
+	int windAttackImg = Novice::LoadTexture("./Resources/Images/WindAttack.png");
+
 	int bossImg = Novice::LoadTexture("./Resources/Images/Boss/Boss.png");
 	int bossheadImg = Novice::LoadTexture("./Resources/Images/Boss/Head.png");
 	int bossbodyImg = Novice::LoadTexture("./Resources/Images/Boss/Body.png");
