@@ -934,23 +934,6 @@ int Boss2::ReloadMove(int Movearry)
 	}
 }
 
-
-
-void Boss2::LoadGra()
-{
-	if (load == 0) {
-		load = 1;
-		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
-		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
-		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
-		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
-		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
-		BossCharge_gra = Novice::LoadTexture("./Resources/images/Boss2/Charge.png");
-
-		Boss_gra = BossNormal_gra;
-	}
-}
-
 void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
@@ -1040,7 +1023,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 }
 
 void Boss2::BulletAttack(PlayerMain& player) {
-	AnimeSelect = Charge;
+	AnimeSelect = BulletAttack2;
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
@@ -1087,12 +1070,14 @@ void Boss2::BulletAttack(PlayerMain& player) {
 				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
 				if (swordT[i] < 1.0f && isOrbit[i] == false) {
 					orbitColor[i] = Feed::Feedin(swordT[i], 0.05f, orbitColor[i]);
+					AnimeSelect = BulletAttack1;
 				}
 				if (swordT[i] >= 1.0f && isOrbit[i] == false) {
 					isOrbit[i] = true;
 					swordT[i] = 0.0f;
 				}
 				if (isOrbit[i] == true) {
+					AnimeSelect = BossNormal_gra;
 					orbitColor[i] = Feed::Feedout(swordT[i], 0.05f, orbitColor[i]);
 				}
 				//ï˙èoÇµÇƒç≈èâÇÃÉtÉåÅ[ÉÄÇæÇØ
@@ -1779,8 +1764,6 @@ void Boss2::UpDate()
 	
 }
 
-
-
 void Boss2::Set()
 {
 	Size = { 64,160 };
@@ -1816,8 +1799,27 @@ void Boss2::Zanzou()
 	}
 }
 
+void Boss2::LoadGra()
+{
+
+	if (load == 0) {
+		load = 1;
+		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
+		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
+		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
+		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
+		BossCharge_gra = Novice::LoadTexture("./Resources/images/Boss2/Charge.png");
+		BossBulletAttack1_gra = Novice::LoadTexture("./Resources/images/Boss2/BulletAttack1.png");
+		BossBulletAttack2_gra = Novice::LoadTexture("./Resources/images/Boss2/BulletAttack2.png");
+
+		Boss_gra = BossNormal_gra;
+	}
+}
+
 void Boss2::Animation()
 {
+
 	int PreSheets = 0;
 	if (SrcX != 0) {
 		PreSheets = SrcX / ImageSize.x;
@@ -1849,6 +1851,16 @@ void Boss2::Animation()
 		ImageSize = { 88,184 };
 		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 		Boss_gra = BossCharge_gra;
+		break;
+	case BulletAttack1:
+		ImageSize = { 168,184 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossBulletAttack1_gra;
+		break;
+	case BulletAttack2:
+		ImageSize = { 84,148};
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossBulletAttack2_gra;
 		break;
 	}
 
