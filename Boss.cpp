@@ -808,12 +808,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						//ShockWaveAttack(player, screen);
 
 						//NomalRotedSwordAttack(player);
-						/*Action = false;
-						CoolTime = 0;*/
-						FMoveArray = array.AttackFunction03;
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction03;
 
 
 					}

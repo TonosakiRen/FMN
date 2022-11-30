@@ -48,6 +48,7 @@ public:
 	Effect playerattack;
 	Effect playerattackhit;
 	Effect playerjump;
+	Effect playerdassyu;
 	Effect playerdame;
 	Effect tatumaki;
 	Effect EmitBullet;
