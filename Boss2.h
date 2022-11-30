@@ -449,7 +449,9 @@ class Boss2 {
 		Nyokki1,
 		Nyokki2,
 		Nyokki3,
-		Charge
+		Charge,
+		BulletAttack1,
+		BulletAttack2
 	};
 
 	int AnimeSelect = Normal;
@@ -461,6 +463,8 @@ class Boss2 {
 	int BossNyokki2_gra = 0;
 	int BossNyokki3_gra = 0;
 	int BossCharge_gra = 0;
+	int BossBulletAttack1_gra = 0;
+	int BossBulletAttack2_gra = 0;
 
 	int Bosspregra = 0;
 
