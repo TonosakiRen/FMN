@@ -180,6 +180,7 @@ void Boss2::Init() {
 		swordT[i] = 0.0f;
 		isOrbit[i] = false;
 		isBulletAttack = false;
+		sword[i] = { {9999,9999},0,0 };
 	}
 	chaseEffect.addEffectCooltime = 40;
 	chaseEffect.feedSpeed = 0.0f;
