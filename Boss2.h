@@ -22,22 +22,22 @@ const int swordNum = 20;
 const int chaseBulletNum = 5;
 const int savechaseframe = 3;
 const int rotateBulletNum = 20;
-const int saveUndertaleFrame = 900;
+const int saveUndertaleFrame = 600;
 //nyokkiAttack
 const int nyokkiNum = 30;
 //Asgore
 const int allBulletNum = 1000;
 const int BulletOriginNum = 20;
 const int EmitNum = 20;
-const int EmitCoolTime = 20;
-const int saveEmitActionNum = 16;
+const int EmitCoolTime = 28;
+const int saveEmitActionNum = 13;
 
 
 class Boss2 {
 
 	bool isCollisionWall = false;
 
-	int bossAttackHP =40;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP =30;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;
@@ -207,7 +207,8 @@ class Boss2 {
 	int centerNyokkiKeepSheets = 3;
 	int centerNyokkiUpAnimationFrame = 0;
 	int centerNyokkiKeepAnimationFrame = 0;
-	int centerNyokkiSwitchAnimationFrame = 4;
+	int centerNyokkiSwitchAnimationFrame = 5;
+	int centerNyokkiSwitchAnimationFrame2 = 4;
 	bool iscenterNyokki = false;
 	int centerNyokkiWidth = 108;
 	int centerNyokkiHeight = SCREEN_HEIGHT - Floor;
@@ -218,7 +219,7 @@ class Boss2 {
 
 	//BulletAttack
 	
-	Quad initialSword = {Pos,30,30,};
+	Quad initialSword = {Pos,30,30,0};
 	Quad effectSword[swordNum];
 	Quad sword[swordNum];
 	bool isBulletAttack = false;
@@ -304,9 +305,10 @@ class Boss2 {
 	int nyokkiKeepSheets = 3;
 	int nyokkiUpAnimationFrame = 0;
 	int nyokkiKeepAnimationFrame = 0;
-	int nyokkiSwitchAnimationFrame = 4;
+	int nyokkiSwitchAnimationFrame = 5;
+	int nyokkiSwitchAnimationFrame2 = 4;
 	int CollisionHeight = 0;
-	float space = 80;
+	float space = 95;
 	float leftInitial = Pos.x - 54 - 108;
 	float rightInitial = Pos.x + 54;
 	int nyokkiWidth = 108;
@@ -361,7 +363,7 @@ class Boss2 {
 	bool isAsgoreCollision = false;
 
 	bool isAsgoreAttack = false;
-	int saveWaitTime = 60;
+	int saveWaitTime = 40;
 	bool isWait = false;
 	int waitTime = saveWaitTime;
 	bool isAsgoreFeed = false;
@@ -370,6 +372,8 @@ class Boss2 {
 	float AsgoreReturnTx = 0.0f;
 	float AsgoreReturnTy = 0.0f;
 	bool setWhich = false;
+
+	float radiusT = 0.0f;
 
 	//moveAttack
 	Quad moveBullet[4];
@@ -426,7 +430,7 @@ class Boss2 {
 	bool TeleisFeedrotateBullet = false;
 	int TeleportNum = 3;
 	int TeleChaceFrame = 120;
-	int savedelayframe = 40;
+	int savedelayframe = 60;
 	int delayframe = savedelayframe;
 	
 
