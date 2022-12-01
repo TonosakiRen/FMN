@@ -57,17 +57,17 @@ void GameOver::Update(bool type)
 			Restart.Color = WHITE;
 		}
 
-		if (Quit.LINE == Selected) {
-			Quit.Color = 0x20d6c7FF;
+		if (TitleBack.LINE == Selected) {
+			TitleBack.Color = 0x20d6c7FF;
 			if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-				QuitFlag = true;
+				TitleBackFlag = true;
 				canselect = false;
 				sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
 
 			}
 		}
 		else {
-			Quit.Color = WHITE;
+			TitleBack.Color = WHITE;
 		}
 
 		if (Restart2.LINE == Selected) {
@@ -94,7 +94,7 @@ void GameOver::Draw(Screen& screen, int PauseSelect_Gra)
 		GameOverQuadDraw(Restart2, PauseSelect_Gra);
 	}
 	GameOverQuadDraw(Restart, PauseSelect_Gra);
-	GameOverQuadDraw(Quit, PauseSelect_Gra);
+	GameOverQuadDraw(TitleBack, PauseSelect_Gra);
 }
 
 void GameOver::GameOverQuadDraw(GameOverStruct select, int tex) {

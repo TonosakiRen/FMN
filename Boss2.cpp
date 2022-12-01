@@ -10,14 +10,14 @@
 
 
 Boss2::Boss2() :
-	centerOfDarknessLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessRight(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
-	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 30, 40, 6.0f, 6.0f, 0.0f, 0.0f, 1),
+	centerOfDarknessLeft(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessRight(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnder(30, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnderLeft(40, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
+	centerOfDarknessUnderRight(40, 40, { 0,0 }, { {0,0},0,0 }, 32, 32, 6.0f, 6.0f, -40.0f, 0.0f, 1),
 	swordEffect(500, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 0.0f, 0.0f, 0.0f, 0.1f, 1),
-	chaseEffect(chaseBulletNum, 40, { 0.0f,0.0f }, { 0.0f,0.0f }, 30, 30, 10.0f, 10.0f, 0.0f, 0.0f, 1),
-	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 0.0f, 0.0f, 1)
+	chaseEffect(chaseBulletNum, 40, { 0.0f,0.0f }, { 0.0f,0.0f }, 32, 32, 10.0f, 10.0f, 40.0f, 0.0f, 1),
+	TelechaseEffect(1, 0, { 0.0f,0.0f }, { 0.0f,0.0f }, 50, 50, 10.0f, 10.0f, 40.0f, 0.0f, 1)
 {
 
 	
@@ -167,6 +167,8 @@ void Boss2::Init() {
 		centerNyokkiT[i] = 0.0f;
 	}
 
+
+	radiusT = 0.0f;
 	isRelease = false;
 	bulletAttackCoolTime = saveBulletAttackCoolTime;
 	radius = 200.0f;
@@ -178,6 +180,7 @@ void Boss2::Init() {
 		swordT[i] = 0.0f;
 		isOrbit[i] = false;
 		isBulletAttack = false;
+		sword[i] = { {9999,9999},0,0 };
 	}
 	chaseEffect.addEffectCooltime = 40;
 	chaseEffect.feedSpeed = 0.0f;
@@ -934,23 +937,6 @@ int Boss2::ReloadMove(int Movearry)
 	}
 }
 
-
-
-void Boss2::LoadGra()
-{
-	if (load == 0) {
-		load = 1;
-		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
-		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
-		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
-		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
-		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
-		BossCharge_gra = Novice::LoadTexture("./Resources/images/Boss2/Charge.png");
-
-		Boss_gra = BossNormal_gra;
-	}
-}
-
 void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
@@ -1040,7 +1026,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 }
 
 void Boss2::BulletAttack(PlayerMain& player) {
-	AnimeSelect = Charge;
+	AnimeSelect = BulletAttack2;
 	keep.theta += M_PI / 60;
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
@@ -1051,9 +1037,9 @@ void Boss2::BulletAttack(PlayerMain& player) {
 	
 	for (int i = 0; i < swordNum; i++) {
 		//thetaÇâ¡éZ
-		if (theta[swordNum - 1] <= 0) {
-			theta[i] += M_PI / 80.0f;
-			initialSword = { Pos,30,30, };
+		if (isRelease == false) {
+			theta[i] += M_PI / 70.0f;
+			initialSword = { Pos,30,30,0 };
 		}
 		//thetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁèoåªÇ≥ÇπÇÈ
 		if (theta[i] >= 0 && isSword[i] == false) {
@@ -1063,36 +1049,52 @@ void Boss2::BulletAttack(PlayerMain& player) {
 		
 	
 		if (theta[swordNum - 1] <= 0) {
-			if (isSword[i] == true) {
-				//âÒì]
-				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
-			}
+			
 				sound.SoundEffect(sound.Bulletattack, 0.03f, "./Resources/sounds/bulletattackgo.wav", true);
 
 		}
-		else {
-			if (isRelease == false) {
-				sound.SoundEffect(sound.Bulletattackgo, 0.4f, "./Resources/sounds/bulletattack.wav", false);
-			}
-			isRelease = true;
-
+		
+			
+		if (isRelease == false) {
+			sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
 		}
+
+		
 	}
+
+	if (theta[swordNum - 1] >= 0) {
+		if (isRelease == false) {
+			radius = Easing::easing(radiusT, 200, 100, 0.02f, Easing::easeInOutQuint);
+		}
+			
+	}
+	
+	
+	if (radiusT >= 1.0f) {
+		if (isRelease == false) {
+
+			sound.SoundEffect(sound.Bulletattackgo, 0.4f, "./Resources/sounds/bulletattack.wav", false);
+		}
+		isRelease = true;
+	}
+
 	for (int i = 0; i < swordNum; i++) {
-		if(isRelease == true) {//ç≈ä˙ÇÃíeÇÃthetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁ
+		if(isRelease == true ) {//ç≈ä˙ÇÃíeÇÃthetaÇ™0à»è„Ç…Ç»Ç¡ÇΩÇÁ
 			
 				
-				radius += 1;
+				
 				bulletAttackCoolTime--;
 				sword[i] = initialSword.Rotate(initialSword, radius, theta[i]);
 				if (swordT[i] < 1.0f && isOrbit[i] == false) {
 					orbitColor[i] = Feed::Feedin(swordT[i], 0.05f, orbitColor[i]);
+					AnimeSelect = BulletAttack1;
 				}
 				if (swordT[i] >= 1.0f && isOrbit[i] == false) {
 					isOrbit[i] = true;
 					swordT[i] = 0.0f;
 				}
 				if (isOrbit[i] == true) {
+					AnimeSelect = BossNormal_gra;
 					orbitColor[i] = Feed::Feedout(swordT[i], 0.05f, orbitColor[i]);
 				}
 				//ï˙èoÇµÇƒç≈èâÇÃÉtÉåÅ[ÉÄÇæÇØ
@@ -1108,7 +1110,11 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			
 		}
 	}
+	if (isRelease == true) {
+		radius += 30;
+	}
 	if (bulletAttackCoolTime <= 0) {
+		radiusT = 0.0f;
 		isRelease = false;
 		bulletAttackCoolTime = saveBulletAttackCoolTime;
 		radius = 200.0f;
@@ -1133,8 +1139,8 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 240 && undertaleFrame > 0) {
-		chaseEffect.feedSpeed = 0.01;
+	if (undertaleFrame <= 120 && undertaleFrame > 0) {
+		chaseEffect.feedSpeed = 0.03;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
 		emitchaseEffect = false;
@@ -1190,7 +1196,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			AnimeSelect = Normal;
 		}
 	}
-	if (undertaleFrame <= 870) {
+	if (undertaleFrame <= 570) {
 		chaseEffect.Update(emitchaseEffect, { Pos,30,30 });
 		for (int i = 0; i < chaseBulletNum; i++) {
 			chaseframe[i]--;
@@ -1300,7 +1306,7 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 		if (dropT >= 1.0f) {
 			
 			isdrop = false;
-			
+			AnimeSelect = Nyokki3;
 		}
 		if (dropT > 0.6f) {
 			if (isdrop == true) {
@@ -1308,15 +1314,10 @@ void Boss2::nyokkiAttack(PlayerMain& player) {
 			}
 			
 		}
-
-		if (dropT > 0.8f) {
-			
-			AnimeSelect = Nyokki3;
-		}
 	}
 	if (isNyokki == true ) {
 		//nyokkièàóù
-		AnimeSelect = Nyokki3;
+		
 
 		if (isGetNyokkiPos == false) {
 			for (int i = 0; i < nyokkiNum / 2; i++) {
@@ -1396,12 +1397,12 @@ void Boss2::AsgoreAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			EmitPos = { 240.0f,SCREEN_HEIGHT - Floor };
 			distanceSpeed = 6.0f;
-			allSpeed = { 2.0f,-1.0f };
+			allSpeed = { 4.0f,-2.0f };
 		}
 		else {
 			EmitPos = { 2400.0f - 240,SCREEN_HEIGHT - Floor };
 			distanceSpeed = -6.0f;
-			allSpeed = { -2.0f,-1.0f };
+			allSpeed = { -4.0f,-2.0f };
 		}
 		setWhich = true;
 	}
@@ -1502,13 +1503,13 @@ void Boss2::MoveAttack(PlayerMain& player) {
 		if (player.GetPlayerQuad().GetCenter().x <= 1200) {
 			LastPosx = 2100.0f;
 			startPosx = 300.0f;
- 			moveAttackSpeed = 4.0f;
+ 			moveAttackSpeed = 5.0f;
 			iswhichlr = false;
 		}
 		else {
 			LastPosx = 300.0f;
 			startPosx = 2100.0f;
-			moveAttackSpeed = -4.0f;
+			moveAttackSpeed = -5.0f;
 			iswhichlr = true;
 		}
 		setWhich = true;
@@ -1638,21 +1639,18 @@ void Boss2::Teleportation(PlayerMain& player) {
 	keep.YMove = sinf(keep.theta) * 1;
 	Pos.y += keep.YMove;
 	if (GetTeleportPos == false) {
-		int num = Randam::RAND(0, 4);
+		int num = Randam::RAND(0, 3);
 		if (num == 0) {
 			TeleportPos = { player.GetPlayerPos().x - 600.0f,Pos.y };
 		}
 		if (num == 1) {
-			TeleportPos = { player.GetPlayerPos().x - 300.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x - 500.0f,Pos.y };
 		}
 		if (num == 2) {
-			TeleportPos = { player.GetPlayerPos().x - 0.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x + 500.0f,Pos.y };
 		}
 		if (num == 3) {
-			TeleportPos = { player.GetPlayerPos().x + 300.0f,Pos.y };
-		}
-		if (num == 4) {
-			TeleportPos = { player.GetPlayerPos().x + 600.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x + 500.0f,Pos.y };
 		}
 		TeleSavePos = Pos;
 		GetTeleportPos = true;
@@ -1666,13 +1664,13 @@ void Boss2::Teleportation(PlayerMain& player) {
 		}
 	}
 	if (isTeleport == true) {
-		if (delayframe <= 0) {
+		
 		TelechaseEffect.Update(isTeleport, { Pos,30,30 });
 		for (int i = 0; i < 1; i++) {
-			Telechaseframe[0]--;
+			
 			
 			if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
-				Telechaseframe[0]--;
+				
 				if (TeleisGet[0] == false && TelechaseEffect.particles[0].isActive == true) {
 					TelechaseVec[0] = player.GetPlayerPos() - TelechaseEffect.particles[0].quad.GetCenter();
 					sound.SoundEffect(sound.telepodan, 0.6f, "./Resources/sounds/telopodan.wav", false);
@@ -1713,7 +1711,7 @@ void Boss2::Teleportation(PlayerMain& player) {
 
 						TelechaseEffect.particles[0].maxDirection = TelechaseVec[0];
 						TelechaseEffect.particles[0].minDirection = TelechaseVec[0];
-						Telechaseframe[0] = savechaseframe;
+						
 					}
 				}
 				if (TeleChaceFrame <= 0) {
@@ -1729,16 +1727,13 @@ void Boss2::Teleportation(PlayerMain& player) {
 					isTeleport = false;
 					TeleportTx = 0.0f;
 					isTelechaseFeed = false;
-					Telechaseframe[0] = 0;
+					
 					TeleisGet[0] = false;
 					TeleisFeedrotateBullet = false;
 					TeleportNum--;
 				}
 			}
-		}
-		else {
-			delayframe--;
-		}
+		
 	}
 	if (TeleportNum <= 0) {
 		delayframe = savedelayframe;
@@ -1784,8 +1779,6 @@ void Boss2::UpDate()
 	
 }
 
-
-
 void Boss2::Set()
 {
 	Size = { 64,160 };
@@ -1821,8 +1814,27 @@ void Boss2::Zanzou()
 	}
 }
 
+void Boss2::LoadGra()
+{
+
+	if (load == 0) {
+		load = 1;
+		Boss2HpBar_gra = Novice::LoadTexture("./Resources/images/Boss2HpBar.png");
+		BossNormal_gra = Novice::LoadTexture("./Resources/images/Boss2/Boss2.png");
+		BossNyokki1_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki1.png");
+		BossNyokki2_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki2.png");
+		BossNyokki3_gra = Novice::LoadTexture("./Resources/images/Boss2/Nyokki3.png");
+		BossCharge_gra = Novice::LoadTexture("./Resources/images/Boss2/Charge.png");
+		BossBulletAttack1_gra = Novice::LoadTexture("./Resources/images/Boss2/BulletAttack1.png");
+		BossBulletAttack2_gra = Novice::LoadTexture("./Resources/images/Boss2/BulletAttack2.png");
+
+		Boss_gra = BossNormal_gra;
+	}
+}
+
 void Boss2::Animation()
 {
+
 	int PreSheets = 0;
 	if (SrcX != 0) {
 		PreSheets = SrcX / ImageSize.x;
@@ -1854,6 +1866,16 @@ void Boss2::Animation()
 		ImageSize = { 88,184 };
 		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
 		Boss_gra = BossCharge_gra;
+		break;
+	case BulletAttack1:
+		ImageSize = { 168,184 };
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossBulletAttack1_gra;
+		break;
+	case BulletAttack2:
+		ImageSize = { 84,148};
+		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+		Boss_gra = BossBulletAttack2_gra;
 		break;
 	}
 
@@ -1951,7 +1973,7 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		if (0 <= keep.rand && keep.rand <= 40) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x += vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 700, 0.02, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos + 700, 0.01, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}
@@ -1959,7 +1981,7 @@ void Boss2::KeepUpWaitBack(PlayerMain& player)
 		if (41 <= keep.rand && keep.rand <= 80) {
 			/*Vec2 vel = (player.Translation() - Pos).Normalized();
 			Pos.x -= vel.x * 10;*/
-			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 700, 0.02, Easing::easeInBack);
+			Pos.x = Easing::easing(keep.Ease_T, keep.FPos, keep.FPos - 700, 0.01, Easing::easeInBack);
 			if (keep.Ease_T == 1) {
 				keep.bMove = false;
 			}

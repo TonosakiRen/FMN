@@ -37,6 +37,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	subBladeImg[5] = Novice::LoadTexture("./Resources/Images/sabblade06.png");
 	subBladeImg[6] = Novice::LoadTexture("./Resources/Images/sabblade07.png");
 
+	int windAttackImg = Novice::LoadTexture("./Resources/Images/WindAttack.png");
+
 	int bossImg = Novice::LoadTexture("./Resources/Images/Boss/Boss.png");
 	int bossheadImg = Novice::LoadTexture("./Resources/Images/Boss/Head.png");
 	int bossbodyImg = Novice::LoadTexture("./Resources/Images/Boss/Body.png");
@@ -103,7 +105,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//test
 
 	//tutorial.unko();
-	Novice::SetWindowMode(kFullscreen);
+	//Novice::SetWindowMode(kFullscreen);
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -120,88 +122,95 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		
 		screen.Scroll_update(playermain.GetPlayerQuad().LeftTop.x + playermain.ReturnPulsScroll(), playermain.GetPlayerQuad().LeftTop.y, 1.25);
 		
+		stopper.SetScene(scene);
+
 		switch (scene)
 		{
 		case title:
 			//タイトル処理
 
-			if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
-				isFeedout = true;
-			}
+			isPause = stopper.Pause();
 
-			/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
-				isFeedout = true;
-			}*/
-
-			if (isTitleStart == false) {
-				isFeedin = true;
-				if (feedinT >= 1.0f) {
-					InitFeedin();
-					isTitleStart = true;
-					stopper.canselect = true;
-				}
-			}
-
-			if (feedoutT >= 1.0f) {
-				InitEffect();
-				playermain.Init();
-				InitFeedout();
-				isTitleStart = false;
-				scene = stage;
-				isFeedin = true;
-				isMovie = true;
-				boss.Init();
-				boss2.Init();
-				boss.Set();
-				RestartCount = 0;
-				GameClearClass.Init();
-				playermain.MovieInit();
-				boss.MovieInit();
-			}
-
-			playermain.Move();
-
-			for (int i = 0; i < 2; i++) {
-				playermain.SwordHit(tutorial.GetLetAttackQuad(i));
-			}
-
-			playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
-			playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
-
-			for (int i = 0; i < 2; i++) {
-				tutorial.HitLetAttack(playermain.GetSwordQuad());
-			}
-
-			playerEffect.Update(true, playermain.GetPlayerQuad());
-			//swordのeffect
-			if (playermain.GetHitSword() == true) {
-				if (playermain.GetisFaceUp()) {
-					playerEffectSword.minDirection = { -0.4f , 0.1f };
-					playerEffectSword.maxDirection = { 0.4f , 0.9f };
-				}
-				else if (playermain.GetisFaceDown()) {
-					playerEffectSword.minDirection = { -0.4f , -0.1f };
-					playerEffectSword.maxDirection = { 0.4f , -0.9f };
-				}
-				else if (playermain.GetisFaceRigh()) {
-					playerEffectSword.minDirection = { 0.1f,-0.4f };
-					playerEffectSword.maxDirection = { 0.9f,0.4f };
-				}
-				else {
-					playerEffectSword.minDirection = { -0.9f,-0.4f };
-					playerEffectSword.maxDirection = { -0.1f,0.4f };
+			if (isPause == false) {
+				if (tutorial.PlayerGoNext(playermain.GetPlayerPos().x)) {
+					isFeedout = true;
 				}
 
+				/*if (Key::IsTrigger(DIK_R) && isFeedout == false && isFeedin == false) {
+					isFeedout = true;
+				}*/
+
+				if (isTitleStart == false) {
+					isFeedin = true;
+					if (feedinT >= 1.0f) {
+						InitFeedin();
+						isTitleStart = true;
+						stopper.canselect = true;
+					}
+				}
+
+				if (feedoutT >= 1.0f) {
+					InitEffect();
+					playermain.Init();
+					InitFeedout();
+					isTitleStart = false;
+					scene = stage;
+					isFeedin = true;
+					isMovie = true;
+					playermain.MovieInit();
+					boss.Init();
+					boss2.Init();
+					boss.Set();
+					RestartCount = 0;
+					GameClearClass.Init();
+					boss.MovieInit();
+					boss.UpDate();
+				}
+
+				playermain.Move();
+
+				for (int i = 0; i < 2; i++) {
+					playermain.SwordHit(tutorial.GetLetAttackQuad(i));
+				}
+
+				playermain.PlayerHitKnockBack(tutorial.GetLetJumpQuad());
+				playermain.PlayerHitKnockBack(tutorial.GetLetDashQuad());
+
+				for (int i = 0; i < 2; i++) {
+					tutorial.HitLetAttack(playermain.GetSwordQuad());
+				}
+
+				playerEffect.Update(true, playermain.GetPlayerQuad());
+				//swordのeffect
+				if (playermain.GetHitSword() == true) {
+					if (playermain.GetisFaceUp()) {
+						playerEffectSword.minDirection = { -0.4f , 0.1f };
+						playerEffectSword.maxDirection = { 0.4f , 0.9f };
+					}
+					else if (playermain.GetisFaceDown()) {
+						playerEffectSword.minDirection = { -0.4f , -0.1f };
+						playerEffectSword.maxDirection = { 0.4f , -0.9f };
+					}
+					else if (playermain.GetisFaceRigh()) {
+						playerEffectSword.minDirection = { 0.1f,-0.4f };
+						playerEffectSword.maxDirection = { 0.9f,0.4f };
+					}
+					else {
+						playerEffectSword.minDirection = { -0.9f,-0.4f };
+						playerEffectSword.maxDirection = { -0.1f,0.4f };
+					}
+
+				}
+				playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
+
+
+
+				//tutorial.HitLetAttack(playermain.GetSwordQuad());
+
+				tutorial.Update(playermain.GetPlayerPos().x);
+
+				
 			}
-			playerEffectSword.Update(playermain.GetHitSword(), playermain.GetHitAttackPos());
-
-
-
-			//tutorial.HitLetAttack(playermain.GetSwordQuad());
-
-			
-
-			tutorial.Update();
 
 			break;
 		case stage:
@@ -293,7 +302,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						//サウンド
 						//sound.BGMStop(&sound.StageBgm);
 						boss2.RandamMoveSelect(Randam::RAND(0, MAX2_PATTERN - 1), playermain, screen);
-						
+						//boss2.BulletAttack(playermain);
+
 						boss2.UpDate();
 						
 						//当たり判定とかいれて！！！
@@ -579,6 +589,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.RestartFlag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = false;
 				RestartCount = 0;
 				gameoverclass.RestartFlag = false;
@@ -586,10 +597,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (gameoverclass.Restart2Flag == true && isFeedout == false && isFeedin == false) {
 				isFeedout = true;
+				isRestart = true;
 				Restart2 = true;
 				gameoverclass.Restart2Flag = false;
 				RestartCount++;
 			}
+
+			if (gameoverclass.TitleBackFlag == true && isFeedout == false && isFeedin == false) {
+				isFeedout = true;
+				isTitle = true;
+				gameoverclass.TitleBackFlag = false;
+				tutorial.Init();
+				RestartCount = 0;
+			}
+
 			if (feedoutT >= 1.0f) {
 				
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -607,6 +628,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			GameClearClass.Update(RestartCount);
 			if (GameClearClass.TitleFlag == true && isFeedout == false && isFeedin == false) {
 				GameClearClass.TitleFlag = false;
+				tutorial.Init();
 				isFeedout = true;
 			}
 			
@@ -714,6 +736,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
 			
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
+			stopper.PauseDraw(inPauseGra, PauseSelectGra);
+
+			if (isPause == true) {
+				tutorial.PlayDrawEx(TutorialEx, 1);
+			}
+			else {
+				tutorial.PlayDrawEx(TutorialEx, 0);
+			}
 
 			break;
 		case stage:
@@ -763,13 +793,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss.isWhiteFeedout = false;
 			}
 			if (boss2.IsLife == true) {
-				boss2.centerOfDarknessRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnder.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnderLeft.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.centerOfDarknessUnderRight.Draw(screen, 128, circleRedEffectImg, WHITE, kBlendModeNormal);
-				boss2.chaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
-				boss2.TelechaseEffect.Draw(screen, 128, circleRedEffectImg, WHITE);
+				boss2.centerOfDarknessRight.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessLeft.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnder.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderLeft.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.centerOfDarknessUnderRight.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
+				boss2.chaseEffect.Draw(screen, 32, windAttackImg, WHITE);
+				boss2.TelechaseEffect.Draw(screen, 32, windAttackImg, WHITE);
 			}
 			
 			
@@ -793,7 +823,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						if (boss2.centerNyokkistats == boss2.Keep) {
 							if (boss2.isFeedCenterNyokki == false) {
 								Quad tmp2({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp2, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+								screen.DrawQuad2Renban(tmp2, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame2, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 								if (screen.isPause == false) {
 									boss2.centerNyokkiKeepAnimationFrame--;
 								}
@@ -801,7 +831,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							}
 							if (boss2.isFeedCenterNyokki == true) {
 								Quad tmp3({ boss2.centerNyokki[i].LeftTop.x - 32.0f,boss2.centerNyokki[i].LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp3, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.centerNyokkiT[i], 0.1f, WHITE), false);
+								screen.DrawQuad2Renban(tmp3, boss2.centerNyokkiKeepSrcX[i], 0, 172, 952, boss2.centerNyokkiKeepSheets, boss2.centerNyokkiSwitchAnimationFrame2, boss2.centerNyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.centerNyokkiT[i], 0.1f, WHITE), false);
 								if (screen.isPause == false) {
 									boss2.centerNyokkiKeepAnimationFrame--;
 								}
@@ -831,24 +861,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						if (boss2.nyokkistats == boss2.Keep) {
 							if (boss2.isFeedNyokki == false) {
 								Quad tmp6({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp6, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+								screen.DrawQuad2Renban(tmp6, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame2, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 								if (screen.isPause == false) {
 									boss2.nyokkiKeepAnimationFrame--;
 								}
 								Quad tmp7({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp7, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
+								screen.DrawQuad2Renban(tmp7, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame2, boss2.nyokkiKeepAnimationFrame, keeptorunedo, WHITE, false);
 								if (screen.isPause == false) {
 									boss2.nyokkiKeepAnimationFrame--;
 								}
 							}
 							if (boss2.isFeedNyokki == true) {
 								Quad tmp8({ boss2.leftNyokki[i].Quad.LeftTop.x - 32.0f,boss2.leftNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i], 0.1f, WHITE), false);
+								screen.DrawQuad2Renban(tmp8, boss2.leftNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame2, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.leftNyokkiT[i], 0.1f, WHITE), false);
 								if (screen.isPause == false) {
 									boss2.nyokkiKeepAnimationFrame--;
 								}
 								Quad tmp9({ boss2.rightNyokki[i].Quad.LeftTop.x - 32.0f,boss2.rightNyokki[i].Quad.LeftTop.y + 32.0f }, 172, 952);
-								screen.DrawQuad2Renban(tmp9, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.1f, WHITE), false);
+								screen.DrawQuad2Renban(tmp9, boss2.rightNyokkiKeepSrcX[i], 0, 172, 952, boss2.nyokkiKeepSheets, boss2.nyokkiSwitchAnimationFrame2, boss2.nyokkiKeepAnimationFrame, keeptorunedo, Feed::Feedout(boss2.rightNyokkiT[i], 0.1f, WHITE), false);
 								if (screen.isPause == false) {
 									boss2.nyokkiKeepAnimationFrame--;
 								}
@@ -958,6 +988,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (isPause == true) {
 				tutorial.PlayDrawEx(TutorialEx, 1);
 			}
+			else if (isMovie == true) {
+				tutorial.PlayDrawEx(TutorialEx, 3);
+			}
 			else {
 				tutorial.PlayDrawEx(TutorialEx, 0);
 			}
@@ -1034,24 +1067,41 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			if (feedoutT >= 1.0f) {
 				InitFeedout();
-				if (boss.IsLife == true) {
+				if (isRestart == true) {
+					isRestart = false;
+					if (boss.IsLife == true) {
+						boss.Init();
+					}
+					else {
+						boss2.Set();
+					}
+					if (Restart2 == true) {
+						boss.IsLife = false;
+						Restart2 = false;
+					}
+					InitEffect();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = stage;
+				}
+				else if (isTitle == true) {
+					isTitle = false;
+					InitEffect();
 					boss.Init();
+					boss2.Init();
+					playermain.Init();
+					playermain.Move();
+					boss.UpDate();
+					boss2.UpDate();
+					stopper.canselect = true;
+					isGameoverStart = false;
+					scene = title;
 				}
-				else {
-					boss2.Set();
-				}
-				if (Restart2 == true) {
-					boss.IsLife = false;
-					Restart2 = false;
-				}
-				InitEffect();
-				playermain.Init();
-				playermain.Move();
-				boss.UpDate();
-				boss2.UpDate();
-				stopper.canselect = true;
-				isGameoverStart = false;
-				scene = stage;
+
 				isFeedin = true;
 				//サウンド
 				Novice::StopAudio(sound.GameOver.Handle);
@@ -1129,7 +1179,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true || gameoverclass.QuitFlag == true) {
+		if (Key::IsTrigger(DIK_ESCAPE) || stopper.ReturnQuitFlag() == true) {
 			break;
 		}
 	}

@@ -74,16 +74,18 @@ private:
 		int sheets;
 		int SrcX;
 		int Anime;
+		int Alpha;
 	};
 
 	TutorialImageStruct type1 = {
-		{472,316},
-		{496,240},
+		{472,396},
+		{496,396},
 		{ { type1.Pos.x - type1.Size.x / 2 , type1.Pos.y + type1.Size.y / 2},
 		int(type1.Size.x),int(type1.Size.y) },
 		2,
 		0,
 		1,
+		255,
 	};
 
 	TutorialImageStruct type2 = {
@@ -94,6 +96,7 @@ private:
 		2,
 		0,
 		1,
+		0,
 	};
 
 	TutorialImageStruct type3 = {
@@ -104,13 +107,19 @@ private:
 		2,
 		0,
 		1,
+		0,
 	};
+
+	bool LetAttackFlag = false;
+	bool LetDashFlag = false;
 
 public:
 
 	Tutorial();
 
-	void Update();
+	void Init();
+
+	void Update(float PlayerX);
 
 	void Draw(Screen& screen,int gra1,int gra2,int gra3,int LetJumpGra,int LetAttackGra,int LetDashGra);
 

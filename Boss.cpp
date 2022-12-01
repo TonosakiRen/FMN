@@ -2,6 +2,7 @@
 #include "Degree.h"
 #include "Clamp.h"
 #include "Key.h"
+#include "ControllerInput.h"
 #include "Easing.h"
 #include "Randam.h"
 #include "Feed.h"
@@ -24,6 +25,11 @@ Boss::Boss()
 	
 }
 void Boss::UpDate() {
+
+	if (Key::IsPressed(DIK_T) && Key::IsPressed(DIK_Y) && Key::IsPressed(DIK_1)) {
+		HP = 0;
+	}
+
 	LeftTop = { Pos.x - (Size.x / 2),Pos.y + (Size.y / 2) };
 	LeftBottom = Vec2(Pos - (Size / 2));
 	RightTop = Vec2(Pos + (Size / 2));
@@ -43,7 +49,7 @@ void Boss::UpDate() {
 			HP = 0;
 			isBossHit = false;
 		}
-	};
+	}
 	if (HP <= 0) {
 
 		CanMove = false;
@@ -312,7 +318,7 @@ void Boss::Init()
 
 	 Leg = {
 		 {0,0},
-		 {130,130},
+		 {128,128},
 		 {-12,-59},
 		 { { Leg.ImagePos.x - Leg.ImageSize.x / 2, Leg.ImagePos.y + Leg.ImageSize.y / 2},
 		 int(Leg.ImageSize.x),int(Leg.ImageSize.y) },
@@ -430,6 +436,8 @@ void Boss::Draw(Screen& screen, int texsture, int headtex, int bodytex, int legt
 	screen.DrawQuad2Renban(RightArm.ImageQuad, RightArm.SrcX, 0, RightArm.ImageSize.x, RightArm.ImageSize.y, BossSheets, 5, RightArm.AnimeFlame, rightGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	screen.DrawQuad2Renban(LeftArm.ImageQuad, LeftArm.SrcX, 0, LeftArm.ImageSize.x, LeftArm.ImageSize.y, BossSheets, 5, LeftArm.AnimeFlame, leftGra, Feed::Feedout2(bossendT, WHITE), BossisFlip);
 	
+	//Novice::ScreenPrintf(500, 500, "%d", Leg.SrcX);
+
 	//screen.DrawQuad2(Head.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Body.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
 	//screen.DrawQuad2(Leg.ColQuad, 0, 0, 0, 0, 0, 0xFF000044);
@@ -800,12 +808,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
 						//NomalSwordAttack(player);
-						ShockWaveAttack(player, screen);
+						//ShockWaveAttack(player, screen);
 
 						//NomalRotedSwordAttack(player);
-						/*Action = false;
-						CoolTime = 0;*/
-						FMoveArray = array.AttackFunction03;
+						Action = false;
+						CoolTime = 0;
+						//FMoveArray = array.AttackFunction03;
 
 
 					}
@@ -991,7 +999,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						NomalRotedSwordAttack2(player);
+						NomalRotedSwordAttack(player);
 						/*NomalSwordAttack(player);
 						array.bAttackFunction01 = true;
 						array.InitNotThis(array.bAttackFunction01);*/
@@ -1072,7 +1080,7 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction01) {
 						//5%の攻撃
-						NomalRotedSwordAttack(player);
+						NomalRotedSwordAttack2(player);
 						//NomalSwordAttack2(player);
 
 						/*Action = false;
@@ -3266,6 +3274,26 @@ void Boss::MovieInit()
 
 void Boss::Movie()
 {
+	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+		Body.MoviePulsPos = { 0,0 };
+		RightArm.MoviePulsPos = { 0,0 };
+		LeftArm.MoviePulsPos = { 0,0 };
+		Head.MoviePulsPos = { 0,0 };
+		Leg.MoviePulsPos = { 0,0 };
+		isImageDead = false;
+		StyleChange.Flag = false;
+		isRedBlackEffect = true;
+		RightArm.StandMotionFlag = 1;
+		LeftArm.StandMotionFlag = 1;
+		Body.StandMotionFlag = 1;
+		Head.StandMotionFlag = 1;
+		Leg.StandMotionFlag = 1;
+		CanMove = true;
+		MovieEnd = true;
+		StyleChange.Alpha = 0;
+		StyleChange.Flag = false;
+		MovieTime = 941;
+	}
 
 	const int BODYMINUS = 190;
 	if (MovieTime == 0) {

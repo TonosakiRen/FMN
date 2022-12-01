@@ -131,7 +131,7 @@ void GameClear::GameClearQuadDraw(GameClearStruct select, int tex) {
 			tex, select.Color);
 	}
 
-	Novice::ScreenPrintf(0, 0, "%d", DrawNum);
+	//Novice::ScreenPrintf(0, 0, "%d", DrawNum);
 }
 
 

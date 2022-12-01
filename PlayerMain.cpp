@@ -111,13 +111,20 @@ void PlayerMain::Move()
 			JumpFlag = false;
 		}
 
-		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 || Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+		if ((Controller::IsTriggerButton(0, Controller::lSHOULDER) == 1 ||
+			Controller::IsTriggerButton(0, Controller::lTrigger) == 1 ||
+			Controller::IsTriggerButton(0, Controller::rSHOULDER) == 1 ||
+			Controller::IsTriggerButton(0, Controller::rTrigger) == 1 ||
+			Key::IsTrigger(DIK_J)) && DashCoolTime <= 0) {
+
 			DashFlag = true;
 			JumpFlag = false;
 			DashFaseRight = FaceRight;
 			if (FaceDown == true || FaceUp == true) {
 				DashAvoid = true;
 			}
+			sound.SoundEffect(sound.playerdassyu, 0.3f, "./Resources/sounds/dassyu.wav");
+
 		}
 	}
 
@@ -138,7 +145,7 @@ void PlayerMain::Move()
 			}
 		}
 		DashTime++;
-		if (DashTime > 6) {
+		if (DashTime > MAXDASHTIME) {
 			DashFlag = false;
 			DashAvoid = false;
 			DashTime = 0;
@@ -349,7 +356,7 @@ void PlayerMain::SwordHit(Quad Target)
 		isSwordHit = true;
 
 		 if(FaceDown == true){
-			 HitBack.y = 4;
+			 HitBack.y = 5;
 			 Gravity = 0;
 			 Speed.y = JUMPPOWER;
 		 }
@@ -607,6 +614,15 @@ Vec2 PlayerMain::Translation()
 
 void PlayerMain::Movie()
 {
+	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
+		CanMove = true;
+		PulsScroll = 0;
+		Player.Pos = { 1080,0 };
+		MovieSpeed.x = 0;
+		MovieTime = 941;
+	}
+
+
 	if (MovieTime == 0) {
 		Player.Pos = { 0,0 };
 		CanMove = false;

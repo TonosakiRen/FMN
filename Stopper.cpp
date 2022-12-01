@@ -13,6 +13,26 @@ bool Stopper::Pause()
 			else {
 				isPause = true;
 				Selected = 0;
+
+				switch (scene)
+				{
+				case title:
+					BackGame.LINE = 0;
+					BackGame.Pos = { 1920 / 2,690 };
+					Quit.LINE = 1;
+					Quit.Pos = { 1920 / 2,810 };
+					break;
+				case stage:
+					BackGame.LINE = 0;
+					BackGame.Pos = { 1920 / 2,570 };
+					Restart.LINE = 1;
+					Restart.Pos = { 1920 / 2,690 };
+					Quit.LINE = 3;
+					Quit.Pos = { 1920 / 2,930 };
+					Title.LINE = 2;
+					Title.Pos = { 1920 / 2,810 };
+					break;
+				}
 			}
 		}
 
@@ -20,84 +40,116 @@ bool Stopper::Pause()
 		stickdown = Controller::IsStickDirection(0, Controller::lsdDOWN);
 
 		if (isPause == true) {
+			
 			if (Key::IsTrigger(DIK_S) || (stickdown == true && prestickdown == false)) {
-				sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
-				Selected++;
-				if (Selected > 3) {
-					Selected = 0;
+					sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
+					Selected++;
+					if (Selected > MAXLINE) {
+						Selected = 0;
+					}
 				}
-			}
 			if (Key::IsTrigger(DIK_W) || (stickup == true && prestickup == false)) {
 				Selected--;
 				sound.SoundEffect(sound.Pick, 0.3f, "./Resources/sounds/sentaku.wav", false);
 
 				if (Selected < 0) {
-					Selected = 3;
+					Selected = MAXLINE;
 				}
 			}
 
-			if (BackGame.LINE == Selected) {
-				BackGame.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+			switch (scene)
+			{
+			case title:
 
-					isPause = false;
+				if (BackGame.LINE == Selected) {
+					BackGame.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
+						isPause = false;
+					}
 				}
-			}
-			else {
-				BackGame.Color = WHITE;
-			}
-
-			if (Restart.LINE == Selected) {
-				Restart.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
-
-					RestartFlag = true;
-					canselect = false;
-					isPause = false;
+				else {
+					BackGame.Color = WHITE;
 				}
-			}
-			else {
-				Restart.Color = WHITE;
-			}
 
-			/*if (BGM.LINE == Selected) {
-				BGM.Color = 0x20d6c7FF;
-			}
-			else {
-				BGM.Color = WHITE;
-			}
-
-			if (SE.LINE == Selected) {
-				SE.Color = 0x20d6c7FF;
-			}
-			else {
-				SE.Color = WHITE;
-			}*/
-
-			if (Title.LINE == Selected) {
-				Title.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
-					TitileBackFlag = true;
-					canselect = false;
-					isPause = false;
+				if (Quit.LINE == Selected) {
+					Quit.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+						QuitFlag = true;
+					}
 				}
-			}
-			else {
-				Title.Color = WHITE;
-			}
-
-			if (Quit.LINE == Selected) {
-				Quit.Color = 0x20d6c7FF;
-				if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
-					sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
-					QuitFlag = true;
+				else {
+					Quit.Color = WHITE;
 				}
-			}
-			else {
-				Quit.Color = WHITE;
+				break;
+
+			case stage:
+				if (BackGame.LINE == Selected) {
+					BackGame.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
+						isPause = false;
+					}
+				}
+				else {
+					BackGame.Color = WHITE;
+				}
+
+				if (Restart.LINE == Selected) {
+					Restart.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+
+						RestartFlag = true;
+						canselect = false;
+						isPause = false;
+					}
+				}
+				else {
+					Restart.Color = WHITE;
+				}
+
+				/*if (BGM.LINE == Selected) {
+					BGM.Color = 0x20d6c7FF;
+				}
+				else {
+					BGM.Color = WHITE;
+				}
+
+				if (SE.LINE == Selected) {
+					SE.Color = 0x20d6c7FF;
+				}
+				else {
+					SE.Color = WHITE;
+				}*/
+
+				if (Title.LINE == Selected) {
+					Title.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+						TitileBackFlag = true;
+						canselect = false;
+						isPause = false;
+					}
+				}
+				else {
+					Title.Color = WHITE;
+				}
+
+				if (Quit.LINE == Selected) {
+					Quit.Color = 0x20d6c7FF;
+					if (Key::IsTrigger(DIK_K) || Controller::IsTriggerButton(0, Controller::bA)) {
+						sound.SoundEffect(sound.PickUp, 0.3f, "./Resources/sounds/kettei.wav", false);
+						QuitFlag = true;
+					}
+				}
+				else {
+					Quit.Color = WHITE;
+				}
+				break;
 			}
 		}
 
@@ -106,6 +158,11 @@ bool Stopper::Pause()
 	}
 
 	return isPause;
+}
+
+void Stopper::SetScene(int mainscene)
+{
+	scene = mainscene;
 }
 
 
@@ -139,17 +196,26 @@ void Stopper::PauseDraw(int inPause_Gra, int PauseSelect_Gra)
 
 		PauseQuadDraw(InPause, inPause_Gra);
 
-		PauseQuadDraw(BackGame, PauseSelect_Gra);
+		switch (scene)
+		{
+		case title:
+			PauseQuadDraw(BackGame, PauseSelect_Gra);
+			PauseQuadDraw(Quit, PauseSelect_Gra);
+			break;
+		case stage:
+			PauseQuadDraw(BackGame, PauseSelect_Gra);
 
-		PauseQuadDraw(Restart, PauseSelect_Gra);
+			PauseQuadDraw(Restart, PauseSelect_Gra);
 
-	/*	PauseQuadDraw(BGM, PauseSelect_Gra);
+			/*	PauseQuadDraw(BGM, PauseSelect_Gra);
 
-		PauseQuadDraw(SE, PauseSelect_Gra);*/
+				PauseQuadDraw(SE, PauseSelect_Gra);*/
 
-		PauseQuadDraw(Title, PauseSelect_Gra);
+			PauseQuadDraw(Title, PauseSelect_Gra);
 
-		PauseQuadDraw(Quit, PauseSelect_Gra);
+			PauseQuadDraw(Quit, PauseSelect_Gra);
+			break;
+		}
 
 	}
 }
