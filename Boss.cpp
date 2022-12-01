@@ -263,6 +263,19 @@ void Boss::Init()
 
 	jumpattack.Init();
 
+	for (int i = 0; i < kMAX_WAVE; i++) {
+		Wave[i].WaveKeep = false;
+		Wave[i].LifeTime = 0;
+		if (Wave[i].WaveKeep == false) {
+			Wave[i].QuadPos.Quad::Quad({ 99999,9999 }, 100, 150);
+			Wave[i].Quad2Pos.Quad::Quad({ 9000,9999 }, 100, 150);
+			Wave[i].QuadPosAnime.Quad::Quad({ 99999,9999 }, 150, 150);
+			Wave[i].Quad2PosAnime.Quad::Quad({ 9000,9999 }, 150, 150);
+
+		}
+					
+		
+	}
 	 CircleOfDeathMotionT;
 	 CircleOfDeathMotionT2;
 	 RainofswordMotionT;
