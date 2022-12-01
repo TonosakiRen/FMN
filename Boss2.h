@@ -37,7 +37,7 @@ class Boss2 {
 
 	bool isCollisionWall = false;
 
-	int bossAttackHP =30;//ボスに攻撃当てた時のへるHP 
+	int bossAttackHP =35;//ボスに攻撃当てた時のへるHP 
 	//画像の宣言
 	int Rainsword_gra = 0;
 	int Mahoujin_gra = 0;

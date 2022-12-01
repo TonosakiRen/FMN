@@ -180,6 +180,7 @@ void Boss2::Init() {
 		swordT[i] = 0.0f;
 		isOrbit[i] = false;
 		isBulletAttack = false;
+		sword[i] = { {9999,9999},0,0 };
 	}
 	chaseEffect.addEffectCooltime = 40;
 	chaseEffect.feedSpeed = 0.0f;
@@ -1109,9 +1110,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			
 		}
 	}
-	if (isRelease == true) {
-		radius += 30;
-	}
+	
 	if (bulletAttackCoolTime <= 0) {
 		radiusT = 0.0f;
 		isRelease = false;
@@ -1125,6 +1124,7 @@ void Boss2::BulletAttack(PlayerMain& player) {
 			swordT[i] = 0.0f;
 			isOrbit[i] = false;
 			isBulletAttack = false;
+			sword[i] = { {9999,9999},0,0 };
 		}
 		Action = false;
 		AnimeSelect = Normal;
@@ -1643,13 +1643,13 @@ void Boss2::Teleportation(PlayerMain& player) {
 			TeleportPos = { player.GetPlayerPos().x - 600.0f,Pos.y };
 		}
 		if (num == 1) {
-			TeleportPos = { player.GetPlayerPos().x - 500.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x - 600.0f,Pos.y };
 		}
 		if (num == 2) {
-			TeleportPos = { player.GetPlayerPos().x + 500.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x + 600.0f,Pos.y };
 		}
 		if (num == 3) {
-			TeleportPos = { player.GetPlayerPos().x + 500.0f,Pos.y };
+			TeleportPos = { player.GetPlayerPos().x + 600.0f,Pos.y };
 		}
 		TeleSavePos = Pos;
 		GetTeleportPos = true;
@@ -1774,6 +1774,10 @@ void Boss2::UpDate()
 			HpColor = 0xFF4400FF;
 
 		}
+	}
+
+	if (isRelease == true) {
+		radius += 27;
 	}
 	
 }
