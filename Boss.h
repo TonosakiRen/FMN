@@ -551,7 +551,7 @@ public:
 	
 	void StyleChangeUpdate(Screen& screen);
 
-	void MovieInit() { MovieTime = 0; };
+	void MovieInit();
 	void Movie();
 	bool MovieEnded();
 	bool RedBlackEffectFlag();

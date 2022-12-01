@@ -150,12 +150,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = stage;
 				isFeedin = true;
 				isMovie = true;
-				playermain.MovieInit();
 				boss.Init();
 				boss2.Init();
 				boss.Set();
 				RestartCount = 0;
 				GameClearClass.Init();
+				playermain.MovieInit();
 				boss.MovieInit();
 			}
 
