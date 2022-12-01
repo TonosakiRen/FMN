@@ -1165,10 +1165,11 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//CircleOfDeathAttack(player);
 
 						//ShockWaveAttack(player, screen);
-						JumpAttack(player, screen);
-						/*Action = false;*/
-						FMoveArray = array.AttackFunction02;
+						//JumpAttack(player, screen);
+						Action = false;
 						CoolTime = 0;
+						/*FMoveArray = array.AttackFunction02;
+						CoolTime = 0;*/
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
@@ -1184,8 +1185,8 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 						//5%の攻撃
 						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
-						CircleOfDeathAttack(player);
-
+						//CircleOfDeathAttack(player);
+						RainOfSwordAttack();
 						/*Action = false;*/
 						FMoveArray = array.AttackFunction04;
 					}
@@ -2652,7 +2653,7 @@ void Boss::RainOfSwordAttack() {
 			}
 		}
 		if (Rainofsword[kMAX_RAINSWORD-1].Reserve==true && RainofswordMotionT == 1) {
-			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, -Floor , 0.017f, Easing::easeInBack);
+			Rainofsword[i].Pos.y = Easing::easing(Rainofsword[i].DownT, 800, -Floor , 0.012f, Easing::easeInBack);
 			Rainofsword[i].QuadPos = Quad::Quad(Rainofsword[i].Pos, Rainofsword[i].Width, Rainofsword[i].Height);
 			Rainofsword[i].ColQuadPos = Quad::Quad(
 				{ Rainofsword[i].Pos.x + Rainofsword[i].Width / 2 - Rainofsword[i].ColWidth / 2 , Rainofsword[i].Pos.y - Rainofsword[i].Height / 2 + Rainofsword[i].ColHeight / 2},
