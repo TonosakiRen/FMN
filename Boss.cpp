@@ -276,10 +276,10 @@ void Boss::Init()
 					
 		
 	}
-	 CircleOfDeathMotionT;
-	 CircleOfDeathMotionT2;
-	 RainofswordMotionT;
-	 RainofswordMotionT2;
+	 CircleOfDeathMotionT = 0;
+	 CircleOfDeathMotionT2 = 0;
+	 RainofswordMotionT = 0;
+	 RainofswordMotionT2 = 0;
 	 bJumpAttack2 = false;
 
 	 bNomalSwordAttack = false;
@@ -511,6 +511,7 @@ void Boss::StyleChangeUpdate(Screen& screen) {
 		}
 		if (StyleChange.Alpha < 255) {
 			StyleChange.Alpha += 0.8;
+			screen.Shake(-2, 2, -2, 2, true);
 		}
 	}
 	else {
@@ -518,7 +519,7 @@ void Boss::StyleChangeUpdate(Screen& screen) {
 			StyleChange.Alpha -= 5;
 		}
 	}
-
+	
 	StyleChange.Alpha = Clamp::clamp(StyleChange.Alpha, 0, 255);
 }
 
@@ -959,12 +960,12 @@ void Boss::RandamMoveSelect(int rand,PlayerMain& player,Screen& screen)
 					if (MovePattern[MoveArray] == array.AttackFunction03) {
 						//5%の攻撃
 						//NomalRotedSwordAttack(player);
-						JumpAttack(player, screen);
+						//JumpAttack(player, screen);
 						//ShockWaveAttack(player, screen);
 						//CircleOfDeathAttack(player);
-						FMoveArray = array.AttackFunction03;
-						//CoolTime = 45;
-						/*Action = false;*/
+						//FMoveArray = array.AttackFunction03;
+						CoolTime = 0;
+						Action = false;
 					}
 					if (MovePattern[MoveArray] == array.AttackFunction04) {
 						//5%の攻撃
@@ -2504,11 +2505,11 @@ void Boss::ShockWaveAttackCenter(PlayerMain& player)
 				Pos.y = Easing::easing(jumpattack.EaseDownT, 600, Size.y / 2, 0.05f, Easing::easeOutBounce);
 				//下に落ちる
 				if (Pos.y == Size.y / 2) {
-					if (Wave[0].WaveKeep == false) {
+					if (Wave[1].WaveKeep == false) {
 						sound.SoundEffect(sound.jumpattack,0.6f, "./Resources/sounds/JumpAttack.mp3");
 
 					}
-					Wave[0].WaveKeep = true;
+					Wave[1].WaveKeep = true;
 				}
 
 				if (jumpattack.EaseDownT >= 0.3) {
