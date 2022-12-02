@@ -106,6 +106,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	//tutorial.unko();
 	Novice::SetWindowMode(kFullscreen);
+	Novice::SetMouseCursorVisibility(0);
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
