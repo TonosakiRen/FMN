@@ -957,7 +957,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		--centerOfDarknessCooltime;
 		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower * (1.0 - gravityT);
 		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
-		if (centerOfDarknessCooltime >= 150) {
+		if (centerOfDarknessCooltime >= 250) {//‚à‚Æ‚à‚Æ150
 			
 			
 			if (isGetNyokkiPos == false) {
@@ -1138,7 +1138,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 120 && undertaleFrame > 0) {
+	if (undertaleFrame <= 180 && undertaleFrame > 0) {//‚à‚Æ120
 		chaseEffect.feedSpeed = 0.03;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
