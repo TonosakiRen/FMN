@@ -121,7 +121,7 @@ void PlayerMain::Move()
 			JumpFlag = false;
 			DashFaseRight = FaceRight;
 			if (FaceDown == true || FaceUp == true) {
-				DashAvoid = true;
+				//DashAvoid = true;
 			}
 			sound.SoundEffect(sound.playerdassyu, 0.3f, "./Resources/sounds/dassyu.wav");
 
