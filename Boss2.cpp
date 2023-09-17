@@ -380,7 +380,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 		{
 
 		case NORMAL:
-			CoolTime = 60;
+			CoolTime = 500;
 
 			switch (pattarn) {
 			case NEAR_1:
