@@ -97,6 +97,22 @@ void GameOver::Draw(Screen& screen, int PauseSelect_Gra)
 	GameOverQuadDraw(TitleBack, PauseSelect_Gra);
 }
 
+void GameOver::SelectReset(bool type)
+{
+	if (type == true) {
+		
+		Selected = 1;
+		
+	}
+	else {
+		
+		Selected = 0;
+		
+	}
+
+
+}
+
 void GameOver::GameOverQuadDraw(GameOverStruct select, int tex) {
 	if (select.LINE != -1) {
 		Novice::DrawQuad(
