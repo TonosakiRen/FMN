@@ -59,6 +59,10 @@ void Tutorial::Init() {
 	tutorialNum = 0;
 	dashCount = 0;
 	attackCount = 0;
+	LetAttack[0].isSet = false;
+	LetAttack[1].isSet = false;
+	LetJump[0].isGet = false;
+	LetJump[1].isGet = false;
 }
 
 void Tutorial::Update(float PlayerX)
@@ -123,6 +127,7 @@ void Tutorial::Update(float PlayerX)
 		if (LetJump[0].isGet == true && LetJump[1].isGet == true) {
 			tutorialNum = 1;
 		}
+
 		break;
 	case 1:
 
@@ -226,8 +231,8 @@ void Tutorial::HitLetAttack(Quad Target)
 {
 	for (int i = 0; i < 2; i++){
 		if (LetAttack[i].isSet == true) {
-		if (Collision::QuadToQuad(Target, LetAttack[i].ColQuad)) {
-			
+			if (Collision::QuadToQuad(Target, LetAttack[i].ColQuad)) {
+
 				/*LetAttack[i].Pos.x += 30;*/
 				attackCount++;
 				sound.SoundEffect(sound.playerattackhit, 0.4f, "./Resources/sounds/PlayerAttackHit.wav", false);
@@ -255,4 +260,19 @@ bool Tutorial::PlayerGoNext(float PlayerPosX) {
 		return true;
 	}
 	return false;
+}
+
+Quad Tutorial::GetLetAttackQuad(int num) {
+	if (LetAttack[num].isSet == true) {
+		return LetAttack[num].ColQuad;
+	}
+
+	Quad quad = {
+		{9999,9999},
+		{9999,10000},
+		{10000,9999},
+		{10000,10000},
+	};
+
+	return quad;
 }

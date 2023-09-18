@@ -569,6 +569,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			 if (stopper.TitileBackFlag == true && isFeedout == false && isFeedin == false) {
 				 isFeedout = true;
+				 tutorial.Init();
 				 stopper.TitileBackFlag = false;
 				 isTitle = true;
 			 }

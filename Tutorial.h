@@ -161,7 +161,7 @@ public:
 
 	bool PlayerGoNext(float PlayerPosX);
 
-	Quad GetLetAttackQuad(int num) { return LetAttack[num].ColQuad; };
+	Quad GetLetAttackQuad(int num);
 
 	Quad GetLetJumpQuad(int num) { return LetJump[num].ColQuad; };
 
