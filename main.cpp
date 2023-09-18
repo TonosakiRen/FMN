@@ -105,7 +105,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	//test
 
 	//tutorial.unko();
-	Novice::SetWindowMode(kFullscreen);
+	/*Novice::SetWindowMode(kFullscreen);*/
 	Novice::SetMouseCursorVisibility(0);
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -231,12 +231,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (isMovie == true) {
 				playermain.Movie();
 				boss.Movie();
+			}
+			
+			if (boss2.isDeadAnimation == true || isMovie == true) {
 				stopper.canselect = false;
 			}
 			else {
 				stopper.canselect = true;
 			}
-			
+
 			isPause = stopper.Pause();
 
 			if (isPause == false) {
@@ -517,6 +520,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					if (boss.RedBlackEffectFlag()) {
 						stageEffect.Update(true, { {0,-Floor},int(SCREEN_WIDTH * 1.5),Floor });
 					}
+
+					if (boss2.isDeadAnimation == true) {
+						Quad quad = { {0.0f,0.0f},76,116,0 };
+						deadEffect.Update(boss2.isEmitDeadEffect, quad + boss2.Pos);
+					}
 				
 				}
 			}
@@ -767,8 +775,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//エフェクト描画
 			playerEffect.Draw(screen, 128, quadBlueEffectImg, WHITE, kBlendModeAdd);
-			boss2Effect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
 			enemySwordEffect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
+			deadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+			deadEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			if (boss.RedBlackEffectFlag()) {
 				stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 				bossBodyEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
@@ -794,6 +803,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				boss.isWhiteFeedout = false;
 			}
 			if (boss2.IsLife == true) {
+				boss2Effect.Draw(screen, 128, quadRedEffectImg, WHITE, kBlendModeAdd);
 				boss2.centerOfDarknessRight.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
 				boss2.centerOfDarknessLeft.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
 				boss2.centerOfDarknessUnder.Draw(screen, 32, windAttackImg, WHITE, kBlendModeNormal);
@@ -963,14 +973,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				sound.BGM(sound.StageBgm, 0.1f, "./Resources/sounds/BossBgm.mp3");*/
 				boss.Draw(screen, bossImg, bossheadImg, bossbodyImg, bosslegImg, bossleftarmImg, bossrightarmImg, deadbossbodyImg, deadbossleftarmImg, deadbossrightarmImg);
 			}
-			if (boss2.IsLife == true) {
-				/*Novice::StopAudio(sound.StageBgm.Handle);
-				sound.BGM(sound.StageBgm2, 0.3f, "./Resources/sounds/Boss2Bgm.mp3");*/
-				if (isPause == false) {
-					boss2.Animation();
-				}
-				boss2.Draw(screen);
+			
+			if (isPause == false && boss2.isDeadAnimation == false) {
+				boss2.Animation();
 			}
+			boss2.Draw(screen);
+			
 
 			boss.DrawStyleChange(screen, StyleChangeTornadoImg);
 			//プレイヤーソード描画

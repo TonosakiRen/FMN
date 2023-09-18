@@ -96,6 +96,14 @@ Boss2::Boss2() :
 
 void Boss2::Init() {
 
+	BossDeathFlag = false;
+
+	isDeadAnimation = false;
+	deadFrame = 0;
+	deadFrame2 = 0;
+	isEmitDeadEffect = false;
+	deadT = 0.0f;
+
 	HP = MAXHP;
 	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
 
@@ -1753,7 +1761,9 @@ void Boss2::Teleportation(PlayerMain& player) {
 void Boss2::UpDate()
 {
 
-
+	if (Key::IsPressed(DIK_F3) && Key::IsPressed(DIK_2)) {
+		HP = 0;
+	}
 
 
 	Pos.y = Clamp::clamp(Pos.y, Size.y / 2, 10000);
@@ -1768,8 +1778,9 @@ void Boss2::UpDate()
 		sound.SoundEffect(sound.playerattackhit,0.4f, "./Resources/sounds/PlayerAttackHit.wav");
 		if (HP <= 0) {
 			HP = 0;
+			isDeadAnimation = true;
 			IsLife = false;
-			BossDeathFlag = true;
+			/*BossDeathFlag = true;*/
 			isGameClear = true;
 		}
 	};
@@ -1839,80 +1850,113 @@ void Boss2::LoadGra()
 		BossBulletAttack2_gra = Novice::LoadTexture("./Resources/images/Boss2/BulletAttack2.png");
 
 		Boss_gra = BossNormal_gra;
+		deadImg = Novice::LoadTexture("./Resources/images/Boss2/Boss2Dead.png");
 	}
 }
 
 void Boss2::Animation()
 {
+	if (IsLife) {
+		int PreSheets = 0;
+		if (SrcX != 0) {
+			PreSheets = SrcX / ImageSize.x;
+		}
 
-	int PreSheets = 0;
-	if (SrcX != 0) {
-		PreSheets = SrcX / ImageSize.x;
+		switch (AnimeSelect)
+		{
+		case Normal:
+			ImageSize = { 120,196 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossNormal_gra;
+			break;
+		case Nyokki1:
+			ImageSize = { 88,200 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossNyokki1_gra;
+			break;
+		case Nyokki2:
+			ImageSize = { 120,200 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossNyokki2_gra;
+			break;
+		case Nyokki3:
+			ImageSize = { 120,200 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossNyokki3_gra;
+			break;
+		case Charge:
+			ImageSize = { 88,184 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossCharge_gra;
+			break;
+		case BulletAttack1:
+			ImageSize = { 168,184 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossBulletAttack1_gra;
+			break;
+		case BulletAttack2:
+			ImageSize = { 84,148 };
+			ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
+			Boss_gra = BossBulletAttack2_gra;
+			break;
+		}
+
+		if (Bosspregra != AnimeSelect) {
+			SrcX = PreSheets * ImageSize.x;
+		}
+
+		Bosspregra = AnimeSelect;
+
+		Zanzou();
 	}
-
-	switch (AnimeSelect)
-	{
-	case Normal:
-		ImageSize = { 120,196 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossNormal_gra;
-		break;
-	case Nyokki1:
-		ImageSize = { 88,200 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossNyokki1_gra;
-		break;
-	case Nyokki2:
-		ImageSize = { 120,200 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossNyokki2_gra;
-		break;
-	case Nyokki3:
-		ImageSize = { 120,200 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossNyokki3_gra;
-		break;
-	case Charge:
-		ImageSize = { 88,184 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossCharge_gra;
-		break;
-	case BulletAttack1:
-		ImageSize = { 168,184 };
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossBulletAttack1_gra;
-		break;
-	case BulletAttack2:
-		ImageSize = { 84,148};
-		ImageQuad.Quad::Quad(Pos, ImageSize.x, ImageSize.y, 0);
-		Boss_gra = BossBulletAttack2_gra;
-		break;
-	}
-
-	if (Bosspregra != AnimeSelect) {
-		SrcX = PreSheets * ImageSize.x;
-	}
-
-	Bosspregra = AnimeSelect;
-	
-	Zanzou();
 }
 
 void Boss2::Draw(Screen& screen)
 {
-	float tmp = HP/1800.0f;
-	//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
-	for (int i = 0; i < Max_Zan; i++)
-	{
-		screen.DrawQuad2Renban(zanzou[i].Pos, zanzou[i].SrcX, 0, zanzou[i].Size.x, zanzou[i].Size.y, zanzou[i].sheets,99, zanzou[i].AnimeFlame, zanzou[i].Gra, 0x00FFFF66,false);
+	if (IsLife == true) {
+		float tmp = HP / 1800.0f;
+		//screen.DrawEllipse(Pos.x, Pos.y, 50,50,0, RED, kFillModeSolid);
+		for (int i = 0; i < Max_Zan; i++)
+		{
+			screen.DrawQuad2Renban(zanzou[i].Pos, zanzou[i].SrcX, 0, zanzou[i].Size.x, zanzou[i].Size.y, zanzou[i].sheets, 99, zanzou[i].AnimeFlame, zanzou[i].Gra, 0x00FFFF66, false);
 
-	};
-	screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
-	//screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
-	//screen.DrawQuad2Renban(Quad_Pos,)
-	Novice::DrawBox(456, 20, 1020*tmp, 54, 0, HpColor, kFillModeSolid);
-	Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
-	//Novice::ScreenPrintf(500, 500, "HP::%d", HP);
+		};
+		screen.DrawQuad2Renban(ImageQuad, SrcX, 0, ImageSize.x, ImageSize.y, sheets, 8, AnimeFlame, Boss_gra, WHITE, false);
+		//screen.DrawQuad2Renban(Quad_Pos, colSrcX, 0, 1, 1, 1,6, colanime, 0, 0xFFFFFF22,false);
+		//screen.DrawQuad2Renban(Quad_Pos,)
+		Novice::DrawBox(456, 20, 1020 * tmp, 54, 0, HpColor, kFillModeSolid);
+		Novice::DrawSprite(350, 0, Boss2HpBar_gra, 1, 1, 0, WHITE);
+		//Novice::ScreenPrintf(500, 500, "HP::%d", HP);
+	}
+	else {
+		if (isDeadAnimation == true) {
+			deadFrame++;
+			Quad quad = { {0.0f,0.0f},76,116,0};
+			isEmitDeadEffect = true;
+			//死んだ演出
+			Pos.y -= 4;
+			Pos.y = Clamp::clamp(Pos.y, 116 / 2, 10000);
+			if (deadFrame % 6 == 0) {
+				Pos.x = Pos.x + 6;
+			}
+			if (deadFrame % 12 == 0) {
+				Pos.x = Pos.x - 12;
+			}
+			if (Pos.y <= 116 / 2) {
+				deadT += 0.01f;
+			}
+			if (deadT >= 0.8f) {
+				isEmitDeadEffect = false;
+				deadFrame2++;
+			}
+			deadT = Clamp::clamp(deadT, 0.0f, 1.0f);
+			screen.DrawQuad2(quad + Pos, 0, 0, 76, 116, deadImg, Feed::Feedout2(deadT, WHITE));
+			if (deadFrame2 >= 120) {
+				BossDeathFlag = true;
+			}
+		}
+	}
+	
 }
 
 

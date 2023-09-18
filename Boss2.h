@@ -35,6 +35,18 @@ const int saveEmitActionNum = 13;
 
 class Boss2 {
 
+public:
+	//新しい変数
+	bool isDeadAnimation = false;
+	int deadImg;
+	int deadFrame = 0;
+	int deadFrame2 = 0;
+	bool isEmitDeadEffect = false;
+	float deadT = 0.0f;
+
+	Vec2 Pos;
+private:
+
 	bool isCollisionWall = false;
 
 	int bossAttackHP =35;//ボスに攻撃当てた時のへるHP 
@@ -45,6 +57,8 @@ class Boss2 {
 	int HoldBlade_gra = 0;
 	int UseBladeGra = Blade_gra;
 	int Boss2HpBar_gra = 0;
+
+
 
 	Sound sound;
 
@@ -71,7 +85,6 @@ class Boss2 {
 		return matrix;
 	}
 
-	Vec2 Pos;
 	Quad Quad_Pos;
 	Vec2 Size;
 

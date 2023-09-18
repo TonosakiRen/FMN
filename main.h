@@ -49,6 +49,9 @@ Effect5 white4(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 Effect5 white5(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 Effect5 white6(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 
+Effect deadEffect(160, 1, { -1.0f,-1.0f }, { 1.0f,1.0f }, 30, 50, 15.0f, 20.0f, 0.0f, -1.5f, 1);
+
+
 
 
 
@@ -97,6 +100,7 @@ void InitEffect() {
 		playerEffect.particles[i].isActive = false;
 		boss2Effect.particles[i].isActive = false;
 		enemySwordEffect.particles[i].isActive = false;
+		deadEffect.particles[i].isActive = false;
 	}
 	for (int i = 0; i < 160; i++) {
 		playerEffectSword.particles[i].isActive = false;
