@@ -1932,9 +1932,8 @@ void Boss2::Draw(Screen& screen)
 		if (isDeadAnimation == true) {
 			deadFrame++;
 			Quad quad = { {0.0f,0.0f},76,116,0};
-			isEmitDeadEffect = true;
 			//éÄÇÒÇæââèo
-			Pos.y -= 4;
+			Pos.y -= 7;
 			Pos.y = Clamp::clamp(Pos.y, 116 / 2, 10000);
 			if (deadFrame % 6 == 0) {
 				Pos.x = Pos.x + 6;
@@ -1944,14 +1943,14 @@ void Boss2::Draw(Screen& screen)
 			}
 			if (Pos.y <= 116 / 2) {
 				deadT += 0.005f;
+				isEmitDeadEffect = true;
+				sound.SoundEffect(sound.tatumaki, 0.2f, "./Resources/sounds/tatsumaki.wav", true);
 			}
 			if (deadT >= 0.8f) {
 				isEmitDeadEffect = false;
 				deadFrame2++;
 			}
-			else {
-				sound.SoundEffect(sound.tatumaki, 0.2f, "./Resources/sounds/tatsumaki.wav", true);
-			}
+			
 			deadT = Clamp::clamp(deadT, 0.0f, 1.0f);
 			screen.DrawQuad2(quad + Pos, 0, 0, 76, 116, deadImg, Feed::Feedout2(deadT, WHITE));
 			if (deadFrame2 >= 120) {
