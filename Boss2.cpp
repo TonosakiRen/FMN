@@ -726,7 +726,6 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 					
 					FMoveArray = array.AttackFunction02;
 					/*Action = false;*/
-
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%ÇÃçUåÇ
