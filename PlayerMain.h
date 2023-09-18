@@ -3,8 +3,8 @@
 #include <Novice.h>
 #include "Clamp.h"
 #include "ControllerInput.h"
-#include "Collision.h"
 #include "Key.h"
+#include "Collision.h"
 #include "Screen.h"
 #include "Quad.h"
 #include "Stopper.h"

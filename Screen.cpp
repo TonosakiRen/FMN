@@ -7,7 +7,7 @@ Screen::Screen() {
 	Worldcenter.y = SCREEN_HEIGHT - Floor/* / 2*/;
 	Scroll.setZero();
 	ScreenShake.setZero();
-	Scroll_Fixed_Value_X = SCREEN_WIDTH/2;
+	Scroll_Fixed_Value_X = SCREEN_WIDTH / 2;
 	Scroll_Fixed_Value_Y = SCREEN_HEIGHT / 2 - 20;
 	Zoom = { 1.0f, 1.0f };
 	Ishit = false;
