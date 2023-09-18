@@ -62,6 +62,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int bg1_gra = Novice::LoadTexture("./Resources/images/Background/Background1.png"); //bg = background
 	int bg2_gra = Novice::LoadTexture("./Resources/images/Background/Background2.png");
 	int bg3_gra = Novice::LoadTexture("./Resources/images/Background/Background3.png");
+	int clear_gra = Novice::LoadTexture("./Resources/images/Background/clearSky.png");
 	int bg5_gra = Novice::LoadTexture("./Resources/images/Background/Background5.png");
 	int bg6_gra = Novice::LoadTexture("./Resources/images/Background/Background6.png");
 	int bg7_gra = Novice::LoadTexture("./Resources/images/Background/Background7.png");
@@ -742,7 +743,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			sound.BGM(sound.Title,0.2f, "./Resources/sounds/TitleBgm.mp3");*/
 
 		//title描画処理1
-			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra);
+			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra, clear_gra,boss2.isDeadAnimation,boss2.deadT);
 
 
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
@@ -775,7 +776,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//ステージ描画処理
 			//背景d
 
-			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra,bg5_gra,bg6_gra, bg7_gra);
+			background.Draw(screen, bg1_gra, bg2_gra, bg3_gra, bg5_gra, bg6_gra, bg7_gra, clear_gra, boss2.isDeadAnimation, boss2.deadT);
 			
 			//Novice::DrawBox(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, BLACK, kFillModeSolid);
 			//Novice::SetBlendMode(kBlendModeAdd);
@@ -788,7 +789,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			deadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 			deadEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 			if (boss.RedBlackEffectFlag()) {
-				stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				if (boss2.isDeadAnimation == false) {
+					stageEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
+				}
 				bossBodyEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);
 				bossBodyEffect.Draw(screen, 128, circleEffectImg, BLACK, kBlendModeNormal);
 				bossHeadEffect.Draw(screen, 128, circleEffectImg, RED, kBlendModeAdd);

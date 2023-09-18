@@ -1943,11 +1943,14 @@ void Boss2::Draw(Screen& screen)
 				Pos.x = Pos.x - 12;
 			}
 			if (Pos.y <= 116 / 2) {
-				deadT += 0.01f;
+				deadT += 0.005f;
 			}
 			if (deadT >= 0.8f) {
 				isEmitDeadEffect = false;
 				deadFrame2++;
+			}
+			else {
+				sound.SoundEffect(sound.tatumaki, 0.2f, "./Resources/sounds/tatsumaki.wav", true);
 			}
 			deadT = Clamp::clamp(deadT, 0.0f, 1.0f);
 			screen.DrawQuad2(quad + Pos, 0, 0, 76, 116, deadImg, Feed::Feedout2(deadT, WHITE));

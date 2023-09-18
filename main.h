@@ -52,10 +52,6 @@ Effect5 white6(10, 1, { 500,500 }, 40, 40, 3.0f, 3.0f, 0.0f, 0.05f, 1);
 Effect deadEffect(160, 1, { -1.0f,-1.0f }, { 1.0f,1.0f }, 30, 50, 15.0f, 20.0f, 0.0f, -1.5f, 1);
 
 
-
-
-
-
 enum Scene {
 	title,
 	stage,
