@@ -29,6 +29,9 @@ void Feed::FeedHalfout(float& t, float feedspeed, int width, int height) {
 }
 
 unsigned int Feed::Feedin(float& t, float feedspeed, unsigned  int color) {
+	if (color != WHITE) {
+		return color;
+	}
 	color = color & 0xFFFFFF00;
 	t += feedspeed;
 	t = Clamp::clamp(t, 0.0f, 1.0f);
@@ -41,6 +44,17 @@ unsigned int Feed::Feedout(float& t, float feedspeed, unsigned int color) {
 	t += feedspeed;
 	t = Clamp::clamp(t, 0.0f, 1.0f);
 	unsigned int tmp = color | static_cast<int>((1.0f - t) * 0xFF + t * 0x00);
+	return{ tmp };
+}
+
+unsigned int Feed::Feedout3(float& t, float feedspeed, unsigned int color) {
+	unsigned int tmpColor = color & 0xFFFFFF00;
+	t += feedspeed;
+	t = Clamp::clamp(t, 0.0f, 1.0f);
+	unsigned int tmp = tmpColor | static_cast<int>((1.0f - t) * 0xFF + t * 0x00);
+	if (color != WHITE && tmp > color) {
+		return color;
+	}
 	return{ tmp };
 }
 

@@ -103,6 +103,7 @@ void Boss2::Init() {
 	deadFrame2 = 0;
 	isEmitDeadEffect = false;
 	deadT = 0.0f;
+	endT = 0.0f;
 
 	HP = MAXHP;
 	HpColor = 0x00FF44FF;//HPBarの色初期化（グリーン）
@@ -1930,6 +1931,8 @@ void Boss2::Draw(Screen& screen)
 	}
 	else {
 		if (isDeadAnimation == true) {
+			endT += 0.02f;
+			endT = Clamp::clamp(endT, 0.0f, 1.0f);
 			deadFrame++;
 			Quad quad = { {0.0f,0.0f},76,116,0};
 			//死んだ演出
@@ -1944,7 +1947,9 @@ void Boss2::Draw(Screen& screen)
 			if (Pos.y <= 116 / 2) {
 				deadT += 0.005f;
 				isEmitDeadEffect = true;
-				sound.SoundEffect(sound.tatumaki, 0.2f, "./Resources/sounds/tatsumaki.wav", true);
+				if (deadT <= 0.2f) {
+					sound.SoundEffect(sound.tatumaki, 0.2f, "./Resources/sounds/tatsumaki.wav", true);
+				}
 			}
 			if (deadT >= 0.8f) {
 				isEmitDeadEffect = false;

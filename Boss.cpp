@@ -202,7 +202,7 @@ void Boss::Set()
 void Boss::Init()
 {
 	
-	EmitEffect = false;
+	EmitEffect = true;
 	endT = 0.0f;
 	bossendT = 0.0f;
 

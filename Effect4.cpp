@@ -135,7 +135,7 @@ void Effect4::Draw(Screen& screen, int srcW, int handle, unsigned int color, Ble
 	for (int i = 0; i < EffectNum; i++) {
 		if (particles[i].isActive == true) {
 
-			screen.DrawQuad2(particles[i].quad.CenterRotate(particles[i].quad, particles[i].theta), 0, 0, srcW, srcW, handle, Feed::Feedout(particles[i].t, feedSpeed, color));
+			screen.DrawQuad2(particles[i].quad.CenterRotate(particles[i].quad, particles[i].theta), 0, 0, srcW, srcW, handle, Feed::Feedout3(particles[i].t, feedSpeed, color));
 		}
 	}
 	Novice::SetBlendMode(kBlendModeNormal);

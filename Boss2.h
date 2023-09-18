@@ -43,6 +43,7 @@ public:
 	int deadFrame2 = 0;
 	bool isEmitDeadEffect = false;
 	float deadT = 0.0f;
+	float endT = 0.0f;
 
 	Vec2 Pos;
 private:

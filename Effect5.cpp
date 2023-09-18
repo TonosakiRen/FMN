@@ -148,7 +148,7 @@ void Effect5::Draw(Screen& screen, int srcW, int handle, unsigned int color, Ble
 				screen.DrawQuad2(particles[i].quad.CenterRotate(particles[i].quad, particles[i].theta), 0, 0, srcW, srcW, handle, color);
 			}
 			else {
-				screen.DrawQuad2(particles[i].quad.CenterRotate(particles[i].quad, particles[i].theta), 0, 0, srcW, srcW, handle, Feed::Feedout(particles[i].t,feedSpeed,WHITE));
+				screen.DrawQuad2(particles[i].quad.CenterRotate(particles[i].quad, particles[i].theta), 0, 0, srcW, srcW, handle, Feed::Feedout3(particles[i].t,feedSpeed,WHITE));
 			}
 		}
 	}
