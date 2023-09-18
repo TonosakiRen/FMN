@@ -1022,7 +1022,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isStageStart = false;
 				if (isGameover == true) {
 					sound.BGM(sound.GameOver,0.3f, "./Resources/sounds/GameOverBgm.mp3");
-					gameoverclass.SelectReset();
+					gameoverclass.SelectReset(GameOverType);
 					scene = gameover;
 					isFeedin = true;
 				}

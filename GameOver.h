@@ -64,7 +64,7 @@ public:
 
 	void Draw(Screen& screen, int PauseSelect_Gra);
 
-	void SelectReset() { Selected = 0; };
+	void SelectReset(bool type) ;
 
 };
 
