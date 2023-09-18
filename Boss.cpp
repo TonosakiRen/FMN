@@ -3268,6 +3268,25 @@ void Boss::RainOfSwordMotion(int type) {
 	}
 }
 
+void Boss::MovieInit()
+{
+	const int BODYMINUS = 190;
+	MovieTime = 0;
+	CanMove = false;
+	isImageDead = true;
+	isRedBlackEffect = false;
+	RightArm.StandMotionFlag = 0;
+	LeftArm.StandMotionFlag = 0;
+	Body.StandMotionFlag = 0;
+	Head.StandMotionFlag = 0;
+	Leg.StandMotionFlag = 0;
+	Head.MoviePulsPos = { 0,-9999 };
+	Leg.MoviePulsPos = { 0,-9999 };
+	Body.MoviePulsPos = { 0,-BODYMINUS };
+	RightArm.MoviePulsPos = { 0,-165 };
+	LeftArm.MoviePulsPos = { 0,-165 };
+}
+
 void Boss::Movie()
 {
 	if (Key::IsTrigger(DIK_P) || Controller::IsTriggerButton(0, Controller::bSTART)) {
