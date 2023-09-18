@@ -538,7 +538,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				
 				}
 			}
-
 			else {
 			screen.Pause(true);
 			playermain.PauseLag();
@@ -1038,6 +1037,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					boss.Init();
 					boss2.Init();
 					InitbossEffect();
+					InitEffect();
 					RestartCount = 0;
 					
 
