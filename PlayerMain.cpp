@@ -34,7 +34,7 @@ void PlayerMain::Move()
 	isSwordHit = false;
 	
 
-	if (Key::IsTrigger(DIK_Y)) {
+	/*if (Key::IsTrigger(DIK_Y)) {
 
 	}
 
@@ -43,7 +43,7 @@ void PlayerMain::Move()
 	}
 	if (Key::IsPressed(DIK_L) != 0) {
 		JUMPPOWER -= 0.01;
-	}
+	}*/
 
 
 	Sword.Pos =
@@ -121,7 +121,7 @@ void PlayerMain::Move()
 			JumpFlag = false;
 			DashFaseRight = FaceRight;
 			if (FaceDown == true || FaceUp == true) {
-				DashAvoid = true;
+				//DashAvoid = true;
 			}
 			sound.SoundEffect(sound.playerdassyu, 0.3f, "./Resources/sounds/dassyu.wav");
 

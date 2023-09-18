@@ -69,12 +69,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int inPauseGra = Novice::LoadTexture("./Resources/images/UI/InPause.png");
 	int PauseSelectGra = Novice::LoadTexture("./Resources/images/UI/PauseSelect.png");
 
-	int Tutorial1 = Novice::LoadTexture("./Resources/images/Tutorial/1.png");
-	int Tutorial2 = Novice::LoadTexture("./Resources/images/Tutorial/2.png");
-	int Tutorial3 = Novice::LoadTexture("./Resources/images/Tutorial/3.png");
+	int TutorialB = Novice::LoadTexture("./Resources/images/Tutorial/2/Back.png");
+	int Tutorial1 = Novice::LoadTexture("./Resources/images/Tutorial/2/1.png");
+	int Tutorial2 = Novice::LoadTexture("./Resources/images/Tutorial/2/2.png");
+	int Tutorial3 = Novice::LoadTexture("./Resources/images/Tutorial/2/3.png");
+	int Tutorial4 = Novice::LoadTexture("./Resources/images/Tutorial/2/4.png");
 	int TutorialEx = Novice::LoadTexture("./Resources/images/Tutorial/PlayBoss.png");
 
-	int LetJumpGra = Novice::LoadTexture("./Resources/images/Tutorial/LetJump.png");
+	int LetJumpGra = Novice::LoadTexture("./Resources/images/Tutorial/2/coin.png");
 	int LetAttackGra = Novice::LoadTexture("./Resources/images/Tutorial/LetAttack.png");
 	int LetDashGra = Novice::LoadTexture("./Resources/images/Tutorial/LetDash.png");
 		
@@ -170,7 +172,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				playermain.Move();
 
-				for (int i = 0; i < 2; i++) {
+				/*for (int i = 0; i < 2; i++) {
 					playermain.SwordHit(tutorial.GetLetAttackQuad(i));
 				}
 
@@ -179,7 +181,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 				for (int i = 0; i < 2; i++) {
 					tutorial.HitLetAttack(playermain.GetSwordQuad());
+				}*/
+
+				
+				tutorial.HitCoin(playermain.GetPlayerQuad());
+				for (int i = 0; i < 2; i++) {
+					playermain.SwordHit(tutorial.GetLetAttackQuad(i));
 				}
+				tutorial.HitLetAttack(playermain.GetSwordQuad());
 
 				playerEffect.Update(true, playermain.GetPlayerQuad());
 				//swordのeffect
@@ -730,7 +739,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			//Novice::ScreenPrintf(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "Press R");
 
-			tutorial.Draw(screen, Tutorial1, Tutorial2, Tutorial3, LetJumpGra, LetAttackGra, LetDashGra);
+			tutorial.Draw(screen, Tutorial1, Tutorial2, Tutorial3, Tutorial4, TutorialB, LetJumpGra, LetAttackGra, LetDashGra);
 			
 			playermain.BladeDraw(screen, mainaBladeImg, upMainaBladeImg, downMainaBladeImg, upSubBladeImg, downSubBladeImg, subBladeImg, 0x20a8b4FF, kBlendModeAdd);
 			playerEffectSword.Draw(screen, 128, circleEffectImg, 0x20a8b4FF, kBlendModeAdd);

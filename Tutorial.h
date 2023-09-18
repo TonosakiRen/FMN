@@ -5,7 +5,8 @@
 #include "Collision.h"
 #include <Novice.h>
 #include "Sound.h"
-
+#include "ControllerInput.h"
+#include "Key.h"
 class Tutorial
 {
 private:
@@ -18,6 +19,7 @@ private:
 		Quad ImageQuad;
 		int srcX;
 		int Anime;
+		bool isGet;
 	};
 
 	struct LetAttackStruct {
@@ -29,6 +31,7 @@ private:
 		int srcX;
 		int Anime;
 		bool isHit;
+		bool isSet;
 	};
 
 	struct LetDashStruct {
@@ -41,9 +44,9 @@ private:
 		int Anime;
 	};
 
-	LetJumpStruct LetJump = {
+	/*LetJumpStruct LetJump = {
 		{550,68},
-		{136,136},
+		{64,64},
 		{ { LetJump.Pos.x - LetJump.ColSize.x / 2 , LetJump.Pos.y + LetJump.ColSize.y / 2},
 		int(LetJump.ColSize.x),int(LetJump.ColSize.y) },
 		{168,168},
@@ -51,8 +54,9 @@ private:
 		int(LetJump.ImageSize.x),int(LetJump.ImageSize.y) },
 		0,
 		1,
-	};
+	};*/
 
+	LetJumpStruct LetJump[2];
 	LetAttackStruct LetAttack[2];
 
 	LetDashStruct LetDash = {
@@ -78,8 +82,8 @@ private:
 	};
 
 	TutorialImageStruct type1 = {
-		{472,396},
-		{496,396},
+		{1040,465},
+		{880,660},
 		{ { type1.Pos.x - type1.Size.x / 2 , type1.Pos.y + type1.Size.y / 2},
 		int(type1.Size.x),int(type1.Size.y) },
 		2,
@@ -89,30 +93,56 @@ private:
 	};
 
 	TutorialImageStruct type2 = {
-		{1304,652},
-		{784,428},
+		{1040,465},
+		{880,660},
 		{ { type2.Pos.x - type2.Size.x / 2 , type2.Pos.y + type2.Size.y / 2},
 		int(type2.Size.x),int(type2.Size.y) },
 		2,
 		0,
 		1,
-		0,
+		255,
 	};
 
 	TutorialImageStruct type3 = {
-		{1916,480},
-		{420,128},
+		{1040,465},
+		{880,660},
 		{ { type3.Pos.x - type3.Size.x / 2 , type3.Pos.y + type3.Size.y / 2},
 		int(type3.Size.x),int(type3.Size.y) },
 		2,
 		0,
 		1,
+		255,
+	};
+
+
+	TutorialImageStruct type4 = {
+		{1040,465},
+		{880,660},
+		{ { type4.Pos.x - type4.Size.x / 2 , type4.Pos.y + type4.Size.y / 2},
+		int(type4.Size.x),int(type4.Size.y) },
+		1,
 		0,
+		1,
+		255,
+	};
+
+	TutorialImageStruct Back = {
+		{1040,465},
+		{880,660},
+		{ { Back.Pos.x - Back.Size.x / 2 , Back.Pos.y + Back.Size.y / 2},
+		int(Back.Size.x),int(Back.Size.y) },
+		1,
+		0,
+		1,
+		255,
 	};
 
 	bool LetAttackFlag = false;
 	bool LetDashFlag = false;
 
+	int tutorialNum = 0;
+	int dashCount = 0;
+	int attackCount = 0;
 public:
 
 	Tutorial();
@@ -121,17 +151,19 @@ public:
 
 	void Update(float PlayerX);
 
-	void Draw(Screen& screen,int gra1,int gra2,int gra3,int LetJumpGra,int LetAttackGra,int LetDashGra);
+	void Draw(Screen& screen,int gra1,int gra2,int gra3,int gra4, int graB,int LetJumpGra,int LetAttackGra,int LetDashGra);
 
 	void PlayDrawEx(int gra,int type);
 
 	void HitLetAttack(Quad Target);
 
+	void HitCoin(Quad Target);
+
 	bool PlayerGoNext(float PlayerPosX);
 
 	Quad GetLetAttackQuad(int num) { return LetAttack[num].ColQuad; };
 
-	Quad GetLetJumpQuad() { return LetJump.ColQuad; };
+	Quad GetLetJumpQuad(int num) { return LetJump[num].ColQuad; };
 
 	Quad GetLetDashQuad() { return LetDash.ColQuad; };
 

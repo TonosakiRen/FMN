@@ -26,7 +26,7 @@ Boss::Boss()
 }
 void Boss::UpDate() {
 
-	if (Key::IsPressed(DIK_T) && Key::IsPressed(DIK_Y) && Key::IsPressed(DIK_1)) {
+	if (Key::IsPressed(DIK_F3) && Key::IsPressed(DIK_1)) {
 		HP = 0;
 	}
 

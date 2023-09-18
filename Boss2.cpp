@@ -380,7 +380,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 		{
 
 		case NORMAL:
-			CoolTime = 60;
+			CoolTime = 300;
 
 			switch (pattarn) {
 			case NEAR_1:
@@ -550,7 +550,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			break;
 
 		case THREEQUARTERS:
-			CoolTime = 40;
+			CoolTime = 250;
 
 			switch (pattarn) {
 			case NEAR_1:
@@ -703,7 +703,7 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 			break;
 
 		case HALF:
-			CoolTime = 20;
+			CoolTime = 150;
 			switch (pattarn) {
 			case NEAR_1:
 			{
@@ -726,7 +726,6 @@ void Boss2::RandamMoveSelect(int rand, PlayerMain& player, Screen& screen)
 					
 					FMoveArray = array.AttackFunction02;
 					/*Action = false;*/
-
 				}
 				if (MovePattern[MoveArray] == array.AttackFunction03) {
 					//5%‚ÌUŒ‚
@@ -957,7 +956,7 @@ void Boss2::CenterOfDarknessAttack(PlayerMain& player) {
 		--centerOfDarknessCooltime;
 		Vec2 playertoboss = (Pos - player.GetPlayerQuad().GetCenter()).Normalized() * gravityPower * (1.0 - gravityT);
 		player.SetPlayerPos({ player.GetPlayerPos().x + playertoboss.x, player.GetPlayerPos().y });
-		if (centerOfDarknessCooltime >= 150) {
+		if (centerOfDarknessCooltime >= 200) {//‚à‚Æ‚à‚Æ150
 			
 			
 			if (isGetNyokkiPos == false) {
@@ -1138,7 +1137,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 	isUndertaleAttack = true;
 	undertaleFrame--;
 	AnimeSelect = Charge;
-	if (undertaleFrame <= 120 && undertaleFrame > 0) {
+	if (undertaleFrame <= 140 && undertaleFrame > 0) {//‚à‚Æ120
 		chaseEffect.feedSpeed = 0.03;
 		isUndertaleCollision = true;
 		isFeedrotateBullet = true;
@@ -1195,7 +1194,7 @@ void Boss2::UndertaleAttack(PlayerMain& player) {
 			AnimeSelect = Normal;
 		}
 	}
-	if (undertaleFrame <= 570) {
+	if (undertaleFrame <= 540) {
 		chaseEffect.Update(emitchaseEffect, { Pos,30,30 });
 		for (int i = 0; i < chaseBulletNum; i++) {
 			chaseframe[i]--;
@@ -1639,6 +1638,14 @@ void Boss2::Teleportation(PlayerMain& player) {
 	Pos.y += keep.YMove;
 	if (GetTeleportPos == false) {
 		int num = Randam::RAND(0, 3);
+
+		if (player.GetPlayerPos().x <= 800.0f) {
+			num = 2;
+		}
+		if (player.GetPlayerPos().x >= SCREEN_WIDTH - 800.0f) {
+			num = 1;
+		}
+
 		if (num == 0) {
 			TeleportPos = { player.GetPlayerPos().x - 600.0f,Pos.y };
 		}
