@@ -148,6 +148,8 @@ class PlayerMain
 	float GameOverTX = 0;
 	float GameOverTY = 0;
 
+	bool isRed = false;
+
 public:
 
 	Quad GetPlayerQuad()
@@ -203,7 +205,7 @@ public:
 	void Draw(Screen& screen, int stand, int walk, int dash, int jump,int fall,int attack, int death);
 	void BladeDraw(Screen& screen, int mainbladeImg, int upmainbaldeImg, int downmainbladeImg, int upsubbladeImg, int downsubbladeImg, int* subbladeImg, int color, BlendMode mode);
 	Vec2 Translation();
-
+	void DrawRed(Screen& screen, int red);
 	void MovieInit() { MovieTime = 0; };
 	void Movie();
 

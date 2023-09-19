@@ -27,12 +27,13 @@ void PlayerMain::Init()
 	HP = MaxHp;
 	GameOverTX = 0;
 	GameOverTY = 0;
+	isRed = false;
 }
 
 void PlayerMain::Move()
 {
 	isSwordHit = false;
-	
+	isRed = false;
 
 	/*if (Key::IsTrigger(DIK_Y)) {
 
@@ -398,6 +399,7 @@ void PlayerMain::PlayerHit(Quad Target)
 
 				HitStop = 5;
 				HitCoolDown = HITCOOLDOWNMAX;
+				isRed = true;
 				if (HP > 0) {
 					HP--;
 					sound.SoundEffect(sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
@@ -427,6 +429,7 @@ void PlayerMain::PlayerHit(Circle Target)
 
 					HitStop = 5;
 					HitCoolDown = HITCOOLDOWNMAX;
+					isRed = true;
 					if (HP > 0) {
 						HP--;
 						sound.SoundEffect(sound.playerdame,0.7f, "./Resources/sounds/PlayerDame.wav");
@@ -605,6 +608,13 @@ void PlayerMain::BladeDraw(Screen& screen, int mainbladeImg, int upmainbladeImg,
 		swordsrcX = 0;
 	}
 	--swordDrawFrame;
+}
+
+void PlayerMain::DrawRed(Screen& screen, int red) {
+
+	if (isRed == true) {
+		Novice::DrawSprite(0, 0, red, 1, 1, 0, 0xFFFFFF11);
+	}
 }
 
 Vec2 PlayerMain::Translation()

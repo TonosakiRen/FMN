@@ -90,6 +90,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int numgra = Novice::LoadTexture("./Resources/Images/UI/num.png");
 	int e = Novice::LoadTexture("./Resources/Images/UI/E.png");
 
+	int red = Novice::LoadTexture("./Resources/Images/red.png");
+
 	int GAMEOVER_gra = Novice::LoadTexture("./Resources/Images/GAMEOVER.png");
 	int GAMEOVERLight_gra= Novice::LoadTexture("./Resources/Images/Spotlight.png");
 
@@ -1001,7 +1003,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			playermain.Draw(screen, playerstand_gra, playerwalk_gra, playerdash_gra, playerjump_gra, playerfall_gra, playerattack_gra, playerdeath_gra);
 			//
 			// 
-			
+			playermain.DrawRed(screen, red);
 			//ポーズ描画
 
 			stopper.PauseDraw(inPauseGra, PauseSelectGra);
